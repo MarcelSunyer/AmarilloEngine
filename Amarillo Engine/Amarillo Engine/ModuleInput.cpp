@@ -106,9 +106,10 @@ update_status ModuleInput::PreUpdate(float dt)
 			mouse_y_motion = e.motion.yrel / SCREEN_SIZE;
 			break;
 
-			case SDL_QUIT:
+			/*case SDL_QUIT:
+				
 			quit = true;
-			break;
+			break;*/
 
 			case SDL_WINDOWEVENT:
 			{
@@ -118,8 +119,8 @@ update_status ModuleInput::PreUpdate(float dt)
 		}
 	}
 
-	if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
-		return UPDATE_STOP;
+	/*if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
+		return UPDATE_STOP;*/
 
 	return UPDATE_CONTINUE;
 }
