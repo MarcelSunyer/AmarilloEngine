@@ -60,8 +60,10 @@ int main(int argc, char ** argv)
 				state = MAIN_EXIT;
 			}
 
-			if (update_return == UPDATE_STOP)
+			if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+			{
 				state = MAIN_FINISH;
+			}
 		}
 			break;
 
