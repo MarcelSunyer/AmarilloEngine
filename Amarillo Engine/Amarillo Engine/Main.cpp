@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "Application.h"
 #include "Globals.h"
+#include "ModuleInput.h"
 
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
@@ -60,7 +61,7 @@ int main(int argc, char ** argv)
 				state = MAIN_EXIT;
 			}
 
-			if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+			if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->quit == true)
 			{
 				state = MAIN_FINISH;
 			}
