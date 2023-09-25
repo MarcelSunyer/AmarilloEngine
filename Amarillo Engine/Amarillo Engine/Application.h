@@ -2,13 +2,16 @@
 
 #include "Globals.h"
 #include "Timer.h"
-#include "Module.h"
-#include "ModuleWindow.h"
-#include "ModuleInput.h"
-#include "ModuleRenderer3D.h"
-#include "ModuleCamera3D.h"
+
 
 #include<vector>
+
+class Module;
+class ModuleWindow;
+class ModuleInput;
+class ModuleRenderer3D;
+class ModuleCamera3D;
+class ModuleEditor;
 
 class Application
 {
@@ -17,6 +20,7 @@ public:
 	ModuleInput* input;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
+	ModuleEditor* editor;
 
 private:
 

@@ -1,6 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleEditor.h"
+#include "ModuleCamera3D.h"
+#include "ModuleWindow.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -10,6 +13,7 @@
 #include "ImGui/imgui.h"
 #include "ImGui/backends/imgui_impl_sdl.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
+
 
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -167,6 +171,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
+	
+
+	Grid.Render();
+
+	App->editor->DrawEditor();
 
 	// Rendering
 	ImGui::Render();
