@@ -46,8 +46,19 @@ void ModuleEditor::DrawEditor()
     //Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
-    //ImGui::NewFrame();
-	
+    ImGui::NewFrame();
+    
+    ImGui::BeginMainMenuBar();
+    if (ImGui::BeginMenu("Help"))
+    {
+        if (ImGui::MenuItem("Juan"))
+        {
+            
+        }
+        ImGui::EndMenu();
+    }
+    
+    ImGui::EndMainMenuBar();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
   
