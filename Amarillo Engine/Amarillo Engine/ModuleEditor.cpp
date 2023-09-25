@@ -46,7 +46,7 @@ void ModuleEditor::DrawEditor()
     //Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
-    ImGui::NewFrame();
+    //ImGui::NewFrame();
     
     ImGui::BeginMainMenuBar();
     if (ImGui::BeginMenu("Help"))
