@@ -49,6 +49,22 @@ void ModuleEditor::DrawEditor()
     //ImGui::NewFrame();
     
     ImGui::BeginMainMenuBar();
+    if (ImGui::BeginMenu("Juan"))
+    {
+        if (ImGui::TreeNode("Capture/Logging"))
+        {
+            ImGui::LogButtons();
+
+            if (ImGui::Button("Copy \"Hello, world!\" to clipboard"))
+            {
+                ImGui::LogToClipboard();
+                ImGui::LogText("Hello, world!");
+                ImGui::LogFinish();
+            }
+            ImGui::TreePop();
+        }
+        ImGui::EndMenu();
+    }
     if (ImGui::BeginMenu("Help"))
     {
         if (ImGui::BeginMenu("About"))
