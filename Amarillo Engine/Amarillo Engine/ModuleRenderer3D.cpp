@@ -161,9 +161,9 @@ bool ModuleRenderer3D::CleanUp()
 	SDL_GL_DeleteContext(context);
 
 	// Cleanup
-	ImGui_ImplOpenGL3_Shutdown();
+	/*ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
+	ImGui::DestroyContext();*/
 
 	return true;
 }
