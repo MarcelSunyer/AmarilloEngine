@@ -20,6 +20,9 @@ public:
 
 	void AddFPS();
 
+public:
+	bool IoConfirmer = false;
+
 };
 
 

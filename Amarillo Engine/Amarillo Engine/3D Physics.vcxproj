@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -84,7 +84,8 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ImGui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="ImGui\backends\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="ImGui\backends\imgui_impl_sdl.h" />
+    <ClInclude Include="ImGui\backends\imgui_impl_sdl2.h" />
+    <ClInclude Include="ImGui\backends\imgui_impl_sdlrenderer2.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_internal.h" />
@@ -166,7 +167,8 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="ImGui\backends\imgui_impl_sdl.cpp" />
+    <ClCompile Include="ImGui\backends\imgui_impl_sdl2.cpp" />
+    <ClCompile Include="ImGui\backends\imgui_impl_sdlrenderer2.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
