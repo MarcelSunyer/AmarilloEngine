@@ -92,14 +92,10 @@ void ModuleEditor::DrawEditor()
     // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
     if (ImGui::Begin("Juan"))
     {
-        if (ImGui::BeginMenu("Barra-Menu"))
-        {
-            ImGui::Text("Test1");
-            ImGui::EndMenu();
-        }
 
-        if (ImGui::BeginMenu("Config"))
+        if (ImGui::CollapsingHeader("Config"))
         {
+            ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
             if (ImGui::MenuItem("Open..", "Ctrl+O"));
             if (ImGui::MenuItem("Delta Time"));
             {
@@ -117,9 +113,8 @@ void ModuleEditor::DrawEditor()
                 ImGui::PlotHistogram("fps", vecFPSLog.data(), vecFPSLog.size(), 2, lastValue);
             }
 
-            ImGui::EndMenu();
         }
-        ImGui::TextColored({ 255,255,0,255 }, "Juan");
+       
 
     
     }
