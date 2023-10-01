@@ -92,6 +92,9 @@ update_status Application::Update()
 		(*it)->PostUpdate(dt);
 	}
 
+	// Add a FPS to the vector
+	editor->AddFPS(dt);
+
 	FinishUpdate();
 	return ret;
 }
