@@ -5,6 +5,7 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include <vector>
 
 
 class ModuleEditor : public Module
@@ -18,7 +19,13 @@ public:
 	void DrawEditor();
 	bool CleanUp() override;
 
-	void AddFPS();
+	void AddFPS(float FPS);
+
+	std::vector<float> vecFPSLog;
+	const char* lastValue = "";
+
+private:
+
 
 };
 

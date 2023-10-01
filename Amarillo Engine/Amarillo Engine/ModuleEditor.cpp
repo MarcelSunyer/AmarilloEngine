@@ -88,6 +88,42 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
+
+    // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
+    if (ImGui::Begin("Juan"))
+    {
+        if (ImGui::BeginMenu("Barra-Menu"))
+        {
+            ImGui::Text("Test1");
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Config"))
+        {
+            if (ImGui::MenuItem("Open..", "Ctrl+O"));
+            if (ImGui::MenuItem("Delta Time"));
+            {
+                // Crear un nuevo vector para almacenar los valores elevados a la potencia de -1
+                std::vector<float> inverseFPSLog;
+                for (float fps : vecFPSLog)
+                {
+                    inverseFPSLog.push_back(1.0f / fps);
+                }
+
+                ImGui::PlotHistogram("dt", inverseFPSLog.data(), inverseFPSLog.size(), 2, lastValue);
+            }
+            if (ImGui::MenuItem("FPS"));
+            {
+                ImGui::PlotHistogram("fps", vecFPSLog.data(), vecFPSLog.size(), 2, lastValue);
+            }
+
+            ImGui::EndMenu();
+        }
+        ImGui::TextColored({ 255,255,0,255 }, "Juan");
+
+    
+    }
+    ImGui::End();
     
     ImGui::BeginMainMenuBar();
     if (ImGui::BeginMenu("Juan"))
@@ -162,3 +198,15 @@ bool ModuleEditor::CleanUp()
 	return true;
 }
 
+void ModuleEditor::AddFPS(float FPS)
+{
+    if (vecFPSLog.size() < 30)
+    {
+        vecFPSLog.push_back(1/FPS);
+    }
+    else
+    {
+        vecFPSLog.erase(vecFPSLog.begin());
+        vecFPSLog.push_back(1/FPS);
+    }
+}
