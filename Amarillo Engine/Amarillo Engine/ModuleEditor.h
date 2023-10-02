@@ -21,6 +21,8 @@ public:
 
 	void AddFPS(float FPS);
 
+	void ShowAboutInfo();
+
 	std::vector<float> vecFPSLog;
 	const char* lastValue = "";
 
