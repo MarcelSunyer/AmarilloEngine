@@ -5,6 +5,7 @@
 #include "Imgui/imgui.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
+#include "ImGui/backends/imgui_impl_opengl3_loader.h"
 
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
@@ -67,7 +68,7 @@ void ModuleEditor::DrawEditor()
         if (ImGui::CollapsingHeader("Config"))
         {
             ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
-            if (ImGui::MenuItem("Open..", "Ctrl+O"));
+            ImGui::Separator();
             if (ImGui::MenuItem("Delta Time"));
             {
                 // Crear un nuevo vector para almacenar los valores elevados a la potencia de -1
@@ -82,6 +83,15 @@ void ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("FPS"));
             {
                 ImGui::PlotHistogram("fps", vecFPSLog.data(), vecFPSLog.size(), 2, lastValue);
+            }
+            ImGui::TextColored({ 255,255,0,255 }, "PC Specs");
+            ImGui::Separator();
+            if (ImGui::MenuItem("Graphic Card:"));
+            {
+                ImGui::TextColored({ 255,255,0,255 }, "%s", glGetString(GL_RENDERER));
+                ImGui::Text("%s", glGetString(GL_VENDOR));
+                ImGui::Text("%s", glGetString(GL_VERSION));
+
             }
 
         }
@@ -174,7 +184,7 @@ bool ModuleEditor::CleanUp()
 
 void ModuleEditor::AddFPS(float FPS)
 {
-    if (vecFPSLog.size() < 30)
+    if (vecFPSLog.size() < 100)
     {
         vecFPSLog.push_back(1/FPS);
     }
