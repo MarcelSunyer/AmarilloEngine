@@ -105,11 +105,22 @@ void ModuleEditor::DrawEditor()
                     ImGui::Text("Error al obtener la memoria RAM total");
                 }
 
-
             }
             if (ImGui::MenuItem("CPU:"));
             {
-                
+                // Obtener el nombre de la CPU
+                const char* cpuModel;// = SDL_GetCPUName();
+                cpuModel = "CPU";
+
+                // Obtener el tamaño de línea de caché de la CPU
+                int cacheLineSize = SDL_GetCPUCacheLineSize();
+
+                // Obtener el número de núcleos de la CPU
+                int cpuCount = SDL_GetCPUCount();
+
+                ImGui::TextColored({ 255,255,0,255 }, "%s", cpuModel);
+                ImGui::Text("CPU Cache Line Size: %d bytes", cacheLineSize);
+                ImGui::Text("CPU Core Count: %d", cpuCount);
             }
             
 
