@@ -5,8 +5,11 @@
 #include "ModuleCamera3D.h"
 #include "ModuleWindow.h"
 #include "SDL\include\SDL_opengl.h"
+#include "SDL/include/SDL.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "SDL/include/SDL_syswm.h"
+
 
 // ImGui includes
 //
@@ -113,7 +116,9 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+
 	}
+	
 
 	// Projection matrix for
 	OnResize(850, 620);
@@ -149,6 +154,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	App->editor->DrawEditor();
 
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Set drawing color (red) // x, y, width, height
+
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
@@ -160,10 +167,6 @@ bool ModuleRenderer3D::CleanUp()
 
 	SDL_GL_DeleteContext(context);
 
-	// Cleanup
-	/*ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();*/
 
 	return true;
 }

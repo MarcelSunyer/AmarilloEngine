@@ -108,7 +108,7 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_QUIT:
-			quit = true;
+				quit = true;
 			break;
 
 			case SDL_WINDOWEVENT:

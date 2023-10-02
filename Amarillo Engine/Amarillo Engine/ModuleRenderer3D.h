@@ -30,6 +30,12 @@ public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	CPlane Grid;
+
+	SDL_Window* window = SDL_CreateWindow("SDL Drawing Example",
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		800, 600, SDL_WINDOW_SHOWN);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	
 	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
