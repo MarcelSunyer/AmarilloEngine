@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleInput.h"
 #include "Imgui/imgui.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
@@ -63,10 +64,10 @@ void ModuleEditor::DrawEditor()
     ImGui::NewFrame();
 
     // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
-    if (ImGui::Begin("Juan"))
+    if (ImGui::Begin("Config"))
     {
 
-        if (ImGui::CollapsingHeader("Config"))
+        if (ImGui::CollapsingHeader("Info"))
         {
             ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
             ImGui::Separator();
@@ -125,12 +126,20 @@ void ModuleEditor::DrawEditor()
             
 
         }
+
+        if (ImGui::CollapsingHeader("Window Settings"))
+        {
+            if (ImGui::CollapsingHeader("Render Options"))
+            {
+                
+            }
+        }
     }
     ImGui::End();
 
     if (ImGui::Begin("About"))
     {
-        if (ImGui::CollapsingHeader("Config"))
+        if (ImGui::CollapsingHeader("Info"))
         {
             ShowAboutInfo();
         }
@@ -156,10 +165,17 @@ void ModuleEditor::DrawEditor()
     }
     if (ImGui::BeginMenu("Help"))
     {
-        ImGui::Text("Placeholder");
+        if (ImGui::MenuItem("GitHub"))
+        {
+            ShellExecute(NULL, "open", "https://github.com/MarcelSunyer/Game_Engine", 0, 0, SW_SHOWNORMAL);
+        }
         ImGui::EndMenu();
     }
-    
+    if (ImGui::Button("Exit"))
+    {
+        //Exit game
+        App->input->quit = true;
+    }
     ImGui::EndMainMenuBar();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
