@@ -58,7 +58,7 @@ public:
 		return mouse_y_motion;
 	}
 
-	bool quit;
+	bool quit = false;
 
 private:
 	KEY_STATE* keyboard;
