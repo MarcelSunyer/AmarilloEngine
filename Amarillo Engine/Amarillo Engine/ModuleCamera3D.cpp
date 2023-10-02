@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "Primitive.h"
 #include "ModuleInput.h"
 #include "MathGeoLib/include/Math/Quat.h"
 

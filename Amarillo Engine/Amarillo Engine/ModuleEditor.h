@@ -3,6 +3,8 @@
 #ifndef MODULE_EDITOR
 #define MODULE_EDITOR
 
+
+
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
@@ -23,11 +25,16 @@ public:
 
 	void ShowAboutInfo();
 
+	void AdjustBrightness(float factor);		
+	
 	std::vector<float> vecFPSLog;
 	const char* lastValue = "";
 
-private:
+public:  //Windows Settings
+	float brightnessFactor = 1.0f;
 
+	float windowSizeX = 500;
+	float windowSizeY = 200;// Default window size
 
 public:
 	bool IoConfirmer = false;

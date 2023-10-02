@@ -116,7 +116,7 @@ bool ModuleRenderer3D::Init()
 	}
 
 	// Projection matrix for
-	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	OnResize(850, 620);
 
 	Grid.axis = true;
 
@@ -171,7 +171,7 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
-	glViewport(0, 0, width, height);
+	glViewport(200, 250, width, height);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

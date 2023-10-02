@@ -52,6 +52,8 @@ bool ModuleEditor::Init()
 
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
+   
+
 
 	return true;
 }
@@ -62,7 +64,8 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-
+    //Show demo
+    ImGui::ShowDemoWindow();
     // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
     if (ImGui::Begin("Config"))
     {
@@ -147,22 +150,40 @@ void ModuleEditor::DrawEditor()
     ImGui::End();
     
     ImGui::BeginMainMenuBar();
-    if (ImGui::BeginMenu("Juan"))
+    if (ImGui::BeginMenu("Window"))
     {
-        if (ImGui::TreeNode("Capture/Logging"))
+        if (ImGui::BeginMenu("Brightness and size"))
         {
-            ImGui::LogButtons();
+            
+            static bool buttonClicked = false;
+            // Create a scrollable region
+            ImGui::BeginChild("LoggingChild", ImVec2(500, 200), true, ImGuiWindowFlags_HorizontalScrollbar);
 
-            if (ImGui::Button("Copy \"Hello, world!\" to clipboard"))
+            // Content within the scrollable region
+            ImGui::Text("Brightness Control");
+            ImGui::SliderFloat("Brightness", &brightnessFactor, 0, 2);
+
+            AdjustBrightness(brightnessFactor);
+
+            
+            ImGui::Text("Window Size Control");
+            if (ImGui::Button("Click Me")) 
             {
-                ImGui::LogToClipboard();
-                ImGui::LogText("Hello, world!");
-                ImGui::LogFinish();
+                ImGui::SetWindowSize(ImVec2(800, 600));
             }
-            ImGui::TreePop();
-        }
+           
+           
+            // End the scrollable region
+            ImGui::EndChild();
+
+            ImGui::EndMenu();
+        }    
+       
+            
+        
         ImGui::EndMenu();
     }
+
     if (ImGui::BeginMenu("Help"))
     {
         if (ImGui::MenuItem("GitHub"))
@@ -249,3 +270,15 @@ void ModuleEditor::ShowAboutInfo()
     ImGui::Text("USER GUIDE:");
     ImGui::ShowUserGuide();
 }
+void ModuleEditor::AdjustBrightness(float factor)
+{
+    // Calculate brightness-adjusted colors
+    ImVec4 textColor = ImVec4(1.0f * factor, 1.0f * factor, 1.0f * factor, 1.0f);
+    ImVec4 bgColor = ImVec4(0.2f * factor, 0.2f * factor, 0.2f * factor, 1.0f);
+
+    // Set ImGui style colors
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.Colors[ImGuiCol_Text] = textColor;
+    style.Colors[ImGuiCol_WindowBg] = bgColor;
+}
+
