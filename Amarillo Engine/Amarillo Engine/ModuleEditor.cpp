@@ -6,6 +6,7 @@
 #include "ImGui/backends/imgui_impl_opengl3.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
 #include "ImGui/backends/imgui_impl_opengl3_loader.h"
+#include "SDL/include/SDL.h"
 
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
@@ -95,11 +96,23 @@ void ModuleEditor::DrawEditor()
             }
             if (ImGui::MenuItem("Memory:"));
             {
-                ImGui::TextColored({ 255,255,0,255 }, "%s", glGetString(GL_RENDERER));
-                ImGui::Text("%s", glGetString(GL_VENDOR));
-                ImGui::Text("%s", glGetString(GL_VERSION));
+                int total_ram_mb = SDL_GetSystemRAM();
+                if (total_ram_mb > 0) {
+                    float total_ram_gb = total_ram_mb / 1024.0f;
+                    ImGui::Text("Total RAM: %.2f GB", total_ram_gb);
+                }
+                else {
+                    ImGui::Text("Error al obtener la memoria RAM total");
+                }
+
 
             }
+            if (ImGui::MenuItem("CPU:"));
+            {
+                
+            }
+            
+
         }
     }
     ImGui::End();
