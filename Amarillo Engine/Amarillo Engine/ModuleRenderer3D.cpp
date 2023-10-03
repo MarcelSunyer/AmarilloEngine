@@ -121,7 +121,7 @@ bool ModuleRenderer3D::Init()
 	
 
 	// Projection matrix for
-	OnResize(850, 620);
+	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	Grid.axis = true;
 
@@ -154,7 +154,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	App->editor->DrawEditor();
 
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Set drawing color (red) // x, y, width, height
+	//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Set drawing color (red) // x, y, width, height
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
@@ -174,7 +174,7 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
-	glViewport(200, 250, width, height);
+	glViewport(0, 0, width, height);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
