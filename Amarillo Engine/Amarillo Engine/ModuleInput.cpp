@@ -3,7 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
-#
+
 
 #define MAX_KEYS 300
 
@@ -108,9 +108,10 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_QUIT:
+			{
 				quit = true;
-			break;
-
+				break;
+			}
 			case SDL_WINDOWEVENT:
 			{
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
@@ -118,9 +119,6 @@ update_status ModuleInput::PreUpdate(float dt)
 			}
 		}
 	}
-
-	if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
-		return UPDATE_STOP;
 
 	return UPDATE_CONTINUE;
 }

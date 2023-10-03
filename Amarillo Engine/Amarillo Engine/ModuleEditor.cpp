@@ -40,6 +40,7 @@ bool ModuleEditor::Init()
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
+
     //ImGui::StyleColorsLight();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
@@ -53,8 +54,6 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
    
-   
-
 	return true;
 }
 
@@ -67,101 +66,106 @@ void ModuleEditor::DrawEditor()
     //Show demo
     ImGui::ShowDemoWindow();
     // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
-    if (ImGui::Begin("Config"))
+    if (showWindow)
     {
-
-        if (ImGui::CollapsingHeader("Info"))
+        if (ImGui::Begin("Config", &showWindow))
         {
-            ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
-            ImGui::Separator();
-            if (ImGui::MenuItem("Delta Time"));
+
+            if (ImGui::CollapsingHeader("Info"))
             {
-                // Crear un nuevo vector para almacenar los valores elevados a la potencia de -1
-                std::vector<float> inverseFPSLog;
-                for (float fps : vecFPSLog)
+                ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
+                ImGui::Separator();
+                if (ImGui::MenuItem("Delta Time"));
                 {
-                    inverseFPSLog.push_back(1.0f / fps);
+                    // Crear un nuevo vector para almacenar los valores elevados a la potencia de -1
+                    std::vector<float> inverseFPSLog;
+                    for (float fps : vecFPSLog)
+                    {
+                        inverseFPSLog.push_back(1.0f / fps);
+                    }
+
+                    ImGui::PlotHistogram("dt", inverseFPSLog.data(), inverseFPSLog.size(), 2, lastValue);
                 }
-
-                ImGui::PlotHistogram("dt", inverseFPSLog.data(), inverseFPSLog.size(), 2, lastValue);
-            }
-            if (ImGui::MenuItem("FPS"));
-            {
-                ImGui::PlotHistogram("fps", vecFPSLog.data(), vecFPSLog.size(), 2, lastValue);
-            }
-            ImGui::TextColored({ 255,255,0,255 }, "PC Specs");
-            ImGui::Separator();
-            if (ImGui::MenuItem("Graphic Card:"));
-            {
-                ImGui::TextColored({ 255,255,0,255 }, "%s", glGetString(GL_RENDERER));
-                ImGui::Text("%s", glGetString(GL_VENDOR));
-                ImGui::Text("%s", glGetString(GL_VERSION));
-
-            }
-            if (ImGui::MenuItem("Memory:"));
-            {
-                int total_ram_mb = SDL_GetSystemRAM();
-                if (total_ram_mb > 0) {
-                    float total_ram_gb = total_ram_mb / 1024.0f;
-                    ImGui::Text("Total RAM: %.2f GB", total_ram_gb);
+                if (ImGui::MenuItem("FPS"));
+                {
+                    ImGui::PlotHistogram("fps", vecFPSLog.data(), vecFPSLog.size(), 2, lastValue);
                 }
-                else {
-                    ImGui::Text("Error al obtener la memoria RAM total");
+                ImGui::TextColored({ 255,255,0,255 }, "PC Specs");
+                ImGui::Separator();
+                if (ImGui::MenuItem("Graphic Card:"));
+                {
+                    ImGui::TextColored({ 255,255,0,255 }, "%s", glGetString(GL_RENDERER));
+                    ImGui::Text("%s", glGetString(GL_VENDOR));
+                    ImGui::Text("%s", glGetString(GL_VERSION));
+
                 }
+                if (ImGui::MenuItem("Memory:"));
+                {
+                    int total_ram_mb = SDL_GetSystemRAM();
+                    if (total_ram_mb > 0) {
+                        float total_ram_gb = total_ram_mb / 1024.0f;
+                        ImGui::Text("Total RAM: %.2f GB", total_ram_gb);
+                    }
+                    else {
+                        ImGui::Text("Error al obtener la memoria RAM total");
+                    }
 
+                }
+                if (ImGui::MenuItem("CPU:"));
+                {
+                    // Obtener el nombre de la CPU
+                    const char* cpuModel;// = SDL_GetCPUName();
+                    cpuModel = "CPU";
+
+                    // Obtener el tamaño de línea de caché de la CPU
+                    int cacheLineSize = SDL_GetCPUCacheLineSize();
+
+                    // Obtener el número de núcleos de la CPU
+                    int cpuCount = SDL_GetCPUCount();
+
+                    ImGui::TextColored({ 255,255,0,255 }, "%s", cpuModel);
+                    ImGui::Text("CPU Cache Line Size: %d bytes", cacheLineSize);
+                    ImGui::Text("CPU Core Count: %d", cpuCount);
+                }
             }
-            if (ImGui::MenuItem("CPU:"));
+
+            if (ImGui::CollapsingHeader("Window Settings"))
             {
-                // Obtener el nombre de la CPU
-                const char* cpuModel;// = SDL_GetCPUName();
-                cpuModel = "CPU";
+                if (ImGui::CollapsingHeader("Style Options"))
+                {
+                    ImGuiStyle& style = ImGui::GetStyle();
+                    static ImGuiStyle ref_saved_style;
 
-                // Obtener el tamaño de línea de caché de la CPU
-                int cacheLineSize = SDL_GetCPUCacheLineSize();
-
-                // Obtener el número de núcleos de la CPU
-                int cpuCount = SDL_GetCPUCount();
-
-                ImGui::TextColored({ 255,255,0,255 }, "%s", cpuModel);
-                ImGui::Text("CPU Cache Line Size: %d bytes", cacheLineSize);
-                ImGui::Text("CPU Core Count: %d", cpuCount);
+                    if (ImGui::ShowStyleSelector("Colors##Selector"))
+                        ref_saved_style = style;
+                }
+                if (ImGui::CollapsingHeader("Render Options"))
+                {
+                    
+                    
+                }
             }
-            
-
         }
-
-        if (ImGui::CollapsingHeader("Window Settings"))
-        {
-            if (ImGui::CollapsingHeader("Render Options"))
-            {
-                
-            }
-        }
+        ImGui::End();
     }
-  
-    ImGui::End();
-    
+        
     ImGui::BeginMainMenuBar();
+   
     if (ImGui::BeginMenu("Window"))
     {
-        if (ImGui::BeginMenu("Brightness and size"))
+        //Shows the nconfig windows
+        if (ImGui::Button("Config"))
         {
-            // Create a scrollable region
-            ImGui::BeginChild("LoggingChild", ImVec2(500, 200), true, ImGuiWindowFlags_HorizontalScrollbar);
+            showWindow = true;
+        }
 
-            // Content within the scrollable region
-            ImGui::Text("Brightness Control");
-            ImGui::SliderFloat("Brightness", &brightnessFactor, 0, 2);
+        ImGui::MenuItem("Juan");
 
-            AdjustBrightness(brightnessFactor);
-
-            // End the scrollable region
-            ImGui::EndChild();
-           
-            ImGui::EndMenu();
-        }  
-
+        ImGui::Text("Computer Window Size: ");
+        ImGui::Text("Width: %dpx  Height: %dpx", SCREEN_WIDTH, SCREEN_HEIGHT);
+        
         ImGui::EndMenu();
+       
     }
 
     if (ImGui::BeginMenu("Help"))
@@ -223,16 +227,9 @@ void ModuleEditor::DrawEditor()
         App->input->quit = false;
     }
 
-    if (showWindow)
-    {
-        // Todo: Add the window to de menu and add content while you can close the windows
-        ImGui::Begin("My Window", &showWindow);
-
-        ImGui::End();
-    }
-
     ImGui::EndMainMenuBar();
     ImGui::Render();
+
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     
     if (IoConfirmer)
@@ -285,5 +282,21 @@ void ModuleEditor::AdjustBrightness(float factor)
     ImGuiStyle& style = ImGui::GetStyle();
     style.Colors[ImGuiCol_Text] = textColor;
     style.Colors[ImGuiCol_WindowBg] = bgColor;
+}
+
+bool ModuleEditor::StyleTypes(const char* label)
+{
+    static int style_idx = -1;
+    if (ImGui::Combo(label, &style_idx, "Dark\0Light\0Classic\0"))
+    {
+        switch (style_idx)
+        {
+        case 0: ImGui::StyleColorsDark(); break;
+        case 1: ImGui::StyleColorsLight(); break;
+        case 2: ImGui::StyleColorsClassic(); break;
+        }
+        return true;
+    }
+    return false;
 }
 

@@ -25,18 +25,23 @@ public:
 
 	void ShowAboutInfo();
 
-	void AdjustBrightness(float factor);		
+	void AdjustBrightness(float factor);	
+
+	bool StyleTypes(const char* label);
 	
 	std::vector<float> vecFPSLog;
 	const char* lastValue = "";
 
 public:  //Windows Settings
-	float brightnessFactor = 1.0f;
-	bool showWindow = true;
-	float windowSizeX = 500;
-	float windowSizeY = 200;// Default window size
+	//Brightness value
+	float brightnessFactor = 1.5f;
 
+	
+	//Show config window
+	bool showWindow = true;
 public:
+	int w = SCREEN_WIDTH;
+	int h = SCREEN_HEIGHT;
 	bool IoConfirmer = false;
 
 };

@@ -76,7 +76,6 @@ update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
-	
 	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret == UPDATE_CONTINUE; ++it)
 	{
 		(*it)->PreUpdate(dt);
@@ -91,6 +90,7 @@ update_status Application::Update()
 	{
 		(*it)->PostUpdate(dt);
 	}
+
 
 	// Add a FPS to the vector
 	editor->AddFPS(dt);
