@@ -32,7 +32,7 @@ public:
 
 public:  //Windows Settings
 	float brightnessFactor = 1.0f;
-
+	bool showWindow = true;
 	float windowSizeX = 500;
 	float windowSizeY = 200;// Default window size
 

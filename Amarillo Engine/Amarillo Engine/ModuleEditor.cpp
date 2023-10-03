@@ -53,7 +53,7 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
    
-
+   
 
 	return true;
 }
@@ -138,15 +138,7 @@ void ModuleEditor::DrawEditor()
             }
         }
     }
-    ImGui::End();
-
-    if (ImGui::Begin("About"))
-    {
-        if (ImGui::CollapsingHeader("Info"))
-        {
-            ShowAboutInfo();
-        }
-    }
+  
     ImGui::End();
     
     ImGui::BeginMainMenuBar();
@@ -154,8 +146,6 @@ void ModuleEditor::DrawEditor()
     {
         if (ImGui::BeginMenu("Brightness and size"))
         {
-            
-            static bool buttonClicked = false;
             // Create a scrollable region
             ImGui::BeginChild("LoggingChild", ImVec2(500, 200), true, ImGuiWindowFlags_HorizontalScrollbar);
 
@@ -165,42 +155,82 @@ void ModuleEditor::DrawEditor()
 
             AdjustBrightness(brightnessFactor);
 
-            
-            ImGui::Text("Window Size Control");
-            if (ImGui::Button("Click Me")) 
-            {
-                ImGui::SetWindowSize(ImVec2(800, 600));
-            }
-           
-           
             // End the scrollable region
             ImGui::EndChild();
-
+           
             ImGui::EndMenu();
-        }    
-       
-            
-        
+        }  
+
         ImGui::EndMenu();
     }
 
     if (ImGui::BeginMenu("Help"))
     {
+        if (ImGui::BeginMenu("About"))
+        {
+
+            ImGui::TextColored({ 255,255,0,255 }, "Amarillo Engine v0.1");
+            ImGui::BulletText("By Eric Luque & Marcel Sunyer");
+            ImGui::Separator();
+
+            ImGui::Text("3rd Party Libraries used:");
+            ImGui::BulletText("SDL2");
+            ImGui::BulletText("OpenGL3");
+            ImGui::BulletText("Glew");
+            ImGui::BulletText("MathGeoLib");
+            ImGui::BulletText("ImGui");
+            ImGui::Separator();
+
+            ImGui::Text("MIT License:");
+            ImGui::Text("Copyright (c) 2023 Eric Luque & Marcel Sunyer");
+            ImGui::Text("Permission is hereby granted, free of charge, to any person obtaining a copy of this software");
+            ImGui::Text("and associated documentation files(the 'Software'), to deal in the Software without ");
+            ImGui::Text("restriction, including without limitation the rights to use, copy, modify, merge, publish, ");
+            ImGui::Text("distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the");
+            ImGui::Text("Software is furnished to do so, subject to the following conditions:");
+            ImGui::Text("The above copyright notice and this permission notice shall be included in all copies or ");
+            ImGui::Text("substantial portions of the Software.");
+            ImGui::Text("THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS");
+            ImGui::Text("OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF");
+            ImGui::Text("MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND");
+            ImGui::Text("NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS");
+            ImGui::Text("BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN");
+            ImGui::Text("ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN");
+            ImGui::Text("CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE");
+            ImGui::Text("SOFTWARE.");
+            ImGui::Separator();
+
+            ImGui::Text("USER GUIDE:");
+            ImGui::ShowUserGuide();
+           
+            ImGui::EndMenu();
+        }
+      
         if (ImGui::MenuItem("GitHub"))
         {
             ShellExecute(NULL, "open", "https://github.com/MarcelSunyer/Game_Engine", 0, 0, SW_SHOWNORMAL);
         }
         ImGui::EndMenu();
     }
+
     if (ImGui::Button("Exit"))
     {
         //Exit game
         App->input->quit = true;
-    }
+     }
     else
     {
         App->input->quit = false;
     }
+
+    if (showWindow)
+    {
+        // Todo: Add the window to de menu and add content while you can close the windows
+        ImGui::Begin("My Window", &showWindow);
+
+        ImGui::End();
+    }
+
     ImGui::EndMainMenuBar();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -213,6 +243,7 @@ void ModuleEditor::DrawEditor()
         ImGui::RenderPlatformWindowsDefault();
         SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
     }
+
 }
 
 bool ModuleEditor::CleanUp()
@@ -240,39 +271,9 @@ void ModuleEditor::AddFPS(float FPS)
 
 void ModuleEditor::ShowAboutInfo()
 {
-    ImGui::TextColored({ 255,255,0,255 }, "Amarillo Engine v0.1");
-    ImGui::BulletText("By Eric Luque & Marcel Sunyer");
-    ImGui::Separator();
-
-    ImGui::Text("3rd Party Libraries used:");
-    ImGui::BulletText("SDL2");
-    ImGui::BulletText("OpenGL3");
-    ImGui::BulletText("Glew");
-    ImGui::BulletText("MathGeoLib");
-    ImGui::BulletText("ImGui");
-    ImGui::Separator();
-
-    ImGui::Text("MIT License:");
-    ImGui::Text("Copyright (c) 2023 Eric Luque & Marcel Sunyer");
-    ImGui::Text("Permission is hereby granted, free of charge, to any person obtaining a copy of this software");
-    ImGui::Text("and associated documentation files(the 'Software'), to deal in the Software without ");
-    ImGui::Text("restriction, including without limitation the rights to use, copy, modify, merge, publish, ");
-    ImGui::Text("distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the");
-    ImGui::Text("Software is furnished to do so, subject to the following conditions:");
-    ImGui::Text("The above copyright notice and this permission notice shall be included in all copies or ");
-    ImGui::Text("substantial portions of the Software.");
-    ImGui::Text("THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS");
-    ImGui::Text("OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF");
-    ImGui::Text("MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND");
-    ImGui::Text("NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS");
-    ImGui::Text("BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN");
-    ImGui::Text("ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN");
-    ImGui::Text("CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE");
-    ImGui::Text("SOFTWARE.");
-    ImGui::Separator();
-
-    ImGui::Text("USER GUIDE:");
-    ImGui::ShowUserGuide();
+    if (ImGui::MenuItem("Juan"))
+    {
+    }
 }
 void ModuleEditor::AdjustBrightness(float factor)
 {
