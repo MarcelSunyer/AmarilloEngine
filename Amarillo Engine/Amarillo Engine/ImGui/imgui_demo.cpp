@@ -6876,7 +6876,7 @@ struct ExampleAppConsole
         Items.clear();
     }
 
-    void    AddLog(const char* fmt, ...) IM_FMTARGS(2)
+    void AddLog(const char* fmt, ...) IM_FMTARGS(2)
     {
         // FIXME-OPT
         char buf[1024];
@@ -6888,7 +6888,7 @@ struct ExampleAppConsole
         Items.push_back(Strdup(buf));
     }
 
-    void    Draw(const char* title, bool* p_open)
+    void Draw(const char* title, bool* p_open)
     {
         ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
         if (!ImGui::Begin(title, p_open))

@@ -113,6 +113,29 @@ update_status ModuleCamera3D::Update(float dt)
 		
 	}
 
+	/*if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		int mx = App->input->GetMouseXMotion();
+		int my = App->input->GetMouseYMotion();
+
+		float Sensitivity = 0.5f * dt;
+
+		if (mx != 0)
+		{
+			float DeltaX = (float)mx * Sensitivity;
+			newPos.x = DeltaX;
+			Position.x -= newPos.x;
+		}
+
+		if (my != 0)
+		{
+			float DeltaY = (float)my * Sensitivity;
+			newPos.y = DeltaY;
+			Position.y += newPos.y;
+		}
+	}*/
+
+
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT) 
 	{
 		LookAt(float3(0,0,0));
