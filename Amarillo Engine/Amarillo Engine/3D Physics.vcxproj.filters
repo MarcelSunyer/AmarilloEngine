@@ -288,8 +288,12 @@
     <ClInclude Include="ModuleEditor.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\backends\imgui_impl_sdl2.h" />
-    <ClInclude Include="ImGui\backends\imgui_impl_sdlrenderer2.h" />
+    <ClInclude Include="ImGui\backends\imgui_impl_sdlrenderer2.h">
+      <Filter>Externals\ImGui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\backends\imgui_impl_sdl2.h">
+      <Filter>Externals\ImGui\backends</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -445,8 +449,12 @@
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\backends\imgui_impl_sdl2.cpp" />
-    <ClCompile Include="ImGui\backends\imgui_impl_sdlrenderer2.cpp" />
+    <ClCompile Include="ImGui\backends\imgui_impl_sdl2.cpp">
+      <Filter>Externals\ImGui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\backends\imgui_impl_sdlrenderer2.cpp">
+      <Filter>Externals\ImGui\backends</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl">

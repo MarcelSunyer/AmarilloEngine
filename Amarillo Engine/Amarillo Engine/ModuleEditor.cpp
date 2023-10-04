@@ -222,10 +222,7 @@ void ModuleEditor::DrawEditor()
         //Exit game
         App->input->quit = true;
      }
-    else
-    {
-        App->input->quit = false;
-    }
+
 
     ImGui::EndMainMenuBar();
     ImGui::Render();
