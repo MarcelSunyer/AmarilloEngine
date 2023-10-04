@@ -3,11 +3,11 @@
 #ifndef MODULE_EDITOR
 #define MODULE_EDITOR
 
-
-
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
+#include <iostream>
+#include <string> 
 
 
 class ModuleEditor : public Module
@@ -39,6 +39,7 @@ public:  //Windows Settings
 	
 	//Show config window
 	bool showWindow = true;
+	
 public:
 	int w = SCREEN_WIDTH;
 	int h = SCREEN_HEIGHT;

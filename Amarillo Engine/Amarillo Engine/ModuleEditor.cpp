@@ -59,10 +59,12 @@ bool ModuleEditor::Init()
 
 void ModuleEditor::DrawEditor()
 {
+
     //Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
+    
     //Show demo
     ImGui::ShowDemoWindow();
     // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
@@ -70,7 +72,7 @@ void ModuleEditor::DrawEditor()
     {
         if (ImGui::Begin("Config", &showWindow))
         {
-
+            
             if (ImGui::CollapsingHeader("Info"))
             {
                 ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
@@ -222,8 +224,9 @@ void ModuleEditor::DrawEditor()
         //Exit game
         App->input->quit = true;
      }
+    ImGui::Begin("Console");
 
-
+    ImGui::End();
     ImGui::EndMainMenuBar();
     ImGui::Render();
 
