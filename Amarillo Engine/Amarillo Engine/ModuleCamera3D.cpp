@@ -101,11 +101,27 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 		}
 
-		//Position = Reference + Z * Position.Length();
-		Position = Reference;
+		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_IDLE)
+		{
+			Position = Reference;
+		}
+		else
+		{
+			Position = Reference + Z * Position.Length();
+		}
+		
+		
 	}
 
-	//LookAt(Reference);
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT) 
+	{
+		LookAt(float3(0,0,0));
+	}
+	else
+	{
+		Reference = Position;
+	}
+	
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
