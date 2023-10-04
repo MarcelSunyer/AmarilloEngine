@@ -101,10 +101,11 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 		}
 
-		Position = Reference + Z * Position.Length();
+		//Position = Reference + Z * Position.Length();
+		Position = Reference;
 	}
 
-	LookAt(Reference);
+	//LookAt(Reference);
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
