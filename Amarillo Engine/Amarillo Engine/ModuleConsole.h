@@ -9,6 +9,10 @@ public:
 	~ModuleConsole();
 
 	bool Start();
-	update_status Update(float dt);
+	void StartConsole();
+	void UpdateConsole();
 	bool CleanUp();
+public:
+
+	
 }; 

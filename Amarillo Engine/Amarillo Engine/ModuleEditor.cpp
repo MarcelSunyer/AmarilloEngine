@@ -8,6 +8,7 @@
 #include "ImGui/backends/imgui_impl_sdl2.h"
 #include "ImGui/backends/imgui_impl_opengl3_loader.h"
 #include "SDL/include/SDL.h"
+#include "ModuleConsole.h"
 
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
@@ -68,6 +69,8 @@ void ModuleEditor::DrawEditor()
     //Show demo
     ImGui::ShowDemoWindow();
     // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
+    App->console->StartConsole();
+
     if (showWindow)
     {
         if (ImGui::Begin("Config", &showWindow))
