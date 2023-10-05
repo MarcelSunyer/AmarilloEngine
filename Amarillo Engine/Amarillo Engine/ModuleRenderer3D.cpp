@@ -136,7 +136,65 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
+	glLineWidth(2.0f);
+	glBegin(GL_TRIANGLES);
+	
+	// Front face
+	glVertex3f(-1, -1, 1);
+	glVertex3f(1, -1, 1);
+	glVertex3f(1, 1, 1);
 
+	glVertex3f(-1, -1, 1);
+	glVertex3f(1, 1, 1);
+	glVertex3f(-1, 1, 1);
+
+	// Back face
+	glVertex3f(-1, -1, -1);
+	glVertex3f(1, -1, -1);
+	glVertex3f(1, 1, -1);
+
+	glVertex3f(-1, -1, -1);
+	glVertex3f(1, 1, -1);
+	glVertex3f(-1, 1, -1);
+
+	// Left face
+	glVertex3f(-1, -1, 1);
+	glVertex3f(-1, 1, 1);
+	glVertex3f(-1, 1, -1);
+
+	glVertex3f(-1, -1, 1);
+	glVertex3f(-1, 1, -1);
+	glVertex3f(-1, -1, -1);
+
+	// Right face
+	glVertex3f(1, -1, 1);
+	glVertex3f(1, 1, 1);
+	glVertex3f(1, 1, -1);
+
+	glVertex3f(1, -1, 1);
+	glVertex3f(1, 1, -1);
+	glVertex3f(1, -1, -1);
+
+	// Top face
+	glVertex3f(-1, 1, 1);
+	glVertex3f(1, 1, 1);
+	glVertex3f(1, 1, -1);
+
+	glVertex3f(-1, 1, 1);
+	glVertex3f(1, 1, -1);
+	glVertex3f(-1, 1, -1);
+
+	// Bottom face
+	glVertex3f(-1, -1, 1);
+	glVertex3f(1, -1, 1);
+	glVertex3f(1, -1, -1);
+
+	glVertex3f(-1, -1, 1);
+	glVertex3f(1, -1, -1);
+	glVertex3f(-1, -1, -1);
+	
+	glEnd();
+	glLineWidth(1.0f);
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
@@ -153,6 +211,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	Grid.Render();
 
 	App->editor->DrawEditor();
+
 
 	//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Set drawing color (red) // x, y, width, height
 
