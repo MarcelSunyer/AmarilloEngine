@@ -8,7 +8,7 @@
 #include "ImGui/backends/imgui_impl_sdl2.h"
 #include "ImGui/backends/imgui_impl_opengl3_loader.h"
 #include "SDL/include/SDL.h"
-#include "ModuleConsole.h"
+#include <iostream>
 
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
@@ -229,7 +229,7 @@ void ModuleEditor::DrawEditor()
    
     if (ImGui::Begin("Console"))
     {
-        App->console->UpdateConsole();
+        Console::UpdateConsole();
         
     }
     ImGui::End();
@@ -308,3 +308,27 @@ bool ModuleEditor::StyleTypes(const char* label)
     return false;
 }
 
+void Console::UpdateConsole()
+{
+    logs.push_back("This is a log message.");
+    for (const std::string& log : logs) {
+        logs.push_back("%s");
+    }
+}
+
+void Console::AddLog(std::string msg)
+{   
+    Logs l;
+    //Mirar si es empty 
+    if(!l.logs.empty())
+    {
+        if (l.logs == l.logs.back())
+        {
+
+        }
+    }
+
+    //Imgui::SameLine()
+
+   
+}

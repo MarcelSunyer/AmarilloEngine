@@ -10,6 +10,7 @@
 #include <string> 
 
 
+
 class ModuleEditor : public Module
 {
 public:
@@ -46,7 +47,21 @@ public:
 	bool IoConfirmer = false;
 
 };
+struct Logs
+{
+	std::string logs; //Msg
+	int rep;
 
+};
+
+class Console : public ModuleEditor
+{
+public:
+
+	void UpdateConsole();
+	void AddLog(std::string msg);
+
+};
 
 #endif // MODULE_EDITOR
 

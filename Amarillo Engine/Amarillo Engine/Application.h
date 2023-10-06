@@ -12,7 +12,6 @@ class ModuleInput;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleEditor;
-class ModuleConsole;
 
 class Application
 {
@@ -21,9 +20,7 @@ public:
 	ModuleInput* input;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModuleEditor* editor;
-	ModuleConsole* console;
-	
+	ModuleEditor* editor;	
 
 private:
 
