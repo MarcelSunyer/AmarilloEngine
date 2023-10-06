@@ -1,6 +1,8 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include <string>
+#include <vector>
 
 class ModuleConsole : public Module
 {
@@ -13,6 +15,6 @@ public:
 	void UpdateConsole();
 	bool CleanUp();
 public:
-
+	std::vector<std::string> logs;
 	
 }; 

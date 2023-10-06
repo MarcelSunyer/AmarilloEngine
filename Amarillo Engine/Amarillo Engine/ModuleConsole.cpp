@@ -38,7 +38,7 @@ void ModuleConsole::StartConsole()
 
 void ModuleConsole::UpdateConsole()
 {
-	std::vector<std::string> logs;
+	
 	logs.push_back("This is a log message.");
 	for (const std::string& log : logs) {
 		ImGui::Text("%s", log.c_str());

@@ -229,6 +229,8 @@ void ModuleEditor::DrawEditor()
      }
     ImGui::Begin("Console");
 
+    App->console->UpdateConsole();
+
     ImGui::End();
     ImGui::EndMainMenuBar();
     ImGui::Render();
