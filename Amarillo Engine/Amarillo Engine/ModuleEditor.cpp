@@ -69,7 +69,6 @@ void ModuleEditor::DrawEditor()
     //Show demo
     ImGui::ShowDemoWindow();
     // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
-    App->console->StartConsole();
 
     if (showWindow)
     {
@@ -227,11 +226,15 @@ void ModuleEditor::DrawEditor()
         //Exit game
         App->input->quit = true;
      }
-    ImGui::Begin("Console");
-
-    App->console->UpdateConsole();
-
+   
+    if (ImGui::Begin("Console"))
+    {
+        App->console->UpdateConsole();
+        
+    }
     ImGui::End();
+
+   
     ImGui::EndMainMenuBar();
     ImGui::Render();
 
