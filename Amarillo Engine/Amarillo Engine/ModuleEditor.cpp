@@ -54,13 +54,13 @@ bool ModuleEditor::Init()
 
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
-   
+
 	return true;
 }
 
 void ModuleEditor::DrawEditor()
 {
-
+    
     //Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
@@ -229,7 +229,6 @@ void ModuleEditor::DrawEditor()
    
     if (ImGui::Begin("Console"))
     {
-        Console::UpdateConsole();
         
     }
     ImGui::End();
@@ -310,25 +309,58 @@ bool ModuleEditor::StyleTypes(const char* label)
 
 void Console::UpdateConsole()
 {
-    logs.push_back("This is a log message.");
+    /*logs.push_back("This is a log message.");
     for (const std::string& log : logs) {
         logs.push_back("%s");
+    }*/
+
+    //Imgui::SameLine()
+    for (int i = 0; i < logs_array_size; i++)
+    {
+        ImGui::Text("%s", logs_array[i].logs);
+        if (logs_array[i].rep > 1)
+        {
+            ImGui::SameLine();
+            ImGui::Text("%d", logs_array[i].rep);
+        }
     }
+    
 }
 
 void Console::AddLog(std::string msg)
 {   
-    Logs l;
-    //Mirar si es empty 
-    if(!l.logs.empty())
+    // Mirar si el array logs_array no está vacío
+    if (logs_array_size > 0)
     {
-        if (l.logs == l.logs.back())
-        {
+        // Obtener el último log
+        Logs& last_log = logs_array[logs_array_size - 1];
 
+        // Comparar si el mensaje es igual al último log
+        if (msg == last_log.logs)
+        {
+            // Incrementar la cuenta de repeticiones
+            last_log.rep++;
+            return;
         }
     }
 
-    //Imgui::SameLine()
+    // Si no es igual, agregar un nuevo log al array
+    Logs new_log;
+    new_log.logs = msg;
+    new_log.rep = 1;
+    logs_array[logs_array_size] = new_log;
+    logs_array_size++;
 
+    //Logs l;
+    ////Mirar si es empty 
+    //if(!l.logs.empty())
+    //{
+    //    if (msg == logs_array.)
+    //    {
+
+    //    }
+    //}
+
+    
    
 }

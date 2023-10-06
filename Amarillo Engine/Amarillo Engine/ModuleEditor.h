@@ -46,7 +46,12 @@ public:
 	int h = SCREEN_HEIGHT;
 	bool IoConfirmer = false;
 
+protected:
+	//Console 
+	int logs_array_size = 0;
+
 };
+
 struct Logs
 {
 	std::string logs; //Msg
@@ -54,12 +59,15 @@ struct Logs
 
 };
 
+
 class Console : public ModuleEditor
 {
 public:
 
+	Logs logs_array[]; //Podriamos limitarla
 	void UpdateConsole();
 	void AddLog(std::string msg);
+
 
 };
 
