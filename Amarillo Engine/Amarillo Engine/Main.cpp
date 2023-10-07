@@ -3,6 +3,12 @@
 #include "Globals.h"
 #include "ModuleInput.h"
 
+#include "Assimp/include/cimport.h"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+
+#pragma comment (lib, "Assimp/libx86/assimp.lib")
+
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
