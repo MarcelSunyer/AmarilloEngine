@@ -28,5 +28,5 @@ public:
 	void EnableDebug();
 	void DisableDebug();
 
-	static void LoadGeometry(std::string& path_name, std::vector<Meshes>& MeshVector);
+	static void LoadGeometry(const char* path_name, std::vector<Meshes>& MeshVector);
 };

@@ -117,24 +117,29 @@ update_status ModuleInput::PreUpdate(float dt)
 			{
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
+				break;
 			}
-			//case SDL_DROPFILE:   //Da este error: Excepción producida en 0x011DC29C en Amarillo Engine.exe: 0xC0000005: Infracción de acceso al leer la ubicación 0x00000001. 
-			//{
-			//	// e.drop.file contiene la ruta del archivo soltado
-			//	char* dropped_fpath = e.drop.file;
+			case SDL_DROPFILE:   //Da este error: Excepción producida en 0x011DC29C en Amarillo Engine.exe: 0xC0000005: Infracción de acceso al leer la ubicación 0x00000001. 
+			{
+				if (e.drop.file != ERROR)
+				{
+					// e.drop.file contiene la ruta del archivo soltado
+					char* dropped_filedir = e.drop.file;
 
-			//	// Convertir la ruta del archivo a std::string
-			//	std::string path_name(dropped_fpath);
+					// Crear un vector para almacenar las mallas
+					std::vector<Meshes> MeshVector;
 
-			//	// Crear un vector para almacenar las mallas
-			//	std::vector<Meshes> MeshVector;
+					// Cargar la geometría usando la función del namespace AssimpNameSpace
+					AssimpNameSpace::LoadGeometry(dropped_filedir, MeshVector);
 
-			//	// Cargar la geometría usando la función del namespace AssimpNameSpace
-			//	AssimpNameSpace::LoadGeometry(path_name, MeshVector);
+					// Liberar la memoria
+					SDL_free(dropped_filedir);
 
-			//	// Liberar la memoria
-			//	SDL_free(dropped_fpath);
-			//}
+					LOG("File dropped on window - File Path: %s", dropped_filedir);
+				}
+				break;
+
+			}
 		}
 		
 
