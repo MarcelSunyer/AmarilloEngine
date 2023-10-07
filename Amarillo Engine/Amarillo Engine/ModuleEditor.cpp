@@ -229,7 +229,7 @@ void ModuleEditor::DrawEditor()
    
     if (ImGui::Begin("Console"))
     {
-        
+        ModuleConsole->UpdateConsole();
     }
     ImGui::End();
 
@@ -309,12 +309,6 @@ bool ModuleEditor::StyleTypes(const char* label)
 
 void Console::UpdateConsole()
 {
-    /*logs.push_back("This is a log message.");
-    for (const std::string& log : logs) {
-        logs.push_back("%s");
-    }*/
-
-    //Imgui::SameLine()
     for (int i = 0; i < logs_array_size; i++)
     {
         ImGui::Text("%s", logs_array[i].logs);
