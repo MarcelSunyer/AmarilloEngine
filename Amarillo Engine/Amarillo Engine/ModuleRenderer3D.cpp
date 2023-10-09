@@ -137,10 +137,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 	
-	//Primitivas
-	Cube juan;
-	juan.size = float3(2, 2, 2);
-	juan.Render();
 	
 
 	// light 0 on cam pos
@@ -157,6 +153,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	
 	Grid.Render();
+
+	//Primitivas
+	Cube juan;
+	juan.size = float3(2, 2, 2);
+	juan.Render();
 
 	App->editor->DrawEditor();
 

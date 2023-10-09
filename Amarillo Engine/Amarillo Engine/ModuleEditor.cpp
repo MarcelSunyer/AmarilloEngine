@@ -2,7 +2,9 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "Console.h"
 #include "ModuleInput.h"
+#include "log.h"
 #include "Imgui/imgui.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
@@ -155,7 +157,8 @@ void ModuleEditor::DrawEditor()
     }
     if (ImGui::Begin("Consol"))
     {
-        ImGui::Text("3rd Party Libraries used:");
+        //Todo console
+       //Console1.UpdateConsole();
     }
     ImGui::End();
     
@@ -233,17 +236,6 @@ void ModuleEditor::DrawEditor()
         App->input->quit = true;
     }
    
-   
-    
-
-    if (showWindow)
-    {
-        if (ImGui::Begin("Console", &showConsole))
-        {
-
-        }
-        ImGui::End();
-    }
     ImGui::EndMainMenuBar();
     ImGui::Render();
 
@@ -323,6 +315,7 @@ void Console::UpdateConsole()
     }*/
 
     //Imgui::SameLine()
+    
     for (int i = 0; i < logs_array_size; i++)
     {
         ImGui::Text("%s", logs_array[i].logs);
@@ -332,7 +325,6 @@ void Console::UpdateConsole()
             ImGui::Text("%d", logs_array[i].rep);
         }
     }
-    
 }
 
 void Console::AddLog(std::string msg)
@@ -357,18 +349,5 @@ void Console::AddLog(std::string msg)
     new_log.logs = msg;
     new_log.rep = 1;
     logs_array[logs_array_size] = new_log;
-    logs_array_size++;
-
-    //Logs l;
-    ////Mirar si es empty 
-    //if(!l.logs.empty())
-    //{
-    //    if (msg == logs_array.)
-    //    {
-
-    //    }
-    //}
-
-    
-   
+    logs_array_size++;   
 }

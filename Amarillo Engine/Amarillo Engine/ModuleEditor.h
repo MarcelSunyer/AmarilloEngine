@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <string> 
+#include "Console.h"
 
 
 
@@ -47,31 +48,18 @@ public:
 	int h = SCREEN_HEIGHT;
 	bool IoConfirmer = false;
 
+	int logs_array_size;
+	Console Mconsole;
+
 protected:
 	//Console 
-	int logs_array_size = 0;
+	
+
+	
 
 	//Meterle el psuh en el Log con el Mconsole
 
 	
-};
-
-struct Logs
-{
-	std::string logs; //Msg
-	int rep;
-
-};
-
-
-class Console : public ModuleEditor
-{
-public:
-
-	Logs logs_array[]; //Podriamos limitarla
-	void UpdateConsole();
-	void AddLog(std::string msg);
-
 };
 
 #endif // MODULE_EDITOR
