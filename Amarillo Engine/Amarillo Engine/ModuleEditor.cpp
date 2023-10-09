@@ -229,7 +229,7 @@ void ModuleEditor::DrawEditor()
    
     if (ImGui::Begin("Console"))
     {
-        ModuleConsole->UpdateConsole();
+        //Console::UpdateConsole();
     }
     ImGui::End();
 

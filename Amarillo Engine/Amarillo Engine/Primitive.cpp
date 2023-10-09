@@ -54,6 +54,8 @@ void Primitive::Render() const
 
 	glColor3f(color.r, color.g, color.b);
 
+
+	//TODO: Move wireframe to the ModuleRender
 	if(wire)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
