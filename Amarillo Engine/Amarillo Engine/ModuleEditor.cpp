@@ -74,7 +74,11 @@ void ModuleEditor::DrawEditor()
     {
         if (ImGui::Begin("Config", &showWindow))
         {
-            
+            if (ImGui::Begin("Console"))
+            {
+
+            }
+            ImGui::End;
             if (ImGui::CollapsingHeader("Info"))
             {
                 ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");

@@ -54,6 +54,8 @@ void Primitive::Render() const
 
 	glColor3f(color.r, color.g, color.b);
 
+
+	//Todo: Applicar el wireframe en el render 3D
 	if(wire)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
