@@ -74,11 +74,7 @@ void ModuleEditor::DrawEditor()
     {
         if (ImGui::Begin("Config", &showWindow))
         {
-            if (ImGui::Begin("Console"))
-            {
-
-            }
-            ImGui::End;
+            
             if (ImGui::CollapsingHeader("Info"))
             {
                 ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
@@ -229,16 +225,19 @@ void ModuleEditor::DrawEditor()
     {
         //Exit game
         App->input->quit = true;
-     }
-   
-    if (ImGui::Begin("Console"))
-    {
-        
     }
-    ImGui::End();
+   
+    
 
    
     ImGui::EndMainMenuBar();
+
+
+    if (ImGui::Begin("Console"))
+    {
+        ImGui::Text("USER GUIDE:");
+    }
+    ImGui::End();
     ImGui::Render();
 
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

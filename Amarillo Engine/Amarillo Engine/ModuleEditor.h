@@ -49,6 +49,8 @@ public:
 protected:
 	//Console 
 	int logs_array_size = 0;
+	//Meterle el psuh en el Log con el Mconsole
+
 
 };
 
