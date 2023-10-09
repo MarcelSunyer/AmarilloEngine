@@ -39,7 +39,8 @@ public:  //Windows Settings
 
 	
 	//Show config window
-	bool showWindow = true;
+	bool showWindow = false;
+	bool showConsole = false;
 	
 public:
 	int w = SCREEN_WIDTH;
@@ -49,9 +50,10 @@ public:
 protected:
 	//Console 
 	int logs_array_size = 0;
+
 	//Meterle el psuh en el Log con el Mconsole
 
-
+	
 };
 
 struct Logs
@@ -69,7 +71,6 @@ public:
 	Logs logs_array[]; //Podriamos limitarla
 	void UpdateConsole();
 	void AddLog(std::string msg);
-
 
 };
 

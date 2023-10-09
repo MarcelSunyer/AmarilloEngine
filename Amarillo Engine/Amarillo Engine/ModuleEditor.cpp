@@ -151,8 +151,14 @@ void ModuleEditor::DrawEditor()
             }
         }
         ImGui::End();
+       
     }
-        
+    if (ImGui::Begin("Consol"))
+    {
+        ImGui::Text("3rd Party Libraries used:");
+    }
+    ImGui::End();
+    
     ImGui::BeginMainMenuBar();
    
     if (ImGui::BeginMenu("Window"))
@@ -227,17 +233,18 @@ void ModuleEditor::DrawEditor()
         App->input->quit = true;
     }
    
+   
     
 
-   
-    ImGui::EndMainMenuBar();
-
-
-    if (ImGui::Begin("Console"))
+    if (showWindow)
     {
-        ImGui::Text("USER GUIDE:");
+        if (ImGui::Begin("Console", &showConsole))
+        {
+
+        }
+        ImGui::End();
     }
-    ImGui::End();
+    ImGui::EndMainMenuBar();
     ImGui::Render();
 
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -278,9 +285,7 @@ void ModuleEditor::AddFPS(float FPS)
 
 void ModuleEditor::ShowAboutInfo()
 {
-    if (ImGui::MenuItem("Juan"))
-    {
-    }
+  
 }
 void ModuleEditor::AdjustBrightness(float factor)
 {

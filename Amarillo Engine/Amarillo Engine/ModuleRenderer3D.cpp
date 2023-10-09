@@ -9,6 +9,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "SDL/include/SDL_syswm.h"
+#include "Primitive.h"
 
 
 // ImGui includes
@@ -118,7 +119,6 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 
 	}
-	
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -136,65 +136,13 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
-	glLineWidth(2.0f);
-	glBegin(GL_TRIANGLES);
 	
-	// Front face
-	glVertex3f(-1, -1, 1);
-	glVertex3f(1, -1, 1);
-	glVertex3f(1, 1, 1);
-
-	glVertex3f(-1, -1, 1);
-	glVertex3f(1, 1, 1);
-	glVertex3f(-1, 1, 1);
-
-	// Back face
-	glVertex3f(-1, -1, -1);
-	glVertex3f(1, -1, -1);
-	glVertex3f(1, 1, -1);
-
-	glVertex3f(-1, -1, -1);
-	glVertex3f(1, 1, -1);
-	glVertex3f(-1, 1, -1);
-
-	// Left face
-	glVertex3f(-1, -1, 1);
-	glVertex3f(-1, 1, 1);
-	glVertex3f(-1, 1, -1);
-
-	glVertex3f(-1, -1, 1);
-	glVertex3f(-1, 1, -1);
-	glVertex3f(-1, -1, -1);
-
-	// Right face
-	glVertex3f(1, -1, 1);
-	glVertex3f(1, 1, 1);
-	glVertex3f(1, 1, -1);
-
-	glVertex3f(1, -1, 1);
-	glVertex3f(1, 1, -1);
-	glVertex3f(1, -1, -1);
-
-	// Top face
-	glVertex3f(-1, 1, 1);
-	glVertex3f(1, 1, 1);
-	glVertex3f(1, 1, -1);
-
-	glVertex3f(-1, 1, 1);
-	glVertex3f(1, 1, -1);
-	glVertex3f(-1, 1, -1);
-
-	// Bottom face
-	glVertex3f(-1, -1, 1);
-	glVertex3f(1, -1, 1);
-	glVertex3f(1, -1, -1);
-
-	glVertex3f(-1, -1, 1);
-	glVertex3f(1, -1, -1);
-	glVertex3f(-1, -1, -1);
+	//Primitivas
+	Cube juan;
+	juan.size = float3(2, 2, 2);
+	juan.Render();
 	
-	glEnd();
-	glLineWidth(1.0f);
+
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
