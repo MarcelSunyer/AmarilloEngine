@@ -30,6 +30,24 @@
 #pragma comment (lib, "MathGeoLib/libx86/MGLRelease/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #endif // _DEBUG
 
+static const GLfloat CubeVertices[] = {
+	-1, -1, -1,
+	1, -1, -1,
+	1, 1, -1,
+	-1, 1, -1,
+	-1, -1, 1,
+	1, -1, 1,
+	1, 1, 1,
+	-1, 1, 1
+};
+static const GLuint CubeIndices[] = {
+	0, 1, 3, 3, 1, 2,
+	1, 5, 2, 2, 5, 6,
+	5, 4, 6, 6, 4, 7,
+	4, 0, 7, 7, 0, 3,
+	3, 2, 7, 7, 2, 6,
+	4, 5, 0, 0, 5, 1
+};
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled), context()
 {
@@ -125,6 +143,32 @@ bool ModuleRenderer3D::Init()
 
 	Grid.axis = true;
 
+	glewInit();
+
+	//myModel.Load("../BakerHouse.fbx");
+
+	VBO = 0;
+	EBO = 0;
+	VAO = 0;
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+	glGenVertexArrays(1, &VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices), CubeVertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CubeIndices), CubeIndices, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(VAO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
+
+	
+
 	return ret;
 }
 
@@ -137,7 +181,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 	
-	
+	if (myModel_path != nullptr && !myModel.isLoaded)
+	{
+		
+		myModel.Load(myModel_path);
+		LOG("Loaded MyModelPath");
+	}
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
@@ -155,12 +204,15 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	Grid.Render();
 
 	//Primitivas
-	Cube juan;
-	juan.size = float3(2, 2, 2);
-	juan.Render();
+	//Cube juan;
+	//juan.size = float3(2, 2, 2);
+	//juan.Render();
+
+	myModel.Draw();
 
 	App->editor->DrawEditor();
 
+	glBindVertexArray(VAO);
 
 	//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Set drawing color (red) // x, y, width, height
 
@@ -175,6 +227,11 @@ bool ModuleRenderer3D::CleanUp()
 
 	SDL_GL_DeleteContext(context);
 
+	if (VBO != 0)
+	{
+		glDeleteBuffers(1, &VBO);
+		VBO = 0;
+	}
 
 	return true;
 }

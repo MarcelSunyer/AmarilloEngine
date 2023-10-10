@@ -126,6 +126,8 @@ update_status ModuleInput::PreUpdate(float dt)
 					// e.drop.file contiene la ruta del archivo soltado
 					char* dropped_filedir = e.drop.file;
 
+					App->renderer3D->myModel_path = dropped_filedir;
+
 					// Crear un vector para almacenar las mallas
 					std::vector<Meshes> MeshVector;
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "ModuleRenderer3D.h"
 
 #include <iostream>
 #include <string>

@@ -285,9 +285,6 @@
     <ClInclude Include="ImGui\backends\imgui_impl_opengl3.h">
       <Filter>Externals\ImGui\backends</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\backends\imgui_impl_opengl3_loader.h">
-      <Filter>Externals\ImGui\backends</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleEditor.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -410,6 +407,17 @@
     </ClInclude>
     <ClInclude Include="AssimpNamespace.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="log.h" />
+    <ClInclude Include="LoadFBX.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\backends\imgui_impl_opengl3_loader.h">
+      <Filter>Externals\ImGui\backends</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

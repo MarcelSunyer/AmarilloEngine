@@ -8,6 +8,9 @@
 #include "MathGeoLib/include/Math/float4x4.h"
 #include "Primitive.h"
 
+#include "LoadFBX.h"
+#include "Mesh.h"
+
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
 
@@ -34,4 +37,12 @@ public:
 	
 	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
+
+	LoadFBX myModel;
+
+	char* myModel_path = nullptr;
+
+	uint VBO;
+	uint EBO;
+	uint VAO;
 };
