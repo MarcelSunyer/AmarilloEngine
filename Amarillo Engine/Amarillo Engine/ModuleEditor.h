@@ -29,7 +29,11 @@ public:
 
 	void AdjustBrightness(float factor);	
 
+	void AddLog(std::string msg);
+
 	bool StyleTypes(const char* label);
+
+	
 	
 	std::vector<float> vecFPSLog;
 	const char* lastValue = "";

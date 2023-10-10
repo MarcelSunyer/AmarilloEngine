@@ -4,7 +4,6 @@
 #include "ModuleRenderer3D.h"
 #include "Console.h"
 #include "ModuleInput.h"
-#include "log.h"
 #include "Imgui/imgui.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
@@ -159,8 +158,7 @@ void ModuleEditor::DrawEditor()
     }
     if (ImGui::Begin("Consol"))
     {
-        //Todo console
-       //Console1.UpdateConsole();
+       Mconsole.UpdateConsole();
     }
     ImGui::End();
     
@@ -182,7 +180,7 @@ void ModuleEditor::DrawEditor()
         ImGui::EndMenu();
        
     }
-
+    
     if (ImGui::BeginMenu("Help"))
     {
         if (ImGui::BeginMenu("About"))
@@ -293,6 +291,11 @@ void ModuleEditor::AdjustBrightness(float factor)
     style.Colors[ImGuiCol_WindowBg] = bgColor;
 }
 
+void ModuleEditor::AddLog(std::string msg)
+{
+    Mconsole.AddLog(msg);
+}
+
 bool ModuleEditor::StyleTypes(const char* label)
 {
     static int style_idx = -1;
@@ -310,17 +313,10 @@ bool ModuleEditor::StyleTypes(const char* label)
 }
 
 void Console::UpdateConsole()
-{
-    /*logs.push_back("This is a log message.");
-    for (const std::string& log : logs) {
-        logs.push_back("%s");
-    }*/
-
-    //Imgui::SameLine()
-    
+{    
     for (int i = 0; i < logs_array_size; i++)
     {
-        ImGui::Text("%s", logs_array[i].logs);
+        ImGui::Text("%s", logs_array[i].logs.c_str());
         if (logs_array[i].rep > 1)
         {
             ImGui::SameLine();
@@ -331,6 +327,7 @@ void Console::UpdateConsole()
 
 void Console::AddLog(std::string msg)
 {   
+    LOG(msg.c_str());
     // Mirar si el array logs_array no está vacío
     if (logs_array_size > 0)
     {

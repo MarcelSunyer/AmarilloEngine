@@ -9,7 +9,6 @@ struct Logs
 
 };
 
-
 class Console
 {
 public:
