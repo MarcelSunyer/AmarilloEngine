@@ -1,6 +1,8 @@
 #pragma once
 #include "Globals.h"
+#include "Module.h"
 #include <string>
+
 
 struct Logs
 {
@@ -9,13 +11,18 @@ struct Logs
 
 };
 
-class Console
+class ModuleConsole : public Module
 {
 public:
 
-	Logs logs_array[100]; //Podriamos limitarla
+	
+	ModuleConsole(Application* app, bool start_enabled = true);
+	~ModuleConsole();
+
 	void UpdateConsole();
 	void AddLog(std::string msg);
+
+	Logs logs_array[500]; //Podriamos limitarla
 
 protected:
 	int logs_array_size = 0;

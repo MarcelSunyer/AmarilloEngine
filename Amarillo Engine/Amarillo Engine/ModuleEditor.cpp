@@ -2,8 +2,8 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
-#include "Console.h"
 #include "ModuleInput.h"
+#include "ModuleConsole.h"
 #include "Imgui/imgui.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
@@ -158,7 +158,7 @@ void ModuleEditor::DrawEditor()
     }
     if (ImGui::Begin("Consol"))
     {
-       Mconsole.UpdateConsole();
+       App->console->UpdateConsole();
     }
     ImGui::End();
     
@@ -293,7 +293,7 @@ void ModuleEditor::AdjustBrightness(float factor)
 
 void ModuleEditor::AddLog(std::string msg)
 {
-    Mconsole.AddLog(msg);
+    App->console->AddLog(msg);
 }
 
 bool ModuleEditor::StyleTypes(const char* label)
@@ -312,41 +312,4 @@ bool ModuleEditor::StyleTypes(const char* label)
     return false;
 }
 
-void Console::UpdateConsole()
-{    
-    for (int i = 0; i < logs_array_size; i++)
-    {
-        ImGui::Text("%s", logs_array[i].logs.c_str());
-        if (logs_array[i].rep > 1)
-        {
-            ImGui::SameLine();
-            ImGui::Text("%d", logs_array[i].rep);
-        }
-    }
-}
 
-void Console::AddLog(std::string msg)
-{   
-    LOG(msg.c_str());
-    // Mirar si el array logs_array no está vacío
-    if (logs_array_size > 0)
-    {
-        // Obtener el último log
-        Logs& last_log = logs_array[logs_array_size - 1];
-
-        // Comparar si el mensaje es igual al último log
-        if (msg == last_log.logs)
-        {
-            // Incrementar la cuenta de repeticiones
-            last_log.rep++;
-            return;
-        }
-    }
-
-    // Si no es igual, agregar un nuevo log al array
-    Logs new_log;
-    new_log.logs = msg;
-    new_log.rep = 1;
-    logs_array[logs_array_size] = new_log;
-    logs_array_size++;   
-}

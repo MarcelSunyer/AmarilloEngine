@@ -5,16 +5,21 @@
 #include "Assimp/include/postprocess.h"
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
+#include "Application.h"
+#include "ModuleEditor.h"
 #include "Mesh.h"
 #include <vector>
 #include <string>
+#include "Module.h"
+#include "MathGeoLib/include/Math/float3.h"
 
 class LoadFBX
 {
 public:
 
-    LoadFBX() {}
-    ~LoadFBX() {}
+    
+    LoadFBX(Application* app);
+    ~LoadFBX();
 
     void Load(const char* path)
     {
@@ -30,6 +35,7 @@ public:
     bool isLoaded = false;
 
 private:
+    Application* App;
     // model data
     std::vector<Mesh> meshes;
     
@@ -40,7 +46,7 @@ private:
 
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
-            LOG("Error loading scene: %s", file_path);
+           App->editor->AddLog("Error loading scene: " + std::string(file_path));
             return;
         }
         else LOG("Scene loaded succesfully: %s.", file_path);

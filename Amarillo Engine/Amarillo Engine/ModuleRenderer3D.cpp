@@ -51,11 +51,14 @@ static const GLuint CubeIndices[] = {
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled), context()
 {
+	myModel = new LoadFBX(app);
 }
 
 // Destructor
 ModuleRenderer3D::~ModuleRenderer3D()
-{}
+{
+	delete(myModel);
+}
 
 // Called before render is available
 bool ModuleRenderer3D::Init()
@@ -181,10 +184,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 	
-	if (myModel_path != nullptr && !myModel.isLoaded)
+	if (myModel_path != nullptr && !myModel->isLoaded)
 	{
 		
-		myModel.Load(myModel_path);
+		myModel->Load(myModel_path);
 		LOG("Loaded MyModelPath");
 	}
 
@@ -208,7 +211,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//juan.size = float3(2, 2, 2);
 	//juan.Render();
 
-	myModel.Draw();
+	myModel->Draw();
 
 	App->editor->DrawEditor();
 

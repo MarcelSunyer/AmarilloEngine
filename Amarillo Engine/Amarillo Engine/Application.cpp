@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
+#include "ModuleConsole.h"
 
 Application::Application()
 {
@@ -14,7 +15,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
-
+	console = new ModuleConsole(this);
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -28,6 +29,7 @@ Application::Application()
 	// Renderer last!
 	AddModule(renderer3D);
 	AddModule(editor);
+	AddModule(console);
 
 }
 
@@ -51,7 +53,7 @@ bool Application::Init()
 	}
 
 	// After all Init calls we call Start() in all modules
-	editor->AddLog("Application Start --------------");
+	editor->AddLog("-------------- Application Start --------------");
 
 	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret; ++it)
 	{

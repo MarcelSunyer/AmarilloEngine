@@ -4,6 +4,7 @@
 #include "glmath.h"
 #include <vector>
 #include <string>
+#include "MathGeoLib/include/Math/float3.h"
 
 struct Vertex {
     float3 Position;

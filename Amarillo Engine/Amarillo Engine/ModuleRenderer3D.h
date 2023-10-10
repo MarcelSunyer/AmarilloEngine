@@ -38,7 +38,7 @@ public:
 	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
 
-	LoadFBX myModel;
+	LoadFBX* myModel = nullptr;
 
 	char* myModel_path = nullptr;
 

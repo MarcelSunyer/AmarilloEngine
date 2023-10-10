@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Globals.h"
 #include "ModuleInput.h"
+#include "ModuleConsole.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"

@@ -417,8 +417,8 @@
     <ClInclude Include="ImGui\backends\imgui_impl_opengl3_loader.h">
       <Filter>Externals\ImGui\backends</Filter>
     </ClInclude>
-    <ClInclude Include="Console.h">
-      <Filter>Sources\Tools</Filter>
+    <ClInclude Include="ModuleConsole.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -583,6 +583,12 @@
     </ClCompile>
     <ClCompile Include="AssimpNamespace.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleConsole.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadFBX.cpp">
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,9 +8,6 @@
 #include <vector>
 #include <iostream>
 #include <string> 
-#include "Console.h"
-
-
 
 class ModuleEditor : public Module
 {
@@ -53,7 +50,6 @@ public:
 	bool IoConfirmer = false;
 
 	int logs_array_size;
-	Console Mconsole;
 
 protected:
 	//Console 
