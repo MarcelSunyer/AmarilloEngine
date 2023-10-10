@@ -63,6 +63,8 @@ bool ModuleEditor::Init()
 void ModuleEditor::DrawEditor()
 {
     
+    //Todo: Reorganize and check memory leak
+
     //Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
