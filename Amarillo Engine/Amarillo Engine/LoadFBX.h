@@ -27,7 +27,7 @@ public:
             meshes[i].Draw();
     }
 
-    bool isLoaded;
+    bool isLoaded = false;
 
 private:
     // model data
