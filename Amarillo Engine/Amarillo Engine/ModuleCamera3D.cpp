@@ -24,7 +24,7 @@ ModuleCamera3D::~ModuleCamera3D()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
-	LOG("Setting up the camera");
+	App->editor->AddLog(("Setting up the camera"));
 	bool ret = true;
 
 	return ret;
@@ -33,7 +33,7 @@ bool ModuleCamera3D::Start()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
-	LOG("Cleaning camera");
+	App->editor->AddLog(("Cleaning camera"));
 
 	return true;
 }

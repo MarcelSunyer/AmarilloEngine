@@ -24,13 +24,13 @@ ModuleInput::~ModuleInput()
 // Called before render is available
 bool ModuleInput::Init()
 {
-	LOG("Init SDL input event system");
+	App->editor->AddLog(("Init SDL input event system"));
 	bool ret = true;
 	SDL_Init(0);
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
-		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		App->editor->AddLog(("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError()));
 		ret = false;
 	}
 
@@ -137,7 +137,7 @@ update_status ModuleInput::PreUpdate(float dt)
 					// Liberar la memoria
 					SDL_free(dropped_filedir);
 
-					LOG("File dropped on window - File Path: %s", dropped_filedir);
+					App->editor->AddLog(("File dropped on window - File Path: " + std::string(dropped_filedir)));
 				}
 				break;
 
@@ -153,7 +153,7 @@ update_status ModuleInput::PreUpdate(float dt)
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
-	LOG("Quitting SDL input event subsystem");
+	App->editor->AddLog(("Quitting SDL input event subsystem"));
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }
