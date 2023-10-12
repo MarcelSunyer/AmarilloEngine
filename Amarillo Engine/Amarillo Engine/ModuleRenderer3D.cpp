@@ -3,6 +3,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleEditor.h"
 #include "ModuleCamera3D.h"
+#include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "SDL\include\SDL_opengl.h"
 #include "SDL/include/SDL.h"
@@ -52,12 +53,14 @@ static const GLuint CubeIndices[] = {
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled), context()
 {
 	myModel = new LoadFBX(app);
+	Juan = new Primitive(app);
 }
 
 // Destructor
 ModuleRenderer3D::~ModuleRenderer3D()
 {
 	delete(myModel);
+	delete(Juan);
 }
 
 // Called before render is available
@@ -86,9 +89,11 @@ bool ModuleRenderer3D::Init()
 
 		//Check for error
 		GLenum error = glGetError();
+		const char *errorMessage = reinterpret_cast<const char*>(error);
+		
 		if(error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			App->editor->AddLog("Error initializing OpenGL! \n" + std::string(errorMessage));
 			ret = false;
 		}
 
@@ -100,7 +105,7 @@ bool ModuleRenderer3D::Init()
 		error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			App->editor->AddLog(("Error initializing OpenGL! \n" + std::string(errorMessage)));
 			ret = false;
 		}
 		
@@ -114,7 +119,7 @@ bool ModuleRenderer3D::Init()
 		error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			App->editor->AddLog(("Error initializing OpenGL! \n" + std::string(errorMessage)));
 			ret = false;
 		}
 		
@@ -170,8 +175,6 @@ bool ModuleRenderer3D::Init()
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
 
-	
-
 	return ret;
 }
 
@@ -198,13 +201,18 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		}
 		
 	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
-
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -214,10 +222,16 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	
 	Grid.Render();
 
-	//Primitivas
-	//Cube juan;
-	//juan.size = float3(2, 2, 2);
-	//juan.Render();
+	if (activeWire)
+	{
+		Juan->wire = true;
+		Juan->Render();
+	}
+	else if (!activeWire)
+	{
+		Juan->wire = false;
+		Juan->Render();
+	}
 
 	myModel->Draw();
 

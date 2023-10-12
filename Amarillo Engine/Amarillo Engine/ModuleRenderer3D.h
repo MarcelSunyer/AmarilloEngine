@@ -40,10 +40,13 @@ public:
 	mat4x4 ProjectionMatrix;
 
 	LoadFBX* myModel = nullptr;
+	Primitive* Juan = nullptr;
 
 	char* myModel_path = nullptr;
 
 	uint VBO;
 	uint EBO;
 	uint VAO;
+
+	bool activeWire = false;
 };

@@ -5,6 +5,8 @@
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/TransformOps.h"
 
+#include "Application.h"
+
 enum PrimitiveTypes
 {
 	Primitive_Point,
@@ -18,14 +20,14 @@ enum PrimitiveTypes
 class Primitive
 {
 public:
-
-	Primitive();
+	Primitive(Application* app);
 
 	virtual void	Render() const;
 	virtual void	InnerRender() const;
 	void			SetPos(float x, float y, float z);
 	void			SetRotation(float angle, const float3& u);
 	void			Scale(float x, float y, float z);
+;
 	PrimitiveTypes	GetType() const;
 
 public:
@@ -33,6 +35,8 @@ public:
 	Color color;
 	float4x4 transform;
 	bool axis,wire;
+
+	Application* App;
 
 protected:
 	PrimitiveTypes type;

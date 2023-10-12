@@ -37,6 +37,7 @@ void AssimpNameSpace::LoadGeometry(const char* path_name, std::vector<Meshes>& M
 			ourMesh.vertex = new float[ourMesh.num_vertex * 3];
 			memcpy(ourMesh.vertex, aiMesh->mVertices, sizeof(float) * ourMesh.num_vertex * 3);
 			LOG("New mesh with %d vertices", ourMesh.num_vertex);
+			
 		}
 
 		aiReleaseImport(scene);

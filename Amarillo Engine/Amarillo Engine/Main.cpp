@@ -47,13 +47,13 @@ int main(int argc, char ** argv)
 			LOG("-------------- Application Init --------------");
 			if (App->Init() == false)
 			{
-				LOG("Application Init exits with ERROR");
+				App->editor->AddLog(("Application Init exits with ERROR"));
 				state = MAIN_EXIT;
 			}
 			else
 			{
 				state = MAIN_UPDATE;
-				LOG("-------------- Application Update --------------");
+				App->editor->AddLog("-------------- Application Update --------------");
 			}
 
 			break;
@@ -64,7 +64,7 @@ int main(int argc, char ** argv)
 
 			if (update_return == UPDATE_ERROR)
 			{
-				LOG("Application Update exits with ERROR");
+				App->editor->AddLog("Application Update exits with ERROR");
 				state = MAIN_EXIT;
 			}
 
@@ -77,10 +77,10 @@ int main(int argc, char ** argv)
 
 		case MAIN_FINISH:
 
-			LOG("-------------- Application CleanUp --------------");
+			App->editor->AddLog("-------------- Application CleanUp --------------");
 			if (App->CleanUp() == false)
 			{
-				LOG("Application CleanUp exits with ERROR");
+				App->editor->AddLog("Application CleanUp exits with ERROR");
 			}
 			else
 				main_return = EXIT_SUCCESS;
@@ -92,7 +92,8 @@ int main(int argc, char ** argv)
 		}
 	}
 
+	
+	App->editor->AddLog(("Exiting game .\n", std::string( TITLE)));
 	delete App;
-	LOG("Exiting game '%s'...\n", TITLE);
 	return main_return;
 }

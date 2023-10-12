@@ -51,7 +51,7 @@ private:
            this->error = true;
             return;
         }
-        else LOG("Scene loaded succesfully: %s.", file_path);
+        else App->editor->AddLog("Scene loaded succesfully: " + std::string(file_path));
         this->isLoaded = true;
         processNode(scene->mRootNode, scene);
     }
@@ -109,9 +109,9 @@ private:
             for (unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
-
-        LOG("Num Vertex: %d.", mesh->mNumVertices);
-        LOG("Num Index: %d.", mesh->mNumFaces);
+        
+        App->editor->AddLog("Num Vertex: " + std::to_string( mesh->mNumVertices));
+        App->editor->AddLog("Num Index: " + std::to_string(mesh->mNumFaces));
         return Mesh(vertices, indices);
     }
 };

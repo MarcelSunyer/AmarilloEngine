@@ -17,6 +17,7 @@ ModuleWindow::~ModuleWindow()
 // Called before render is available
 bool ModuleWindow::Init()
 {
+	InitLogs();
 	App->editor->AddLog("Init SDL window & surface");
 	bool ret = true;
 
@@ -94,4 +95,11 @@ bool ModuleWindow::CleanUp()
 void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
+}
+
+void ModuleWindow::InitLogs()
+{
+	App->editor->AddLog("-------------- Application Creation --------------");
+	App->editor->AddLog("-------------- Application Init --------------");
+
 }

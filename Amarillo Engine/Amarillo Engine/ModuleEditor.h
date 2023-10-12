@@ -51,15 +51,7 @@ public:
 
 	int logs_array_size;
 
-protected:
-	//Console 
-	
-
-	
-
-	//Meterle el psuh en el Log con el Mconsole
-
-	
+	int wireButton = 0;
 };
 
 #endif // MODULE_EDITOR

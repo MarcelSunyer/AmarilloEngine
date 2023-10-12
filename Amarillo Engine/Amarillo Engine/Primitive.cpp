@@ -1,13 +1,15 @@
 
 #include "Primitive.h"
 #include "Globals.h"
+#include "Application.h"
 
 #include <gl/GL.h>
 
-// ------------------------------------------------------------
-Primitive::Primitive() : transform(float4x4::identity), color(White), wire(false), axis(false), type(PrimitiveTypes::Primitive_Point)
-{}
 
+Primitive::Primitive(Application* app) : transform(float4x4::identity), color(White), axis(false), type(PrimitiveTypes::Primitive_Point)
+{
+	App = app;
+}
 // ------------------------------------------------------------
 PrimitiveTypes Primitive::GetType() const
 {
@@ -58,7 +60,7 @@ void Primitive::Render() const
 	//Todo: Applicar el wireframe en el render 3D
 	if(wire)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	else
+	else 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	InnerRender();
@@ -99,12 +101,12 @@ void Primitive::Scale(float x, float y, float z)
 }
 
 // CUBE ============================================
-Cube::Cube() : Primitive(), size(1.0f, 1.0f, 1.0f)
+Cube::Cube() : Primitive(App), size(1.0f, 1.0f, 1.0f)
 {
 	type = PrimitiveTypes::Primitive_Cube;
 }
 
-Cube::Cube(float sizeX, float sizeY, float sizeZ) : Primitive(), size(sizeX, sizeY, sizeZ)
+Cube::Cube(float sizeX, float sizeY, float sizeZ) : Primitive(App), size(sizeX, sizeY, sizeZ)
 {
 	type = PrimitiveTypes::Primitive_Cube;
 }
@@ -157,12 +159,12 @@ void Cube::InnerRender() const
 }
 
 // CYLINDER ============================================
-CCylinder::CCylinder() : Primitive(), radius(1.0f), height(1.0f)
+CCylinder::CCylinder() : Primitive(App), radius(1.0f), height(1.0f)
 {
 	type = PrimitiveTypes::Primitive_Cylinder;
 }
 
-CCylinder::CCylinder(float radius, float height) : Primitive(), radius(radius), height(height)
+CCylinder::CCylinder(float radius, float height) : Primitive(App), radius(radius), height(height)
 {
 	type = PrimitiveTypes::Primitive_Cylinder;
 }
@@ -204,12 +206,12 @@ void CCylinder::InnerRender() const
 }
 
 // LINE ==================================================
-CLine::CLine() : Primitive(), origin(0, 0, 0), destination(1, 1, 1)
+CLine::CLine() : Primitive(App), origin(0, 0, 0), destination(1, 1, 1)
 {
 	type = PrimitiveTypes::Primitive_Line;
 }
 
-CLine::CLine(float x, float y, float z) : Primitive(), origin(0, 0, 0), destination(x, y, z)
+CLine::CLine(float x, float y, float z) : Primitive(App), origin(0, 0, 0), destination(x, y, z)
 {
 	type = PrimitiveTypes::Primitive_Line;
 }
@@ -229,12 +231,12 @@ void CLine::InnerRender() const
 }
 
 // PLANE ==================================================
-CPlane::CPlane() : Primitive(), normal(0, 1, 0), constant(1)
+CPlane::CPlane() : Primitive(App), normal(0, 1, 0), constant(1)
 {
 	type = PrimitiveTypes::Primitive_Plane;
 }
 
-CPlane::CPlane(float x, float y, float z, float d) : Primitive(), normal(x, y, z), constant(d)
+CPlane::CPlane(float x, float y, float z, float d) : Primitive(App), normal(x, y, z), constant(d)
 {
 	type = PrimitiveTypes::Primitive_Plane;
 }

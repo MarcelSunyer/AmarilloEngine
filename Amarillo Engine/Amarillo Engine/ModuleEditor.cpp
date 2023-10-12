@@ -171,14 +171,27 @@ void ModuleEditor::DrawEditor()
         {
             showWindow = true;
         }
-
-        ImGui::MenuItem("Juan");
+        if (ImGui::Button("WireFrame ON/OFF"))
+        {
+            switch (wireButton)
+            {
+            case 0:
+                App->renderer3D->activeWire = true;
+                wireButton = false;
+                wireButton = 1;
+                break;
+            case 1:
+                App->renderer3D->activeWire = false;
+                wireButton = true;
+                wireButton = 0;
+                break;
+            }           
+        }
 
         ImGui::Text("Computer Window Size: ");
         ImGui::Text("Width: %dpx  Height: %dpx", SCREEN_WIDTH, SCREEN_HEIGHT);
         
         ImGui::EndMenu();
-       
     }
     
     if (ImGui::BeginMenu("Help"))
