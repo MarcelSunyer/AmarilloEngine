@@ -33,6 +33,7 @@ public:
     }
 
     bool isLoaded = false;
+    bool error = false;
 
 private:
     Application* App;
@@ -47,6 +48,7 @@ private:
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
            App->editor->AddLog("Error loading scene: " + std::string(file_path));
+           this->error = true;
             return;
         }
         else LOG("Scene loaded succesfully: %s.", file_path);

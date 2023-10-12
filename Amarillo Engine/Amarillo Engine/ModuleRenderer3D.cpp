@@ -184,11 +184,19 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 	
-	if (myModel_path != nullptr && !myModel->isLoaded)
+	if (myModel_path != nullptr && !myModel->isLoaded && myModel->error == false)
 	{
 		
 		myModel->Load(myModel_path);
-		App->editor->AddLog("Loaded MyModelPath");
+		if (myModel->error == false)
+		{
+			App->editor->AddLog("Loaded MyModelPath");
+		}
+		else
+		{
+			App->editor->AddLog("An error ocurred loading the model (FBX mode not compatible)");
+		}
+		
 	}
 
 	// light 0 on cam pos
