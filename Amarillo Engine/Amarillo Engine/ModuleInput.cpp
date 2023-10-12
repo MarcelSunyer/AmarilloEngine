@@ -119,26 +119,26 @@ update_status ModuleInput::PreUpdate(float dt)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
 				break;
 			}
-			case SDL_DROPFILE:   //Da este error: Excepción producida en 0x011DC29C en Amarillo Engine.exe: 0xC0000005: Infracción de acceso al leer la ubicación 0x00000001. 
+			case SDL_DROPFILE:   
 			{
 				if (e.drop.file != ERROR)
 				{
 					App->renderer3D->myModel->error = false;
 					App->renderer3D->myModel->isLoaded = false;
 
-					// e.drop.file contiene la ruta del archivo soltado
+					// e.drop.file has the directoy of the droped file
 					char* dropped_filedir = e.drop.file;
 
-					// Cargar la geometría usando myModel_path
+					// Load the geometry using myModel_path
 					App->renderer3D->myModel_path = dropped_filedir;
 
 					// Crear un vector para almacenar las mallas
 					std::vector<Meshes> MeshVector;
 
-					// Cargar la geometría usando la función del namespace AssimpNameSpace
+					// Cargar la geometría usando la función del namespace AssimpNameSpace (TODO - Falta por utilizar para cargarlo bien)
 					//AssimpNameSpace::LoadGeometry(dropped_filedir, MeshVector);
 
-					// Liberar la memoria
+					// Free memory
 					SDL_free(dropped_filedir);
 
 					App->editor->AddLog(("File dropped on window - File Path: " + std::string(dropped_filedir)));
