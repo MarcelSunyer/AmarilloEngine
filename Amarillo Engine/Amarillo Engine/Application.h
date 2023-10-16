@@ -13,6 +13,7 @@ class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleEditor;
 class ModuleConsole;
+class ModuleGameObject;
 
 class Application
 {
@@ -23,6 +24,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
 	ModuleConsole* console;
+	ModuleGameObject* gameObject;
 
 private:
 
