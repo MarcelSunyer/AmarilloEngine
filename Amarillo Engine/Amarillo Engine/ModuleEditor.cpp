@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
 #include "Imgui/imgui.h"
@@ -68,16 +69,18 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
+   
     
+
+
     //Show demo
     ImGui::ShowDemoWindow();
-    // Create a window called "Juan" - Deberiamos meter esto dentro de una función para dejar mas vacio el DrawEditor()
-
+   
     if (showWindow)
     {
         if (ImGui::Begin("Config", &showWindow))
         {
-            
+            MovingTabWindow();
             if (ImGui::CollapsingHeader("Info"))
             {
                 ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
@@ -148,7 +151,9 @@ void ModuleEditor::DrawEditor()
                 }
                 if (ImGui::CollapsingHeader("Render Options"))
                 {
-                    
+                    if (ImGui::Checkbox("Wireframe", &App->renderer3D->activeWire))
+                    {
+                    }
                     
                 }
             }
@@ -158,34 +163,36 @@ void ModuleEditor::DrawEditor()
     }
     if (ImGui::Begin("Consol"))
     {
+        MovingTabWindow();
+
        App->console->UpdateConsole();
     }
     ImGui::End();
     
     ImGui::BeginMainMenuBar();
-   
+    if (ImGui::BeginMenu("File"))
+    {
+    
+        ImGui::EndMenu();
+    }
+    if (ImGui::BeginMenu("Edit"))
+    {
+
+        ImGui::EndMenu();
+    }
+    if (ImGui::BeginMenu("GameObjects"))
+    {
+
+        ImGui::EndMenu();
+    }
     if (ImGui::BeginMenu("Window"))
     {
+        
         //Shows the nconfig windows
         if (ImGui::Button("Config"))
         {
+            MovingTabWindow();
             showWindow = true;
-        }
-        if (ImGui::Button("WireFrame ON/OFF"))
-        {
-            switch (wireButton)
-            {
-            case 0:
-                App->renderer3D->activeWire = true;
-                wireButton = false;
-                wireButton = 1;
-                break;
-            case 1:
-                App->renderer3D->activeWire = false;
-                wireButton = true;
-                wireButton = 0;
-                break;
-            }           
         }
 
         ImGui::Text("Computer Window Size: ");
@@ -323,6 +330,25 @@ bool ModuleEditor::StyleTypes(const char* label)
         return true;
     }
     return false;
+}
+
+void ModuleEditor::MovingTabWindow()
+{
+    // Todo: Arreglar esto
+
+    if (ImGui::IsWindowHovered())
+    {
+        if (ImGui::IsMouseClicked(0)) 
+        {
+            App->camera->windowMovement = true;
+        }
+
+    }
+    else
+    {
+        AddLog("jUAN");
+        App->camera->windowMovement = false;
+    }
 }
 
 

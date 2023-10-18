@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "ModuleInput.h"
 #include "MathGeoLib/include/Math/Quat.h"
+#include "ImGui/imgui.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -101,7 +102,7 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_IDLE)
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_IDLE)
 		{
 			Position = Reference;
 		}
@@ -113,29 +114,30 @@ update_status ModuleCamera3D::Update(float dt)
 		
 	}
 
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT )
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && windowMovement == false)
 	{
-		int mx = App->input->GetMouseXMotion();
-		int my = App->input->GetMouseYMotion();
+		
+			int mx = App->input->GetMouseXMotion();
+			int my = App->input->GetMouseYMotion();
 
-		float Sensitivity = 0.5f * dt;
+			float Sensitivity = 0.5f * dt;
 
-		if (mx != 0)
-		{
-			float DeltaX = (float)mx * Sensitivity;
-			newPos += -X * DeltaX;
-		}
+			if (mx != 0)
+			{
+				float DeltaX = (float)mx * Sensitivity;
+				newPos += -X * DeltaX;
+			}
 
-		if (my != 0)
-		{
-			float DeltaY = (float)my * Sensitivity;
-			newPos += Y * DeltaY;
-		}
+			if (my != 0)
+			{
+				float DeltaY = (float)my * Sensitivity;
+				newPos += Y * DeltaY;
+			}
 
-		Position += newPos;
-		Reference += newPos;
+			Position += newPos;
+			Reference += newPos;
+		
 	}
-
 
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT) 
 	{

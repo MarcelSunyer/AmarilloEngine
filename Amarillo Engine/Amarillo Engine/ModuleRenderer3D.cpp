@@ -221,14 +221,15 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	
 	Grid.Render();
-
 	if (activeWire)
 	{
-		Juan->wire = true;
+		
+		Juan->wire |= true;
 		Juan->Render();
 	}
-	else if (!activeWire)
+	if (!activeWire)
 	{
+		
 		Juan->wire = false;
 		Juan->Render();
 	}

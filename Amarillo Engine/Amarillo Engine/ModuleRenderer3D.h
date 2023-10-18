@@ -4,6 +4,7 @@
 #include "Light.h"
 #include "Primitive.h"
 #include <string.h>
+#include "ImGui/imgui.h"
 
 #include "MathGeoLib/include/Math/float3x3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
@@ -49,4 +50,6 @@ public:
 	uint VAO;
 
 	bool activeWire = false;
+
+	
 };

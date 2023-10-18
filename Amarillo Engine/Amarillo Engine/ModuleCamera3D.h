@@ -6,6 +6,7 @@
 
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
+#include "ImGui/imgui_internal.h"
 
 class ModuleCamera3D : public Module
 {
@@ -30,6 +31,12 @@ public:
 	
 	//You won't need this after using Frustum
 	float3 X, Y, Z, Position, Reference;
+
+	bool holdingWindowTab = false;
+	 // Use ImGui function to get tab height
+
+	bool windowMovement;
+	
 
 private:
 

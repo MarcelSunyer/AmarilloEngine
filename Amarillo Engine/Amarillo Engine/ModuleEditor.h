@@ -6,6 +6,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
+#include "ImGui/imgui.h"
 #include <iostream>
 #include <string> 
 
@@ -30,6 +31,8 @@ public:
 
 	bool StyleTypes(const char* label);
 
+	void MovingTabWindow();
+
 	
 	
 	std::vector<float> vecFPSLog;
@@ -51,7 +54,7 @@ public:
 
 	int logs_array_size;
 
-	int wireButton = 0;
+	bool wireButton = false;
 };
 
 #endif // MODULE_EDITOR
