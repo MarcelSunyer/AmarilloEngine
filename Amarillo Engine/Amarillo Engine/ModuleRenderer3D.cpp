@@ -151,7 +151,11 @@ bool ModuleRenderer3D::Init()
 
 	Grid.axis = true;
 
+	//Init Glew
 	glewInit();
+
+	//Init Devil
+	InitDevil();
 
 	//myModel.Load("../BakerHouse.fbx");
 
@@ -175,6 +179,15 @@ bool ModuleRenderer3D::Init()
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
 
+
+	//Pruebas LoadTexture
+	App->renderer3D->myModel->error = false;
+	App->renderer3D->myModel->isLoaded = false;
+	// Esto es un path fijo, no se como hacerlo relativo
+	myModel_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/BakerHouse.fbx";
+	//myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/Baker_house.png";
+	myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/green.png";
+
 	return ret;
 }
 
@@ -191,6 +204,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	{
 		
 		myModel->Load(myModel_path);
+		myModel->TextureImport(myModel_texture_path);
 		if (myModel->error == false)
 		{
 			App->editor->AddLog("Loaded MyModelPath");
@@ -276,4 +290,13 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::InitDevil()
+{
+	ilInit();		//No se porque pero este peta
+	iluInit();
+	ilutInit();
+	ilutRenderer(ILUT_OPENGL);
+	App->console->AddLog("Devil has initialised successfully");
 }

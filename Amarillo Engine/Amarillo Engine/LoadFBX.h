@@ -13,6 +13,25 @@
 #include "Module.h"
 #include "MathGeoLib/include/Math/float3.h"
 
+///
+
+#include "Assimp/include/mesh.h"
+#include "Assimp/include/cimport.h"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+
+#pragma comment (lib, "Assimp/libx86/assimp.lib")
+
+#include "Devil/Include/ilut.h"
+#include "Devil/Include/ilu.h"
+#include "Devil/Include/il.h"
+
+#pragma comment (lib, "Devil/libx86/DevIL.lib")
+#pragma comment (lib, "Devil/libx86/ILU.lib")
+#pragma comment (lib, "Devil/libx86/ILUT.lib")
+
+///
+
 class LoadFBX
 {
 public:
@@ -30,6 +49,26 @@ public:
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw();
+    }
+
+    uint TextureImport(const char* path)
+    {
+        uint Il_Tex;
+        uint tempid;
+        ilGenImages(1, &Il_Tex);
+        ilBindImage(Il_Tex);
+        ilLoadImage(path);
+        tempid = ilutGLBindTexImage();
+        ilDeleteImages(1, &Il_Tex);
+        if (Il_Tex != NULL)
+        {
+            LOG("Successfuly loaded %s texture", path);
+        }
+        else {
+            LOG("Error loading the texture!");
+        }
+
+        return tempid;
     }
 
     bool isLoaded = false;
@@ -114,4 +153,6 @@ private:
         App->editor->AddLog("Num Index: " + std::to_string(mesh->mNumFaces));
         return Mesh(vertices, indices);
     }
+
+
 };

@@ -5,6 +5,7 @@
 #include "Primitive.h"
 #include <string.h>
 #include "ImGui/imgui.h"
+#include "ModuleConsole.h"
 
 #include "MathGeoLib/include/Math/float3x3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
@@ -12,6 +13,15 @@
 
 #include "LoadFBX.h"
 #include "Mesh.h"
+
+#include "Devil/include/ilut.h"
+#include "Devil/include/ilu.h"
+#include "Devil/include/il.h"
+
+#pragma once (lib, "Devil/libx86/DevIl.lib")
+#pragma comment (lib, "Devil/libx86/ILU.lib")
+#pragma comment (lib, "Devil/libx86/ILUT.lib")
+
 
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
@@ -31,6 +41,8 @@ public:
 
 	void OnResize(int width, int height);
 
+	void InitDevil();
+
 public:
 
 	Light lights[MAX_LIGHTS];
@@ -43,7 +55,8 @@ public:
 	LoadFBX* myModel = nullptr;
 	Primitive* Juan = nullptr;
 
-	char* myModel_path = nullptr;
+	const char* myModel_path = nullptr;
+	const char* myModel_texture_path = nullptr;
 
 	uint VBO;
 	uint EBO;

@@ -26,7 +26,7 @@ void ModuleConsole::UpdateConsole()
 
 void ModuleConsole::AddLog(std::string msg)
 {
-    LOG(msg.c_str());
+    //LOG(msg.c_str());
     // Mirar si el array logs_array no está vacío
     if (logs_array_size > 0)
     {
