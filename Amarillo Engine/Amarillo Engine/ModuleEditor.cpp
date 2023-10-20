@@ -75,12 +75,12 @@ void ModuleEditor::DrawEditor()
 
     //Show demo
     ImGui::ShowDemoWindow();
-   
+    
     if (showWindow)
     {
         if (ImGui::Begin("Config", &showWindow))
         {
-            MovingTabWindow();
+            /*MovingTabWindow();*/
             if (ImGui::CollapsingHeader("Info"))
             {
                 ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
@@ -159,13 +159,20 @@ void ModuleEditor::DrawEditor()
             }
         }
         ImGui::End();
-       
+ 
     }
-    if (ImGui::Begin("Consol"))
+    if (ImGui::Begin("Console"))
     {
-        MovingTabWindow();
-
        App->console->UpdateConsole();
+       MovingTabWindow();
+
+    }
+    ImGui::End();
+
+    if (ImGui::Begin("Juaaaan"))
+    {
+        //MovingTabWindow();
+
     }
     ImGui::End();
     
@@ -191,7 +198,7 @@ void ModuleEditor::DrawEditor()
         //Shows the nconfig windows
         if (ImGui::Button("Config"))
         {
-            MovingTabWindow();
+            
             showWindow = true;
         }
 
@@ -334,19 +341,15 @@ bool ModuleEditor::StyleTypes(const char* label)
 
 void ModuleEditor::MovingTabWindow()
 {
-    // Todo: Arreglar esto
-
-    if (ImGui::IsWindowHovered())
+    // Todo: Meter maquina de estados por si esta alguna de todas selecionada
+   
+    if (ImGui::IsAnyItemHovered())
     {
-        if (ImGui::IsMouseClicked(0)) 
-        {
-            App->camera->windowMovement = true;
-        }
-
+       App->camera->windowMovement = true;
     }
     else
     {
-        AddLog("jUAN");
+        AddLog("Mouse off");
         App->camera->windowMovement = false;
     }
 }
