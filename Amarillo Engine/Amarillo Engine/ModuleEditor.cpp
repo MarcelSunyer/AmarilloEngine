@@ -346,7 +346,7 @@ void ModuleEditor::MovingTabWindow()
     }
     else
     {
-        AddLog("jUAN");
+        AddLog("Juan");
         App->camera->windowMovement = false;
     }
 }
