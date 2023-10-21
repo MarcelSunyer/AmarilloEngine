@@ -9,11 +9,9 @@
 #include "ModuleConsole.h"
 #include "ModuleGameObject.h"
 
-//extern Application* getIntoApp = nullptr;
 
 Application::Application()
 {
-	//getIntoApp = this;
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);

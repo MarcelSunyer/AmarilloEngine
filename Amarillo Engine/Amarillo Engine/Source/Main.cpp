@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
+#include "Application.cpp"
 
 #include "..\External\Assimp/include/cimport.h"
 #include "..\External\Assimp/include/scene.h"
@@ -14,6 +15,8 @@
 
 #pragma comment( lib, "External/SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "External/SDL/libx86/SDL2main.lib" )
+
+
 
 enum main_states
 {
@@ -96,7 +99,6 @@ int main(int argc, char ** argv)
 	
 	App->editor->AddLog(("Exiting game .\n", std::string( TITLE)));
 
-	//getIntoApp = nullptr;
 	delete App;
 	return main_return;
 }
