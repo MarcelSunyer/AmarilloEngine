@@ -155,7 +155,7 @@ bool ModuleRenderer3D::Init()
 	glewInit();
 
 	//Init Devil
-	InitDevil();
+	//InitDevil();
 
 	//myModel.Load("../BakerHouse.fbx");
 
@@ -184,9 +184,9 @@ bool ModuleRenderer3D::Init()
 	App->renderer3D->myModel->error = false;
 	App->renderer3D->myModel->isLoaded = false;
 	// Esto es un path fijo, no se como hacerlo relativo
-	myModel_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/BakerHouse.fbx";
+	//myModel_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/BakerHouse.fbx";
 	//myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/Baker_house.png";
-	myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/green.png";
+	//myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/green.png";
 
 	return ret;
 }

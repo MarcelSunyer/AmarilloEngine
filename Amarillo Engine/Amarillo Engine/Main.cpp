@@ -11,6 +11,7 @@
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 #include "SDL/include/SDL.h"
+#include "Application.cpp"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 
@@ -94,6 +95,8 @@ int main(int argc, char ** argv)
 
 	
 	App->editor->AddLog(("Exiting game .\n", std::string( TITLE)));
+
+	getIntoApp = nullptr;
 	delete App;
 	return main_return;
 }
