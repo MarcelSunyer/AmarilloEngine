@@ -3,7 +3,6 @@
 #include "Globals.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
-#include "Application.cpp"
 
 #include "..\External\Assimp/include/cimport.h"
 #include "..\External\Assimp/include/scene.h"

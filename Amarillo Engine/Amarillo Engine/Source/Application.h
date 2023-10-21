@@ -15,6 +15,7 @@ class ModuleEditor;
 class ModuleConsole;
 //class GameObject;
 
+
 class Application
 {
 public:
@@ -46,5 +47,5 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
-};
 
+};

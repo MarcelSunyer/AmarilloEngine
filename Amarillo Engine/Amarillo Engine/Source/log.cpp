@@ -1,11 +1,13 @@
 #pragma once
 #include "Globals.h"
+#include "ModuleEditor.h"
+#include "Application.h"
 
 #include <cstring>
 
 void log(const char file[], int line, const char* format, ...)
 {
-	
+
 	static char tmp_string[4096];
 	static char tmp_string2[4096];
 	static va_list  ap;
@@ -17,5 +19,4 @@ void log(const char file[], int line, const char* format, ...)
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
 	//Meter el LOG
-	//getIntoApp->editor
 }
