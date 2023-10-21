@@ -94,10 +94,9 @@ int main(int argc, char ** argv)
 
 		}
 	}
-
 	
 	App->editor->AddLog(("Exiting game .\n", std::string( TITLE)));
-
+	applic = nullptr;
 	delete App;
 	return main_return;
 }

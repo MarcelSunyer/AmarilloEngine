@@ -13,7 +13,7 @@ class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleEditor;
 class ModuleConsole;
-//class GameObject;
+
 
 
 class Application
@@ -25,7 +25,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
 	ModuleConsole* console;
-	//GameObject* gameObject;
+
 
 private:
 
@@ -49,3 +49,5 @@ private:
 	void FinishUpdate();
 
 };
+
+extern Application* applic;

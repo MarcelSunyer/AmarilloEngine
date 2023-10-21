@@ -46,6 +46,9 @@
     <Filter Include="Externals\Assimp">
       <UniqueIdentifier>{282fed2c-5f4d-4f55-bac1-98f49016d792}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GameObject">
+      <UniqueIdentifier>{3f8e02a0-6b85-4183-bd1e-f208bf343353}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AssimpNamespace.h">
@@ -61,9 +64,6 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModuleEditor.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ModuleGameObject.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModuleInput.h">
@@ -411,6 +411,9 @@
     <ClInclude Include="External\Assimp\include\version.h">
       <Filter>Externals\Assimp</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ModuleGameObject.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AssimpNamespace.cpp">
@@ -423,9 +426,6 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModuleEditor.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ModuleGameObject.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModuleInput.cpp">
@@ -583,6 +583,9 @@
     </ClCompile>
     <ClCompile Include="External\ImGui\backends\imgui_impl_sdlrenderer2.cpp">
       <Filter>Externals\ImGui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleGameObject.cpp">
+      <Filter>Sources\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
