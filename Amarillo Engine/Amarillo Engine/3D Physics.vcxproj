@@ -184,6 +184,7 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\AssimpNamespace.h" />
     <ClInclude Include="Source\Color.h" />
+    <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />
@@ -193,7 +194,7 @@
     <ClInclude Include="Source\ModuleCamera3D.h" />
     <ClInclude Include="Source\ModuleConsole.h" />
     <ClInclude Include="Source\ModuleEditor.h" />
-    <ClInclude Include="Source\ModuleGameObject.h" />
+    <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\ModuleInput.h" />
     <ClInclude Include="Source\ModuleRenderer3D.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AssimpNamespace.cpp" />
     <ClCompile Include="Source\Color.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\LoadFBX.cpp" />
@@ -252,7 +254,7 @@
     <ClCompile Include="Source\ModuleCamera3D.cpp" />
     <ClCompile Include="Source\ModuleConsole.cpp" />
     <ClCompile Include="Source\ModuleEditor.cpp" />
-    <ClCompile Include="Source\ModuleGameObject.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\ModuleInput.cpp" />
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />

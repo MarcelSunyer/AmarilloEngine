@@ -411,7 +411,10 @@
     <ClInclude Include="External\Assimp\include\version.h">
       <Filter>Externals\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModuleGameObject.h">
+    <ClInclude Include="Source\GameObject.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
@@ -584,7 +587,10 @@
     <ClCompile Include="External\ImGui\backends\imgui_impl_sdlrenderer2.cpp">
       <Filter>Externals\ImGui\backends</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModuleGameObject.cpp">
+    <ClCompile Include="Source\GameObject.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
