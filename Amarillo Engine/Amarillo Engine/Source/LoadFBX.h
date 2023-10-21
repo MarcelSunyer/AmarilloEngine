@@ -87,11 +87,11 @@ private:
 
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
-           App->editor->AddLog("Error loading scene: " + std::string(file_path));
+            LOG("Error loading scene: %s", file_path);
            this->error = true;
             return;
         }
-        else App->editor->AddLog("Scene loaded succesfully: " + std::string(file_path));
+        else LOG("Scene loaded succesfully: %s", file_path);
         this->isLoaded = true;
         processNode(scene->mRootNode, scene);
     }
@@ -150,8 +150,8 @@ private:
                 indices.push_back(face.mIndices[j]);
         }
         
-        App->editor->AddLog("Num Vertex: " + std::to_string( mesh->mNumVertices));
-        App->editor->AddLog("Num Index: " + std::to_string(mesh->mNumFaces));
+        LOG("Num Vertex: %d", mesh->mNumVertices);
+        LOG("Num Index: %d", mesh->mNumFaces);
         return Mesh(vertices, indices);
     }
 
