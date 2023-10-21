@@ -12,9 +12,9 @@
 
 #define lua_c
 
-#include "lua.h"
+#include "..\External\lua.h"
 
-#include "lauxlib.h"
+#include ",,\include\lauxlib.h"
 #include "lualib.h"
 
 

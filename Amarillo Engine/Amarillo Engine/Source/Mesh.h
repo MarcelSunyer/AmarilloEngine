@@ -1,10 +1,10 @@
 #pragma once
 #include "Globals.h"
-#include "Glew/include/glew.h"
+#include "..\External\Glew/include/glew.h"
 #include "glmath.h"
 #include <vector>
 #include <string>
-#include "MathGeoLib/include/Math/float3.h"
+#include "..\External\MathGeoLib/include/Math/float3.h"
 
 struct Vertex {
     float3 Position;

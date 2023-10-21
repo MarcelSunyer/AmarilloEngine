@@ -5,11 +5,11 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
-#include "SDL\include\SDL_opengl.h"
-#include "SDL/include/SDL.h"
+#include "..\External\SDL\include\SDL_opengl.h"
+#include "..\External\SDL/include/SDL.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "SDL/include/SDL_syswm.h"
+#include "..\External\SDL/include/SDL_syswm.h"
 #include "Primitive.h"
 
 
@@ -23,12 +23,12 @@
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
-#pragma comment (lib, "Glew/libx86/glew32.lib")
+#pragma comment (lib, "External/Glew/libx86/glew32.lib")
 
 #ifdef _DEBUG
-#pragma comment (lib, "MathGeoLib/libx86/MGLDebug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "External/MathGeoLib/libx86/MGLDebug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #else
-#pragma comment (lib, "MathGeoLib/libx86/MGLRelease/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "External/MathGeoLib/libx86/MGLRelease/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #endif // _DEBUG
 
 static const GLfloat CubeVertices[] = {

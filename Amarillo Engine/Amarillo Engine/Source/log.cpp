@@ -2,9 +2,6 @@
 #include "Globals.h"
 
 #include <cstring>
-#include "Application.cpp"
-
-
 
 void log(const char file[], int line, const char* format, ...)
 {

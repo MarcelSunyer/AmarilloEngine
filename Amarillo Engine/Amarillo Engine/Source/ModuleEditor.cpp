@@ -5,11 +5,11 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
-#include "Imgui/imgui.h"
-#include "ImGui/backends/imgui_impl_opengl3.h"
-#include "ImGui/backends/imgui_impl_sdl2.h"
+#include "..\External\ImGui\imgui.h"
+#include "..\External\ImGui/backends/imgui_impl_opengl3.h"
+#include "..\External\ImGui/backends/imgui_impl_sdl2.h"
 //#include "ImGui/backends/imgui_impl_opengl3_loader.h"
-#include "SDL/include/SDL.h"
+#include "..\External\SDL/include/SDL.h"
 #include <iostream>
 
 

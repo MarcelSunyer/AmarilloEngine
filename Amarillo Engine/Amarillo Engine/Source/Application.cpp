@@ -9,11 +9,11 @@
 #include "ModuleConsole.h"
 #include "ModuleGameObject.h"
 
-extern Application* getIntoApp = nullptr;
+//extern Application* getIntoApp = nullptr;
 
 Application::Application()
 {
-	getIntoApp = this;
+	//getIntoApp = this;
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
@@ -21,7 +21,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
 	console = new ModuleConsole(this);
-	gameObject = new GameObject(this);
+	//gameObject = new GameObject(this);
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -36,7 +36,7 @@ Application::Application()
 	AddModule(renderer3D);
 	AddModule(editor);
 	AddModule(console);
-	AddModule(gameObject);
+	//AddModule(gameObject);
 
 }
 

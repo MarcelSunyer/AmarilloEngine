@@ -4,16 +4,16 @@
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
 
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
+#include "..\External\Assimp/include/cimport.h"
+#include "..\External\Assimp/include/scene.h"
+#include "..\External\Assimp/include/postprocess.h"
 
-#pragma comment (lib, "Assimp/libx86/assimp.lib")
+#pragma comment (lib, "External/Assimp/libx86/assimp.lib")
 
-#include "SDL/include/SDL.h"
-#include "Application.cpp"
-#pragma comment( lib, "SDL/libx86/SDL2.lib" )
-#pragma comment( lib, "SDL/libx86/SDL2main.lib" )
+#include "..\External\SDL/include/SDL.h"
+
+#pragma comment( lib, "External/SDL/libx86/SDL2.lib" )
+#pragma comment( lib, "External/SDL/libx86/SDL2main.lib" )
 
 enum main_states
 {
@@ -96,7 +96,7 @@ int main(int argc, char ** argv)
 	
 	App->editor->AddLog(("Exiting game .\n", std::string( TITLE)));
 
-	getIntoApp = nullptr;
+	//getIntoApp = nullptr;
 	delete App;
 	return main_return;
 }

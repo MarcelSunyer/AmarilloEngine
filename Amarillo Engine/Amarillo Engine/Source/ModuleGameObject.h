@@ -6,7 +6,7 @@
 #include "Module.h"
 #include "Application.h"
 #include <string.h>
-#include "MathGeoLib/include/Math/float3.h"
+#include "..\External\MathGeoLib/include/Math/float3.h"
 
 
 class GameObject : public Module
@@ -19,7 +19,7 @@ public:
 public:
 
 	GameObject* mParent;
-	std::vector<Component*> mComponent;
+	//std::vector<Component*> mComponent;
 	std::vector<GameObject*> mChildren;
 	
 	

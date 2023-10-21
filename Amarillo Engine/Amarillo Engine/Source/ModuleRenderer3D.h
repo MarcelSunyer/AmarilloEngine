@@ -4,23 +4,23 @@
 #include "Light.h"
 #include "Primitive.h"
 #include <string.h>
-#include "ImGui/imgui.h"
+#include "..\External\ImGui/imgui.h"
 #include "ModuleConsole.h"
 
-#include "MathGeoLib/include/Math/float3x3.h"
-#include "MathGeoLib/include/Math/float4x4.h"
+#include "..\External\MathGeoLib/include/Math/float3x3.h"
+#include "..\External\MathGeoLib/include/Math/float4x4.h"
 #include "Primitive.h"
 
 #include "LoadFBX.h"
 #include "Mesh.h"
 
-#include "Devil/include/ilut.h"
-#include "Devil/include/ilu.h"
-#include "Devil/include/il.h"
+#include "..\External\Devil/include/ilut.h"
+#include "..\External\Devil/include/ilu.h"
+#include "..\External\Devil/include/il.h"
 
 #pragma once (lib, "Devil/libx86/DevIl.lib")
-#pragma comment (lib, "Devil/libx86/ILU.lib")
-#pragma comment (lib, "Devil/libx86/ILUT.lib")
+#pragma comment (lib, "External/Devil/libx86/ILU.lib")
+#pragma comment (lib, "External/Devil/libx86/ILUT.lib")
 
 
 //todo: REMOVE this before 1st delivery!!

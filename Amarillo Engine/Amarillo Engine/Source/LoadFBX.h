@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#pragma comment (lib, "Assimp/libx86/assimp.lib")
+#include "..\External\Assimp/include/cimport.h"
+#include "..\External\Assimp/include/scene.h"
+#include "..\External\Assimp/include/postprocess.h"
+
+#pragma comment (lib, "External/Assimp/libx86/assimp.lib")
 
 #include "Application.h"
 #include "ModuleEditor.h"
@@ -11,24 +12,24 @@
 #include <vector>
 #include <string>
 #include "Module.h"
-#include "MathGeoLib/include/Math/float3.h"
+#include "..\External\MathGeoLib/include/Math/float3.h"
 
 ///
 
-#include "Assimp/include/mesh.h"
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
+#include "..\External\Assimp/include/mesh.h"
+#include "..\External\Assimp/include/cimport.h"
+#include "..\External\Assimp/include/scene.h"
+#include "..\External\Assimp/include/postprocess.h"
 
-#pragma comment (lib, "Assimp/libx86/assimp.lib")
+#pragma comment (lib, "External/Assimp/libx86/assimp.lib")
 
-#include "Devil/Include/ilut.h"
-#include "Devil/Include/ilu.h"
-#include "Devil/Include/il.h"
+#include "..\External\Devil/Include/ilut.h"
+#include "..\External\Devil/Include/il.h"
+#include "..\External/Devil/include/ilut.h"
 
-#pragma comment (lib, "Devil/libx86/DevIL.lib")
-#pragma comment (lib, "Devil/libx86/ILU.lib")
-#pragma comment (lib, "Devil/libx86/ILUT.lib")
+#pragma comment (lib, "External/Devil/libx86/DevIL.lib")
+#pragma comment (lib, "External/Devil/libx86/ILU.lib")
+#pragma comment (lib, "External/Devil/libx86/ILUT.lib")
 
 ///
 

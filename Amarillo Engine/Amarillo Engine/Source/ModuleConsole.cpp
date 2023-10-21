@@ -1,6 +1,6 @@
 #include "ModuleConsole.h"
 #include "Application.h"
-#include "Imgui/imgui.h"
+#include "..\External\ImGui\imgui.h"
 
 ModuleConsole::ModuleConsole(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

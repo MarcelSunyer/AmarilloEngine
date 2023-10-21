@@ -1,9 +1,9 @@
 
 #pragma once
 #include "Color.h"
-#include "MathGeoLib/include/Math/float4x4.h"
-#include "MathGeoLib/include/Math/float3.h"
-#include "MathGeoLib/include/Math/TransformOps.h"
+#include "..\External\MathGeoLib/include/Math/float4x4.h"
+#include "..\External\MathGeoLib/include/Math/float3.h"
+#include "..\External\MathGeoLib/include/Math/TransformOps.h"
 
 #include "Application.h"
 
