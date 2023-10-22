@@ -13,20 +13,25 @@ class Component
 {
 
 public:
-	Component(GameObject* args);
+	Component();
 	~Component();
 
 	virtual void OnEditor();
 
-	bool IsActive();
+	void SetActive(bool active);
 
-	GameObject* mOwner;
+	//GameObject* mOwner;
 
 	ComponentTypes GetType();
+
+public:
+	bool active = false;
+
 };
 
 class C_Transform : public Component
 {
+
 
 	void OnEditor() override;
 

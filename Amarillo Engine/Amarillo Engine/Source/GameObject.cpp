@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-GameObject::GameObject(const char name, float3x3 transform, float3x3 scale, Quat* rot)
+GameObject::GameObject(const char name, float3 transform, float3 scale, Quat* rot)
 {
 	mName = name;
 
@@ -39,3 +39,26 @@ void GameObject::AddComponent(ComponentTypes type)
 		mComponents.push_back(ret);
 	return;
 }
+
+float3 GameObject::GetLocalPosition()
+{
+	return translation;
+}
+
+float3 GameObject::GetWorldPosition()
+{
+	return float3::zero;
+}
+
+float3 GameObject::GetLocalScale()
+{
+	return scale;
+}
+
+Quat* GameObject::GetLocalRotation()
+{
+	return rotation.ToEulerXYZ();
+}
+
+
+

@@ -7,7 +7,6 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
 #include "ModuleConsole.h"
-#include "ModuleGameObject.h"
 
 
 extern Application* applic = nullptr;
