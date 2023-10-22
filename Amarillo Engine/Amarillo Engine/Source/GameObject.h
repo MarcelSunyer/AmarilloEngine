@@ -9,11 +9,10 @@
 
 class GameObject
 {
-
 	GameObject(const char name, float3x3 transform, float3x3 scale, Quat* rot);
 	~GameObject();
 
-	void AddComponent(ComponentTypes* type);
+	void AddComponent(ComponentTypes type);
 
 	//All transform settings
 
@@ -27,6 +26,9 @@ class GameObject
 
 	GameObject* mParent;
 	std::vector<GameObject*> mChildren;
-	std::vector<GameObject*> mComponents;
+	std::vector<Component*> mComponents;
+
+	std::string mName;
+
 };
 #endif
