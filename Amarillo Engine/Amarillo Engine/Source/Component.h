@@ -16,7 +16,7 @@ public:
 	Component();
 	~Component();
 
-	virtual void OnEditor();
+	//virtual void OnEditor();
 
 	void SetActive(bool active);
 
@@ -33,7 +33,7 @@ class C_Transform : public Component
 {
 
 
-	void OnEditor() override;
+	//void OnEditor() override;
 
 	float3x3 mPosition;
 	float3x3 mScale;

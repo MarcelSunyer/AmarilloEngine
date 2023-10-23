@@ -8,12 +8,13 @@
 #include "../External/MathGeoLib/include/Math/Quat.h"
 #include <vector>
 
+
 class GameObject
 {
 	GameObject(const char name, float3 transform, float3 scale, Quat* rot);
 	~GameObject();
 
-	void AddComponent(ComponentTypes types);
+	//void AddComponent(ComponentTypes types);
 
 	//All transform settings
 
@@ -26,7 +27,7 @@ class GameObject
 
 	GameObject* mParent;
 	std::vector<GameObject*> mChildren;
-	std::vector<Component*> mComponents;
+	//std::vector<Component*> mComponents;
 
 	std::string mName;
 
