@@ -1,7 +1,9 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
-#include "GameObject.h"
+#include "../External/MathGeoLib/include/Math/float3.h"
+#include "../External/MathGeoLib/include/Math/float4x4.h"
+class GameObject;
 
 enum ComponentTypes
 {
@@ -35,8 +37,8 @@ class C_Transform : public Component
 
 	//void OnEditor() override;
 
-	float3x3 mPosition;
-	float3x3 mScale;
+	float3 mPosition;
+	float3 mScale;
 	Quat* mRotation;
 
 	float4x4 mGlobalMatrix;

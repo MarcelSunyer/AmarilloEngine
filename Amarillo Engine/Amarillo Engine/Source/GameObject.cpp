@@ -21,25 +21,25 @@ GameObject::~GameObject()
 		mChildren[i] = nullptr;
 	}
 }
-//void GameObject::AddComponent(ComponentTypes type)
-//{
-//	//Component* ret = nullptr;
-//
-//	//switch (type)
-//	//{
-//	//	//Meter los componentes de cada tipo
-//	//case ComponentTypes::GEOMETRY:
-//	//	//ret = new ComponentGeometry(this);
-//	//	break;
-//	//case ComponentTypes::MATERIAL:
-//	//	//ret = new ComponentMaterial(this);
-//	//	break;
-//	//}
-//
-//	//if (ret != nullptr)
-//	//	mComponents.push_back(ret);
-//	return;
-//}
+void GameObject::AddComponent(ComponentTypes type)
+{
+	Component* ret = nullptr;
+
+	switch (type)
+	{
+		//Meter los componentes de cada tipo
+	case ComponentTypes::GEOMETRY:
+		//ret = new ComponentGeometry(this);
+		break;
+	case ComponentTypes::MATERIAL:
+		//ret = new ComponentMaterial(this);
+		break;
+	}
+
+	if (ret != nullptr)
+		mComponents.push_back(ret);
+	return;
+}
 
 float3 GameObject::GetLocalPosition()
 {

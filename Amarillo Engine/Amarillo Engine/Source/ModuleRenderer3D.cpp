@@ -53,14 +53,14 @@ static const GLuint CubeIndices[] = {
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled), context()
 {
 	myModel = new LoadFBX(app);
-	Juan = new Primitive(app);
+	PrimitiveTest = new Primitive(app);
 }
 
 // Destructor
 ModuleRenderer3D::~ModuleRenderer3D()
 {
 	delete(myModel);
-	delete(Juan);
+	delete(PrimitiveTest);
 }
 
 // Called before render is available
@@ -238,14 +238,14 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	if (activeWire)
 	{
 		
-		Juan->wire |= true;
-		Juan->Render();
+		PrimitiveTest->wire |= true;
+		PrimitiveTest->Render();
 	}
 	if (!activeWire)
 	{
 		
-		Juan->wire = false;
-		Juan->Render();
+		PrimitiveTest->wire = false;
+		PrimitiveTest->Render();
 	}
 
 	myModel->Draw();

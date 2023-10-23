@@ -159,7 +159,6 @@ void ModuleEditor::DrawEditor()
             }
         }
         ImGui::End();
-       
     }
     if (ImGui::Begin("Consol"))
     {

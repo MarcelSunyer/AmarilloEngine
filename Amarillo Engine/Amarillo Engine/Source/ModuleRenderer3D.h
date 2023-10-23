@@ -53,7 +53,7 @@ public:
 	mat4x4 ProjectionMatrix;
 
 	LoadFBX* myModel = nullptr;
-	Primitive* Juan = nullptr;
+	Primitive* PrimitiveTest = nullptr;
 
 	const char* myModel_path = nullptr;
 	const char* myModel_texture_path = nullptr;
