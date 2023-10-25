@@ -10,7 +10,9 @@
 #include "..\External\ImGui/backends/imgui_impl_sdl2.h"
 //#include "ImGui/backends/imgui_impl_opengl3_loader.h"
 #include "..\External\SDL/include/SDL.h"
-#include <iostream>
+#include "GameObject.h"
+#include "Component.h"
+
 
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
@@ -331,23 +333,5 @@ bool ModuleEditor::StyleTypes(const char* label)
     return false;
 }
 
-void ModuleEditor::MovingTabWindow()
-{
-    // Todo: Arreglar esto
-
-    if (ImGui::IsWindowHovered())
-    {
-        if (ImGui::IsMouseClicked(0)) 
-        {
-            App->camera->windowMovement = true;
-        }
-
-    }
-    else
-    {
-        AddLog("Juan");
-        App->camera->windowMovement = false;
-    }
-}
 
 

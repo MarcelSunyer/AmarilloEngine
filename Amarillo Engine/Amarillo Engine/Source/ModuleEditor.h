@@ -31,7 +31,9 @@ public:
 
 	bool StyleTypes(const char* label);
 
-	void MovingTabWindow();
+	
+
+
 
 	
 	
