@@ -8,10 +8,9 @@
 #include <vector>
 #include "Component.h"
 
-
-
 class GameObject
 {
+public:
 	GameObject(const char name, float3 transform, float3 scale, Quat* rot);
 	~GameObject();
 	

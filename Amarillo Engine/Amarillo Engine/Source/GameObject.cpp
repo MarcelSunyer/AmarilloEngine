@@ -5,7 +5,6 @@
 #include "ComponentMesh.h"
 #include <vector>
 
-
 GameObject::GameObject(std::string name) : mName(name), active(true)
 {
 	AddComponent(new ComponentTransform(this));

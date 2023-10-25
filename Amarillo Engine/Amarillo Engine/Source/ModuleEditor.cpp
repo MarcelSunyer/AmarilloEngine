@@ -82,7 +82,6 @@ void ModuleEditor::DrawEditor()
     {
         if (ImGui::Begin("Config", &showWindow))
         {
-            MovingTabWindow();
             if (ImGui::CollapsingHeader("Info"))
             {
                 ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
@@ -164,8 +163,6 @@ void ModuleEditor::DrawEditor()
     }
     if (ImGui::Begin("Consol"))
     {
-        MovingTabWindow();
-
        App->console->UpdateConsole();
     }
     ImGui::End();
@@ -192,7 +189,6 @@ void ModuleEditor::DrawEditor()
         //Shows the nconfig windows
         if (ImGui::Button("Config"))
         {
-            MovingTabWindow();
             showWindow = true;
         }
 
@@ -331,6 +327,27 @@ bool ModuleEditor::StyleTypes(const char* label)
         return true;
     }
     return false;
+}
+
+void ModuleEditor::InspectorWindow()
+{
+    if (show_inspector_window)
+    {
+        ImGui::Begin("Inspector", &show_inspector_window);
+        ImGui::Text(App->intro->selected_object->name.c_str());
+        ImGui::Separator();
+       
+        for (uint m = 0; m < App->scene_intro->selected_object->components.size(); m++)
+        {
+            if (App->intro->selected_object->selected)
+            {
+                App->scene_intro->selected_object->components[m]->DrawInspector();
+            }
+
+        }
+
+        ImGui::End();
+    }
 }
 
 

@@ -31,7 +31,8 @@ public:
 
 	bool StyleTypes(const char* label);
 
-	
+	void InspectorWindow();
+	bool show_inspector_window = true;
 
 
 

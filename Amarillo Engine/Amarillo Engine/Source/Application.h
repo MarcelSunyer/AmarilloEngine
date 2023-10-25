@@ -13,7 +13,7 @@ class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleEditor;
 class ModuleConsole;
-
+class ModuleSceneIntro;
 
 
 class Application
@@ -25,6 +25,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
 	ModuleConsole* console;
+	ModuleSceneIntro* intro;
 
 
 private:

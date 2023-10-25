@@ -199,6 +199,7 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\ModuleInput.h" />
     <ClInclude Include="Source\ModuleRenderer3D.h" />
+    <ClInclude Include="Source\ModuleSceneIntro.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Timer.h" />
@@ -261,6 +262,7 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\ModuleInput.cpp" />
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
+    <ClCompile Include="Source\ModuleSceneIntro.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
