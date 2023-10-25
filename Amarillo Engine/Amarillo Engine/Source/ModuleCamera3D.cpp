@@ -139,7 +139,7 @@ update_status ModuleCamera3D::Update(float dt)
 		
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) 
 	{
 		LookAt(float3(0,0,0));
 	}
