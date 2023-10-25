@@ -16,24 +16,27 @@ class GameObject
 	~GameObject();
 	
 	
-	void AddComponent(ComponentTypes types);
+	GameObject(std::string name);
 
-	//All transform settings
+	bool Enable(); //Start up + bool toggle
+	bool Disable();//Clean up + bool toggle
 
-	float3 GetLocalPosition();
-	float3 GetWorldPosition();
+	void Update();
 
-	float3 GetLocalScale();
+	void SetParent(GameObject* parent);
 
-	Quat* GetLocalRotation();
+	Component* AddComponent(Component* component);
+	Component* GetComponent(ComponentTypes type);
+	std::vector<Component*> GetComponents(ComponentTypes type);
+	GameObject* AddChildren(GameObject* children);
 
-	GameObject* mParent;
-	std::vector<GameObject*> mChildren;
-	std::vector<Component*> mComponents;
-
+public:
 	std::string mName;
 
-	float3 translation = float3::zero;
-	float3 scale = float3::one;
+	std::vector<Component*> components;
+	bool active;
+
+	GameObject* parent;
+	std::vector<GameObject*> children;
 };
 #endif

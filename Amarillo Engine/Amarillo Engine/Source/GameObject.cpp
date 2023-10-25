@@ -1,66 +1,106 @@
 #include "GameObject.h"
+#include "Component.h"
+#include "ComponentTransform.h"
+
+#include "ComponentMesh.h"
+#include <vector>
 
 
-GameObject::GameObject(const char name, float3 transform, float3 scale, Quat* rot)
+GameObject::GameObject(std::string name) : mName(name), active(true)
 {
-	mName = name;
-
+	AddComponent(new ComponentTransform(this));
 }
 
-GameObject::~GameObject()
+bool GameObject::Enable() //Start up + bool toggle
 {
-	/*for (size_t i = 0; i < mComponents.size(); i++)
-	{
-		delete mComponents[i];
-		mComponents[i] = nullptr;
-	}*/
+	if (!active) {
+		active = true;
+		return true;
+		//StartUp here...
+	}
+	return false;
+}
 
-	for (size_t i = 0; i < mChildren.size(); i++)
-	{
-		delete mChildren[i];
-		mChildren[i] = nullptr;
+bool GameObject::Disable() //Start up + bool toggle
+{
+	if (active) {
+		active = false;
+		return true;
+		//CleanUp here...
+	}
+	return false;
+}
+
+void GameObject::Update() //Start up + bool toggle
+{
+	std::vector<Component*>::iterator item = components.begin();
+	bool ret = true;
+
+	for (; item != components.end() && ret == true; ++item) {
+		//ret = (*item)->Update();
 	}
 }
-void GameObject::AddComponent(ComponentTypes type)
+
+void GameObject::SetParent(GameObject* parent)
+{
+	this->parent = parent;
+}
+
+Component* GameObject::AddComponent(Component* component)
 {
 	Component* ret = nullptr;
 
-	switch (type)
+	switch (component->type)
 	{
-		//Meter los componentes de cada tipo
-	case ComponentTypes::GEOMETRY:
-		//ret = new ComponentGeometry(this);
+	case(ComponentTypes::NONE):
+		//LOG("Component Type Error! Something broke...");
 		break;
-	case ComponentTypes::MATERIAL:
-		//ret = new ComponentMaterial(this);
+	case(ComponentTypes::TRANSFORM):
+		ret = new ComponentTransform(this);
+		break;
+	case(ComponentTypes::MESH):
+		ret = new ComponentMesh(this);
 		break;
 	}
 
-	if (ret != nullptr)
-		mComponents.push_back(ret);
-	return;
+	//components.push_back(ret);
+	components.push_back(component);
+	return ret;
 }
 
-float3 GameObject::GetLocalPosition()
+GameObject* GameObject::AddChildren(GameObject* children) {
+
+	if (!this->children.empty()) this->children.push_back(children);
+	return children;
+}
+
+Component* GameObject::GetComponent(ComponentTypes type)
 {
-	return translation;
+	std::vector<Component*>::iterator item = components.begin();
+
+	for (; item != components.end(); ++item) {
+
+		if ((*item)->type == type) {
+			return (*item);
+		}
+	}
+
+	return nullptr;
 }
 
-float3 GameObject::GetWorldPosition()
+std::vector<Component*> GameObject::GetComponents(ComponentTypes type)
 {
-	return float3::zero;
+	std::vector<Component*>::iterator item = components.begin();
+
+	std::vector<Component*> ret;
+
+	for (; item != components.end(); ++item) {
+
+		if ((*item)->type == type) {
+			ret.push_back((*item));
+		}
+	}
+
+	return ret;
 }
-
-float3 GameObject::GetLocalScale()
-{
-	return scale;
-}
-
-Quat* GameObject::GetLocalRotation()
-{
-	//return rotation.ToEulerXYZ();
-	return 0;
-}
-
-
 

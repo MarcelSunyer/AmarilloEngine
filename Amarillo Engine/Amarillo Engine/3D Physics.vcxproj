@@ -185,6 +185,8 @@
     <ClInclude Include="Source\AssimpNamespace.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
+    <ClInclude Include="Source\ComponentMesh.h" />
+    <ClInclude Include="Source\ComponentTransform.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />
@@ -246,6 +248,8 @@
     <ClCompile Include="Source\AssimpNamespace.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\ComponentMesh.cpp" />
+    <ClCompile Include="Source\ComponentTransform.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\LoadFBX.cpp" />

@@ -7,43 +7,25 @@ class GameObject;
 
 enum ComponentTypes
 {
-	GEOMETRY,
+	NONE,
+	TRANSFORM,
+	MESH,
 	MATERIAL,
 };
 
-class Component
-{
+class Component {
+public:
+	virtual void Enable() {};
+	virtual void Update() {};
+	virtual void Disable() {};
+
+	virtual void OnEditor() {};
+	Component(GameObject* parent) : active(true), parent(parent), type(ComponentTypes::NONE) {};
 
 public:
-	Component();
-	~Component();
-
-	//virtual void OnEditor();
-
-	void SetActive(bool active);
-
-	//GameObject* mOwner;
-
-	ComponentTypes GetType();
-
-public:
-	bool active = false;
-
-};
-
-class C_Transform : public Component
-{
-
-
-	//void OnEditor() override;
-
-	float3 mPosition;
-	float3 mScale;
-	Quat* mRotation;
-
-	float4x4 mGlobalMatrix;
-	float4x4 mLocalMatrix;
-
+	ComponentTypes type;
+	bool active;
+	GameObject* parent;
 };
 
 
