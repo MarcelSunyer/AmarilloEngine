@@ -37,5 +37,7 @@ public:
 
 	GameObject* parent;
 	std::vector<GameObject*> children;
+
+	bool selected = false;
 };
 #endif

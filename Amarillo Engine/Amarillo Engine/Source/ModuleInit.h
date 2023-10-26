@@ -8,11 +8,11 @@
 
 using namespace std;
 
-class ModuleSceneIntro : public Module
+class ModuleInit : public Module
 {
 public:
-	ModuleSceneIntro(bool start_enabled = true);
-	~ModuleSceneIntro();
+	ModuleInit(Application* app, bool start_enabled = true);
+	~ModuleInit();
 
 	bool Start();
 	update_status Update(float dt) override;

@@ -417,6 +417,15 @@
     <ClInclude Include="Source\Component.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ModuleInit.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentMesh.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentTransform.h">
+      <Filter>Sources\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AssimpNamespace.cpp">
@@ -591,6 +600,15 @@
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\Component.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleInit.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentMesh.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentTransform.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,6 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
+#include "ModuleInit.h"
 #include "..\External\ImGui\imgui.h"
 #include "..\External\ImGui/backends/imgui_impl_opengl3.h"
 #include "..\External\ImGui/backends/imgui_impl_sdl2.h"
@@ -72,7 +73,9 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
    
-    
+    //Done
+    HierarchyWindow();
+    InspectorWindow();
 
 
     //Show demo
@@ -334,19 +337,50 @@ void ModuleEditor::InspectorWindow()
     if (show_inspector_window)
     {
         ImGui::Begin("Inspector", &show_inspector_window);
-        ImGui::Text(App->intro->selected_object->name.c_str());
+        ImGui::Text(App->intro->selected_object->mName.c_str());
         ImGui::Separator();
        
-        for (uint m = 0; m < App->scene_intro->selected_object->components.size(); m++)
+        for (uint m = 0; m < App->intro->selected_object->components.size(); m++)
         {
             if (App->intro->selected_object->selected)
             {
-                App->scene_intro->selected_object->components[m]->DrawInspector();
+                App->intro->selected_object->components[m]->OnEditor();
             }
 
         }
 
         ImGui::End();
+    }
+}
+
+void ModuleEditor::HierarchyWindow()
+{
+    ImGui::Begin("Hierarchy");
+
+    DrawHierarchyLevel();
+
+    ImGui::End();
+    
+}
+
+void ModuleEditor::DrawHierarchyLevel()
+{
+    vector<GameObject*> list2 = App->intro->game_objects;
+
+    for (uint n = 0; n < list2.size(); n++)
+    {
+        if (ImGui::Button(list2[n]->mName.c_str()))
+        {
+            list2[n]->selected = true;
+            App->intro->selected_object = list2[n];
+            for (uint k = 0; k < list2.size(); k++)
+            {
+                if (list2[n] != list2[k]) list2[k]->selected = false;
+            }
+        }
+        //if (list2[n]->children.size() > 0) {
+        //	DrawHierarchyLevel(list2[n]->children);
+        //}
     }
 }
 

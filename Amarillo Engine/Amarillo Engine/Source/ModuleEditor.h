@@ -34,6 +34,9 @@ public:
 	void InspectorWindow();
 	bool show_inspector_window = true;
 
+	void HierarchyWindow();
+	void DrawHierarchyLevel();
+
 
 
 	
