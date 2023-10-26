@@ -56,7 +56,6 @@ public:
 
     uint TextureImport(const char* path)
     {
-        App->console->AddLog("TEXTURE IMPORT");
         uint Il_Tex;
         uint tempid;
         ilGenImages(1, &Il_Tex);
@@ -67,11 +66,9 @@ public:
         if (Il_Tex != NULL)
         {
             LOG("Successfully loaded %s texture", path);
-            App->console->AddLog("Successfully loaded texture");
         }
         else {
             LOG("Error loading the texture!");
-            App->console->AddLog("Error loading texture");
         }
         return tempid;
     }
