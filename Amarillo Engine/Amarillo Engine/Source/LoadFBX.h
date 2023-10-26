@@ -1,5 +1,3 @@
-#pragma once
-
 #include "..\External\Assimp/include/cimport.h"
 #include "..\External\Assimp/include/scene.h"
 #include "..\External\Assimp/include/postprocess.h"
@@ -8,11 +6,13 @@
 
 #include "Application.h"
 #include "ModuleEditor.h"
+#include "ModuleConsole.h"
 #include "Mesh.h"
 #include <vector>
 #include <string>
 #include "Module.h"
 #include "..\External\MathGeoLib/include/Math/float3.h"
+#include "..\External\MathGeoLib/include/Math/float2.h" // Agregado para float2
 
 ///
 
@@ -25,7 +25,7 @@
 
 #include "..\External\Devil/Include/ilut.h"
 #include "..\External\Devil/Include/il.h"
-#include "..\External/Devil/include/ilut.h"
+#include "..\External\Devil/include/ilut.h"
 
 #pragma comment (lib, "External/Devil/libx86/DevIL.lib")
 #pragma comment (lib, "External/Devil/libx86/ILU.lib")
@@ -36,8 +36,6 @@
 class LoadFBX
 {
 public:
-
-    
     LoadFBX(Application* app);
     ~LoadFBX();
 
@@ -48,6 +46,10 @@ public:
 
     void Draw()
     {
+        glEnable(GL_TEXTURE_2D);
+
+        glBindTexture(GL_TEXTURE_2D, textureID); // Vincular la textura
+        
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw();
     }
@@ -63,12 +65,11 @@ public:
         ilDeleteImages(1, &Il_Tex);
         if (Il_Tex != NULL)
         {
-            LOG("Successfuly loaded %s texture", path);
+            LOG("Successfully loaded %s texture", path);
         }
         else {
             LOG("Error loading the texture!");
         }
-
         return tempid;
     }
 
@@ -79,7 +80,7 @@ private:
     Application* App;
     // model data
     std::vector<Mesh> meshes;
-    
+    uint textureID; // ID de la textura
 
     void loadModel(const char* file_path)
     {
@@ -88,55 +89,49 @@ private:
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
             LOG("Error loading scene: %s", file_path);
-           this->error = true;
+            this->error = true;
             return;
         }
-        else LOG("Scene loaded succesfully: %s", file_path);
+        else LOG("Scene loaded successfully: %s", file_path);
         this->isLoaded = true;
         processNode(scene->mRootNode, scene);
     }
 
     void processNode(aiNode* node, const aiScene* scene)
     {
-        // process each mesh located at the current node
         for (unsigned int i = 0; i < node->mNumMeshes; i++)
         {
-            // the node object only contains indices to index the actual objects in the scene. 
-            // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
             meshes.push_back(processMesh(mesh, scene));
         }
-        // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
             processNode(node->mChildren[i], scene);
         }
-
     }
 
     Mesh processMesh(aiMesh* mesh, const aiScene* scene)
     {
-        // data to fill
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
 
-        // walk through each of the mesh's vertices
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
             Vertex vertex;
-            float3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
-            // positions
-            vector.x = mesh->mVertices[i].x;
-            vector.y = mesh->mVertices[i].y;
-            vector.z = mesh->mVertices[i].z;
-            vertex.Position = vector;
-            // normals
+            vertex.Position = float3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+
             if (mesh->HasNormals())
             {
-                vector.x = mesh->mNormals[i].x;
-                vector.y = mesh->mNormals[i].y;
-                vector.z = mesh->mNormals[i].z;
-                vertex.Normal = vector;
+                vertex.Normal = float3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+            }
+
+            if (mesh->mTextureCoords[0])
+            {
+                vertex.TexCoords = float2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+            }
+            else
+            {
+                vertex.TexCoords = float2(0.0f, 0.0f);
             }
 
             vertices.push_back(vertex);
@@ -145,15 +140,12 @@ private:
         for (unsigned int i = 0; i < mesh->mNumFaces; i++)
         {
             aiFace face = mesh->mFaces[i];
-            // retrieve all indices of the face and store them in the indices vector
             for (unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
-        
+
         LOG("Num Vertex: %d", mesh->mNumVertices);
         LOG("Num Index: %d", mesh->mNumFaces);
         return Mesh(vertices, indices);
     }
-
-
 };
