@@ -155,7 +155,7 @@ bool ModuleRenderer3D::Init()
 	glewInit();
 
 	//Init Devil
-	//InitDevil();
+	InitDevil();
 
 	//myModel.Load("../BakerHouse.fbx");
 
@@ -183,10 +183,11 @@ bool ModuleRenderer3D::Init()
 	//Pruebas LoadTexture
 	App->renderer3D->myModel->error = false;
 	App->renderer3D->myModel->isLoaded = false;
-	// Esto es un path fijo, no se como hacerlo relativo
-	//myModel_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/BakerHouse.fbx";
-	//myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/Baker_house.png";
-	//myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/green.png";
+	
+
+	myModel_path = "../Assets/BakerHouse.fbx";
+	myModel_texture_path = "../Assets/Baker_house.png";
+	//myModel_texture_path = "../Assets/green.png";
 
 	return ret;
 }
@@ -248,6 +249,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		PrimitiveTest->Render();
 	}
 
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(App->camera->GetViewMatrix());
+	glTranslatef(0.0f, 0.0f, 0.0f);
 	myModel->Draw();
 
 	App->editor->DrawEditor();
@@ -299,4 +303,5 @@ void ModuleRenderer3D::InitDevil()
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);
 	LOG("Devil has initialised successfully");
+	App->console->AddLog("Devil has initialised successfully");
 }

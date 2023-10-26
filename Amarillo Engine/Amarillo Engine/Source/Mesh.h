@@ -5,11 +5,12 @@
 #include <vector>
 #include <string>
 #include "..\External\MathGeoLib/include/Math/float3.h"
+#include "..\External\MathGeoLib/include/Math/float2.h"
 
 struct Vertex {
     float3 Position;
     float3 Normal;
-    vec2 TexCoords;
+    float2 TexCoords;
 };
 
 class Mesh {
