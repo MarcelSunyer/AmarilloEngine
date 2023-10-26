@@ -59,17 +59,9 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
 
-   
-    GameObject* root_object = nullptr;
     root_object = new GameObject("Scene");
     game_objects.push_back(root_object);
     selected_object = root_object;
-    root_object->CreateComponent(ComponentTypes::MESH);
-
-    root_object = new GameObject("Juan");
-    game_objects.push_back(root_object);
-    selected_object = root_object;
-
 
 
 	return true;
@@ -85,8 +77,9 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-  
-    
+
+
+    CreateGameObject();
     //Done
     HierarchyWindow();
     InspectorWindow();
@@ -395,6 +388,17 @@ void ModuleEditor::DrawHierarchyLevel()
                 }
             }
         }
+    }
+}
+
+void ModuleEditor::CreateGameObject()
+{
+    if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+    {
+        root_object = new GameObject("EmptyGameObject");
+        game_objects.push_back(root_object);
+        selected_object = root_object;
+
     }
 }
 

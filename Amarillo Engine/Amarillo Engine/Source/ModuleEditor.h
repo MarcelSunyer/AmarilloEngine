@@ -38,7 +38,10 @@ public:
 
 	void HierarchyWindow();
 	void DrawHierarchyLevel();
+
+	void CreateGameObject();
 	
+	GameObject* root_object = nullptr;
 	GameObject* selected_object = nullptr;
 	std::vector<GameObject*> game_objects;
 
