@@ -16,6 +16,11 @@ ModuleInit::~ModuleInit()
 // Load assets
 bool ModuleInit::Start()
 {
+	root_object = new GameObject("Juan");
+	game_objects.push_back(root_object);
+	selected_object = root_object;
+	
+
 	return true;
 }
 
@@ -30,7 +35,6 @@ bool ModuleInit::CleanUp()
 // Update
 update_status ModuleInit::Update(float dt)
 {
-
 	for (uint n = 0; n < game_objects.size(); n++)
 	{
 		game_objects[n]->Update();
@@ -38,7 +42,7 @@ update_status ModuleInit::Update(float dt)
 
 	for (uint n = 0; n < primitives.size(); n++)
 	{
-		
+		primitives[n]->Render();
 	}
 
 	return UPDATE_CONTINUE;
@@ -61,6 +65,6 @@ void ModuleInit::AddGameObject(GameObject* object)
 	object->SetParent(root_object);
 	root_object->AddChildren(object);
 	game_objects.push_back(object);
-	//root_object->AppendChildren(object);
+	
 }
 

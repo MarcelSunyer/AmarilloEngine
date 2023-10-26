@@ -21,6 +21,7 @@ public:
 
 	void AddGameObject(GameObject* object);
 
+
 private:
 	std::vector<Primitive*> primitives;
 
@@ -29,4 +30,7 @@ public:
 
 	GameObject* root_object = nullptr;
 	GameObject* selected_object = nullptr;
+	
+	Cube juan;
+
 };

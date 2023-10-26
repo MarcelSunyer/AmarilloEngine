@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
 #include "ModuleInit.h"
+
 #include "..\External\ImGui\imgui.h"
 #include "..\External\ImGui/backends/imgui_impl_opengl3.h"
 #include "..\External\ImGui/backends/imgui_impl_sdl2.h"
@@ -72,11 +73,12 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-   
+
+
+    Juan;
     //Done
     HierarchyWindow();
     InspectorWindow();
-
 
     //Show demo
     ImGui::ShowDemoWindow();
@@ -369,8 +371,8 @@ void ModuleEditor::DrawHierarchyLevel()
 
     for (uint n = 0; n < list2.size(); n++)
     {
-        if (ImGui::Button(list2[n]->mName.c_str()))
-        {
+        const char* write = list2[n]->mName.c_str();
+        if (ImGui::Selectable(write)) {
             list2[n]->selected = true;
             App->intro->selected_object = list2[n];
             for (uint k = 0; k < list2.size(); k++)
@@ -378,11 +380,9 @@ void ModuleEditor::DrawHierarchyLevel()
                 if (list2[n] != list2[k]) list2[k]->selected = false;
             }
         }
-        //if (list2[n]->children.size() > 0) {
-        //	DrawHierarchyLevel(list2[n]->children);
-        //}
     }
 }
+
 
 
 

@@ -7,8 +7,10 @@
 #include "Globals.h"
 #include <vector>
 #include "..\External\ImGui/imgui.h"
+#include "Primitive.h"
 #include <iostream>
 #include <string> 
+#include "GameObject.h"
 
 class ModuleEditor : public Module
 {
@@ -37,10 +39,8 @@ public:
 	void HierarchyWindow();
 	void DrawHierarchyLevel();
 
+	GameObject* Juan;
 
-
-	
-	
 	std::vector<float> vecFPSLog;
 	const char* lastValue = "";
 
@@ -61,6 +61,7 @@ public:
 	int logs_array_size;
 
 	bool wireButton = false;
+
 };
 
 #endif // MODULE_EDITOR

@@ -20,7 +20,7 @@ bool GameObject::Enable() //Start up + bool toggle
 	return false;
 }
 
-bool GameObject::Disable() //Start up + bool toggle
+bool GameObject::Disable() 
 {
 	if (active) {
 		active = false;
@@ -30,14 +30,9 @@ bool GameObject::Disable() //Start up + bool toggle
 	return false;
 }
 
-void GameObject::Update() //Start up + bool toggle
+void GameObject::Update()
 {
-	std::vector<Component*>::iterator item = components.begin();
-	bool ret = true;
-
-	for (; item != components.end() && ret == true; ++item) {
-		//ret = (*item)->Update();
-	}
+	
 }
 
 void GameObject::SetParent(GameObject* parent)
