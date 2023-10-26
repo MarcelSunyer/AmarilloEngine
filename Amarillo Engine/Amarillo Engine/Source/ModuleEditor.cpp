@@ -91,7 +91,7 @@ void ModuleEditor::DrawEditor()
             {
                 ImGui::TextColored({ 255,255,0,255 }, "FPS & Delta Time");
                 ImGui::Separator();
-                if (ImGui::MenuItem("Delta Time"));
+                if (ImGui::MenuItem("Delta Time"))
                 {
                     // Crear un nuevo vector para almacenar los valores elevados a la potencia de -1
                     std::vector<float> inverseFPSLog;
@@ -102,20 +102,20 @@ void ModuleEditor::DrawEditor()
 
                     ImGui::PlotHistogram("dt", inverseFPSLog.data(), inverseFPSLog.size(), 2, lastValue);
                 }
-                if (ImGui::MenuItem("FPS"));
+                if (ImGui::MenuItem("FPS"))
                 {
                     ImGui::PlotHistogram("fps", vecFPSLog.data(), vecFPSLog.size(), 2, lastValue);
                 }
                 ImGui::TextColored({ 255,255,0,255 }, "PC Specs");
                 ImGui::Separator();
-                if (ImGui::MenuItem("Graphic Card:"));
+                if (ImGui::MenuItem("Graphic Card:"))
                 {
                     ImGui::TextColored({ 255,255,0,255 }, "%s", glGetString(GL_RENDERER));
                     ImGui::Text("%s", glGetString(GL_VENDOR));
                     ImGui::Text("%s", glGetString(GL_VERSION));
 
                 }
-                if (ImGui::MenuItem("Memory:"));
+                if (ImGui::MenuItem("Memory:"))
                 {
                     int total_ram_mb = SDL_GetSystemRAM();
                     if (total_ram_mb > 0) {
@@ -127,7 +127,7 @@ void ModuleEditor::DrawEditor()
                     }
 
                 }
-                if (ImGui::MenuItem("CPU:"));
+                if (ImGui::MenuItem("CPU:"))
                 {
                     // Obtener el nombre de la CPU
                     const char* cpuModel;// = SDL_GetCPUName();
