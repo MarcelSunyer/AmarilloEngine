@@ -7,11 +7,9 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
 #include "ModuleConsole.h"
-#include "ModuleInit.h"
-
-
 
 extern Application* applic = nullptr;
+
 Application::Application()
 {
 	applic = this;
@@ -22,13 +20,11 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
 	console = new ModuleConsole(this);
-	intro = new ModuleInit(this);
-
 
 	// They will CleanUp() in reverse order
 
 	// Main Modules
-	
+
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
@@ -37,10 +33,6 @@ Application::Application()
 	AddModule(renderer3D);
 	AddModule(editor);
 	AddModule(console);
-	AddModule(intro);
-
-
-
 }
 
 Application::~Application()

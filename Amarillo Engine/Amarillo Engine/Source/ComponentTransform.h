@@ -5,9 +5,6 @@
 
 
 class ComponentTransform : public Component {
-	//Properties
-public:
-
 
 private:
 	float3 position;

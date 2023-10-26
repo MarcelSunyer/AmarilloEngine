@@ -38,9 +38,12 @@ public:
 
 	void HierarchyWindow();
 	void DrawHierarchyLevel();
+	
+	GameObject* selected_object = nullptr;
+	std::vector<GameObject*> game_objects;
 
-	GameObject* Juan;
 
+	GameObject* juan;
 	std::vector<float> vecFPSLog;
 	const char* lastValue = "";
 
@@ -48,7 +51,7 @@ public:  //Windows Settings
 	//Brightness value
 	float brightnessFactor = 1.5f;
 
-	
+	Cube juans;
 	//Show config window
 	bool showWindow = false;
 	bool showConsole = false;

@@ -417,9 +417,6 @@
     <ClInclude Include="Source\Component.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModuleInit.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ComponentMesh.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
@@ -601,9 +598,6 @@
     </ClCompile>
     <ClCompile Include="Source\Component.cpp">
       <Filter>Sources\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ModuleInit.cpp">
-      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\ComponentMesh.cpp">
       <Filter>Sources\GameObject</Filter>

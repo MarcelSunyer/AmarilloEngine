@@ -184,7 +184,7 @@ bool ModuleRenderer3D::Init()
 	App->renderer3D->myModel->error = false;
 	App->renderer3D->myModel->isLoaded = false;
 	// Esto es un path fijo, no se como hacerlo relativo
-	//myModel_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/BakerHouse.fbx";
+	myModel_path = "../Assets/BakerHouse.fbx";
 	//myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/Baker_house.png";
 	//myModel_texture_path = "C:/Users/cacah/OneDrive/Documentos/GitHub/Game_Engine/Amarillo Engine/Amarillo Engine/Assets/green.png";
 
@@ -235,6 +235,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	
 	Grid.Render();
+	juan.Render();
 	if (activeWire)
 	{
 		

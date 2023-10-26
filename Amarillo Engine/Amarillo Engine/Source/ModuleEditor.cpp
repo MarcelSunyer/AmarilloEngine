@@ -5,12 +5,10 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
-#include "ModuleInit.h"
 
 #include "..\External\ImGui\imgui.h"
 #include "..\External\ImGui/backends/imgui_impl_opengl3.h"
 #include "..\External\ImGui/backends/imgui_impl_sdl2.h"
-//#include "ImGui/backends/imgui_impl_opengl3_loader.h"
 #include "..\External\SDL/include/SDL.h"
 #include "GameObject.h"
 #include "Component.h"
@@ -61,6 +59,19 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
 
+   
+    GameObject* root_object = nullptr;
+    root_object = new GameObject("Scene");
+    game_objects.push_back(root_object);
+    selected_object = root_object;
+    root_object->CreateComponent(ComponentTypes::MESH);
+
+    root_object = new GameObject("Juan");
+    game_objects.push_back(root_object);
+    selected_object = root_object;
+
+
+
 	return true;
 }
 
@@ -74,8 +85,8 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-
-    Juan;
+  
+    
     //Done
     HierarchyWindow();
     InspectorWindow();
@@ -339,14 +350,14 @@ void ModuleEditor::InspectorWindow()
     if (show_inspector_window)
     {
         ImGui::Begin("Inspector", &show_inspector_window);
-        ImGui::Text(App->intro->selected_object->mName.c_str());
+        ImGui::Text(selected_object->mName.c_str());
         ImGui::Separator();
        
-        for (uint m = 0; m < App->intro->selected_object->components.size(); m++)
+        for (uint m = 0; m < selected_object->components.size(); m++)
         {
-            if (App->intro->selected_object->selected)
+            if (selected_object->selected)
             {
-                App->intro->selected_object->components[m]->OnEditor();
+                selected_object->components[m]->OnEditor();
             }
 
         }
@@ -367,17 +378,21 @@ void ModuleEditor::HierarchyWindow()
 
 void ModuleEditor::DrawHierarchyLevel()
 {
-    vector<GameObject*> list2 = App->intro->game_objects;
+    std::vector<GameObject*> list2 = game_objects;
 
     for (uint n = 0; n < list2.size(); n++)
     {
         const char* write = list2[n]->mName.c_str();
-        if (ImGui::Selectable(write)) {
+        if (ImGui::Selectable(write)) 
+        {
             list2[n]->selected = true;
-            App->intro->selected_object = list2[n];
+            selected_object = list2[n];
             for (uint k = 0; k < list2.size(); k++)
             {
-                if (list2[n] != list2[k]) list2[k]->selected = false;
+                if (list2[n] != list2[k])
+                {
+                    list2[k]->selected = false;
+                }
             }
         }
     }

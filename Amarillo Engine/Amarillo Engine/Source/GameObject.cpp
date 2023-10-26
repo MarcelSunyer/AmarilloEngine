@@ -8,6 +8,7 @@
 GameObject::GameObject(std::string name) : mName(name), active(true)
 {
 	AddComponent(new ComponentTransform(this));
+
 }
 
 bool GameObject::Enable() //Start up + bool toggle
@@ -32,6 +33,14 @@ bool GameObject::Disable()
 
 void GameObject::Update()
 {
+	
+}
+
+void GameObject::CreatGameObject()
+{
+	parent = new GameObject("");
+	children.push_back(parent);
+
 	
 }
 
@@ -64,7 +73,10 @@ Component* GameObject::AddComponent(Component* component)
 
 GameObject* GameObject::AddChildren(GameObject* children) {
 
-	if (!this->children.empty()) this->children.push_back(children);
+	if (this->children.empty())
+	{
+		this->children.push_back(children);
+	}
 	return children;
 }
 
@@ -82,19 +94,24 @@ Component* GameObject::GetComponent(ComponentTypes type)
 	return nullptr;
 }
 
-std::vector<Component*> GameObject::GetComponents(ComponentTypes type)
+std::vector<Component*> GameObject::CreateComponent(ComponentTypes type)
 {
 	std::vector<Component*>::iterator item = components.begin();
 
 	std::vector<Component*> ret;
 
 	for (; item != components.end(); ++item) {
-
 		if ((*item)->type == type) {
 			ret.push_back((*item));
 		}
 	}
 
+	// Crea un nuevo componente de tipo MeshComponent
+	if (type == ComponentTypes::MESH) {
+		ComponentMesh* newMeshComponent = new ComponentMesh(parent); // No se pasa ningún argumento al constructor
+		components.push_back(newMeshComponent);
+		ret.push_back(newMeshComponent);
+	}
+
 	return ret;
 }
-

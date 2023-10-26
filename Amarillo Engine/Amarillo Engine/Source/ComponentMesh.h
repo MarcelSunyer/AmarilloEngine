@@ -18,6 +18,7 @@ public:
 	void Update() override;
 	void Disable() override;
 	void OnEditor() override;
+	void SetVertices(const aiVector3D* vertices, unsigned int numVertices);
 
 	Meshes* GetMesh() const { return mesh; };
 	std::string  GetPath() const { return path; };
@@ -26,5 +27,6 @@ public:
 	void SetPath(std::string path);
 
 	ComponentMesh(GameObject* parent);
-private:
+public:
+	std::vector<vec3> vertices_;
 };

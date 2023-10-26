@@ -7,6 +7,7 @@
 #include "../External/MathGeoLib/include/Math/Quat.h"
 #include <vector>
 #include "Component.h"
+#include "ComponentMesh.h"
 
 class GameObject
 {
@@ -21,12 +22,14 @@ public:
 	bool Disable();//Clean up + bool toggle
 
 	void Update();
-
+	
+	void CreatGameObject();
+	
 	void SetParent(GameObject* parent);
-
+	
 	Component* AddComponent(Component* component);
 	Component* GetComponent(ComponentTypes type);
-	std::vector<Component*> GetComponents(ComponentTypes type);
+	std::vector<Component*> CreateComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);
 
 public:
@@ -37,6 +40,8 @@ public:
 
 	GameObject* parent;
 	std::vector<GameObject*> children;
+
+	ComponentMesh* juan;
 
 	bool selected = false;
 };
