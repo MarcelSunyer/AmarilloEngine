@@ -47,11 +47,15 @@ public:
     void Draw()
     {
         glEnable(GL_TEXTURE_2D);
+        glActiveTexture(GL_TEXTURE0);
 
         glBindTexture(GL_TEXTURE_2D, textureID); // Vincular la textura
         
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw();
+
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glDisable(GL_TEXTURE_2D);
     }
 
     uint TextureImport(const char* path)
@@ -76,11 +80,11 @@ public:
     bool isLoaded = false;
     bool error = false;
 
+    uint textureID; // ID de la textura
 private:
     Application* App;
     // model data
     std::vector<Mesh> meshes;
-    uint textureID; // ID de la textura
 
     void loadModel(const char* file_path)
     {

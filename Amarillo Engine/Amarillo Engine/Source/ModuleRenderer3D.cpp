@@ -203,9 +203,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	
 	if (myModel_path != nullptr && !myModel->isLoaded && myModel->error == false)
 	{
+
+		myModel->textureID = myModel->TextureImport(myModel_texture_path);
 		
 		myModel->Load(myModel_path);
-		myModel->TextureImport(myModel_texture_path);
+		
 		if (myModel->error == false)
 		{
 			LOG("Loaded MyModelPath");

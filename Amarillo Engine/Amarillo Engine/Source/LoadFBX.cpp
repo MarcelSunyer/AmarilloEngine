@@ -1,7 +1,7 @@
 #include "LoadFBX.h"
 #include "Application.h"
 
-LoadFBX::LoadFBX(Application* app)
+LoadFBX::LoadFBX(Application* app) : textureID(0)
 {
 	App = app;
 }
