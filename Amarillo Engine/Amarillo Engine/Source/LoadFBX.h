@@ -85,6 +85,40 @@ public:
         return tempid;
     }
 
+    void DrawNormals()
+    {
+        glColor3f(1.0f, 1.0f, 0.0f);
+        glLineWidth(2.0f);  // Set the line width for the normals
+
+        for (const Mesh& mesh : meshes)
+        {
+            for (unsigned int i = 0; i < mesh.indices.size(); i += 3)
+            {
+                // Get the vertices of the triangle
+                float3 v0 = mesh.vertices[mesh.indices[i + 0]].Position;
+                float3 v1 = mesh.vertices[mesh.indices[i + 1]].Position;
+                float3 v2 = mesh.vertices[mesh.indices[i + 2]].Position;
+
+                // Calculate the center of the triangle
+                float3 center = (v0 + v1 + v2) / 3.0f;
+
+                // Calculate the normal of the triangle
+                float3 normal = Cross(v1 - v0, v2 - v0).Normalized();
+
+                // Calculate the start and end positions of the normal line
+                float3 startPos = center;
+                float3 endPos = center + normal * 0.1f;  // Scale the normal length for visibility
+
+                // Draw the normal line
+                glBegin(GL_LINES);
+                glVertex3f(startPos.x, startPos.y, startPos.z);
+                glVertex3f(endPos.x, endPos.y, endPos.z);
+                glEnd();
+            }
+        }
+    }
+
+
     bool isLoaded = false;
     bool error = false;
 
