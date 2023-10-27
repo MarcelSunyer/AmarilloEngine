@@ -49,12 +49,20 @@ public:
         glEnable(GL_TEXTURE_2D);
         glActiveTexture(GL_TEXTURE0);
 
+        //Test texturas
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_NORMAL_ARRAY);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
         glBindTexture(GL_TEXTURE_2D, textureID); // Vincular la textura
         
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw();
 
         glBindTexture(GL_TEXTURE_2D, 0);
+        glDisableClientState(GL_NORMAL_ARRAY);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         glDisable(GL_TEXTURE_2D);
     }
 
