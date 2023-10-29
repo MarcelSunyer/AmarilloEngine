@@ -40,9 +40,25 @@ public:
     LoadFBX(Application* app);
     ~LoadFBX();
 
-    void Load(const char* path)
+    void Load(const char* path, GameObject* gameobject)
     {
         loadModel(path);
+        if (!isLoaded || error)
+        {
+            // Manejar el error, si es necesario
+            return;
+        }
+        Meshes* fbxMesh = fbxLoader->GetLoadedMesh();
+
+        if (gameobject)
+        {
+            ComponentMesh* meshComponent = (ComponentMesh*)gameobject->AddComponent(new ComponentMesh(gameobject));
+            if (meshComponent)
+            {
+                meshComponent->SetMesh(fbxMesh);
+                meshComponent->SetPath(path);
+            }
+        }
     }
   
     void Draw()
@@ -128,6 +144,12 @@ private:
     Application* App;
     // model data
     std::vector<Mesh> meshes;
+    Meshes loadedMesh;
+    
+    Meshes* LoadFBX::GetLoadedMesh()
+    {
+        return &loadedMesh;
+    }
 
     void loadModel(const char* file_path)
     {
@@ -159,6 +181,7 @@ private:
 
     Mesh processMesh(aiMesh* mesh, const aiScene* scene)
     {
+        
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
 

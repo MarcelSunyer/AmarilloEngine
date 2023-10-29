@@ -207,7 +207,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 		myModel->textureID = myModel->TextureImport(myModel_texture_path);
 		
-		myModel->Load(myModel_path);
+		myModel->Load(myModel_path, App->editor->root_object);
 		
 		if (myModel->error == false)
 		{

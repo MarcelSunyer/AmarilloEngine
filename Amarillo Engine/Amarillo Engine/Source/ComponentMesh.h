@@ -10,7 +10,7 @@ public:
 
 private:
 	Meshes* mesh;
-	std::string path;
+	std::string paths;
 
 	//Methods
 public:
@@ -19,13 +19,14 @@ public:
 	void Disable() override;
 	void OnEditor() override;
 	Meshes* GetMesh() const { return mesh; };
-	std::string  GetPath() const { return path; };
+	std::string  GetPath() const { return paths; };
+	void SetFBXLoader(LoadFBX* fbxLoader);
 
 	void SetMesh(Meshes* mesh);
 	void SetPath(std::string path);
 
 
 	ComponentMesh(GameObject* parent);
-public:
-	std::vector<vec3> vertices_;
+private:
+	LoadFBX* fbxLoad;
 };
