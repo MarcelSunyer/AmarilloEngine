@@ -164,6 +164,10 @@ void ModuleEditor::DrawEditor()
                     if (ImGui::Checkbox("Wireframe", &App->renderer3D->activeWire))
                     {
                     }
+
+                    if (ImGui::Checkbox("Normals", &App->renderer3D->activeNormals))
+                    {
+                    }
                     
                 }
             }

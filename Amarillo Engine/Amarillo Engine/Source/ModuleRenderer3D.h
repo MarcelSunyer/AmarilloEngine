@@ -63,6 +63,7 @@ public:
 	uint VAO;
 
 	bool activeWire = false;
+	bool activeNormals = false;
 
 	
 };

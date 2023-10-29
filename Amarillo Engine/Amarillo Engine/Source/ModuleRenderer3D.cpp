@@ -254,12 +254,21 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		PrimitiveTest->Render();
 	}
 
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 	glTranslatef(0.0f, 0.0f, 0.0f);
 	myModel->Draw();
 
-	myModel->DrawNormals();
+
+	if (activeNormals)
+	{
+		myModel->DrawNormals();
+	}
+	else
+	{
+
+	}
 
 	App->editor->DrawEditor();
 
