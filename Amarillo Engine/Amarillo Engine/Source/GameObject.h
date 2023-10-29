@@ -8,6 +8,7 @@
 #include <vector>
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "ComponentTransform.h"
 
 class GameObject
 {
@@ -41,7 +42,7 @@ public:
 	GameObject* parent;
 	std::vector<GameObject*> children;
 
-	ComponentMesh* juan;
+	ComponentTransform* jua;
 
 	bool selected = false;
 };

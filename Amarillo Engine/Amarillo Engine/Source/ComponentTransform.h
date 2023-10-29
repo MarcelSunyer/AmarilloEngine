@@ -30,7 +30,11 @@ public:
 
 	ComponentTransform(GameObject* parent); //DEFAULTS TO 0,0
 	ComponentTransform(GameObject* parent, float3 position, float3 scale, Quat rotation);
-private:
+public:
 
 	void UpdateMatrix(); //Call after every interaction with the matrix;  
+
+	float3 new_position{ 31.0f, 232.0f, 3.0f };
+	Quat new_rotation = Quat::FromEulerXYZ(0.0f, 0.0f, 90.0f);  // Rotar 90 grados en el eje Z
+	float3 new_scale{213.0f, 2321.0f, 2.0f};
 };

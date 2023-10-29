@@ -42,8 +42,8 @@ void ComponentTransform::UpdateMatrix() {
 void ComponentTransform::OnEditor() {
 	if (ImGui::CollapsingHeader("Component Transform"))
 	{
-		ImGui::InputFloat3("Transform", (float*)&position);
-		ImGui::InputFloat3("Scale", (float*)&scale);
-		ImGui::InputFloat4("Rotation", (float*)&rotation);
+		ImGui::InputFloat3("Transform", (float*)&new_position);
+		ImGui::InputFloat3("Scale", (float*)&new_scale);
+		ImGui::InputFloat4("Rotation", (float*)&new_rotation);
 	}
 }

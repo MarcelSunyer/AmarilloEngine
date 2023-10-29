@@ -46,7 +46,7 @@ public:
 	void InitDevil();
 
 public:
-
+	GameObject* PEDRITO;
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	CPlane Grid;
