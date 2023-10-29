@@ -27,7 +27,7 @@ public:
 	
 	void SetParent(GameObject* parent);
 	
-	Component* AddComponent(Component* component);
+	Component* AddComponent(ComponentTypes component);
 	Component* GetComponent(ComponentTypes type);
 	std::vector<Component*> CreateComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);

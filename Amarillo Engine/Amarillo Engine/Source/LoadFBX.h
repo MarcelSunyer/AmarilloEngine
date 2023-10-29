@@ -48,16 +48,16 @@ public:
             // Manejar el error, si es necesario
             return;
         }
-        Meshes* fbxMesh = fbxLoader->GetLoadedMesh();
+        
+        Meshes* fbxMesh = GetLoadedMesh();
 
         if (gameobject)
         {
-            ComponentMesh* meshComponent = (ComponentMesh*)gameobject->AddComponent(new ComponentMesh(gameobject));
-            if (meshComponent)
-            {
-                meshComponent->SetMesh(fbxMesh);
-                meshComponent->SetPath(path);
-            }
+            ComponentMesh* meshComponent = (ComponentMesh*)gameobject->AddComponent(ComponentTypes::MESH);
+            
+            meshComponent->SetMesh(fbxMesh);
+            meshComponent->SetPath(path);
+            
         }
     }
   

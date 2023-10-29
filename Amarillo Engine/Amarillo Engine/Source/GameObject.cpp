@@ -7,7 +7,7 @@
 
 GameObject::GameObject(std::string name) : mName(name), active(true)
 {
-	AddComponent(new ComponentTransform(this));
+	AddComponent(ComponentTypes::TRANSFORM);
 
 }
 
@@ -49,11 +49,11 @@ void GameObject::SetParent(GameObject* parent)
 	this->parent = parent;
 }
 
-Component* GameObject::AddComponent(Component* component)
+Component* GameObject::AddComponent(ComponentTypes type)
 {
 	Component* ret = nullptr;
 
-	switch (component->type)
+	switch (type)
 	{
 	case(ComponentTypes::NONE):
 		//LOG("Component Type Error! Something broke...");
@@ -67,7 +67,7 @@ Component* GameObject::AddComponent(Component* component)
 	}
 
 	//components.push_back(ret);
-	components.push_back(component);
+	components.push_back(ret);
 	return ret;
 }
 

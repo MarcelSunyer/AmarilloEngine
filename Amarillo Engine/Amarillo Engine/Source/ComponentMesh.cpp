@@ -24,11 +24,6 @@ void ComponentMesh::Update() {
 
 }
 
-void ComponentMesh::SetFBXLoader(LoadFBX* fbxLoader)
-{
-	this->fbxLoad = fbxLoader;
-}
-
 void ComponentMesh::SetMesh(Meshes* mesh)
 {
 	this->mesh = mesh;

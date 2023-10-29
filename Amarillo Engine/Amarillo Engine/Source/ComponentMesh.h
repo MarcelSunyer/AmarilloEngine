@@ -20,7 +20,6 @@ public:
 	void OnEditor() override;
 	Meshes* GetMesh() const { return mesh; };
 	std::string  GetPath() const { return paths; };
-	void SetFBXLoader(LoadFBX* fbxLoader);
 
 	void SetMesh(Meshes* mesh);
 	void SetPath(std::string path);
@@ -28,5 +27,5 @@ public:
 
 	ComponentMesh(GameObject* parent);
 private:
-	LoadFBX* fbxLoad;
+
 };
