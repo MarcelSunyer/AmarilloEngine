@@ -9,7 +9,7 @@ class ComponentMesh : public Component {
 public:
 
 private:
-	Meshes* mesh;
+	aiMesh* mesh;
 	std::string paths;
 
 	//Methods
@@ -18,10 +18,10 @@ public:
 	void Update() override;
 	void Disable() override;
 	void OnEditor() override;
-	Meshes* GetMesh() const { return mesh; };
+	aiMesh* GetMesh() const { return mesh; };
 	std::string  GetPath() const { return paths; };
 
-	void SetMesh(Meshes* mesh);
+	void SetMesh(aiMesh* mesh);
 	void SetPath(std::string path);
 
 
