@@ -184,10 +184,10 @@ bool ModuleRenderer3D::Init()
 	App->renderer3D->myModel->error = false;
 	App->renderer3D->myModel->isLoaded = false;
 	
-	//myModel_path = "../Assets/BakerHouse.fbx";
-	myModel_path = "../Assets/Cube-ASCII.fbx";
-	//myModel_texture_path = "../Assets/Baker_house.png";
-	myModel_texture_path = "../Assets/green.png";
+	myModel_path = "../Assets/BakerHouse.fbx";
+	//myModel_path = "../Assets/Cube-ASCII.fbx";
+	myModel_texture_path = "../Assets/Baker_house.png";
+	//myModel_texture_path = "../Assets/green.png";
 
 
 	return ret;
