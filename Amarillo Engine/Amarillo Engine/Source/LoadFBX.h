@@ -42,23 +42,8 @@ public:
 
     void Load(const char* path, GameObject* gameobject)
     {
-        loadModel(path);
-        if (!isLoaded || error)
-        {
-            // Manejar el error, si es necesario
-            return;
-        }
-        
-        Meshes* fbxMesh = GetLoadedMesh();
-
-        if (gameobject)
-        {
-            ComponentMesh* meshComponent = (ComponentMesh*)gameobject->AddComponent(ComponentTypes::MESH);
-            
-            meshComponent->SetMesh(fbxMesh);
-            meshComponent->SetPath(path);
-            
-        }
+        loadModel(path, gameobject);
+    
     }
   
     void Draw()
@@ -143,15 +128,9 @@ public:
 private:
     Application* App;
     // model data
-    std::vector<Mesh> meshes;
-    Meshes loadedMesh;
-    
-    Meshes* LoadFBX::GetLoadedMesh()
-    {
-        return &loadedMesh;
-    }
+    std::vector<Mesh> meshes;    
 
-    void loadModel(const char* file_path)
+    void loadModel(const char* file_path, GameObject* gameobject)
     {
         const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -163,23 +142,23 @@ private:
         }
         else LOG("Scene loaded successfully: %s", file_path);
         this->isLoaded = true;
-        processNode(scene->mRootNode, scene);
+        processNode(scene->mRootNode, scene, gameobject, file_path);
     }
 
-    void processNode(aiNode* node, const aiScene* scene)
+    void processNode(aiNode* node, const aiScene* scene, GameObject* gameobject, const char* path)
     {
         for (unsigned int i = 0; i < node->mNumMeshes; i++)
         {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            meshes.push_back(processMesh(mesh, scene));
+            meshes.push_back(processMesh(mesh, scene, gameobject, path));
         }
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
-            processNode(node->mChildren[i], scene);
+            processNode(node->mChildren[i], scene, gameobject, path);
         }
     }
 
-    Mesh processMesh(aiMesh* mesh, const aiScene* scene)
+    Mesh processMesh(aiMesh* mesh, const aiScene* scene, GameObject* gameobject, const char* path)
     {
         
         std::vector<Vertex> vertices;
@@ -213,6 +192,16 @@ private:
             for (unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
+
+        if (gameobject)
+        {
+            ComponentMesh* meshComponent = (ComponentMesh*)gameobject->AddComponent(ComponentTypes::MESH);
+
+            meshComponent->SetMesh(mesh);
+            meshComponent->SetPath(path);
+
+        }
+
 
         LOG("Num Vertex: %d", mesh->mNumVertices);
         LOG("Num Index: %d", mesh->mNumFaces);
