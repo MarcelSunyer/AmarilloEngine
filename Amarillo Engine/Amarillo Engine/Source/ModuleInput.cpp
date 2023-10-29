@@ -123,20 +123,11 @@ update_status ModuleInput::PreUpdate(float dt)
 			{
 				if (e.drop.file != ERROR)
 				{
-					App->renderer3D->myModel->error = false;
-					App->renderer3D->myModel->isLoaded = false;
 
 					// e.drop.file has the directoy of the droped file
 					char* dropped_filedir = e.drop.file;
 
-					// Load the geometry using myModel_path
-					App->renderer3D->myModel_path = dropped_filedir;
 
-					// Crear un vector para almacenar las mallas
-					std::vector<Meshes> MeshVector;
-
-					// Cargar la geometría usando la función del namespace AssimpNameSpace (TODO - Falta por utilizar para cargarlo bien)
-					//AssimpNameSpace::LoadGeometry(dropped_filedir, MeshVector);
 
 					// Free memory
 					SDL_free(dropped_filedir);

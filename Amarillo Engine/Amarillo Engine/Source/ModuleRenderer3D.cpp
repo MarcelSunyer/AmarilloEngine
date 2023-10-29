@@ -11,6 +11,8 @@
 #include <gl/GLU.h>
 #include "..\External\SDL/include/SDL_syswm.h"
 #include "Primitive.h"
+#include "ModuleMesh.h"
+
 
 
 // ImGui includes
@@ -24,6 +26,7 @@
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "External/Glew/libx86/glew32.lib")
+
 
 #ifdef _DEBUG
 #pragma comment (lib, "External/MathGeoLib/libx86/MGLDebug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
@@ -52,14 +55,14 @@ static const GLuint CubeIndices[] = {
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled), context()
 {
-	myModel = new LoadFBX(app);
+	
 	PrimitiveTest = new Primitive(app);
 }
 
 // Destructor
 ModuleRenderer3D::~ModuleRenderer3D()
 {
-	delete(myModel);
+	
 	delete(PrimitiveTest);
 }
 
@@ -144,50 +147,67 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 
+		//Init Glew
+		glewInit();
+
+		//Init Devil
+		InitDevil();
 	}
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	for (int i = 0; i < CHECKERS_WIDTH; i++) {
+		for (int j = 0; j < CHECKERS_HEIGHT; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkerImage[i][j][0] = (GLubyte)c;
+			checkerImage[i][j][1] = (GLubyte)c;
+			checkerImage[i][j][2] = (GLubyte)c;
+			checkerImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	glEnable(GL_TEXTURE_2D);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &checkersTexture);
+	glBindTexture(GL_TEXTURE_2D, checkersTexture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+
+	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
+
+		glGenBuffers(1, &App->mesh->ourMeshes[i].VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(ModuleMesh::Vertex) * App->mesh->ourMeshes[i].ourVertex.size(), &App->mesh->ourMeshes[i].ourVertex[0], GL_STATIC_DRAW);
+
+		glGenBuffers(1, &App->mesh->ourMeshes[i].EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * App->mesh->ourMeshes[i].indices.size(), &App->mesh->ourMeshes[i].indices[0], GL_STATIC_DRAW);
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	}
+
 	Grid.axis = true;
 
-	//Init Glew
-	glewInit();
-
-	//Init Devil
-	InitDevil();
-
-	//myModel.Load("../BakerHouse.fbx");
-
-	VBO = 0;
-	EBO = 0;
-	VAO = 0;
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-	glGenVertexArrays(1, &VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices), CubeVertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CubeIndices), CubeIndices, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glBindVertexArray(VAO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	glBindVertexArray(0);
-
+	ilInit();
 
 	//Pruebas LoadTexture
-	App->renderer3D->myModel->error = false;
-	App->renderer3D->myModel->isLoaded = false;
+	//App->renderer3D->myModel->error = false;
+	//App->renderer3D->myModel->isLoaded = false;
 	
-	myModel_path = "../Assets/BakerHouse.fbx";
+	//myModel_path = "../Assets/BakerHouse.fbx";
 	//myModel_path = "../Assets/Cube-ASCII.fbx";
-	myModel_texture_path = "../Assets/Baker_house.png";
+	//myModel_texture_path = "../Assets/Baker_house.png";
 	//myModel_texture_path = "../Assets/green.png";
+
 
 
 	return ret;
@@ -202,23 +222,23 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 	
-	if (myModel_path != nullptr && !myModel->isLoaded && myModel->error == false)
-	{
+	//if (myModel_path != nullptr && !myModel->isLoaded && myModel->error == false)
+	//{
 
-		myModel->textureID = myModel->TextureImport(myModel_texture_path);
-		
-		myModel->Load(myModel_path, App->editor->root_object);
-		
-		if (myModel->error == false)
-		{
-			LOG("Loaded MyModelPath");
-		}
-		else
-		{
-			LOG("An error ocurred loading the model (FBX mode not compatible)");
-		}
-		
-	}
+	//	myModel->textureID = myModel->TextureImport(myModel_texture_path);
+	//	
+	//	myModel->Load(myModel_path, App->editor->root_object);
+	//	
+	//	if (myModel->error == false)
+	//	{
+	//		LOG("Loaded MyModelPath");
+	//	}
+	//	else
+	//	{
+	//		LOG("An error ocurred loading the model (FBX mode not compatible)");
+	//	}
+	//	
+	//}
 	
 	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 	{
@@ -238,9 +258,13 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 
-	
-	Grid.Render();
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadMatrixf(App->camera->GetViewMatrix());
+	//glTranslatef(0.0f, 0.0f, 0.0f);
+	//myModel->Draw();
+
 	//juan.Render();
+
 	if (activeWire)
 	{
 		
@@ -254,27 +278,44 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		PrimitiveTest->Render();
 	}
 
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
-	glTranslatef(0.0f, 0.0f, 0.0f);
-	myModel->Draw();
-
-
 	if (activeNormals)
 	{
-		myModel->DrawNormals();
+		//myModel->DrawNormals();
 	}
 	else
 	{
 
 	}
 
+
+	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE_COORD_ARRAY);
+		//Bind Mesh
+		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
+
+		//Bind Textures
+		//glBindTexture(GL_TEXTURE_2D, house->textID);
+		glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
+		glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
+
+		glDrawElements(GL_TRIANGLES, App->mesh->ourMeshes[i].indices.size(), GL_UNSIGNED_INT, NULL);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		glDisable(GL_TEXTURE_2D);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisable(GL_TEXTURE_COORD_ARRAY);
+
+	}
+
+	Grid.Render();
+
 	App->editor->DrawEditor();
-
-	glBindVertexArray(VAO);
-
-	//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Set drawing color (red) // x, y, width, height
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
@@ -285,13 +326,13 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
-	SDL_GL_DeleteContext(context);
+	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
 
-	if (VBO != 0)
-	{
-		glDeleteBuffers(1, &VBO);
-		VBO = 0;
+		glDeleteBuffers(1, &App->mesh->ourMeshes[i].VBO);
+		glDeleteBuffers(1, &App->mesh->ourMeshes[i].EBO);
 	}
+
+	SDL_GL_DeleteContext(context);
 
 	return true;
 }
@@ -314,7 +355,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 void ModuleRenderer3D::InitDevil()
 {
-	ilInit();		//No se porque pero este peta
+	ilInit();		
 	iluInit();
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);

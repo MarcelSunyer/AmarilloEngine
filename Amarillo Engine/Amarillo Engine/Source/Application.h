@@ -13,6 +13,7 @@ class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleEditor;
 class ModuleConsole;
+class ModuleMesh;
 
 
 
@@ -26,6 +27,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
 	ModuleConsole* console;
+	ModuleMesh* mesh;
 
 private:
 

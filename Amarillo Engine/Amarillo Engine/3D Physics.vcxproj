@@ -181,6 +181,7 @@
     <ClInclude Include="External\MathGeoLib\include\Math\sse_mathfun.h" />
     <ClInclude Include="External\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="External\MathGeoLib\include\Time\Clock.h" />
+    <ClInclude Include="ModuleMesh.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\AssimpNamespace.h" />
     <ClInclude Include="Source\Color.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="External\MathGeoLib\include\Math\SSEMath.cpp" />
     <ClCompile Include="External\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="External\MathGeoLib\include\Time\Clock.cpp" />
+    <ClCompile Include="ModuleMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AssimpNamespace.cpp" />
     <ClCompile Include="Source\Color.cpp" />

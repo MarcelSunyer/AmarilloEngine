@@ -4,8 +4,10 @@
 #include "Light.h"
 #include "Primitive.h"
 #include <string.h>
+#include "../External/Glew/include/glew.h"
 #include "..\External\ImGui/imgui.h"
 #include "ModuleConsole.h"
+#include "ModuleMesh.h"
 
 #include "..\External\MathGeoLib/include/Math/float3x3.h"
 #include "..\External\MathGeoLib/include/Math/float4x4.h"
@@ -14,19 +16,19 @@
 #include "LoadFBX.h"
 #include "Mesh.h"
 
-#include "..\External\Devil/include/ilut.h"
-#include "..\External\Devil/include/ilu.h"
-#include "..\External\Devil/include/il.h"
 
-#pragma once (lib, "Devil/libx86/DevIl.lib")
-#pragma comment (lib, "External/Devil/libx86/ILU.lib")
-#pragma comment (lib, "External/Devil/libx86/ILUT.lib")
+
+
 
 
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
 
 #define MAX_LIGHTS 8
+
+//Checkers specs
+#define CHECKERS_WIDTH 64
+#define CHECKERS_HEIGHT 64
 
 class ModuleRenderer3D : public Module
 {
@@ -52,7 +54,8 @@ public:
 	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
 
-	LoadFBX* myModel = nullptr;
+	/*LoadFBX loader;
+	LoadFBX* myModel = nullptr;*/
 	Primitive* PrimitiveTest = nullptr;
 
 	const char* myModel_path = nullptr;
@@ -65,5 +68,8 @@ public:
 	bool activeWire = false;
 	bool activeNormals = false;
 
+	GLuint checkersTexture;
+	GLuint texWidth, texHeight;
+	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
 };

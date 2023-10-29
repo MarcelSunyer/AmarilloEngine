@@ -423,6 +423,9 @@
     <ClInclude Include="Source\ComponentTransform.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleMesh.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AssimpNamespace.cpp">
@@ -604,6 +607,9 @@
     </ClCompile>
     <ClCompile Include="Source\ComponentTransform.cpp">
       <Filter>Sources\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleMesh.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
