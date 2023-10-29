@@ -73,7 +73,7 @@ bool ModuleRenderer3D::Init()
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
 
-	App->mesh->LoadMesh("../Assets/BakerHouse.fbx");
+	App->mesh->LoadMesh("../Assets/Pickachu.fbx");
 	
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -212,7 +212,7 @@ bool ModuleRenderer3D::Init()
 	//myModel_texture_path = "../Assets/green.png";
 
 	
-	myHouse = App->texture->LoadTexture("../Assets/duro.png");
+	myHouse = App->texture->LoadTexture("../Assets/pickachu.png");
 
 	return ret;
 }
