@@ -24,7 +24,7 @@ void ComponentMesh::Update() {
 
 }
 
-void ComponentMesh::SetMesh(aiMesh* mesh)
+void ComponentMesh::SetMesh(Meshes* mesh)
 {
 	this->mesh = mesh;
 }
@@ -41,8 +41,8 @@ void ComponentMesh::OnEditor() {
 		
 		if (mesh != NULL) {
 			ImGui::Text("Path: %s", paths);
-			ImGui::Text("Index: %d", mesh->mNumFaces);
-			ImGui::Text("Vertices: %d", mesh->mNumVertices);
+			ImGui::Text("Index: %d", mesh->num_index);
+			ImGui::Text("Vertices: %d", mesh->num_vertex);
 		}
 		//Todo:Falta poner estas dos
 
