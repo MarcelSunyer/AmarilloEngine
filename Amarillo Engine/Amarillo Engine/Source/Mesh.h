@@ -1,4 +1,3 @@
-#pragma once
 //#pragma once
 //#include "Globals.h"
 //#include "..\External\Glew/include/glew.h"
