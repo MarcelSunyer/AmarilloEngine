@@ -2,6 +2,7 @@
 #include "ComponentMesh.h"
 #include "GameObject.h"
 #include "../External/ImGUI/imgui.h"
+#include "LoadFBX.h"
 
 ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent)
 {
@@ -39,8 +40,6 @@ void ComponentMesh::OnEditor() {
 	}
 }
 
-
-
 void ComponentMesh::SetMesh(Meshes* mesh)
 {
 	this->mesh = mesh;
@@ -49,16 +48,4 @@ void ComponentMesh::SetMesh(Meshes* mesh)
 void ComponentMesh::SetPath(std::string path)
 {
 	this->path = path;
-}
-
-void ComponentMesh::SetVertices(const aiVector3D* vertices, unsigned int numVertices) {
-	// You should store the vertex data in your ComponentMesh
-	// For example, you might store it in a member variable or use a rendering library to upload the data to the GPU.
-
-	// Here's a simplified example of how to store vertex data in a member variable:
-	for (unsigned int i = 0; i < numVertices; ++i) {
-		// Store vertices in your mesh data structure
-		// For simplicity, we assume that you have a "vertices" member in ComponentMesh
-		vertices_.push_back(vec3(vertices[i].x, vertices[i].y, vertices[i].z));
-	}
 }

@@ -18,13 +18,12 @@ public:
 	void Update() override;
 	void Disable() override;
 	void OnEditor() override;
-	void SetVertices(const aiVector3D* vertices, unsigned int numVertices);
-
 	Meshes* GetMesh() const { return mesh; };
 	std::string  GetPath() const { return path; };
 
 	void SetMesh(Meshes* mesh);
 	void SetPath(std::string path);
+
 
 	ComponentMesh(GameObject* parent);
 public:

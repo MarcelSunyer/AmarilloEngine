@@ -398,6 +398,7 @@ void ModuleEditor::CreateGameObject()
         root_object = new GameObject("EmptyGameObject");
         game_objects.push_back(root_object);
         selected_object = root_object;
+        root_object->CreateComponent(ComponentTypes::MESH);
 
     }
 }

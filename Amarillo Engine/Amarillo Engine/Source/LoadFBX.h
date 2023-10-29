@@ -7,6 +7,7 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 #include "ModuleConsole.h"
+#include "AssimpNamespace.h"
 #include "Mesh.h"
 #include <vector>
 #include <string>
@@ -43,7 +44,7 @@ public:
     {
         loadModel(path);
     }
-
+  
     void Draw()
     {
         glEnable(GL_TEXTURE_2D);
