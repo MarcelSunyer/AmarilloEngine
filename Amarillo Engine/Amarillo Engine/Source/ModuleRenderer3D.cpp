@@ -179,7 +179,21 @@ bool ModuleRenderer3D::Init()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 
+	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
 
+		glGenBuffers(1, &App->mesh->ourMeshes[i].VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(ModuleMesh::Vertex) * App->mesh->ourMeshes[i].ourVertex.size(), &App->mesh->ourMeshes[i].ourVertex[0], GL_STATIC_DRAW);
+
+		glGenBuffers(1, &App->mesh->ourMeshes[i].EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * App->mesh->ourMeshes[i].indices.size(), &App->mesh->ourMeshes[i].indices[0], GL_STATIC_DRAW);
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	}
 
 	Grid.axis = true;
 
@@ -208,21 +222,23 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 	
-	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
+	//if (myModel_path != nullptr && !myModel->isLoaded && myModel->error == false)
+	//{
 
-		glGenBuffers(1, &App->mesh->ourMeshes[i].VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(ModuleMesh::Vertex) * App->mesh->ourMeshes[i].ourVertex.size(), &App->mesh->ourMeshes[i].ourVertex[0], GL_STATIC_DRAW);
-
-		glGenBuffers(1, &App->mesh->ourMeshes[i].EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * App->mesh->ourMeshes[i].indices.size(), &App->mesh->ourMeshes[i].indices[0], GL_STATIC_DRAW);
-
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	}
+	//	myModel->textureID = myModel->TextureImport(myModel_texture_path);
+	//	
+	//	myModel->Load(myModel_path, App->editor->root_object);
+	//	
+	//	if (myModel->error == false)
+	//	{
+	//		LOG("Loaded MyModelPath");
+	//	}
+	//	else
+	//	{
+	//		LOG("An error ocurred loading the model (FBX mode not compatible)");
+	//	}
+	//	
+	//}
 	
 	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 	{

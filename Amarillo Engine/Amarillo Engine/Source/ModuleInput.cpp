@@ -127,8 +127,6 @@ update_status ModuleInput::PreUpdate(float dt)
 					// e.drop.file has the directoy of the droped file
 					char* dropped_filedir = e.drop.file;
 
-					App->mesh->LoadMesh(dropped_filedir);
-
 
 
 					// Free memory
