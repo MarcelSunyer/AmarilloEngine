@@ -15,6 +15,7 @@
 
 
 
+
 // ImGui includes
 //
 //#include "ImGui/imgui.h"
@@ -71,6 +72,8 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
+
+	App->mesh->LoadMesh("../Assets/BakerHouse.fbx");
 	
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -208,7 +211,8 @@ bool ModuleRenderer3D::Init()
 	//myModel_texture_path = "../Assets/Baker_house.png";
 	//myModel_texture_path = "../Assets/green.png";
 
-
+	
+	myHouse = App->texture->LoadTexture("../Assets/Baker_house.png");
 
 	return ret;
 }
@@ -298,7 +302,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
 
 		//Bind Textures
-		//glBindTexture(GL_TEXTURE_2D, house->textID);
+		glBindTexture(GL_TEXTURE_2D, myHouse->textID);
 		glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
 		glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
 

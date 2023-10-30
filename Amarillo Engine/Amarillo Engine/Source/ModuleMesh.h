@@ -7,14 +7,6 @@
 #include "../External/MathGeoLib/include/MathGeoLib.h"
 #include <vector>
 
-#include "../External\Devil/include/il.h"
-#include "../External\Devil/include/ilu.h"
-#include "../External\Devil/include/ilut.h"
-
-#pragma comment (lib, "External/Devil/libx86/DevIl.lib")
-#pragma comment (lib, "External/Devil/libx86/ILU.lib")
-#pragma comment (lib, "External/Devil/libx86/ILUT.lib")
-
 class ModuleMesh : public Module
 {
 public:
