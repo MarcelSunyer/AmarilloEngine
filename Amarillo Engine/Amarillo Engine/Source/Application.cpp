@@ -7,6 +7,8 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
 #include "ModuleConsole.h"
+#include "ModuleMesh.h"
+#include "ModuleTexture.h"
 
 extern Application* applic = nullptr;
 
@@ -20,6 +22,8 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
 	console = new ModuleConsole(this);
+	mesh = new ModuleMesh(this);
+	texture = new ModuleTexture(this);
 
 	// They will CleanUp() in reverse order
 
@@ -28,6 +32,8 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
+	AddModule(mesh);
+	AddModule(texture);
 
 	// Renderer last!
 	AddModule(renderer3D);
