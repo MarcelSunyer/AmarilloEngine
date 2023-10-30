@@ -65,6 +65,8 @@ Texture* ModuleTexture::LoadTexture(std::string textfile)
 
         ilDeleteImages(1, &imageToTextID);
 
+        LOG(textfile.c_str());
+
         return new Texture(_texture, width, height);
     }
 }
