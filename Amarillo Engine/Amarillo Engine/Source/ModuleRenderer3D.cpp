@@ -198,7 +198,7 @@ bool ModuleRenderer3D::Init()
 	//myModel_texture_path = "../Assets/green.png";
 
 	
-	myHouse = App->texture->LoadTexture("../Assets/duro.png");
+	myHouse = App->texture->LoadTexture("../Assets/Baker_house.png");
 
 	return ret;
 }
