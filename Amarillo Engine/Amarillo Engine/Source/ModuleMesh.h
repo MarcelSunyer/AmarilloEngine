@@ -6,6 +6,7 @@
 #include "glmath.h"
 #include "../External/MathGeoLib/include/MathGeoLib.h"
 #include <vector>
+#include "../External/Glew/include/glew.h"
 
 class ModuleMesh : public Module
 {
@@ -17,6 +18,7 @@ public:
 	~ModuleMesh();
 	update_status Update();
 	bool CleanUp();
+	void DrawNormals();
 	struct Vertex {
 		float3 Position;
 		float3 Normal;

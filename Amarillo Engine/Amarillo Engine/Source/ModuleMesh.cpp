@@ -100,3 +100,38 @@ bool ModuleMesh::CleanUp()
 {
 	return true;
 }
+
+void ModuleMesh::DrawNormals() {
+	float length = 0.2f; // Define the length of the normals you want to draw
+
+	glBegin(GL_LINES); // Start drawing lines
+
+	for (const MeshData& mesh : ourMeshes) {
+		for (unsigned int i = 0; i < mesh.indices.size(); i += 3) {
+			// Get the vertices of the triangle
+			float3 vertex1 = mesh.ourVertex[mesh.indices[i]].Position;
+			float3 vertex2 = mesh.ourVertex[mesh.indices[i + 1]].Position;
+			float3 vertex3 = mesh.ourVertex[mesh.indices[i + 2]].Position;
+
+			// Calculate the center of the triangle
+			float3 center = (vertex1 + vertex2 + vertex3) / 3.0f;
+
+			// Get the normal of the center (this assumes the normals are the same for all vertices in the triangle)
+			float3 normal = mesh.ourVertex[mesh.indices[i]].Normal;
+
+			// Calculate the end point of the normal
+			float3 normalEnd = center + normal * length;
+
+			// Set the color of the line (optional)
+			glColor3f(1.0f, 1.0f, 0.0f); // Red color
+
+			// Define the start and end points of the line
+			glVertex3f(center.x, center.y, center.z);
+			glVertex3f(normalEnd.x, normalEnd.y, normalEnd.z);
+		}
+	}
+
+	glEnd(); // End drawing lines
+}
+
+

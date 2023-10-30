@@ -266,14 +266,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		PrimitiveTest->Render();
 	}
 
-	if (activeNormals)
-	{
-		//myModel->DrawNormals();
-	}
-	else
-	{
 
-	}
 
 
 	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
@@ -302,6 +295,15 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	}
 
 	Grid.Render();
+
+	if (activeNormals)
+	{
+		App->mesh->DrawNormals();
+	}
+	else
+	{
+
+	}
 
 	App->editor->DrawEditor();
 
