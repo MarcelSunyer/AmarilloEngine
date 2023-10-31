@@ -13,6 +13,8 @@
 #include "GameObject.h"
 #include "Component.h"
 
+#include <fstream>
+
 
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
@@ -217,39 +219,20 @@ void ModuleEditor::DrawEditor()
         {
 
             ImGui::TextColored({ 255,255,0,255 }, "Amarillo Engine v0.1");
-            ImGui::BulletText("By Eric Luque & Marcel Sunyer");
-            ImGui::Separator();
 
-            ImGui::Text("3rd Party Libraries used:");
-            ImGui::BulletText("SDL2");
-            ImGui::BulletText("OpenGL3");
-            ImGui::BulletText("Glew");
-            ImGui::BulletText("MathGeoLib");
-            ImGui::BulletText("ImGui");
-            ImGui::Separator();
-
-            ImGui::Text("MIT License:");
-            ImGui::Text("Copyright (c) 2023 Eric Luque & Marcel Sunyer");
-            ImGui::Text("Permission is hereby granted, free of charge, to any person obtaining a copy of this software");
-            ImGui::Text("and associated documentation files(the 'Software'), to deal in the Software without ");
-            ImGui::Text("restriction, including without limitation the rights to use, copy, modify, merge, publish, ");
-            ImGui::Text("distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the");
-            ImGui::Text("Software is furnished to do so, subject to the following conditions:");
-            ImGui::Text("The above copyright notice and this permission notice shall be included in all copies or ");
-            ImGui::Text("substantial portions of the Software.");
-            ImGui::Text("THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS");
-            ImGui::Text("OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF");
-            ImGui::Text("MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND");
-            ImGui::Text("NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS");
-            ImGui::Text("BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN");
-            ImGui::Text("ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN");
-            ImGui::Text("CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE");
-            ImGui::Text("SOFTWARE.");
-            ImGui::Separator();
-
+            std::string licenseContent = loadFile("../../../LICENSE");
+            if (!licenseContent.empty())
+            {
+                
+                ImGui::PushTextWrapPos(500.0f);
+                ImGui::TextWrapped("%s", licenseContent.c_str());
+               
+                ImGui::PopTextWrapPos();
+            }
+           
             ImGui::Text("USER GUIDE:");
             ImGui::ShowUserGuide();
-           
+
             ImGui::EndMenu();
         }
       
@@ -406,5 +389,19 @@ void ModuleEditor::CreateGameObject()
 }
 
 
+std::string ModuleEditor::loadFile(const char* filename)
+{
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        LOG("Error: No se pudo abrir el archivo %s\n", filename);
+        return std::string();
+    }
+
+    std::string content((std::istreambuf_iterator<char>(file)),
+        std::istreambuf_iterator<char>());
+    file.close();
+    return content;
+}
 
 

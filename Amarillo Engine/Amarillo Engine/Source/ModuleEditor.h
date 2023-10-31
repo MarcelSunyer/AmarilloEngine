@@ -40,6 +40,8 @@ public:
 	void DrawHierarchyLevel();
 
 	void CreateGameObject();
+
+	std::string loadFile(const char* filename);
 	
 	GameObject* root_object = nullptr;
 	GameObject* selected_object = nullptr;
