@@ -51,9 +51,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\AssimpNamespace.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Module.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -76,12 +73,6 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Light.h">
-      <Filter>Sources\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LoadFBX.h">
-      <Filter>Sources\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Mesh.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Primitive.h">
@@ -431,9 +422,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\AssimpNamespace.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -453,9 +441,6 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\Light.cpp">
-      <Filter>Sources\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadFBX.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Primitive.cpp">

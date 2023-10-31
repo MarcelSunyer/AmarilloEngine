@@ -182,7 +182,6 @@
     <ClInclude Include="External\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="External\MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="Source\Application.h" />
-    <ClInclude Include="Source\AssimpNamespace.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentMesh.h" />
@@ -190,8 +189,6 @@
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />
-    <ClInclude Include="Source\LoadFBX.h" />
-    <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\ModuleCamera3D.h" />
     <ClInclude Include="Source\ModuleConsole.h" />
@@ -247,14 +244,12 @@
     <ClCompile Include="External\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="External\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\AssimpNamespace.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentMesh.cpp" />
     <ClCompile Include="Source\ComponentTransform.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\Light.cpp" />
-    <ClCompile Include="Source\LoadFBX.cpp" />
     <ClCompile Include="Source\log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\ModuleCamera3D.cpp" />

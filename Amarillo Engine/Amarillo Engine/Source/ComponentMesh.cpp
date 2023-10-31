@@ -2,7 +2,6 @@
 #include "ComponentMesh.h"
 #include "GameObject.h"
 #include "../External/ImGUI/imgui.h"
-#include "LoadFBX.h"
 
 ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent)
 {
@@ -24,7 +23,7 @@ void ComponentMesh::Update() {
 
 }
 
-void ComponentMesh::SetMesh(aiMesh* mesh)
+void ComponentMesh::SetMesh(MeshData* mesh)
 {
 	this->mesh = mesh;
 }
@@ -41,8 +40,8 @@ void ComponentMesh::OnEditor() {
 		
 		if (mesh != NULL) {
 			ImGui::Text("aa");
-			ImGui::Text("Index: %d", mesh->mNumFaces);
-			ImGui::Text("Vertices: %d", mesh->mNumVertices);
+			ImGui::Text("Index: %d", mesh->indices.size());
+			ImGui::Text("Vertices: %d", mesh->ourVertex.size());
 		}
 		//Todo:Falta poner estas dos
 

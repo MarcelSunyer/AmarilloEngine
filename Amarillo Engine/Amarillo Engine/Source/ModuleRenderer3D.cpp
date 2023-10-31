@@ -184,9 +184,9 @@ bool ModuleRenderer3D::Init()
 
 	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
 
-		glGenBuffers(1, &App->mesh->ourMeshes[i].VBO);
+		glGenBuffers(1, (GLuint*) App->mesh->ourMeshes[i].VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(ModuleMesh::Vertex) * App->mesh->ourMeshes[i].ourVertex.size(), &App->mesh->ourMeshes[i].ourVertex[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * App->mesh->ourMeshes[i].ourVertex.size(), &App->mesh->ourMeshes[i].ourVertex[0], GL_STATIC_DRAW);
 
 		glGenBuffers(1, &App->mesh->ourMeshes[i].EBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
@@ -276,12 +276,12 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
+		glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)0);
 
 		//Bind Textures
 		glBindTexture(GL_TEXTURE_2D, myHouse->textID);
-		glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
-		glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
+		glNormalPointer(GL_FLOAT, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+		glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
 		glDrawElements(GL_TRIANGLES, App->mesh->ourMeshes[i].indices.size(), GL_UNSIGNED_INT, NULL);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

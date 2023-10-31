@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "glmath.h"
-#include "AssimpNamespace.h"
+#include "ModuleMesh.h"
 
 
 class ComponentMesh : public Component {
@@ -9,7 +9,7 @@ class ComponentMesh : public Component {
 public:
 
 private:
-	aiMesh* mesh;
+	MeshData* mesh;
 	std::string paths;
 
 	//Methods
@@ -19,7 +19,7 @@ public:
 	void Disable() override;
 	void OnEditor() override;
 
-	void SetMesh(aiMesh* mesh);
+	void SetMesh(MeshData* mesh);
 	void SetPath(std::string path);
 
 

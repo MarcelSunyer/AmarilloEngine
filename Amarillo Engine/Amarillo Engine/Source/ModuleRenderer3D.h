@@ -14,9 +14,6 @@
 #include "..\External\MathGeoLib/include/Math/float4x4.h"
 #include "Primitive.h"
 
-#include "LoadFBX.h"
-#include "Mesh.h"
-
 #include "../External/Devil/include/il.h"
 #include "../External/Devil/include/ilu.h"
 #include "../External/Devil/include/ilut.h"

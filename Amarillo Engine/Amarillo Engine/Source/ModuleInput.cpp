@@ -3,7 +3,6 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "..\External\ImGui\backends/imgui_impl_sdl2.h"
-#include "AssimpNamespace.h"
 
 
 #define MAX_KEYS 300
