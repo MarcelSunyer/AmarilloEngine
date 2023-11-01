@@ -19,9 +19,9 @@ public:
 	void Disable() override;
 	void OnEditor() override;
 
-	void inline SetPosition(float3 position) { this->position = position;  UpdateMatrix(); };
-	void inline SetRotation(Quat rotation) { this->rotation = rotation; UpdateMatrix(); };
-	void inline SetScale(float3 scale) { this->scale = scale; UpdateMatrix(); };
+	void inline SetPosition(float3 position);
+	void inline SetRotation(Quat rotation);
+	void inline SetScale(float3 scale);
 
 	float3 inline GetPosition() const { return this->position; };
 	Quat inline GetRotation() const { return this->rotation; };

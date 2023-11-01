@@ -10,7 +10,7 @@ enum ComponentTypes
 	NONE,
 	TRANSFORM,
 	MESH,
-	MATERIAL,
+	TEXTURE,
 };
 
 class Component {
