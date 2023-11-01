@@ -194,50 +194,58 @@ void ModuleEditor::DrawEditor()
         if (ImGui::MenuItem("Cube"))
         {
             LOG("Create a Cube GameObject");
-            //App->mesh->LoadMesh("../Assets/Cube.fbx");
+            App->mesh->LoadMesh("../Assets/Cube.fbx");
+            App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Shpere"))
         {
             LOG("Create a Shpere GameObject");
-            //App->mesh->LoadMesh("../Assets/Shpere.fbx");
+            App->mesh->LoadMesh("../Assets/Shpere.fbx");
+            App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Cone"))
         {
             LOG("Create a Cone GameObject");
             App->mesh->LoadMesh("../Assets/Cone.fbx");
+            App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Cylinder"))
         {
             LOG("Create a Cylinder GameObject");
             App->mesh->LoadMesh("../Assets/Cylinder.fbx");
+            App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Torus"))
         {
             LOG("Create a Torus GameObject");
             App->mesh->LoadMesh("../Assets/Torus.fbx");
+            App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Plane"))
         {
             LOG("Create a Plane GameObject");
             App->mesh->LoadMesh("../Assets/Plane.fbx");
+            App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Polygon"))
         {
             LOG("Create a Polygon GameObject");
-            //App->mesh->LoadMesh("../Assets/Polygon.fbx");
+            App->mesh->LoadMesh("../Assets/Polygon.fbx");
+            App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Pikachu"))
         {
             LOG("Create a Pikachu GameObject");
-            //App->mesh->LoadMesh("../Assets/Pikachu.fbx");
-            //App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
+            App->mesh->LoadMesh("../Assets/Pikachu.fbx");
+            App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
+            App->renderer3D->BindBuffers();
 
         }
 
