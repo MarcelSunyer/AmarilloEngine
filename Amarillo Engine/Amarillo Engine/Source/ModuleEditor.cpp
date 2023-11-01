@@ -195,6 +195,55 @@ void ModuleEditor::DrawEditor()
     }
     if (ImGui::BeginMenu("GameObjects"))
     {
+        if (ImGui::MenuItem("Cube"))
+        {
+            LOG("Create a Cube GameObject");
+            //App->mesh->LoadMesh("../Assets/Cube.fbx");
+
+        }
+        if (ImGui::MenuItem("Shpere"))
+        {
+            LOG("Create a Shpere GameObject");
+            //App->mesh->LoadMesh("../Assets/Shpere.fbx");
+
+        }
+        if (ImGui::MenuItem("Cone"))
+        {
+            LOG("Create a Cone GameObject");
+            //App->mesh->LoadMesh("../Assets/Cone.fbx");
+
+        }
+        if (ImGui::MenuItem("Cylinder"))
+        {
+            LOG("Create a Cylinder GameObject");
+            //App->mesh->LoadMesh("../Assets/Cylinder.fbx");
+
+        }
+        if (ImGui::MenuItem("Torus"))
+        {
+            LOG("Create a Torus GameObject");
+            //App->mesh->LoadMesh("../Assets/Torus.fbx");
+
+        }
+        if (ImGui::MenuItem("Plane"))
+        {
+            LOG("Create a Plane GameObject");
+            //App->mesh->LoadMesh("../Assets/Plane.fbx");
+
+        }
+        if (ImGui::MenuItem("Polygon"))
+        {
+            LOG("Create a Polygon GameObject");
+            //App->mesh->LoadMesh("../Assets/Polygon.fbx");
+
+        }
+        if (ImGui::MenuItem("Pikachu"))
+        {
+            LOG("Create a Pikachu GameObject");
+            //App->mesh->LoadMesh("../Assets/Pikachu.fbx");
+            //App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
+
+        }
 
         ImGui::EndMenu();
     }
