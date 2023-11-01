@@ -19,8 +19,10 @@ void ModuleMesh::LoadMesh(const char* file_path)
 
 	const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate | aiProcess_FlipUVs);
 	
-	App->scene->root_object = App->scene->CreateGameObject("EmptyObject");
-	
+
+	//Editar esto para que no se llamenigual pq sino da error
+	App->scene->root_object = App->scene->CreateGameObject(name + std::to_string(num));
+	num += 1;
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array

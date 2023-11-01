@@ -206,25 +206,25 @@ void ModuleEditor::DrawEditor()
         if (ImGui::MenuItem("Cone"))
         {
             LOG("Create a Cone GameObject");
-            //App->mesh->LoadMesh("../Assets/Cone.fbx");
+            App->mesh->LoadMesh("../Assets/Cone.fbx");
 
         }
         if (ImGui::MenuItem("Cylinder"))
         {
             LOG("Create a Cylinder GameObject");
-            //App->mesh->LoadMesh("../Assets/Cylinder.fbx");
+            App->mesh->LoadMesh("../Assets/Cylinder.fbx");
 
         }
         if (ImGui::MenuItem("Torus"))
         {
             LOG("Create a Torus GameObject");
-            //App->mesh->LoadMesh("../Assets/Torus.fbx");
+            App->mesh->LoadMesh("../Assets/Torus.fbx");
 
         }
         if (ImGui::MenuItem("Plane"))
         {
             LOG("Create a Plane GameObject");
-            //App->mesh->LoadMesh("../Assets/Plane.fbx");
+            App->mesh->LoadMesh("../Assets/Plane.fbx");
 
         }
         if (ImGui::MenuItem("Polygon"))

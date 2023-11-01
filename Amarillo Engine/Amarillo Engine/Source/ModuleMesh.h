@@ -32,6 +32,7 @@ public:
 		unsigned int VBO = 0, EBO = 0;
 	};
 	std::vector<MeshData> ourMeshes;
+	std::string name = "EmptyObject_";
 	int num = 0;
 
 };
