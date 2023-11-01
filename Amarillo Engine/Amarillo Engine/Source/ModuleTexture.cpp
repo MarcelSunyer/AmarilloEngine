@@ -1,8 +1,10 @@
 #include "Application.h"
 #include "ModuleTexture.h"
+#include "ModuleScene.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "ComponentTexture.h"
 
 
 #pragma comment(lib, "External/DevIL/libx86/DevIL.lib")
@@ -18,11 +20,6 @@ ModuleTexture::ModuleTexture(Application* app, bool start_enabled) : Module(app,
 
 bool ModuleTexture::Start()
 {
-
-
-
-
-
     return true;
 }
 
@@ -64,10 +61,17 @@ Texture* ModuleTexture::LoadTexture(std::string textfile)
         glDisable(GL_TEXTURE_2D);
 
         ilDeleteImages(1, &imageToTextID);
+       
+        ComponentTexture* textureComponent = (ComponentTexture*)App->scene->root_object->AddComponent(ComponentTypes::TEXTURE);
+        
+        Texture* temp = new Texture(_texture, width, height, textfile);
 
+        textureComponent->SetTexture(temp);
+       
         LOG(textfile.c_str());
 
-        return new Texture(_texture, width, height);
+
+        return temp;
     }
 }
 

@@ -12,16 +12,18 @@
 
 struct Texture
 {
-	Texture(GLuint id, uint _width, uint _height)
+	Texture(GLuint id, uint _width, uint _height, std::string path)
 	{
 		textID = id;
 		width = _width;
 		height = _height;
+		path_ = path;
 	}
 
 	GLuint textID;
 	uint width;
 	uint height;
+	std::string path_;
 };
 class ModuleTexture : public Module
 {
