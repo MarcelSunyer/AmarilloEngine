@@ -40,7 +40,6 @@ void GameObject::CreatGameObject()
 {
 	parent = new GameObject("");
 	children.push_back(parent);
-
 	
 }
 

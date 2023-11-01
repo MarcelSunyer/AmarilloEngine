@@ -1,9 +1,12 @@
 #include "ModuleMesh.h"
+#include "Application.h"
 #include "../External/Assimp/include/cimport.h"
 #include "../External/Assimp/include/scene.h"
 #include "../External/Assimp/include/postprocess.h"
 #include <vector>
+#include "ModuleScene.h"
 #include "../External/MathGeoLib/include/Math/float3.h"
+#include "GameObject.h"
 #pragma comment (lib, "External/Assimp/libx86/assimp.lib")
 
 ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -16,10 +19,13 @@ void ModuleMesh::LoadMesh(const char* file_path)
 
 	const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
+	GameObject* pedrito = App->scene->CreateGameObject("juan");
+
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-		for (int i = 0; i < scene->mNumMeshes; i++) {
+		for (int i = 0; i < scene->mNumMeshes; i++) 
+		{
 
 			MeshData temp;
 
@@ -75,10 +81,17 @@ void ModuleMesh::LoadMesh(const char* file_path)
 					}
 				}
 			}
+
+			ComponentMesh* meshComponent = (ComponentMesh*)pedrito->AddComponent(ComponentTypes::MESH);
+			
+			meshComponent->SetMesh(temp);
+			meshComponent->SetPath(file_path);
+
+
 			ourMeshes.push_back(temp);
 		}
 
-
+		
 		aiReleaseImport(scene);
 
 
@@ -91,7 +104,7 @@ ModuleMesh::~ModuleMesh()
 {
 }
 
-update_status Update()
+update_status ModuleMesh::Update()
 {
 	return UPDATE_CONTINUE;
 }

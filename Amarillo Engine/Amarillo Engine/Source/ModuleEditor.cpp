@@ -5,6 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
+#include "ModuleScene.h"
 
 #include "..\External\ImGui\imgui.h"
 #include "..\External\ImGui/backends/imgui_impl_opengl3.h"
@@ -60,11 +61,6 @@ bool ModuleEditor::Init()
 
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
-
-    root_object = new GameObject("Scene");
-    game_objects.push_back(root_object);
-    selected_object = root_object;
-
 
 	return true;
 }
@@ -329,20 +325,23 @@ void ModuleEditor::InspectorWindow()
 {
     if (show_inspector_window)
     {
-        ImGui::Begin("Inspector", &show_inspector_window);
-        ImGui::Text(selected_object->mName.c_str());
-        ImGui::Separator();
-       
-        for (uint m = 0; m < selected_object->components.size(); m++)
+        if (selected_object != NULL)
         {
-            if (selected_object->selected)
+            ImGui::Begin("Inspector", &show_inspector_window);
+            ImGui::Text(selected_object->mName.c_str());
+            ImGui::Separator();
+
+            for (uint m = 0; m < selected_object->components.size(); m++)
             {
-                selected_object->components[m]->OnEditor();
+                if (selected_object->selected)
+                {
+                    selected_object->components[m]->OnEditor();
+                }
+
             }
 
+            ImGui::End();
         }
-
-        ImGui::End();
     }
 }
 
@@ -358,7 +357,7 @@ void ModuleEditor::HierarchyWindow()
 
 void ModuleEditor::DrawHierarchyLevel()
 {
-    std::vector<GameObject*> list2 = game_objects;
+    std::vector<GameObject*> list2 = App->scene->GetGameObjects();
 
     for (uint n = 0; n < list2.size(); n++)
     {
@@ -382,9 +381,7 @@ void ModuleEditor::CreateGameObject()
 {
     if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
     {
-        root_object = new GameObject("EmptyGameObject");
-        game_objects.push_back(root_object);
-        selected_object = root_object;
+        App->scene->CreateGameObject("Pedrito");
     }
 }
 
