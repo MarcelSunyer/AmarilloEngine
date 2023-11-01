@@ -133,6 +133,7 @@ update_status ModuleInput::PreUpdate(float dt)
 							LOG(("Mesh dropped on window - File Path: %s", dropped_filedir));
 							// Load mesh
 							App->mesh->LoadMesh(dropped_filedir);
+							App->renderer3D->BindBuffers();
 						}
 						else if (strcmp(ext, ".png") == 0 || strcmp(ext, ".dds") == 0)
 						{
