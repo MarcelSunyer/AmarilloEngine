@@ -118,22 +118,35 @@ update_status ModuleInput::PreUpdate(float dt)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
 				break;
 			}
-			case SDL_DROPFILE:   
+			case SDL_DROPFILE:
 			{
 				if (e.drop.file != ERROR)
 				{
-
 					// e.drop.file has the directoy of the droped file
 					char* dropped_filedir = e.drop.file;
+					const char* ext = strrchr(dropped_filedir, '.');
 
-					App->mesh->LoadMesh(dropped_filedir);
-
-
+					if (ext != NULL)
+					{
+						if (strcmp(ext, ".fbx") == 0)
+						{
+							LOG(("Mesh dropped on window - File Path: %s", dropped_filedir));
+							// Load mesh
+							App->mesh->LoadMesh(dropped_filedir);
+						}
+						else if (strcmp(ext, ".png") == 0 || strcmp(ext, ".dds") == 0)
+						{
+							LOG(("Texture dropped on window - File Path: %s", dropped_filedir));
+							// Load texture
+							App->renderer3D->myHouse = App->texture->LoadTexture(dropped_filedir);
+							App->renderer3D->BindBuffers();
+						}
+					}
 
 					// Free memory
 					SDL_free(dropped_filedir);
 
-					LOG(("File dropped on window - File Path: %s" , dropped_filedir));
+					
 				}
 				break;
 

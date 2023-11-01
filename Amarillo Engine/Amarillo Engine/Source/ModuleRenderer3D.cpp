@@ -182,21 +182,7 @@ bool ModuleRenderer3D::Init()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 
-	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
-
-		glGenBuffers(1, &App->mesh->ourMeshes[i].VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(ModuleMesh::Vertex) * App->mesh->ourMeshes[i].ourVertex.size(), &App->mesh->ourMeshes[i].ourVertex[0], GL_STATIC_DRAW);
-
-		glGenBuffers(1, &App->mesh->ourMeshes[i].EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * App->mesh->ourMeshes[i].indices.size(), &App->mesh->ourMeshes[i].indices[0], GL_STATIC_DRAW);
-
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	}
+	BindBuffers();
 
 	Grid.axis = true;
 
@@ -279,7 +265,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
 
 		//Bind Textures
-		glBindTexture(GL_TEXTURE_2D, myHouse->textID);
+		if (myHouse->textID != NULL) {
+			glBindTexture(GL_TEXTURE_2D, myHouse->textID);
+		}
 		glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
 		glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
 
@@ -351,4 +339,23 @@ void ModuleRenderer3D::InitDevil()
 	ilutRenderer(ILUT_OPENGL);
 	LOG("Devil has initialised successfully");
 	App->console->AddLog("Devil has initialised successfully");
+}
+
+void ModuleRenderer3D::BindBuffers()
+{
+	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
+
+		glGenBuffers(1, &App->mesh->ourMeshes[i].VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(ModuleMesh::Vertex) * App->mesh->ourMeshes[i].ourVertex.size(), &App->mesh->ourMeshes[i].ourVertex[0], GL_STATIC_DRAW);
+
+		glGenBuffers(1, &App->mesh->ourMeshes[i].EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * App->mesh->ourMeshes[i].indices.size(), &App->mesh->ourMeshes[i].indices[0], GL_STATIC_DRAW);
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	}
 }

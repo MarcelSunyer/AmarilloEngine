@@ -13,6 +13,7 @@ bool ModuleScene::Init()
 {
 	root_object = new GameObject("Scene");
 	game_objects.push_back(root_object);
+	return true;
 }
 
 update_status ModuleScene::Update()

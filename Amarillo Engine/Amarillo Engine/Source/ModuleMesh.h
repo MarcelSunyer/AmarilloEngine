@@ -1,5 +1,5 @@
-#ifndef MODULE_IMPORTER
-#define MODULE_IMPORTER
+#ifndef MODULE_MESH
+#define MODULE_MESH
 
 #include "Module.h"
 #include "Globals.h"
@@ -19,6 +19,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void DrawNormals();
+
 	struct Vertex {
 		float3 Position;
 		float3 Normal;
@@ -39,4 +40,4 @@ public:
 
 
 
-#endif //MODULE_IMPORTER
+#endif //MODULE_MESH
