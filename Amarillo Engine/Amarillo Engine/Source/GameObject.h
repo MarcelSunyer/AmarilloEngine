@@ -42,8 +42,6 @@ public:
 	GameObject* parent;
 	std::vector<GameObject*> children;
 
-	ComponentTransform* jua;
-
 	bool selected = false;
 };
 #endif

@@ -18,9 +18,9 @@ void ModuleMesh::LoadMesh(const char* file_path)
 {
 
 	const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate | aiProcess_FlipUVs);
-
-	GameObject* pedrito = App->scene->CreateGameObject("juan");
-
+	
+	App->scene->root_object = App->scene->CreateGameObject("EmptyObject");
+	
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
@@ -82,7 +82,7 @@ void ModuleMesh::LoadMesh(const char* file_path)
 				}
 			}
 
-			ComponentMesh* meshComponent = (ComponentMesh*)pedrito->AddComponent(ComponentTypes::MESH);
+			ComponentMesh* meshComponent = (ComponentMesh*)App->scene->root_object->AddComponent(ComponentTypes::MESH);
 			
 			meshComponent->SetMesh(temp);
 			meshComponent->SetPath(file_path);

@@ -32,6 +32,7 @@ public:
 		unsigned int VBO = 0, EBO = 0;
 	};
 	std::vector<MeshData> ourMeshes;
+	int num = 0;
 
 };
 

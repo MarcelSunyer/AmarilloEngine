@@ -34,7 +34,6 @@ GameObject* ModuleScene::CreateGameObject(std::string name)
 	GameObject* newObject = new GameObject(name);
 	game_objects.push_back(newObject);
 	newObject->SetParent(root_object);
-
 	return newObject;
 }
 
