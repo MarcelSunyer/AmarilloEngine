@@ -15,6 +15,7 @@ class ModuleEditor;
 class ModuleConsole;
 class ModuleMesh;
 class ModuleTexture;
+class ModuleScene;
 
 
 
@@ -30,6 +31,7 @@ public:
 	ModuleConsole* console;
 	ModuleMesh* mesh;
 	ModuleTexture* texture;
+	ModuleScene* scene;
 
 private:
 

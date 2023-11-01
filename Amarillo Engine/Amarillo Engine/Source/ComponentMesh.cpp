@@ -7,7 +7,6 @@ ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent)
 {
 	//parent->AddComponent(this);
 	paths = "No path";
-	mesh = nullptr;
 	type = ComponentTypes::MESH;
 };
 
@@ -23,7 +22,7 @@ void ComponentMesh::Update() {
 
 }
 
-void ComponentMesh::SetMesh(ModuleMesh::MeshData* mesh)
+void ComponentMesh::SetMesh(ModuleMesh::MeshData mesh)
 {
 	this->mesh = mesh;
 }
@@ -38,11 +37,10 @@ void ComponentMesh::OnEditor() {
 	if (ImGui::CollapsingHeader("Component Mesh"))
 	{
 		
-		if (mesh != NULL) {
 			ImGui::Text("aa");
-			ImGui::Text("Index: %d", mesh->indices.size());
-			ImGui::Text("Vertices: %d", mesh->ourVertex.size());
-		}
+			ImGui::Text("Index: %d", mesh.indices.size());
+			ImGui::Text("Vertices: %d", mesh.ourVertex.size());
+		
 		//Todo:Falta poner estas dos
 
 		/*ImGui::Text("Normals: %d", mesh->);

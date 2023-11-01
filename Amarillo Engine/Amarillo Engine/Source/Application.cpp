@@ -9,6 +9,7 @@
 #include "ModuleConsole.h"
 #include "ModuleMesh.h"
 #include "ModuleTexture.h"
+#include "ModuleScene.h"
 
 extern Application* applic = nullptr;
 
@@ -24,6 +25,7 @@ Application::Application()
 	console = new ModuleConsole(this);
 	mesh = new ModuleMesh(this);
 	texture = new ModuleTexture(this);
+	scene = new ModuleScene(this);
 
 	// They will CleanUp() in reverse order
 
@@ -37,6 +39,7 @@ Application::Application()
 
 	// Renderer last!
 	AddModule(renderer3D);
+	AddModule(scene);
 	AddModule(editor);
 	AddModule(console);
 }

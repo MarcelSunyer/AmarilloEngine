@@ -43,9 +43,9 @@ public:
 
 	std::string loadFile(const char* filename);
 	
-	GameObject* root_object = nullptr;
+	
 	GameObject* selected_object = nullptr;
-	std::vector<GameObject*> game_objects;
+	
 
 	std::vector<float> vecFPSLog;
 	const char* lastValue = "";
