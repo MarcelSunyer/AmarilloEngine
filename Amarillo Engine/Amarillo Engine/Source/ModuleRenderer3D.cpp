@@ -3,6 +3,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleEditor.h"
 #include "ModuleCamera3D.h"
+#include "ModuleScene.h"
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "..\External\SDL\include\SDL_opengl.h"
@@ -72,7 +73,7 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
-	
+	App->mesh->LoadMesh("../Assets/BakerHouse.fbx");
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
 	if(context == NULL)
@@ -196,7 +197,7 @@ bool ModuleRenderer3D::Init()
 	//myModel_texture_path = "../Assets/green.png";
 
 	
-	//myHouse = App->texture->LoadTexture("../Assets/Baker_house.png");
+	myHouse = App->texture->LoadTexture("../Assets/Baker_house.png");
 
 	return ret;
 }
@@ -209,8 +210,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
-	
-	
 	
 	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 	{
@@ -263,9 +262,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
 
 		//Bind Textures
-		/*if (myHouse->textID != NULL) {
+		if (myHouse->textID != NULL) {
 			glBindTexture(GL_TEXTURE_2D, myHouse->textID);
-		}*/
+		}
 		glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
 		glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
 

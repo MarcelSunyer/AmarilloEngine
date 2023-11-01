@@ -85,7 +85,6 @@ void ModuleMesh::LoadMesh(const char* file_path)
 			}
 
 			ComponentMesh* meshComponent = (ComponentMesh*)App->scene->root_object->AddComponent(ComponentTypes::MESH);
-			
 			meshComponent->SetMesh(temp);
 			meshComponent->SetPath(file_path);
 

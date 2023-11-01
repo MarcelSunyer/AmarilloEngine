@@ -36,7 +36,7 @@ void ComponentTransform::Update() {
 }
 
 void ComponentTransform::UpdateMatrix() {
-	transform = float4x4::FromTRS(position, rotation, scale);
+	transform = float4x4::FromTRS(new_position, new_rotation, new_scale);
 }
 
 void ComponentTransform::OnEditor() {
@@ -45,5 +45,24 @@ void ComponentTransform::OnEditor() {
 		ImGui::InputFloat3("Transform", (float*)&new_position);
 		ImGui::InputFloat3("Scale", (float*)&new_scale);
 		ImGui::InputFloat4("Rotation", (float*)&new_rotation);
+		UpdateMatrix();
 	}
+}
+
+inline void ComponentTransform::SetPosition(float3 position)
+{
+	 this->position = position;  
+	 UpdateMatrix();
+}
+
+inline void ComponentTransform::SetRotation(Quat rotation)
+{
+	this->rotation = rotation;
+	UpdateMatrix();
+}
+
+inline void ComponentTransform::SetScale(float3 scale)
+{
+	this->scale = scale; 
+	UpdateMatrix();
 }
