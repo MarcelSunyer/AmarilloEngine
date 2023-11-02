@@ -36,17 +36,12 @@ public:
 	void InspectorWindow();
 	bool show_inspector_window = true;
 
-	void HierarchyWindow();
 	void DrawHierarchyLevel();
-
-	void CreateGameObject();
 
 	std::string loadFile(const char* filename);
 	
+	GameObject* GameObject_selected = nullptr;
 	
-	GameObject* selected_object = nullptr;
-	
-
 	std::vector<float> vecFPSLog;
 	const char* lastValue = "";
 

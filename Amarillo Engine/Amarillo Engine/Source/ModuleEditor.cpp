@@ -67,19 +67,18 @@ bool ModuleEditor::Init()
 
 void ModuleEditor::DrawEditor()
 {
-    
-    //Todo: Reorganize and check memory leak
-
     //Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
     ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
 
+    ImGui::Begin("Hierarchy");
 
-    CreateGameObject();
-    //Done
-    HierarchyWindow();
+    DrawHierarchyLevel();
+
+    ImGui::End();
+
     InspectorWindow();
    
     if (showWindow)
@@ -379,78 +378,53 @@ void ModuleEditor::InspectorWindow()
 {
     if (show_inspector_window)
     {
-        if (selected_object != NULL)
+        if (GameObject_selected != NULL)
         {
             ImGui::Begin("Inspector", &show_inspector_window);
-            ImGui::Text(selected_object->mName.c_str());
+            ImGui::Text(GameObject_selected->mName.c_str());
             ImGui::Separator();
 
-            for (uint m = 0; m < selected_object->components.size(); m++)
+            for (uint m = 0; m < GameObject_selected->components.size(); m++)
             {
-                if (selected_object->selected)
+                if (GameObject_selected->selected)
                 {
-                    selected_object->components[m]->OnEditor();
+                    GameObject_selected->components[m]->OnEditor();
                 }
-
             }
-
             ImGui::End();
         }
     }
 }
 
-void ModuleEditor::HierarchyWindow()
-{
-    ImGui::Begin("Hierarchy");
-
-    DrawHierarchyLevel();
-
-    ImGui::End();
-    
-}
-
 void ModuleEditor::DrawHierarchyLevel()
 {
-    std::vector<GameObject*> list2 = App->scene->GetGameObjects();
+    std::vector<GameObject*> lista_games = App->scene->GetGameObjects();
 
-    for (uint n = 0; n < list2.size(); n++)
+    for (uint i = 0; i < lista_games.size(); i++)
     {
-        const char* write = list2[n]->mName.c_str();
+        // Determine if this GameObject is selected
+        bool isSelected = GameObject_selected == lista_games[i];
 
-            // Determine if this GameObject is selected
-            bool isSelected = selected_object == list2[n];
+        if (ImGui::TreeNode(lista_games[i]->mName.c_str()))
+        {
+            //Todo: AddGameObjectChilds
 
-            if (ImGui::TreeNode(list2[n]->mName.c_str()))
-            {
-                // AddGameObjectChilds
+            lista_games[i]->selected = true;
+            GameObject_selected = lista_games[i];
 
-                list2[n]->selected = true;
-                selected_object = list2[n];
-
-
-
-                ImGui::TreePop();
-            }
-        
+            ImGui::TreePop();
+        }
 
         // Handle moving the selected GameObject
-        if (list2[n]->selected)
-        {
-            if (ImGui::IsMouseDragging(0))
-            {
-                //// Update the position of the selected GameObject
-                //list2[n]->position.x += ImGui::GetIO().MouseDelta.x;
-                //list2[n]->position.y += ImGui::GetIO().MouseDelta.y;
-            }
-        }
-    }
-}
-
-void ModuleEditor::CreateGameObject()
-{
-    if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-    {
-        App->scene->CreateGameObject("Pedrito");
+        //if (lista_games[i]->selected)
+        //{
+        //    if (ImGui::IsMouseDragging(0))
+        //    {
+        //        //// Update the position of the selected GameObject
+        //        //list2[n]->position.x += ImGui::GetIO().MouseDelta.x;
+        //        //list2[n]->position.y += ImGui::GetIO().MouseDelta.y;
+        //    }
+        //}
     }
 }
 
