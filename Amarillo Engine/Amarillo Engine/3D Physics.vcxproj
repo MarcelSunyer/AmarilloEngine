@@ -181,6 +181,7 @@
     <ClInclude Include="External\MathGeoLib\include\Math\sse_mathfun.h" />
     <ClInclude Include="External\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="External\MathGeoLib\include\Time\Clock.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
@@ -288,6 +289,12 @@
   <ItemGroup>
     <Library Include="External\Assimp\libx86\assimp.lib" />
     <Library Include="External\Assimp\libx86\zlibstatic.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Pikachu-Texture.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

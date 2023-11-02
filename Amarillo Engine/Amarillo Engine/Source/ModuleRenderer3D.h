@@ -19,8 +19,6 @@
 #include "../External/Devil/include/ilut.h"
 
 
-
-
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
 

@@ -426,6 +426,7 @@
     <ClInclude Include="Source\ComponentTexture.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -669,5 +670,13 @@
     <Library Include="External\Assimp\libx86\zlibstatic.lib">
       <Filter>Externals\Assimp</Filter>
     </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc">
+      <Filter>Sources\Tools</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Pikachu-Texture.png" />
   </ItemGroup>
 </Project>
