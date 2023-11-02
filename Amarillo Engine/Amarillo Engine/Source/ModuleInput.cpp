@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "..\External\ImGui\backends/imgui_impl_sdl2.h"
+#include "ModuleEditor.h"
 
 
 #define MAX_KEYS 300
@@ -135,11 +136,20 @@ update_status ModuleInput::PreUpdate(float dt)
 							App->mesh->LoadMesh(dropped_filedir);
 							App->renderer3D->BindBuffers();
 						}
-						else if (strcmp(ext, ".png") == 0 || strcmp(ext, ".dds") == 0)
+						else if ((strcmp(ext, ".png") == 0 || strcmp(ext, ".dds") == 0) && App->editor->selected_object != nullptr)
 						{
 							LOG(("Texture dropped on window - File Path: %s", dropped_filedir));
 							// Load texture
-							App->renderer3D->myHouse = App->texture->LoadTexture(dropped_filedir);
+
+							/*Texture* temp_text;
+							temp_text = App->texture->LoadTexture(dropped_filedir);*/
+
+							App->renderer3D->textures[0] = App->texture->LoadTexture(dropped_filedir);
+
+							/*ComponentTexture* temp;
+							temp = (ComponentTexture*)App->editor->selected_object->GetComponent(ComponentTypes::TEXTURE);
+
+							temp->SetTexture(temp_text);*/
 							App->renderer3D->BindBuffers();
 						}
 					}

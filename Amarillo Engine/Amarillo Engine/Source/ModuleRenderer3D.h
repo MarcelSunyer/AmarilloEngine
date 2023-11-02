@@ -74,6 +74,6 @@ public:
 	GLuint texWidth, texHeight;
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
-	Texture* myHouse;
+	std::vector<Texture*> textures;
 
 };

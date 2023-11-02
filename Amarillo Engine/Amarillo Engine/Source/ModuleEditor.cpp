@@ -241,7 +241,7 @@ void ModuleEditor::DrawEditor()
         {
             LOG("Create a Pikachu GameObject");
             App->mesh->LoadMesh("../Assets/Pikachu.fbx");
-            App->renderer3D->myHouse = App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
+            App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
             App->renderer3D->BindBuffers();
 
         }
@@ -423,13 +423,12 @@ void ModuleEditor::DrawHierarchyLevel()
             if (ImGui::TreeNode(list2[n]->mName.c_str()))
             {
                 // AddGameObjectChilds
-                if (ImGui::TreeNode(list2[n]->mName.c_str()))
-                {
-                    list2[n]->selected = true;
-                    selected_object = list2[n];
-                        
-                    ImGui::TreePop();
-                }
+
+                list2[n]->selected = true;
+                selected_object = list2[n];
+
+
+
                 ImGui::TreePop();
             }
         
