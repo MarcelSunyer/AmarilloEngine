@@ -52,23 +52,24 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos.y -= speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
-
-
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
-
-	Position += newPos;
-	Reference += newPos;
 
 	// Mouse motion ----------------
 
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
+
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos.y += speed;
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos.y -= speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+
+
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
@@ -103,27 +104,21 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = Z.Cross(X);
 			}
 		}
-		
-		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_IDLE || App->input->GetKey(SDL_SCANCODE_F) == KEY_IDLE && App->editor->GameObject_selected != nullptr)
-		{
-			Position = Reference;
-		}
+
+		Position = Reference + Z * Position.Length();
 	}
 
-	if (App->input->GetMouseZ() != 0)
-	{
-		float3 updatePos(0, 0, 0);
-		float speed = 15.0f * dt;
+	Position += newPos;
+	Reference += newPos;
 
-		if (App->input->GetMouseZ() > 0)
-		{
-			updatePos -= Z * speed;
-		}
-		if (App->input->GetMouseZ() < 0)
-		{
-			updatePos += Z * speed;
-		}
-		Position += newPos;
+	if (App->input->GetMouseZ() > 0)
+	{
+		newPos -= Z * speed;
+	}
+
+	if (App->input->GetMouseZ() < 0)
+	{
+		newPos += Z * speed;
 	}
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && windowMovement == false)
@@ -149,6 +144,15 @@ update_status ModuleCamera3D::Update(float dt)
 			Position += newPos;
 			Reference += newPos;
 		
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT && App->editor->GameObject_selected != nullptr)
+	{
+		LookAt(float3(0, 0, 0));
+	}
+	else
+	{
+		Reference = Position;
 	}
 
 
