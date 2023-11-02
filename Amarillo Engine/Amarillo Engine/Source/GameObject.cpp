@@ -3,11 +3,12 @@
 #include "ComponentTransform.h"
 
 #include "ComponentMesh.h"
+#include "ComponentTexture.h"
 #include <vector>
 
 GameObject::GameObject(std::string name) : mName(name), active(true)
 {
-	AddComponent(ComponentTypes::TRANSFORM);
+	transform = (ComponentTransform*)AddComponent(ComponentTypes::TRANSFORM);
 
 }
 
@@ -55,13 +56,19 @@ Component* GameObject::AddComponent(ComponentTypes type)
 	switch (type)
 	{
 	case(ComponentTypes::NONE):
-		//LOG("Component Type Error! Something broke...");
+		throw std::runtime_error("Component type not found");
 		break;
 	case(ComponentTypes::TRANSFORM):
 		ret = new ComponentTransform(this);
 		break;
 	case(ComponentTypes::MESH):
 		ret = new ComponentMesh(this);
+		break;
+	case(ComponentTypes::TEXTURE):
+		ret = new ComponentTexture(this);
+		break;
+	default:
+		throw std::runtime_error("Component type not found");
 		break;
 	}
 

@@ -419,16 +419,32 @@ void ModuleEditor::DrawHierarchyLevel()
     for (uint n = 0; n < list2.size(); n++)
     {
         const char* write = list2[n]->mName.c_str();
-        if (ImGui::Selectable(write)) 
+
+        // Check if the GameObject is selected
+        if (ImGui::Selectable(write, list2[n]->selected))
         {
+            // Select the GameObject and update the selected_object pointer
             list2[n]->selected = true;
             selected_object = list2[n];
+
+            // Deselect other GameObjects
             for (uint k = 0; k < list2.size(); k++)
             {
                 if (list2[n] != list2[k])
                 {
                     list2[k]->selected = false;
                 }
+            }
+        }
+
+        // Handle moving the selected GameObject
+        if (list2[n]->selected)
+        {
+            if (ImGui::IsMouseDragging(0))
+            {
+                //// Update the position of the selected GameObject
+                //list2[n]->position.x += ImGui::GetIO().MouseDelta.x;
+                //list2[n]->position.y += ImGui::GetIO().MouseDelta.y;
             }
         }
     }

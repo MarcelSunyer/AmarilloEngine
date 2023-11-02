@@ -43,5 +43,9 @@ public:
 	std::vector<GameObject*> children;
 
 	bool selected = false;
+
+	ComponentTransform* transform = nullptr;
+
+
 };
 #endif

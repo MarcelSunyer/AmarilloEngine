@@ -75,4 +75,5 @@ public:
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
 	Texture* myHouse;
+
 };

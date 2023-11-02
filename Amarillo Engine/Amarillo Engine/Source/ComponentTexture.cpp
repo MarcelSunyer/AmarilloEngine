@@ -8,10 +8,7 @@
 
 ComponentTexture::ComponentTexture(GameObject* parent) : Component(parent)
 {
-	texture->path_ = "Default Path";
-	texture->textID = -1;
 	type = ComponentTypes::TEXTURE;
-	
 };
 
 void ComponentTexture::Enable() {
@@ -32,7 +29,7 @@ void ComponentTexture::OnEditor() {
 
 		if (ImGui::CollapsingHeader("Component Texture"))
 		{
-			//ImGui::Text("Path: %s", texture->path);
+			ImGui::Text("Path: %s", texture->path_);
 
 		}
 	}
@@ -40,9 +37,8 @@ void ComponentTexture::OnEditor() {
 
 void ComponentTexture::SetTexture(Texture* texture)
 {
-	if (texture != NULL)
-	{
-		texture->textID = texture->textID;
-		texture->path_ = texture->path_;
-	}
+
+
+	this->texture = texture;
+	
 }

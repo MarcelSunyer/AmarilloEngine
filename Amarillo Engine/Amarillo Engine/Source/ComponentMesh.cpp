@@ -22,7 +22,7 @@ void ComponentMesh::Update() {
 
 }
 
-void ComponentMesh::SetMesh(ModuleMesh::Mesh mesh)
+void ComponentMesh::SetMesh(ModuleMesh::Mesh* mesh)
 {
 	this->mesh = mesh;
 }
@@ -38,8 +38,8 @@ void ComponentMesh::OnEditor() {
 	{
 		
 			ImGui::Text("aa");
-			ImGui::Text("Index: %d", mesh.indices.size());
-			ImGui::Text("Vertices: %d", mesh.ourVertex.size());
+			ImGui::Text("Index: %d", mesh->indices.size());
+			ImGui::Text("Vertices: %d", mesh->ourVertex.size());
 		
 		//Todo:Falta poner estas dos
 

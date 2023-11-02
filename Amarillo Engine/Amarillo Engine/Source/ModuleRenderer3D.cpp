@@ -248,37 +248,63 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		PrimitiveTest->wire = false;
 		PrimitiveTest->Render();
 	}
+	
+	
+	std::vector<GameObject*> gameObject_list = App->scene->GetGameObjects();
 
+	for (uint n = 0; n < gameObject_list.size(); n++)
+	{
 
+		GameObject* gameobject = gameObject_list[n];
 
+		for (uint m = 0; m < gameobject->components.size(); m++)
+		{
+			Component* component = gameobject->components[m];
+			if (component->type != ComponentTypes::MESH)
+			{
+				continue;
+			}
 
-	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_TEXTURE_COORD_ARRAY);
-		//Bind Mesh
-		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
+			ComponentMesh* componentMesh = (ComponentMesh*)component;
 
-		//Bind Textures
-		if (myHouse->textID != NULL) {
-			glBindTexture(GL_TEXTURE_2D, myHouse->textID);
+			float4x4 matrix = float4x4::FromTRS(float3(5,1,1),Quat::identity, float3(1,1,1));
+
+			
+
+			glPushMatrix();
+			glMultMatrixf(gameobject->transform->GetTransformMatrix().Transposed().ptr());
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_TEXTURE_COORD_ARRAY);
+			//Bind Mesh
+			glBindBuffer(GL_ARRAY_BUFFER, componentMesh->mesh->VBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, componentMesh->mesh->EBO);
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
+
+			//Bind Textures
+			if (myHouse->textID != NULL) {
+				glBindTexture(GL_TEXTURE_2D, myHouse->textID);
+			}
+			glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
+			glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
+
+			glDrawElements(GL_TRIANGLES, componentMesh->mesh->indices.size(), GL_UNSIGNED_INT, NULL);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+			glDisable(GL_TEXTURE_2D);
+			glDisableClientState(GL_VERTEX_ARRAY);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glDisable(GL_TEXTURE_COORD_ARRAY);
+			glPopMatrix();
 		}
-		glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
-		glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
-
-		glDrawElements(GL_TRIANGLES, App->mesh->ourMeshes[i].indices.size(), GL_UNSIGNED_INT, NULL);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-		glDisable(GL_TEXTURE_2D);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glDisable(GL_TEXTURE_COORD_ARRAY);
 
 	}
+	
 
+	
+	
+	
 	Grid.Render();
 
 	if (activeNormals)
@@ -303,8 +329,8 @@ bool ModuleRenderer3D::CleanUp()
 
 	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
 
-		glDeleteBuffers(1, &App->mesh->ourMeshes[i].VBO);
-		glDeleteBuffers(1, &App->mesh->ourMeshes[i].EBO);
+		glDeleteBuffers(1, &App->mesh->ourMeshes[i]->VBO);
+		glDeleteBuffers(1, &App->mesh->ourMeshes[i]->EBO);
 	}
 
 	SDL_GL_DeleteContext(context);
@@ -340,19 +366,19 @@ void ModuleRenderer3D::InitDevil()
 
 void ModuleRenderer3D::BindBuffers()
 {
+	//Todo: Hace binnd de todos los meshes arreglar
 	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
 
-		glGenBuffers(1, &App->mesh->ourMeshes[i].VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i].VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(ModuleMesh::Vertex) * App->mesh->ourMeshes[i].ourVertex.size(), &App->mesh->ourMeshes[i].ourVertex[0], GL_STATIC_DRAW);
+		glGenBuffers(1, &App->mesh->ourMeshes[i]->VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i]->VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(ModuleMesh::Vertex) * App->mesh->ourMeshes[i]->ourVertex.size(), &App->mesh->ourMeshes[i]->ourVertex[0], GL_STATIC_DRAW);
 
-		glGenBuffers(1, &App->mesh->ourMeshes[i].EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i].EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * App->mesh->ourMeshes[i].indices.size(), &App->mesh->ourMeshes[i].indices[0], GL_STATIC_DRAW);
+		glGenBuffers(1, &App->mesh->ourMeshes[i]->EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, App->mesh->ourMeshes[i]->EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * App->mesh->ourMeshes[i]->indices.size(), &App->mesh->ourMeshes[i]->indices[0], GL_STATIC_DRAW);
 
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
 	}
 }

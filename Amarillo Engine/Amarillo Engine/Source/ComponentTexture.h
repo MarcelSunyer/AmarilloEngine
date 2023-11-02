@@ -10,7 +10,7 @@ class ComponentTexture : public Component {
 
 
 public:
-	Texture* texture;
+	Texture* texture = nullptr;
 
 
 public:
