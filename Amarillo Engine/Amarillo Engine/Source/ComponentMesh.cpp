@@ -34,7 +34,7 @@ void ComponentMesh::OnEditor() {
 
 	if (ImGui::CollapsingHeader("Component Mesh"))
 	{
-		ImGui::Text("aa");
+		ImGui::Text("Mesh");
 		ImGui::Text("Index: %d", mesh->indices.size());
 		ImGui::Text("Vertices: %d", mesh->ourVertex.size());
 	}

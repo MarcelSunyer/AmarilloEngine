@@ -239,7 +239,7 @@ void ModuleEditor::DrawEditor()
         {
             LOG("Create a Pikachu GameObject");
             App->mesh->LoadMesh("../Assets/Pikachu.fbx");
-            App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
+            App->renderer3D->textures[0] = App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
             App->renderer3D->BindBuffers();
 
         }
