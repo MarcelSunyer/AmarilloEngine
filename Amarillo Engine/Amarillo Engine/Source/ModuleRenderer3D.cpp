@@ -197,7 +197,7 @@ bool ModuleRenderer3D::Init()
 	//myModel_texture_path = "../Assets/green.png";
 
 	
-	myHouse = App->texture->LoadTexture("../Assets/Baker_house.png");
+	textures.push_back(App->texture->LoadTexture("../Assets/Baker_house.png"));
 
 	return ret;
 }
@@ -282,9 +282,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 			glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
 
 			//Bind Textures
-			if (myHouse->textID != NULL) {
-				glBindTexture(GL_TEXTURE_2D, myHouse->textID);
-			}
+			if (textures[0]->textID != NULL)
+			{
+				glBindTexture(GL_TEXTURE_2D, textures[0]->textID);
+			}	
 			glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
 			glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
 
@@ -332,6 +333,7 @@ bool ModuleRenderer3D::CleanUp()
 		glDeleteBuffers(1, &App->mesh->ourMeshes[i]->VBO);
 		glDeleteBuffers(1, &App->mesh->ourMeshes[i]->EBO);
 	}
+	
 
 	SDL_GL_DeleteContext(context);
 

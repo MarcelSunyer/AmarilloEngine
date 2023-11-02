@@ -19,8 +19,6 @@
 #include "../External/Devil/include/ilut.h"
 
 
-
-
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
 
@@ -74,6 +72,6 @@ public:
 	GLuint texWidth, texHeight;
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
-	Texture* myHouse;
+	std::vector<Texture*> textures;
 
 };
