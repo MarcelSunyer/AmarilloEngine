@@ -198,7 +198,7 @@ void ModuleEditor::DrawEditor()
         if (ImGui::MenuItem("Shpere"))
         {
             LOG("Create a Shpere GameObject");
-            App->mesh->LoadMesh("../Assets/Shpere.fbx");
+            App->mesh->LoadMesh("../Assets/Sphere.fbx");
             App->renderer3D->BindBuffers();
 
         }
@@ -241,7 +241,7 @@ void ModuleEditor::DrawEditor()
         {
             LOG("Create a Pikachu GameObject");
             App->mesh->LoadMesh("../Assets/Pikachu.fbx");
-            App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
+            App->renderer3D->myHouse = App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
             App->renderer3D->BindBuffers();
 
         }
@@ -270,7 +270,7 @@ void ModuleEditor::DrawEditor()
 
             ImGui::TextColored({ 255,255,0,255 }, "Amarillo Engine v0.1");
 
-            std::string licenseContent = loadFile("../../../LICENSE");
+            std::string licenseContent = loadFile("../../LICENSE");
             if (!licenseContent.empty())
             {
                 
