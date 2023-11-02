@@ -25,7 +25,6 @@ update_status ModuleScene::Update()
 bool ModuleScene::CleanUp()
 {
 
-
 	return false;
 }
 
