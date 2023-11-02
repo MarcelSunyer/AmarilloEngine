@@ -366,7 +366,7 @@ void ModuleRenderer3D::InitDevil()
 
 void ModuleRenderer3D::BindBuffers()
 {
-	//Todo: Hace binnd de todos los meshes arreglar
+	//Todo: Hacer binnd de todos los meshes arreglar
 	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
 
 		glGenBuffers(1, &App->mesh->ourMeshes[i]->VBO);

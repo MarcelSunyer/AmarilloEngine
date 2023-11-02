@@ -34,12 +34,12 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
+	AddModule(scene);
 	AddModule(mesh);
 	AddModule(texture);
 
 	// Renderer last!
 	AddModule(renderer3D);
-	AddModule(scene);
 	AddModule(editor);
 	AddModule(console);
 }

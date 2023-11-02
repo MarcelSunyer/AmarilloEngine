@@ -24,21 +24,18 @@ void ComponentTexture::Update() {
 }
 
 void ComponentTexture::OnEditor() {
-	if (texture != NULL)
+
+	if (ImGui::CollapsingHeader("Component Texture"))
 	{
-
-		if (ImGui::CollapsingHeader("Component Texture"))
-		{
-			ImGui::Text("Path: %s", texture->path_);
-
-		}
+		ImGui::Text("Path: %s", texture->path_);
+		ImGui::Text("Iamge:");
+		//Intento de meter una texw
+		ImGui::Image(reinterpret_cast<void*>(static_cast<size_t>(texture->textID)), ImVec2(100, 100));
 	}
+	
 }
 
 void ComponentTexture::SetTexture(Texture* texture)
 {
-
-
 	this->texture = texture;
-	
 }
