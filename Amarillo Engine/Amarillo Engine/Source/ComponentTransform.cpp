@@ -3,8 +3,7 @@
 
 #include "../External/ImGUI/imgui.h"
 
-ComponentTransform::ComponentTransform(GameObject* parent) :
-	Component(parent)
+ComponentTransform::ComponentTransform(GameObject* parent) : Component(parent)
 {
 	type = ComponentTypes::TRANSFORM;
 	UpdateMatrix();
@@ -14,8 +13,7 @@ ComponentTransform::ComponentTransform(GameObject* parent) :
 ComponentTransform::ComponentTransform(GameObject* parent, float3 position, float3 scale, Quat rotation) :
 	Component(parent), new_scale(scale), new_rotation(rotation), new_position(position)
 {
-	type = ComponentTypes::TRANSFORM;
-	UpdateMatrix();
+
 };
 
 void ComponentTransform::Enable() {

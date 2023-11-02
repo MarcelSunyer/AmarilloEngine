@@ -21,14 +21,14 @@ public:
 	float3 inline GetScale() const { return this->new_scale; };
 	float4x4 inline GetTransformMatrix() const { return this->transform; };
 
-	ComponentTransform(GameObject* parent); //DEFAULTS TO 0,0
+	ComponentTransform(GameObject* parent);
 	ComponentTransform(GameObject* parent, float3 position, float3 scale, Quat rotation);
 public:
 
-	void UpdateMatrix(); //Call after every interaction with the matrix;  
+	void UpdateMatrix(); 
 
 	float3 new_position{ 0.0f, 0.0f, 0.0f };
-	Quat new_rotation = Quat::FromEulerXYZ(0.0f, 0.0f, 0.0f);  // Rotar 90 grados en el eje Z
+	Quat new_rotation = Quat::FromEulerXYZ(0.0f, 0.0f, 0.0f);  
 	float3 new_scale{1.0f, 1.0f, 1.0f};
 	float4x4 transform;
 };

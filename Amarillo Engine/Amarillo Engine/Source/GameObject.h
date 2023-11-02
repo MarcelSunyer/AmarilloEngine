@@ -13,7 +13,6 @@ class GameObject
 {
 public:
 	GameObject(std::string name);
-	GameObject(const char name, float3 transform, float3 scale, Quat* rot);
 	~GameObject();
 	
 	bool Enable();

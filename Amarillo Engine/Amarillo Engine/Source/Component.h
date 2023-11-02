@@ -1,8 +1,8 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
-#include "../External/MathGeoLib/include/Math/float3.h"
-#include "../External/MathGeoLib/include/Math/float4x4.h"
+
+
 class GameObject;
 
 enum ComponentTypes
@@ -15,12 +15,14 @@ enum ComponentTypes
 
 class Component {
 public:
+	Component(GameObject* parent) : active(true), parent(parent), type(ComponentTypes::NONE) {};
+
 	virtual void Enable() {};
 	virtual void Update() {};
 	virtual void Disable() {};
 
 	virtual void OnEditor() {};
-	Component(GameObject* parent) : active(true), parent(parent), type(ComponentTypes::NONE) {};
+	
 
 public:
 	ComponentTypes type;

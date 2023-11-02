@@ -5,7 +5,6 @@
 GameObject::GameObject(std::string name) : mName(name), active(true)
 {
 	transform = (ComponentTransform*)AddComponent(ComponentTypes::TRANSFORM);
-
 }
 
 GameObject::~GameObject()
