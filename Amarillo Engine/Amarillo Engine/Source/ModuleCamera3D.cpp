@@ -113,12 +113,16 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetMouseZ() > 0)
 	{
-		newPos -= Z * speed;
+		newPos -= Z * speed * 5;
+		Position += newPos;
+		Reference += newPos;
 	}
 
 	if (App->input->GetMouseZ() < 0)
 	{
-		newPos += Z * speed;
+		newPos += Z * speed * 5;
+		Position += newPos;
+		Reference += newPos;
 	}
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && windowMovement == false)
@@ -148,7 +152,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT && App->editor->GameObject_selected != nullptr)
 	{
-		LookAt(float3(0, 0, 0));
+		LookAt(App->editor->GameObject_selected->transform->new_position);
 	}
 	else
 	{

@@ -51,7 +51,7 @@ public:  //Windows Settings
 
 
 	//Show config window
-	bool showWindow = false;
+	bool showWindow = true;
 	bool showConsole = false;
 	
 public:
