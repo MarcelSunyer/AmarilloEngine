@@ -2,7 +2,9 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 #include "Primitive.h"
+#include "ModuleScene.h"
 #include "ModuleInput.h"
+#include "ModuleEditor.h"
 #include "..\External\MathGeoLib\include\Math\Quat.h"
 #include "..\External\ImGui/imgui.h"
 
@@ -50,8 +52,8 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+	if(App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos.y += speed;
+	if(App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos.y -= speed;
 
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
@@ -101,17 +103,11 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = Z.Cross(X);
 			}
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_IDLE)
+		
+		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_IDLE || App->input->GetKey(SDL_SCANCODE_F) == KEY_IDLE && App->editor->GameObject_selected != nullptr)
 		{
 			Position = Reference;
 		}
-		else
-		{
-			Position = Reference + Z * Position.Length();
-		}
-		
-		
 	}
 
 	if (App->input->GetMouseZ() != 0)
@@ -127,8 +123,9 @@ update_status ModuleCamera3D::Update(float dt)
 		{
 			updatePos += Z * speed;
 		}
-		Position += updatePos;
+		Position += newPos;
 	}
+
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && windowMovement == false)
 	{
 		
@@ -154,7 +151,8 @@ update_status ModuleCamera3D::Update(float dt)
 		
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) 
+
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
 		LookAt(float3(0,0,0));
 	}

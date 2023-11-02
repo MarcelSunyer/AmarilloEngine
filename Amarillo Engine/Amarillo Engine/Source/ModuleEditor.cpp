@@ -128,14 +128,14 @@ void ModuleEditor::DrawEditor()
                 }
                 if (ImGui::MenuItem("CPU:"));
                 {
-                    // Obtener el nombre de la CPU
-                    const char* cpuModel;// = SDL_GetCPUName();
+
+                    const char* cpuModel;
                     cpuModel = "CPU";
 
-                    // Obtener el tamaño de línea de caché de la CPU
+                    
                     int cacheLineSize = SDL_GetCPUCacheLineSize();
 
-                    // Obtener el número de núcleos de la CPU
+                    
                     int cpuCount = SDL_GetCPUCount();
 
                     ImGui::TextColored({ 255,255,0,255 }, "%s", cpuModel);
