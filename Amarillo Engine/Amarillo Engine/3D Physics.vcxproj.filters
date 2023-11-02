@@ -676,7 +676,4 @@
       <Filter>Sources\Tools</Filter>
     </ResourceCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Pikachu-Texture.png" />
-  </ItemGroup>
 </Project>

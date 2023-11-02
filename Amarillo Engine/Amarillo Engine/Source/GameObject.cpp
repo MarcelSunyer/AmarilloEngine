@@ -90,25 +90,3 @@ Component* GameObject::GetComponent(ComponentTypes type)
 
 	return nullptr;
 }
-
-std::vector<Component*> GameObject::CreateComponent(ComponentTypes type)
-{
-	std::vector<Component*>::iterator item = components.begin();
-
-	std::vector<Component*> ret;
-
-	for (; item != components.end(); ++item) {
-		if ((*item)->type == type) {
-			ret.push_back((*item));
-		}
-	}
-
-	// Crea un nuevo componente de tipo MeshComponent
-	if (type == ComponentTypes::MESH) {
-		ComponentMesh* newMeshComponent = new ComponentMesh(parent); // No se pasa ningún argumento al constructor
-		components.push_back(newMeshComponent);
-		ret.push_back(newMeshComponent);
-	}
-
-	return ret;
-}
