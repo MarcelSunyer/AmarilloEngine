@@ -9,7 +9,7 @@ class ComponentMesh : public Component {
 public:
 
 private:
-	ModuleMesh::MeshData mesh;
+	ModuleMesh::Mesh mesh;
 	std::string paths;
 
 	//Methods
@@ -19,7 +19,7 @@ public:
 	void Disable() override;
 	void OnEditor() override;
 
-	void SetMesh(ModuleMesh::MeshData mesh);
+	void SetMesh(ModuleMesh::Mesh mesh);
 	void SetPath(std::string path);
 
 

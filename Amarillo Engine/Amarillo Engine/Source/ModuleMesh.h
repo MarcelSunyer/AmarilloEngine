@@ -26,12 +26,12 @@ public:
 		float2 TexCoords;
 	};
 
-	struct MeshData {
+	struct Mesh {
 		std::vector<unsigned int> indices;
 		std::vector<Vertex> ourVertex;
 		unsigned int VBO = 0, EBO = 0;
 	};
-	std::vector<MeshData> ourMeshes;
+	std::vector<Mesh> ourMeshes;
 	std::string name = "EmptyObject_";
 	int num = 0;
 

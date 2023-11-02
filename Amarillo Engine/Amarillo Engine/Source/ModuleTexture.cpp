@@ -6,16 +6,13 @@
 #include <gl/GLU.h>
 #include "ComponentTexture.h"
 
-
 #pragma comment(lib, "External/DevIL/libx86/DevIL.lib")
 #pragma comment(lib, "External/DevIL/libx86/ILU.lib")
 #pragma comment(lib, "External/DevIL/libx86/ILUT.lib")
 
-//#include "SDL/include/SDL_opengl.h"
 
 ModuleTexture::ModuleTexture(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-    //textureID = 0;
 }
 
 bool ModuleTexture::Start()
@@ -25,53 +22,53 @@ bool ModuleTexture::Start()
 
 bool ModuleTexture::CleanUp()
 {
-    //glDeleteBuffers(1, &textureID);
     return true;
 }
 
-Texture* ModuleTexture::LoadTexture(std::string textfile)
+Texture* ModuleTexture::LoadTexture(std::string file_name)
 {
-    ILenum imageToTextID;
-    ILboolean done;
+    ILenum image_id;
 
-    ilGenImages(1, &imageToTextID);
-    ilBindImage(imageToTextID);
+    ilGenImages(1, &image_id);
+    ilBindImage(image_id);
 
-    done = ilLoadImage(textfile.c_str());
+    ILboolean success;
+    success = ilLoadImage(file_name.c_str());
 
-    if (done == IL_TRUE) {
+    if (success == IL_TRUE) {
         ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 
-        GLuint _texture;
-
-        GLuint width = ilGetInteger(IL_IMAGE_WIDTH);
-        GLuint height = ilGetInteger(IL_IMAGE_HEIGHT);
-        ILubyte* textdata = ilGetData();
+        GLuint texture_id;
+        ILubyte* texture_data = ilGetData();
+        GLuint texture_width = ilGetInteger(IL_IMAGE_WIDTH);
+        GLuint texture_height = ilGetInteger(IL_IMAGE_HEIGHT);
+        
 
         glEnable(GL_TEXTURE_2D);
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        glGenTextures(1, &_texture);
-        glBindTexture(GL_TEXTURE_2D, _texture);
+        glGenTextures(1, &texture_id);
+        glBindTexture(GL_TEXTURE_2D, texture_id);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textdata);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, texture_width, texture_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_TEXTURE_2D);
 
-        ilDeleteImages(1, &imageToTextID);
-       
-        ComponentTexture* textureComponent = (ComponentTexture*)App->scene->root_object->AddComponent(ComponentTypes::TEXTURE);
-        
-        Texture* temp = new Texture(_texture, width, height, textfile);
-
-        textureComponent->SetTexture(temp);
-       
-        LOG(textfile.c_str());
+        ilDeleteImages(1, &image_id);
 
 
-        return temp;
+        ComponentTexture* texture_component = (ComponentTexture*)App->scene->root_object->AddComponent(ComponentTypes::TEXTURE);
+
+        Texture* new_texture = new Texture(texture_id, texture_width, texture_height, file_name);
+
+        texture_component->SetTexture(new_texture);
+
+        LOG(file_name.c_str());
+
+        return new_texture;
     }
 }
+
 

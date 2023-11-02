@@ -22,7 +22,7 @@ void ComponentMesh::Update() {
 
 }
 
-void ComponentMesh::SetMesh(ModuleMesh::MeshData mesh)
+void ComponentMesh::SetMesh(ModuleMesh::Mesh mesh)
 {
 	this->mesh = mesh;
 }

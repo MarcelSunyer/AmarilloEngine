@@ -14,93 +14,6 @@ ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start
 
 }
 
-void ModuleMesh::LoadMesh(const char* file_path)
-{
-
-	const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate | aiProcess_FlipUVs);
-	
-
-	//Editar esto para que no se llamenigual pq sino da error
-	App->scene->root_object = App->scene->CreateGameObject(name + std::to_string(num));
-	num += 1;
-	if (scene != nullptr && scene->HasMeshes())
-	{
-		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-		for (int i = 0; i < scene->mNumMeshes; i++) 
-		{
-
-			MeshData temp;
-
-
-			for (unsigned int o = 0; o < scene->mMeshes[i]->mNumVertices; o++)
-			{
-				Vertex tempvertex;
-				float3 vector;
-				vector.x = scene->mMeshes[i]->mVertices[o].x;
-				vector.y = scene->mMeshes[i]->mVertices[o].y;
-				vector.z = scene->mMeshes[i]->mVertices[o].z;
-				tempvertex.Position = vector;
-				LOG("New mesh with %d vertices", scene->mMeshes[i]->mNumVertices);
-
-				if (scene->mMeshes[i]->HasNormals())
-				{
-					tempvertex.Normal.x = scene->mMeshes[i]->mNormals[o].x;
-					tempvertex.Normal.y = scene->mMeshes[i]->mNormals[o].y;
-					tempvertex.Normal.z = scene->mMeshes[i]->mNormals[o].z;
-
-				}
-				if (scene->mMeshes[i]->HasTextureCoords(0))
-				{
-					tempvertex.TexCoords.x = scene->mMeshes[i]->mTextureCoords[0][o].x;
-					tempvertex.TexCoords.y = scene->mMeshes[i]->mTextureCoords[0][o].y;
-
-				}
-				else
-				{
-					tempvertex.TexCoords.x = 0.0f;
-					tempvertex.TexCoords.y = 0.0f;
-				}
-
-				temp.ourVertex.push_back(tempvertex);
-			}
-
-
-			if (scene->mMeshes[i]->HasFaces())
-			{
-
-				temp.indices.resize(scene->mMeshes[i]->mNumFaces * 3);// assume each face is a triangle
-
-				for (uint y = 0; y < scene->mMeshes[i]->mNumFaces; y++)
-				{
-					if (scene->mMeshes[i]->mFaces[y].mNumIndices != 3)
-					{
-						LOG("WARNING, geometry face with != 3 indices!");
-					}
-					else {
-
-						memcpy(&temp.indices[y * 3], scene->mMeshes[i]->mFaces[y].mIndices, 3 * sizeof(unsigned int));
-
-					}
-				}
-			}
-
-			ComponentMesh* meshComponent = (ComponentMesh*)App->scene->root_object->AddComponent(ComponentTypes::MESH);
-			meshComponent->SetMesh(temp);
-			meshComponent->SetPath(file_path);
-
-
-			ourMeshes.push_back(temp);
-		}
-
-		
-		aiReleaseImport(scene);
-
-
-	}
-	else
-		LOG("Error loading scene % s", file_path);
-}
-
 ModuleMesh::~ModuleMesh()
 {
 }
@@ -115,12 +28,88 @@ bool ModuleMesh::CleanUp()
 	return true;
 }
 
+void ModuleMesh::LoadMesh(const char* file_path)
+{
+	const aiScene* imported_scene = aiImportFile(file_path, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+	//Editar esto para que no se llamenigual pq sino da error
+	App->scene->root_object = App->scene->CreateGameObject(name + std::to_string(num));
+	num += 1;
+
+	if (imported_scene->HasMeshes() && imported_scene != nullptr)
+	{
+		for (int i = 0; i < imported_scene->mNumMeshes; i++)
+		{
+			Mesh mesh_obj;
+
+			for (unsigned int o = 0; o < imported_scene->mMeshes[i]->mNumVertices; o++)
+			{
+				Vertex vertex_data;
+				float3 vertex_position;
+				vertex_position.x = imported_scene->mMeshes[i]->mVertices[o].x;
+				vertex_position.y = imported_scene->mMeshes[i]->mVertices[o].y;
+				vertex_position.z = imported_scene->mMeshes[i]->mVertices[o].z;
+				vertex_data.Position = vertex_position;
+				LOG("New mesh with %d vertices", imported_scene->mMeshes[i]->mNumVertices);
+
+				if (imported_scene->mMeshes[i]->HasNormals())
+				{
+					vertex_data.Normal.x = imported_scene->mMeshes[i]->mNormals[o].x;
+					vertex_data.Normal.y = imported_scene->mMeshes[i]->mNormals[o].y;
+					vertex_data.Normal.z = imported_scene->mMeshes[i]->mNormals[o].z;
+				}
+
+				if (imported_scene->mMeshes[i]->HasTextureCoords(0))
+				{
+					vertex_data.TexCoords.x = imported_scene->mMeshes[i]->mTextureCoords[0][o].x;
+					vertex_data.TexCoords.y = imported_scene->mMeshes[i]->mTextureCoords[0][o].y;
+				}
+				else
+				{
+					vertex_data.TexCoords.x = 0.0f;
+					vertex_data.TexCoords.y = 0.0f;
+				}
+
+				mesh_obj.ourVertex.push_back(vertex_data);
+			}
+
+			if (imported_scene->mMeshes[i]->HasFaces())
+			{
+				mesh_obj.indices.resize(imported_scene->mMeshes[i]->mNumFaces * 3);
+
+				for (uint y = 0; y < imported_scene->mMeshes[i]->mNumFaces; y++)
+				{
+					if (imported_scene->mMeshes[i]->mFaces[y].mNumIndices != 3)
+					{
+						LOG("WARNING, geometry face with != 3 indices!");
+					}
+					else
+					{
+						memcpy(&mesh_obj.indices[y * 3], imported_scene->mMeshes[i]->mFaces[y].mIndices, 3 * sizeof(unsigned int));
+					}
+				}
+			}
+
+			ComponentMesh* mesh_component = (ComponentMesh*)App->scene->root_object->AddComponent(ComponentTypes::MESH);
+			mesh_component->SetMesh(mesh_obj);
+			mesh_component->SetPath(file_path);
+			ourMeshes.push_back(mesh_obj);
+		}
+
+		aiReleaseImport(imported_scene);
+	}
+	else
+		LOG("Error loading scene % s", file_path);
+}
+
+
+
 void ModuleMesh::DrawNormals() {
 	float length = 0.2f; // Define the length of the normals you want to draw
 
 	glBegin(GL_LINES); // Start drawing lines
 
-	for (const MeshData& mesh : ourMeshes) {
+	for (const Mesh& mesh : ourMeshes) {
 		for (unsigned int i = 0; i < mesh.indices.size(); i += 3) {
 			// Get the vertices of the triangle
 			float3 vertex1 = mesh.ourVertex[mesh.indices[i]].Position;
