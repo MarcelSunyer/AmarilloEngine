@@ -2,29 +2,24 @@
 #define __GAMEOBJECT_H__
 
 #include "Globals.h"
-#include "../External/MathGeoLib/include/Math/float3x3.h"
 #include "glmath.h"
-#include "../External/MathGeoLib/include/Math/Quat.h"
 #include <vector>
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
+#include "ComponentTexture.h"
 
 class GameObject
 {
 public:
+	GameObject(std::string name);
 	GameObject(const char name, float3 transform, float3 scale, Quat* rot);
 	~GameObject();
 	
-	
-	GameObject(std::string name);
-
-	bool Enable(); //Start up + bool toggle
-	bool Disable();//Clean up + bool toggle
+	bool Enable();
+	bool Disable();
 
 	void Update();
-	
-	void CreatGameObject();
 	
 	void SetParent(GameObject* parent);
 	
@@ -36,14 +31,14 @@ public:
 public:
 	std::string mName;
 
-	std::vector<Component*> components;
-	bool active;
-
 	GameObject* parent;
 	std::vector<GameObject*> children;
 
 	bool selected = false;
+	bool active;
 
+	std::vector<Component*> components;
+	
 	ComponentTransform* transform = nullptr;
 
 

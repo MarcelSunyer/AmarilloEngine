@@ -1,10 +1,6 @@
 #include "GameObject.h"
-#include "Component.h"
-#include "ComponentTransform.h"
-
-#include "ComponentMesh.h"
-#include "ComponentTexture.h"
 #include <vector>
+
 
 GameObject::GameObject(std::string name) : mName(name), active(true)
 {
@@ -12,12 +8,15 @@ GameObject::GameObject(std::string name) : mName(name), active(true)
 
 }
 
-bool GameObject::Enable() //Start up + bool toggle
+GameObject::~GameObject()
+{
+}
+
+bool GameObject::Enable()
 {
 	if (!active) {
 		active = true;
 		return true;
-		//StartUp here...
 	}
 	return false;
 }
@@ -27,7 +26,6 @@ bool GameObject::Disable()
 	if (active) {
 		active = false;
 		return true;
-		//CleanUp here...
 	}
 	return false;
 }
@@ -37,12 +35,6 @@ void GameObject::Update()
 	
 }
 
-void GameObject::CreatGameObject()
-{
-	parent = new GameObject("");
-	children.push_back(parent);
-	
-}
 
 void GameObject::SetParent(GameObject* parent)
 {
