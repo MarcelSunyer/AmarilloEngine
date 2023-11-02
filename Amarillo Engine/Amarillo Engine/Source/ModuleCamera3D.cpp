@@ -114,6 +114,21 @@ update_status ModuleCamera3D::Update(float dt)
 		
 	}
 
+	if (App->input->GetMouseZ() != 0)
+	{
+		float3 updatePos(0, 0, 0);
+		float speed = 15.0f * dt;
+
+		if (App->input->GetMouseZ() > 0)
+		{
+			updatePos -= Z * speed;
+		}
+		if (App->input->GetMouseZ() < 0)
+		{
+			updatePos += Z * speed;
+		}
+		Position += updatePos;
+	}
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && windowMovement == false)
 	{
 		

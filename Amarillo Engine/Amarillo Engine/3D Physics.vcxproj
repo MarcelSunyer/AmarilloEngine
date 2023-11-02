@@ -293,9 +293,6 @@
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Pikachu-Texture.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

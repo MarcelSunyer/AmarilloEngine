@@ -5,6 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
+#include "Globals.h"
 #include "ModuleScene.h"
 
 #include "..\External\ImGui\imgui.h"
@@ -177,12 +178,10 @@ void ModuleEditor::DrawEditor()
     ImGui::BeginMainMenuBar();
     if (ImGui::BeginMenu("File"))
     {
-    
         ImGui::EndMenu();
     }
     if (ImGui::BeginMenu("Edit"))
     {
-
         ImGui::EndMenu();
     }
     if (ImGui::BeginMenu("GameObjects"))
