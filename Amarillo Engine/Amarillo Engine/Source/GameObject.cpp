@@ -2,9 +2,10 @@
 #include <vector>
 
 
-GameObject::GameObject(std::string name) : mName(name), active(true)
+GameObject::GameObject(std::string name) : mName(name), active(true), parent(nullptr)
 {
 	transform = (ComponentTransform*)AddComponent(ComponentTypes::TRANSFORM);
+	//texture = (ComponentTexture*)AddComponent(ComponentTypes::TEXTURE);
 }
 
 GameObject::~GameObject()

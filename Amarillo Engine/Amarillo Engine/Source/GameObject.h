@@ -38,6 +38,7 @@ public:
 	std::vector<Component*> components;
 	
 	ComponentTransform* transform = nullptr;
+	ComponentTexture* texture = nullptr;
 
 
 };

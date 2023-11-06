@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleTexture.h"
 #include "ModuleScene.h"
+#include "ModuleRenderer3D.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -64,6 +65,9 @@ Texture* ModuleTexture::LoadTexture(std::string file_name)
         Texture* new_texture = new Texture(texture_id, texture_width, texture_height, file_name);
 
         texture_component->SetTexture(new_texture);
+
+        //App->renderer3D->BindBuffers();
+        
 
         LOG(file_name.c_str());
 

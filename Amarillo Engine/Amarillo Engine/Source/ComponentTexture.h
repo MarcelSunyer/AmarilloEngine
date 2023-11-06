@@ -20,6 +20,7 @@ public:
 	void OnEditor() override;
 
 	void SetTexture(Texture* texture);
+	Texture* GetTexture();
 
 	ComponentTexture(GameObject* parent);
 };

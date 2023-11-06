@@ -282,12 +282,15 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 			glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
 
 			//Bind Textures
-			if (textures[0]->textID != NULL)
+			const Texture* mTexture = dynamic_cast<ComponentTexture*>(gameobject->GetComponent(ComponentTypes::TEXTURE))->GetTexture();
+			if (mTexture != nullptr)
 			{
-				glBindTexture(GL_TEXTURE_2D, textures[0]->textID);
+				LOG("TEXTURE");
+				glBindTexture(GL_TEXTURE_2D, mTexture->textID);
 			}
 			else
 			{
+				LOG("checkersTexture");
 				glBindTexture(GL_TEXTURE_2D, checkersTexture);
 			}
 			glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
