@@ -38,7 +38,10 @@ public:
 
 	std::vector<Component*> components;
 	
+
+	//No use, only reference
 	ComponentTransform* transform = nullptr;
+private:
 	ComponentTexture* texture = nullptr;
 
 

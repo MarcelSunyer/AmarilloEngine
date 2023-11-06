@@ -139,17 +139,26 @@ update_status ModuleInput::PreUpdate(float dt)
 						else if ((strcmp(ext, ".png") == 0 || strcmp(ext, ".dds") == 0) && App->editor->GameObject_selected != nullptr)
 						{
 							LOG(("Texture dropped on window - File Path: %s", dropped_filedir));
-							// Load texture
+							
 
-							/*Texture* temp_text;
-							temp_text = App->texture->LoadTexture(dropped_filedir);*/
+							//1. Comprobar si hay textura / es nula
+							if (App->editor->GameObject_selected->GetComponent(ComponentTypes::TEXTURE) != nullptr)
+							{
+								//Has texture - Swap the textures
 
-							App->texture->LoadTexture(dropped_filedir);
+								dynamic_cast<ComponentTexture*>(App->editor->GameObject_selected->GetComponent(ComponentTypes::TEXTURE))->SwapTextures(dropped_filedir);
 
-							/*ComponentTexture* temp;
-							temp = (ComponentTexture*)App->editor->selected_object->GetComponent(ComponentTypes::TEXTURE);
+							}
+							else
+							{
+								//No texture
 
-							temp->SetTexture(temp_text);*/
+								// Load texture							
+								App->texture->LoadTexture(dropped_filedir);
+							}
+
+							
+							
 							App->renderer3D->BindBuffers();
 						}
 					}

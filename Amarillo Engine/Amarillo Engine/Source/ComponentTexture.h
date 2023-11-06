@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "glmath.h"
 #include "Globals.h"
+#include <string>
 
 struct Texture;
 
@@ -21,6 +22,7 @@ public:
 
 	void SetTexture(Texture* texture);
 	Texture* GetTexture();
+	void SwapTextures(std::string textfile);
 
 	ComponentTexture(GameObject* parent);
 };
