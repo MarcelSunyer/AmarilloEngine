@@ -187,17 +187,7 @@ bool ModuleRenderer3D::Init()
 
 	ilInit();
 
-	//Pruebas LoadTexture
-	//App->renderer3D->myModel->error = false;
-	//App->renderer3D->myModel->isLoaded = false;
-	
-	//myModel_path = "../Assets/BakerHouse.fbx";
-	//myModel_path = "../Assets/Cube-ASCII.fbx";
-	//myModel_texture_path = "../Assets/Baker_house.png";
-	//myModel_texture_path = "../Assets/green.png";
-
-	
-	textures.push_back(App->texture->LoadTexture("../Assets/Baker_house.png"));
+	App->texture->LoadTexture("../Assets/Baker_house.png");
 
 	return ret;
 }
@@ -288,6 +278,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 				if (mTexture != nullptr)
 				{
+
+
 					glBindTexture(GL_TEXTURE_2D, mTexture->textID);
 				}
 			}
@@ -311,9 +303,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		}
 
 	}
-	
-
-	
 	
 	
 	Grid.Render();

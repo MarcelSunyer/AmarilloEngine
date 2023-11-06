@@ -144,7 +144,7 @@ update_status ModuleInput::PreUpdate(float dt)
 							/*Texture* temp_text;
 							temp_text = App->texture->LoadTexture(dropped_filedir);*/
 
-							App->renderer3D->textures[0] = App->texture->LoadTexture(dropped_filedir);
+							App->texture->LoadTexture(dropped_filedir);
 
 							/*ComponentTexture* temp;
 							temp = (ComponentTexture*)App->editor->selected_object->GetComponent(ComponentTypes::TEXTURE);

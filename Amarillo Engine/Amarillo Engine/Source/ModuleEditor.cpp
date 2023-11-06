@@ -69,6 +69,7 @@ bool ModuleEditor::Init()
 
 void ModuleEditor::DrawEditor()
 {
+
     //Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
@@ -249,6 +250,14 @@ void ModuleEditor::DrawEditor()
             LOG("Create a Pikachu GameObject");
             App->mesh->LoadMesh("../Assets/Pikachu.fbx");
             App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
+            App->renderer3D->BindBuffers();
+
+        }
+        if (ImGui::MenuItem("Skybox"))
+        {
+            LOG("Create a Skybox GameObject");
+            App->mesh->LoadMesh("../Assets/Skybox.fbx");
+            App->texture->LoadTexture("../Assets/skybox.png");
             App->renderer3D->BindBuffers();
 
         }
