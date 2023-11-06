@@ -282,17 +282,20 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 			glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
 
 			//Bind Textures
-			const Texture* mTexture = dynamic_cast<ComponentTexture*>(gameobject->GetComponent(ComponentTypes::TEXTURE))->GetTexture();
-			if (mTexture != nullptr)
+			if (gameobject->GetComponent(ComponentTypes::TEXTURE) != nullptr)
 			{
-				LOG("TEXTURE");
-				glBindTexture(GL_TEXTURE_2D, mTexture->textID);
+				const Texture* mTexture = dynamic_cast<ComponentTexture*>(gameobject->GetComponent(ComponentTypes::TEXTURE))->GetTexture();
+
+				if (mTexture != nullptr)
+				{
+					glBindTexture(GL_TEXTURE_2D, mTexture->textID);
+				}
 			}
 			else
 			{
-				LOG("checkersTexture");
 				glBindTexture(GL_TEXTURE_2D, checkersTexture);
 			}
+
 			glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
 			glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
 
