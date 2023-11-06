@@ -62,9 +62,9 @@ void ComponentTransform::OnEditor() {
 	{
 		float3 euler_rotation = new_rotation.ToEulerXYZ();
 		float3 euler_degree = euler_rotation * RADTODEG;
-		ImGui::InputFloat3("Position:", (float*)&new_position);
-		ImGui::InputFloat3("Scale:", (float*)&new_scale);
-		bool rot_change = ImGui::InputFloat3("Rotation:", (float*)&euler_degree);
+		ImGui::DragFloat3("Position:", (float*)&new_position);
+		ImGui::DragFloat3("Scale:", (float*)&new_scale);
+		bool rot_change = ImGui::DragFloat3("Rotation:", (float*)&euler_degree);
 		
 		if (rot_change)
 		{

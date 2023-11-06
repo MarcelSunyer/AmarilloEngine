@@ -111,6 +111,12 @@
     <ClInclude Include="External\Assimp\include\vector2.h" />
     <ClInclude Include="External\Assimp\include\vector3.h" />
     <ClInclude Include="External\Assimp\include\version.h" />
+    <ClInclude Include="External\ImGuizmo\GraphEditor.h" />
+    <ClInclude Include="External\ImGuizmo\ImCurveEdit.h" />
+    <ClInclude Include="External\ImGuizmo\ImGradient.h" />
+    <ClInclude Include="External\ImGuizmo\ImGuizmo.h" />
+    <ClInclude Include="External\ImGuizmo\ImSequencer.h" />
+    <ClInclude Include="External\ImGuizmo\ImZoomSlider.h" />
     <ClInclude Include="External\ImGui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="External\ImGui\backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="External\ImGui\backends\imgui_impl_sdl2.h" />
@@ -206,6 +212,11 @@
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="External\ImGuizmo\GraphEditor.cpp" />
+    <ClCompile Include="External\ImGuizmo\ImCurveEdit.cpp" />
+    <ClCompile Include="External\ImGuizmo\ImGradient.cpp" />
+    <ClCompile Include="External\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="External\ImGuizmo\ImSequencer.cpp" />
     <ClCompile Include="External\ImGui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="External\ImGui\backends\imgui_impl_sdl2.cpp" />
     <ClCompile Include="External\ImGui\backends\imgui_impl_sdlrenderer2.cpp" />

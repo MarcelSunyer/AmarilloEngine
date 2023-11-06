@@ -13,6 +13,7 @@
 #include "..\External\ImGui/backends/imgui_impl_sdl2.h"
 #include "..\External\SDL/include/SDL.h"
 #include "GameObject.h"
+#include "../External/ImGuizmo/ImGuizmo.h"
 #include "Component.h"
 
 #include <fstream>
@@ -72,7 +73,10 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
     ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
+
+    ImGuizmo::Enable(true);
 
     ImGui::Begin("Hierarchy");
 
