@@ -11,6 +11,7 @@ enum ComponentTypes
 	TRANSFORM,
 	MESH,
 	TEXTURE,
+	CAMERA,
 };
 
 class Component {

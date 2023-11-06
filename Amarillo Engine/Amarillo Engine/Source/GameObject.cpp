@@ -59,6 +59,9 @@ Component* GameObject::AddComponent(ComponentTypes type)
 	case(ComponentTypes::TEXTURE):
 		ret = new ComponentTexture(this);
 		break;
+	case(ComponentTypes::CAMERA):
+		ret = new ComponentCamera(this);
+		break;
 	default:
 		throw std::runtime_error("Component type not found");
 		break;

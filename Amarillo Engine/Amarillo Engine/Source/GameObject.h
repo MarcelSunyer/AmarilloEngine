@@ -8,6 +8,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
+#include "ComponentCamera.h"
 
 class GameObject
 {

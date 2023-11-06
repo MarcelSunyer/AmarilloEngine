@@ -13,6 +13,9 @@ bool ModuleScene::Init()
 {
 	root_object = new GameObject("Scene");
 	game_objects.push_back(root_object);
+	root_object = new GameObject("Camera");
+	root_object->AddComponent(ComponentTypes::CAMERA);
+	game_objects.push_back(root_object);
 
 	return true;
 }

@@ -20,13 +20,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -191,6 +191,7 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
+    <ClInclude Include="Source\ComponentCamera.h" />
     <ClInclude Include="Source\ComponentMesh.h" />
     <ClInclude Include="Source\ComponentTexture.h" />
     <ClInclude Include="Source\ComponentTransform.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\ComponentCamera.cpp" />
     <ClCompile Include="Source\ComponentMesh.cpp" />
     <ClCompile Include="Source\ComponentTexture.cpp" />
     <ClCompile Include="Source\ComponentTransform.cpp" />
