@@ -72,12 +72,10 @@ Component* GameObject::AddComponent(ComponentTypes type)
 	return ret;
 }
 
-GameObject* GameObject::AddChildren(GameObject* children) {
-
-	if (this->children.empty())
-	{
-		this->children.push_back(children);
-	}
+GameObject* GameObject::AddChildren(GameObject* children) 
+{
+	this->children.push_back(children);
+	
 	return children;
 }
 

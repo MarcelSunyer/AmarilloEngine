@@ -34,12 +34,6 @@ public:
 	std::vector<Mesh*> ourMeshes;
 	std::string name = "EmptyObject_";
 	int num = 0;
-
 };
-
-
-
-
-
 
 #endif //MODULE_MESH

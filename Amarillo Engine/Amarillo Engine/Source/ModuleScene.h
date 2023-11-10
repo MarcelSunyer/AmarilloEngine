@@ -19,6 +19,8 @@ public:
 	bool CleanUp();
 
 	GameObject* CreateGameObject(std::string name);
+
+	GameObject* CreateChildObject(std::string name);
 	std::vector<GameObject*> GetGameObjects();
 
 public:
