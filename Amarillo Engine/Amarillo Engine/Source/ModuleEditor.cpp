@@ -1,4 +1,4 @@
-#include "ModuleEditor.h"
+﻿#include "ModuleEditor.h"
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
@@ -184,6 +184,28 @@ void ModuleEditor::DrawEditor()
        App->console->UpdateConsole();
     }
     ImGui::End();
+
+    if (ImGui::Begin("Time Control"))
+    {
+        if (ImGui::Button("Play"))
+        {
+            //TODO: Lógica cuando se presiona el botón Play
+        }
+        ImGui::SameLine();
+
+        if (ImGui::Button("Pause"))
+        {
+            //TODO: Lógica cuando se presiona el botón Pause
+        }
+        ImGui::SameLine();
+
+        if (ImGui::Button("Stop"))
+        {
+            //TODO: Lógica cuando se presiona el botón Stop
+        }
+    }
+    ImGui::End();
+
     
     ImGui::BeginMainMenuBar();
     if (ImGui::BeginMenu("File"))
@@ -424,10 +446,10 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject)
         currentObject->selected = true;
         GameObject_selected = currentObject;
 
-        // Itera a trav�s de los objetos secundarios y mu�stralos como hijos
+        // Itera a través de los objetos secundarios y muéstralos como hijos
         for (auto& child : currentObject->children)
         {
-            DrawHierarchyLevel(child); // Llama recursivamente a la funci�n para mostrar los hijos del hijo
+            DrawHierarchyLevel(child); // Llama recursivamente a la función para mostrar los hijos del hijo
         }
 
         ImGui::TreePop();
