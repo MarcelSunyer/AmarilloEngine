@@ -199,6 +199,11 @@ bool ModuleRenderer3D::Init()
 
 	App->texture->LoadTexture("../Assets/Baker_house.png");
 
+	//Load Skybox
+	App->mesh->LoadMesh("../Assets/Skybox.fbx");
+	BindBuffers();
+	App->texture->LoadTexture("../Assets/skybox.png");
+
 	return ret;
 }
 
