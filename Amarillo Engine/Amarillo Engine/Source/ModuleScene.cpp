@@ -14,9 +14,9 @@ bool ModuleScene::Init()
 	root_object = new GameObject("Scene");
 	game_objects.push_back(root_object);
 	
-	pedrito = new GameObject("Camera");
+	child = new GameObject("Camera");
 	root_object->AddComponent(ComponentTypes::CAMERA);
-	root_object->AddChildren(pedrito);
+	root_object->AddChildren(child);
 
 
 	return true;

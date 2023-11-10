@@ -26,8 +26,8 @@ public:
 public:
 	std::vector<GameObject*> game_objects; 
 	GameObject* root_object = nullptr;
-	GameObject* pedrito = nullptr;
-	GameObject* juan = nullptr;
+	GameObject* child = nullptr;
+
 };
 
 
