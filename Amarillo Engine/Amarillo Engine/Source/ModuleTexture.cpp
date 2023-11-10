@@ -60,7 +60,7 @@ Texture* ModuleTexture::LoadTexture(std::string file_name)
         ilDeleteImages(1, &image_id);
 
 
-        ComponentTexture* texture_component = (ComponentTexture*)App->scene->root_object->AddComponent(ComponentTypes::TEXTURE);
+        ComponentTexture* texture_component = (ComponentTexture*)App->scene->juan->AddComponent(ComponentTypes::TEXTURE);
 
         Texture* new_texture = new Texture(texture_id, texture_width, texture_height, file_name);
 
