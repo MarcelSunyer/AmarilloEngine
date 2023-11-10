@@ -2,7 +2,7 @@
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
+	app = app;
 }
 
 ModuleScene::~ModuleScene()
@@ -13,9 +13,11 @@ bool ModuleScene::Init()
 {
 	root_object = new GameObject("Scene");
 	game_objects.push_back(root_object);
-	root_object = new GameObject("Camera");
+	
+	pedrito = new GameObject("Camera");
 	root_object->AddComponent(ComponentTypes::CAMERA);
-	game_objects.push_back(root_object);
+	root_object->AddChildren(pedrito);
+
 
 	return true;
 }

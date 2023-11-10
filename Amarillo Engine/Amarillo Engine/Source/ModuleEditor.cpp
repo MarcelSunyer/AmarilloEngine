@@ -86,7 +86,7 @@ void ModuleEditor::DrawEditor()
 
     ImGui::Begin("Hierarchy");
 
-    DrawHierarchyLevel();
+    DrawHierarchy();
 
     ImGui::End();
 
@@ -413,38 +413,36 @@ void ModuleEditor::InspectorWindow()
     }
 }
 
-void ModuleEditor::DrawHierarchyLevel()
+
+void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject)
+{
+    // Determine if the current GameObject is selected
+    bool isSelected = GameObject_selected == currentObject;
+
+    if (ImGui::TreeNode(currentObject->mName.c_str()))
+    {
+        currentObject->selected = true;
+        GameObject_selected = currentObject;
+
+        // Itera a través de los objetos secundarios y muéstralos como hijos
+        for (auto& child : currentObject->children)
+        {
+            DrawHierarchyLevel(child); // Llama recursivamente a la función para mostrar los hijos del hijo
+        }
+
+        ImGui::TreePop();
+    }
+}
+
+void ModuleEditor::DrawHierarchy()
 {
     std::vector<GameObject*> lista_games = App->scene->GetGameObjects();
 
     for (uint i = 0; i < lista_games.size(); i++)
     {
-        // Determine if this GameObject is selected
-        bool isSelected = GameObject_selected == lista_games[i];
-
-        if (ImGui::TreeNode(lista_games[i]->mName.c_str()))
-        {
-            //Todo: AddGameObjectChilds
-
-            lista_games[i]->selected = true;
-            GameObject_selected = lista_games[i];
-
-            ImGui::TreePop();
-        }
-
-        // Handle moving the selected GameObject
-        //if (lista_games[i]->selected)
-        //{
-        //    if (ImGui::IsMouseDragging(0))
-        //    {
-        //        //// Update the position of the selected GameObject
-        //        //list2[n]->position.x += ImGui::GetIO().MouseDelta.x;
-        //        //list2[n]->position.y += ImGui::GetIO().MouseDelta.y;
-        //    }
-        //}
+        DrawHierarchyLevel(lista_games[i]);
     }
 }
-
 
 std::string ModuleEditor::loadFile(const char* filename)
 {

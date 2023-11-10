@@ -36,7 +36,8 @@ public:
 	void InspectorWindow();
 	bool show_inspector_window = true;
 
-	void DrawHierarchyLevel();
+	void DrawHierarchyLevel(GameObject* currentObject);
+	void DrawHierarchy();
 
 	std::string loadFile(const char* filename);
 	

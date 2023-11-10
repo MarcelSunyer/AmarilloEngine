@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "GameObject.h"
 #include <vector>
+#include "Application.h"
 
 
 class ModuleScene : public Module
@@ -21,8 +22,9 @@ public:
 	std::vector<GameObject*> GetGameObjects();
 
 public:
-	std::vector<GameObject*> game_objects;
+	std::vector<GameObject*> game_objects; 
 	GameObject* root_object = nullptr;
+	GameObject* pedrito = nullptr;
 };
 
 
