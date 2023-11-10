@@ -44,6 +44,7 @@ GameObject* ModuleScene::CreateGameObject(std::string name)
 
 GameObject* ModuleScene::CreateChildObject(std::string name)
 {
+	//Falta hacer que se pushee en el vector de game_objects para que pille el render
 	GameObject* newObject = new GameObject(name);
 	root_object->AddChildren(newObject);
 	newObject->SetParent(root_object);
