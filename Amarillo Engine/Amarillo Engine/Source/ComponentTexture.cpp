@@ -32,7 +32,7 @@ void ComponentTexture::OnEditor() {
 		{
 
 			ImGui::Text("Path: %s", texture->path_);
-			ImGui::Text("Iamge:");
+			ImGui::Text("Image:");
 			//Intento de meter una texw
 			ImGui::Image(reinterpret_cast<void*>(static_cast<size_t>(texture->textID)), ImVec2(100, 100));
 		}
@@ -96,7 +96,7 @@ void ComponentTexture::SwapTextures(std::string textfile)
         ilDeleteImages(1, &image_id);
 
 
-        
+        delete texture;
         Texture* new_texture = new Texture(texture_id, texture_width, texture_height, textfile);
 
         this->SetTexture(new_texture);
