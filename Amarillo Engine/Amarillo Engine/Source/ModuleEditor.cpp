@@ -91,7 +91,7 @@ void ModuleEditor::DrawEditor()
     ImGui::End();
 
     InspectorWindow();
-   
+    
     if (showWindow)
     {
         if (ImGui::Begin("Config", &showWindow))
@@ -423,6 +423,13 @@ void ModuleEditor::InspectorWindow()
 
         if (GameObject_selected != nullptr)
         {
+            if (ImGui::Button("Delete")) {
+
+                GameObject_selected->deleteGameObject = true;
+                delete GameObject_selected;
+
+
+            }
             ImGui::Text(GameObject_selected->mName.c_str());
             ImGui::Separator();
 

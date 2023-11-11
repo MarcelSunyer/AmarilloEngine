@@ -10,6 +10,29 @@ GameObject::GameObject(std::string name) : mName(name), active(true), parent(nul
 
 GameObject::~GameObject()
 {
+	transform = nullptr;
+	
+	if (deleteGameObject && parent != nullptr) {
+		parent->DeleteChild(this);
+	}
+
+	for (size_t i = 0; i < components.size(); ++i)
+	{
+		Component* component = components[i];
+		if (component != nullptr)
+		{
+			delete components[i];
+			components[i] = nullptr;
+
+		}
+	}
+
+	for (size_t i = 0; i < children.size(); ++i)
+	{
+		delete children[i];
+		children[i] = nullptr;
+	}
+
 }
 
 bool GameObject::Enable()
@@ -118,7 +141,7 @@ Component* GameObject::AddComponent(ComponentTypes type)
 GameObject* GameObject::AddChildren(GameObject* children) 
 {
 	this->children.push_back(children);
-	
+
 	return children;
 }
 

@@ -4,18 +4,21 @@
 #include "Globals.h"
 #include "glmath.h"
 #include <vector>
+#include "Application.h"
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
+#include "ModuleScene.h"
 
 class GameObject
 {
 public:
 	GameObject(std::string name);
 	~GameObject();
-	
+
+	Application* App = nullptr;
 	bool Enable();
 	bool Disable();
 
@@ -41,6 +44,7 @@ public:
 
 	bool selected = false;
 	bool active;
+	bool deleteGameObject;
 
 	std::vector<Component*> components;
 
@@ -48,7 +52,5 @@ public:
 	ComponentTransform* transform = nullptr;
 private:
 	ComponentTexture* texture = nullptr;
-
-
 };
 #endif

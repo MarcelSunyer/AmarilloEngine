@@ -261,6 +261,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 		for (uint m = 0; m < gameobject->components.size(); m++)
 		{
+			//Pregunta profe al borrar el 
 			Component* component = gameobject->components[m];
 			if (component->type != ComponentTypes::MESH)
 			{
@@ -270,8 +271,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 			ComponentMesh* componentMesh = (ComponentMesh*)component;
 
 			float4x4 matrix = float4x4::FromTRS(float3(5,1,1),Quat::identity, float3(1,1,1));
-
-			
 
 			glPushMatrix();
 			glMultMatrixf(gameobject->transform->GetTransformMatrix().Transposed().ptr());
