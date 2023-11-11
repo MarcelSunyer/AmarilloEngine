@@ -23,9 +23,15 @@ public:
 	
 	void SetParent(GameObject* parent);
 	
+	bool SetNewParent(GameObject* newParent);
+	bool IsChildOf(GameObject* parent);
+	void DeleteChild(GameObject* child);
+
+
 	Component* AddComponent(ComponentTypes component);
 	Component* GetComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);
+	GameObject* GetParent();
 
 public:
 	std::string mName;
@@ -37,7 +43,6 @@ public:
 	bool active;
 
 	std::vector<Component*> components;
-	
 
 	//No use, only reference
 	ComponentTransform* transform = nullptr;

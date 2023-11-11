@@ -15,7 +15,7 @@ bool ModuleScene::Init()
 	game_objects.push_back(root_object);
 	
 	child = new GameObject("Camera");
-	root_object->AddComponent(ComponentTypes::CAMERA);
+	child->AddComponent(ComponentTypes::CAMERA);
 	root_object->AddChildren(child);
 
 

@@ -187,6 +187,8 @@ void ModuleEditor::DrawEditor()
 
     if (ImGui::Begin("Time Control"))
     {
+        ImGui::Text("                                                   ");
+        ImGui::SameLine();
         if (ImGui::Button("Play"))
         {
             //TODO: Lógica cuando se presiona el botón Play
@@ -417,43 +419,91 @@ void ModuleEditor::InspectorWindow()
 {
     if (show_inspector_window)
     {
-        if (GameObject_selected != NULL)
+        ImGui::Begin("Inspector", &show_inspector_window);
+
+        if (GameObject_selected != nullptr)
         {
-            ImGui::Begin("Inspector", &show_inspector_window);
             ImGui::Text(GameObject_selected->mName.c_str());
             ImGui::Separator();
 
             for (uint m = 0; m < GameObject_selected->components.size(); m++)
             {
-                if (GameObject_selected->selected)
-                {
-                    GameObject_selected->components[m]->OnEditor();
-                }
+                GameObject_selected->components[m]->OnEditor();
             }
-            ImGui::End();
         }
+
+        ImGui::End();
     }
 }
 
 
-void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject)
-{
-    // Determine if the current GameObject is selected
+void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
+{   
+    ImGuiTreeNodeFlags flag_TNode = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow;
+
+    bool isNodeOpen;
     bool isSelected = GameObject_selected == currentObject;
 
-    if (ImGui::TreeNode(currentObject->mName.c_str()))
+    if (currentObject->children.size() != 0)
+        isNodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)num, flag_TNode, currentObject->mName.c_str(), num);
+
+    else
     {
-        currentObject->selected = true;
-        GameObject_selected = currentObject;
+        flag_TNode |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+        ImGui::TreeNodeEx((void*)(intptr_t)num, flag_TNode, currentObject->mName.c_str(), num);
+        isNodeOpen = false;
+    }
 
-        // Itera a través de los objetos secundarios y muéstralos como hijos
-        for (auto& child : currentObject->children)
+    if (ImGui::BeginDragDropSource())
+    {
+        ImGui::SetDragDropPayload("GameObject", currentObject, sizeof(GameObject*));
+
+        draggedGameObject = currentObject;
+        ImGui::Text("Drag to");
+        ImGui::EndDragDropSource();
+    }
+
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
+    {
+        hoveredGameObj = currentObject;
+        if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
         {
-            DrawHierarchyLevel(child); // Llama recursivamente a la función para mostrar los hijos del hijo
+            GameObject_selected = currentObject;
         }
+    }
 
+    if (ImGui::IsWindowHovered())
+    {
+        if (!ImGui::IsAnyItemHovered())
+        {
+            if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+            {
+                GameObject_selected = nullptr;
+            }
+        }
+    }
+
+    if (ImGui::BeginDragDropTarget())
+    {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GameObject")) {
+
+            draggedGameObject->SetNewParent(hoveredGameObj);
+
+        }
+        ImGui::EndDragDropTarget();
+    }
+
+    if (isNodeOpen)
+    {
+        if (!currentObject->children.empty()) {
+            for (unsigned int i = 0; i < currentObject->children.size(); i++)
+            {
+                DrawHierarchyLevel(currentObject->children[i], i);
+            }
+        }
         ImGui::TreePop();
     }
+
 }
 
 void ModuleEditor::DrawHierarchy()
@@ -462,7 +512,7 @@ void ModuleEditor::DrawHierarchy()
 
     for (uint i = 0; i < lista_games.size(); i++)
     {
-        DrawHierarchyLevel(lista_games[i]);
+        DrawHierarchyLevel(lista_games[i],i);
     }
 }
 
