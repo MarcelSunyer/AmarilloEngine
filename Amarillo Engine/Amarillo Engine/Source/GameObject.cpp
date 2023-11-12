@@ -58,6 +58,11 @@ void GameObject::Update()
 	
 }
 
+void GameObject::SetParent(GameObject* parent)
+{
+	this->parent = parent;
+}
+
 bool GameObject::SetNewParent(GameObject* newParent)
 {
 	if (parent != nullptr) {
@@ -84,7 +89,10 @@ bool GameObject::IsChildOf(GameObject* gameobject)
 	}
 	for (size_t i = 0; i < gameobject->children.size(); i++)
 	{
-		if (IsChildOf(gameobject->children[i])) return true;
+		if (IsChildOf(gameobject->children[i]))
+		{
+			return true;
+		}
 	}
 	return false;
 }
@@ -99,14 +107,11 @@ void GameObject::DeleteChild(GameObject* child)
 	}
 }
 
-void GameObject::SetParent(GameObject* parent)
-{
-	this->parent = parent;
-}
 GameObject* GameObject::GetParent()
 {
 	return parent;
 }
+
 Component* GameObject::AddComponent(ComponentTypes type)
 {
 	Component* ret = nullptr;
@@ -141,7 +146,6 @@ Component* GameObject::AddComponent(ComponentTypes type)
 GameObject* GameObject::AddChildren(GameObject* children) 
 {
 	this->children.push_back(children);
-
 	return children;
 }
 

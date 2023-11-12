@@ -451,11 +451,11 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
     bool isNodeOpen;
     bool isSelected = GameObject_selected == currentObject;
 
-    if (currentObject->children.size() != 0)
+    if (currentObject->children.size() != 0){
         isNodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)num, flag_TNode, currentObject->mName.c_str(), num);
+    }
 
-    else
-    {
+    else{
         flag_TNode |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
         ImGui::TreeNodeEx((void*)(intptr_t)num, flag_TNode, currentObject->mName.c_str(), num);
         isNodeOpen = false;
@@ -464,9 +464,8 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
     if (ImGui::BeginDragDropSource())
     {
         ImGui::SetDragDropPayload("GameObject", currentObject, sizeof(GameObject*));
-
         draggedGameObject = currentObject;
-        ImGui::Text("Drag to");
+        ImGui::Text("Dragging GameObject");
         ImGui::EndDragDropSource();
     }
 
