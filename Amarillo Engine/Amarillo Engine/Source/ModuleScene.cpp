@@ -13,7 +13,8 @@ bool ModuleScene::Init()
 {
 	root_object = new GameObject("Scene");
 	game_objects.push_back(root_object);
-	
+
+	//Per a poder afegir fills al game objects ho fas amb el child, pero dona problemes per al render de la mesh i l atextura, dirli al profe pq em cago al damunt
 	child = new GameObject("Camera");
 	child->AddComponent(ComponentTypes::CAMERA);
 	root_object->AddChildren(child);
