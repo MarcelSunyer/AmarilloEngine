@@ -66,6 +66,9 @@ public:
 
 	bool wireButton = false;
 
+	//Timer
+	Uint32 elapsed_time;
+
 };
 
 #endif // MODULE_EDITOR

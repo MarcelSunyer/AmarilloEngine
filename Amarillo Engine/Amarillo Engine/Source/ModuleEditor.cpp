@@ -205,6 +205,10 @@ void ModuleEditor::DrawEditor()
         {
             //TODO: Lógica cuando se presiona el botón Stop
         }
+        ImGui::SameLine();
+        //ImGui::Text("                                                   ");
+        ImGui::SameLine();
+        ImGui::Text("Current Time: %u ", elapsed_time);
     }
     ImGui::End();
 
