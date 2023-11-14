@@ -279,7 +279,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 			//Bind Mesh
 			glBindBuffer(GL_ARRAY_BUFFER, componentMesh->mesh->VBO);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, componentMesh->mesh->EBO);
-			glEnableClientState(GL_VERTEX_ARRAY);
+			glEnableClientState(GL_VERTEX_ARRAY);	
+			glEnableClientState(GL_NORMAL_ARRAY);	
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
 
 			//Bind Textures
