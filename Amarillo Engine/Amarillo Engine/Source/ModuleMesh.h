@@ -6,14 +6,17 @@
 #include "glmath.h"
 #include "../External/MathGeoLib/include/MathGeoLib.h"
 #include <vector>
+
 #include "../External/Glew/include/glew.h"
+
+class GameObject;
 
 class ModuleMesh : public Module
 {
 public:
 	ModuleMesh(Application* app, bool start_enabled = true);
 
-	void LoadMesh(const char* file_path);
+	GameObject* LoadMesh(const char* file_path);
 
 	~ModuleMesh();
 	update_status Update();

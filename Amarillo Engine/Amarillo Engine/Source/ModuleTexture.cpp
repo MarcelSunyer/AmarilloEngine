@@ -59,20 +59,22 @@ Texture* ModuleTexture::LoadTexture(std::string file_name)
 
         ilDeleteImages(1, &image_id);
 
-
-        ComponentTexture* texture_component = (ComponentTexture*)App->scene->root_object->AddComponent(ComponentTypes::TEXTURE);
-
         Texture* new_texture = new Texture(texture_id, texture_width, texture_height, file_name);
-
-        texture_component->SetTexture(new_texture);
-
-        //App->renderer3D->BindBuffers();
-        
-
+     
         LOG(file_name.c_str());
 
         return new_texture;
     }
+}
+
+void ModuleTexture::LoadTextureToGameObject(GameObject* texture, std::string textfile)
+{
+    Texture* tex = LoadTexture(textfile);
+
+    ComponentTexture* texture_component = (ComponentTexture*)texture->AddComponent(ComponentTypes::TEXTURE);
+   
+    texture_component->SetTexture(tex);
+
 }
 
 

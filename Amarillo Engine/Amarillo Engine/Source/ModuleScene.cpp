@@ -42,9 +42,17 @@ GameObject* ModuleScene::CreateGameObject(std::string name)
 	return newObject;
 }
 
+GameObject* ModuleScene::LoadMeshAndTexture(std::string path_mesh, std::string path_tex)
+{
+	GameObject* gameObject = App->mesh->LoadMesh(path_mesh.c_str());
+	App->texture->LoadTextureToGameObject(gameObject, path_tex);
+
+	return gameObject;
+}
+
 GameObject* ModuleScene::CreateChildObject(std::string name)
 {
-	//Falta hacer que se pushee en el vector de game_objects para que pille el render preguntaprofe
+
 	GameObject* newObject = new GameObject(name);
 	root_object->AddChildren(newObject);
 	newObject->SetParent(root_object);

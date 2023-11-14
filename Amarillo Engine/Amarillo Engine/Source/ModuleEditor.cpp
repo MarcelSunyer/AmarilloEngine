@@ -284,8 +284,7 @@ void ModuleEditor::DrawEditor()
         if (ImGui::MenuItem("Skybox"))
         {
             LOG("Create a Skybox GameObject");
-            App->mesh->LoadMesh("../Assets/Skybox.fbx");
-            App->texture->LoadTexture("../Assets/skybox.png");
+            App->scene->LoadMeshAndTexture("../Assets/Skybox.fbx", "../Assets/skybox.png");
             App->renderer3D->BindBuffers();
 
         }
@@ -497,7 +496,7 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
     {
         if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GameObject")) {
 
-            draggedGameObject->SetNewParent(hoveredGameObj);
+            draggedGameObject->SetParent(hoveredGameObj);
 
         }
         ImGui::EndDragDropTarget();
@@ -518,12 +517,13 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
 
 void ModuleEditor::DrawHierarchy()
 {
-    std::vector<GameObject*> lista_games = App->scene->GetGameObjects();
+    std::vector<GameObject*> lista_games = App->scene->root_object->children;
 
     for (uint i = 0; i < lista_games.size(); i++)
     {
         DrawHierarchyLevel(lista_games[i],i);
     }
+
 }
 
 std::string ModuleEditor::loadFile(const char* filename)

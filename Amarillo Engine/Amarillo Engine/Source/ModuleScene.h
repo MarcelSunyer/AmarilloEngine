@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "GameObject.h"
+#include "ModuleTexture.h"
 #include <vector>
 #include "Application.h"
 
@@ -19,6 +20,8 @@ public:
 	bool CleanUp();
 
 	GameObject* CreateGameObject(std::string name);
+
+	GameObject* LoadMeshAndTexture(std::string path_mesh, std::string path_tex);
 
 	GameObject* CreateChildObject(std::string name);
 	std::vector<GameObject*> GetGameObjects();

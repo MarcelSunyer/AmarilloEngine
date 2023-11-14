@@ -73,7 +73,7 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
-	App->mesh->LoadMesh("../Assets/BakerHouse.fbx");
+
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
 	if(context == NULL)
@@ -197,12 +197,11 @@ bool ModuleRenderer3D::Init()
 
 	ilInit();
 
-	App->texture->LoadTexture("../Assets/Baker_house.png");
-
+	App->scene->LoadMeshAndTexture("../Assets/BakerHouse.fbx", "../Assets/Baker_house.png");
 	//Load Skybox
-	App->mesh->LoadMesh("../Assets/Skybox.fbx");
+	GameObject* sky = App->mesh->LoadMesh("../Assets/Skybox.fbx");
 	BindBuffers();
-	App->texture->LoadTexture("../Assets/skybox.png");
+	App->texture->LoadTextureToGameObject(sky, "../Assets/skybox.png");
 
 	return ret;
 }

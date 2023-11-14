@@ -58,16 +58,16 @@ void GameObject::Update()
 	
 }
 
-void GameObject::SetParent(GameObject* parent)
-{
-	this->parent = parent;
-}
 
-bool GameObject::SetNewParent(GameObject* newParent)
-{
-	if (parent != nullptr) {
-		if (newParent->IsChildOf(this)) return false;
 
+bool GameObject::SetParent(GameObject* newParent)
+{
+	if (parent != nullptr) 
+	{
+		if (newParent->IsChildOf(this))
+		{
+			return false;
+		}
 		parent->DeleteChild(this);
 	}
 
@@ -145,7 +145,8 @@ Component* GameObject::AddComponent(ComponentTypes type)
 
 GameObject* GameObject::AddChildren(GameObject* children) 
 {
-	this->children.push_back(children);
+	children->SetParent(this);
+
 	return children;
 }
 

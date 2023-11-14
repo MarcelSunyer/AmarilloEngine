@@ -24,9 +24,7 @@ public:
 
 	void Update();
 	
-	void SetParent(GameObject* parent);
-	
-	bool SetNewParent(GameObject* newParent);
+	bool SetParent(GameObject* parent);
 	bool IsChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
 

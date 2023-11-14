@@ -6,6 +6,7 @@
 #include "../External/DevIL/include/ilut.h"
 #include "../External/SDL/include/SDL_opengl.h"
 #include <string>
+#include "GameObject.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
@@ -37,6 +38,8 @@ public:
 	bool GenTexture(GLuint* imgData, GLuint width, GLuint height);
 
 	Texture* LoadTexture(std::string textfile);
+
+	void LoadTextureToGameObject(GameObject* texture, std::string textfile);
 
 	std::string texturePath;
 

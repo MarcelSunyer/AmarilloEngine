@@ -4,6 +4,7 @@
 #include "../External/Assimp/include/scene.h"
 #include "../External/Assimp/include/postprocess.h"
 #include <vector>
+#include "GameObject.h"
 #include "ModuleScene.h"
 #include "../External/MathGeoLib/include/Math/float3.h"
 #include "GameObject.h"
@@ -28,12 +29,11 @@ bool ModuleMesh::CleanUp()
 	return true;
 }
 
-void ModuleMesh::LoadMesh(const char* file_path)
+GameObject* ModuleMesh::LoadMesh(const char* file_path)
 {
 	const aiScene* imported_scene = aiImportFile(file_path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
-	//Editar esto para que no se llamenigual pq sino da error
-	App->scene->root_object = App->scene->CreateGameObject(name + std::to_string(num));
+	GameObject* newMesh = App->scene->CreateGameObject(name + std::to_string(num));
 	num += 1;
 
 	if (imported_scene->HasMeshes() && imported_scene != nullptr)
@@ -90,16 +90,20 @@ void ModuleMesh::LoadMesh(const char* file_path)
 				}
 			}
 
-			ComponentMesh* mesh_component = (ComponentMesh*)App->scene->root_object->AddComponent(ComponentTypes::MESH);
+			ComponentMesh* mesh_component = (ComponentMesh*)newMesh->AddComponent(ComponentTypes::MESH);
 			mesh_component->SetMesh(mesh_obj);
 			mesh_component->SetPath(file_path);
 			ourMeshes.push_back(mesh_obj);
 		}
 
 		aiReleaseImport(imported_scene);
+
 	}
-	else
+	else{
 		LOG("Error loading scene % s", file_path);
+	}
+	
+	return newMesh;
 }
 
 

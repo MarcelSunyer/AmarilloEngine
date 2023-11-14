@@ -154,7 +154,7 @@ update_status ModuleInput::PreUpdate(float dt)
 								//No texture
 
 								// Load texture							
-								App->texture->LoadTexture(dropped_filedir);
+								App->texture->LoadTextureToGameObject(App->editor->GameObject_selected,dropped_filedir);
 							}
 
 							
