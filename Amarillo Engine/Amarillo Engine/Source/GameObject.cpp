@@ -35,19 +35,41 @@ GameObject::~GameObject()
 
 }
 
-bool GameObject::Enable()
-{
+bool GameObject::Enable() {
 	if (!active) {
 		active = true;
+
+		// Realizar acciones específicas cuando se activa el objeto
+		// Por ejemplo, habilitar el renderizado de la malla
+		if (mesh != nullptr) {
+			//mesh->SetVisibility(true);
+		}
+
+		// ... (otras acciones específicas que puedas necesitar)
+
+		glEnable(GL_DEPTH_TEST); // Puedes habilitar la prueba de profundidad aquí o en otro lugar según tu lógica.
+
 		return true;
 	}
 	return false;
 }
 
-bool GameObject::Disable() 
+
+bool GameObject::Disable()
 {
 	if (active) {
 		active = false;
+
+		// Realizar acciones específicas cuando se desactiva el objeto
+		// Por ejemplo, deshabilitar el renderizado de la malla
+		if (mesh != nullptr) {
+			//mesh->SetVisibility(false);
+		}
+
+		// ... (otras acciones específicas que puedas necesitar)
+
+		glDisable(GL_DEPTH_TEST); // Puedes deshabilitar la prueba de profundidad aquí o en otro lugar según tu lógica.
+
 		return true;
 	}
 	return false;

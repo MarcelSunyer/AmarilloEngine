@@ -41,7 +41,7 @@ public:
 	std::vector<GameObject*> children;
 
 	bool selected = false;
-	bool active;
+	bool active = true;
 	bool deleteGameObject;
 
 	std::vector<Component*> components;
@@ -51,5 +51,6 @@ public:
 	ComponentTransform* transform = nullptr;
 private:
 	ComponentTexture* texture = nullptr;
+	ComponentMesh* mesh = nullptr;
 };
 #endif

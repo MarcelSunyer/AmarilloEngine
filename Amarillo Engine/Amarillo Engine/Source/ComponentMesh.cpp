@@ -38,7 +38,6 @@ void ComponentMesh::OnEditor() {
 		ImGui::Text("Index: %d", mesh->indices.size());
 		ImGui::Text("Vertices: %d", mesh->ourVertex.size());
 	}
-	
 }
 
 

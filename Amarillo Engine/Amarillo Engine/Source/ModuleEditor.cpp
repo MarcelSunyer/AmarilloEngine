@@ -426,6 +426,7 @@ void ModuleEditor::InspectorWindow()
 
         if (GameObject_selected != nullptr)
         {
+            ImGui::Checkbox("Active",&GameObject_selected->active);
             ImGui::SameLine;
             strcpy(newName, GameObject_selected->mName.c_str());
             if (ImGui::InputText("##juan", &newName[0], sizeof(newName)))
