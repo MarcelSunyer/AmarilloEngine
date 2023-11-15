@@ -37,6 +37,18 @@ public:
 	std::vector<Mesh*> ourMeshes;
 	std::string name = "EmptyObject_";
 	int num = 0;
+public:
+	GameObject* newMesh;
+	AABB globalAABB;
+
+	AABB aabb;
+	OBB obb;
+
+	void InitBoundingBoxes(Mesh* vertex);
+
+	void UpdateBoundingBoxes(GameObject* gameobject);
+
+	void RenderBoundingBoxes();
 };
 
 #endif //MODULE_MESH

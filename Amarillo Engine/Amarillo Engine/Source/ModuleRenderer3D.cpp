@@ -197,11 +197,13 @@ bool ModuleRenderer3D::Init()
 
 	ilInit();
 
+
+	App->scene->LoadMeshAndTexture("../Assets/Skybox.fbx", "../Assets/skybox.png");
 	App->scene->LoadMeshAndTexture("../Assets/BakerHouse.fbx", "../Assets/Baker_house.png");
-	//Load Skybox
-	GameObject* sky = App->mesh->LoadMesh("../Assets/Skybox.fbx");
+
+
 	BindBuffers();
-	App->texture->LoadTextureToGameObject(sky, "../Assets/skybox.png");
+	
 
 	return ret;
 }
@@ -231,6 +233,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 
 	Grid.Render();
+
+
+	App->mesh->RenderBoundingBoxes();
+
 
 	//glMatrixMode(GL_MODELVIEW);
 	//glLoadMatrixf(App->camera->GetViewMatrix());
@@ -375,6 +381,34 @@ void ModuleRenderer3D::InitDevil()
 	ilutRenderer(ILUT_OPENGL);
 	LOG("Devil has initialised successfully");
 	App->console->AddLog("Devil has initialised successfully");
+}
+
+void ModuleRenderer3D::DrawBoundingBox(float3* vertices, float3 color)
+{
+
+	uint indices[24] = {
+
+		0,2,2,
+		6,6,4,
+		4,0,0,
+		1,1,3,
+		3,2,4,
+		5,6,7,
+		5,7,3,
+		7,1,5
+
+	};
+	glBegin(GL_LINES);
+	glColor3fv(color.ptr());
+
+	for (size_t i = 0; i < (sizeof(indices) / sizeof(indices[0])); i++) {
+
+		glVertex3fv(vertices[indices[i]].ptr());
+
+	}
+
+	glColor3f(255.f, 255.f, 255.f);
+	glEnd();
 }
 
 void ModuleRenderer3D::BindBuffers()

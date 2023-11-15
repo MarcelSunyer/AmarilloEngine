@@ -46,6 +46,8 @@ public:
 
 	void InitDevil();
 
+	void DrawBoundingBox(float3* vertices, float3 color);
+
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
@@ -72,5 +74,6 @@ public:
 	GLuint texWidth, texHeight;
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
+
 
 };

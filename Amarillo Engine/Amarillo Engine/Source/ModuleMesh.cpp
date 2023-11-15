@@ -5,6 +5,7 @@
 #include "../External/Assimp/include/postprocess.h"
 #include <vector>
 #include "GameObject.h"
+#include "ModuleRenderer3D.h"
 #include "ModuleScene.h"
 #include "../External/MathGeoLib/include/Math/float3.h"
 #include "GameObject.h"
@@ -33,7 +34,7 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 {
 	const aiScene* imported_scene = aiImportFile(file_path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
-	GameObject* newMesh = App->scene->CreateGameObject(name + std::to_string(num));
+	newMesh= App->scene->CreateGameObject(name + std::to_string(num));
 	num += 1;
 
 	if (imported_scene->HasMeshes() && imported_scene != nullptr)
@@ -42,9 +43,11 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 		{
 			Mesh* mesh_obj = new Mesh();
 
+
 			for (unsigned int o = 0; o < imported_scene->mMeshes[i]->mNumVertices; o++)
 			{
 				Vertex vertex_data;
+				
 				float3 vertex_position;
 				vertex_position.x = imported_scene->mMeshes[i]->mVertices[o].x;
 				vertex_position.y = imported_scene->mMeshes[i]->mVertices[o].y;
@@ -89,15 +92,16 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 					}
 				}
 			}
-
+			
 			ComponentMesh* mesh_component = (ComponentMesh*)newMesh->AddComponent(ComponentTypes::MESH);
 			mesh_component->SetMesh(mesh_obj);
 			mesh_component->SetPath(file_path);
 			ourMeshes.push_back(mesh_obj);
+			InitBoundingBoxes(mesh_obj);
 		}
-
+		App->mesh->UpdateBoundingBoxes(newMesh);
 		aiReleaseImport(imported_scene);
-
+		
 	}
 	else{
 		LOG("Error loading scene % s", file_path);
@@ -139,6 +143,45 @@ void ModuleMesh::DrawNormals() {
 	}
 
 	glEnd(); // End drawing lines
+}
+
+void ModuleMesh::InitBoundingBoxes(Mesh* vertex)
+{
+	obb.SetNegativeInfinity();
+	globalAABB.SetNegativeInfinity();
+
+	std::vector<float3> floatArray;
+
+	floatArray.reserve(vertex->ourVertex.size());
+
+	for (const auto& vertex : vertex->ourVertex) {
+
+		floatArray.push_back(vertex.Position);
+
+	}
+
+	aabb.SetFrom(&floatArray[0], floatArray.size());
+}
+
+void ModuleMesh::UpdateBoundingBoxes(GameObject* gameobject)
+{
+	obb = aabb;
+	obb.Transform(gameobject->transform->transform);
+
+	globalAABB.SetNegativeInfinity();
+	globalAABB.Enclose(obb);
+	RenderBoundingBoxes();
+}
+
+void ModuleMesh::RenderBoundingBoxes()
+{
+	float3 verticesOBB[8];
+	obb.GetCornerPoints(verticesOBB);
+	App->renderer3D->DrawBoundingBox(verticesOBB, float3(0, 0, 255));
+
+	float3 verticesAABB[8];
+	globalAABB.GetCornerPoints(verticesAABB);
+	App->renderer3D->DrawBoundingBox(verticesAABB, float3(0, 0, 255));
 }
 
 
