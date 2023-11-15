@@ -33,19 +33,12 @@ void ComponentTexture::OnEditor() {
 
 			ImGui::Text("Path: %s", texture->path_);
 			ImGui::Text("Image:");
-			//Intento de meter una texw
+
 			ImGui::Image(reinterpret_cast<void*>(static_cast<size_t>(texture->textID)), ImVec2(100, 100));
 		}
 
 	}
-	else
-	{
-		/*if (ImGui::CollapsingHeader("Component Texture"))
-		{
-			ImGui::Text("Path: no path");
-			ImGui::Text("Iamge: no image");
-		}*/
-	}
+
 
 	
 }

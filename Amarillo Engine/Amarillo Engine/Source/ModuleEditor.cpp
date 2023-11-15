@@ -426,19 +426,46 @@ void ModuleEditor::InspectorWindow()
 
         if (GameObject_selected != nullptr)
         {
+            ImGui::SameLine;
+            strcpy(newName, GameObject_selected->mName.c_str());
+            if (ImGui::InputText("##juan", &newName[0], sizeof(newName)))
+            {
+                    GameObject_selected->mName = newName;
+            }
+           
             if (ImGui::Button("Delete")) {
 
                 GameObject_selected->deleteGameObject = true;
                 delete GameObject_selected;
 
-
             }
-            ImGui::Text(GameObject_selected->mName.c_str());
+           
             ImGui::Separator();
 
             for (uint m = 0; m < GameObject_selected->components.size(); m++)
             {
                 GameObject_selected->components[m]->OnEditor();
+            }
+          
+            ImGui::Dummy(ImVec2(0,15));
+            ImGui::Text("     ");
+            ImGui::SameLine();
+            // Inicia el combo
+            if (ImGui::BeginCombo("##Juan","AddComponent"))
+            {
+                showAddComponent = true;
+                if (showAddComponent)
+                {//Pregunta profe
+                    if (ImGui::Selectable("ComponentTexture"))
+                    {
+                        if (GameObject_selected->GetComponent(ComponentTypes::TEXTURE) == nullptr)
+                        {
+                            GameObject_selected->AddComponent(ComponentTypes::TEXTURE);
+                        }
+                    }
+                }
+                // Finaliza el combo
+                ImGui::EndCombo();
             }
         }
 

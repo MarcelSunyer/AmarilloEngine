@@ -1,5 +1,6 @@
 #include "ModuleConsole.h"
 #include "Application.h"
+#include "ModuleScene.h"
 #include "..\External\ImGui\imgui.h"
 
 ModuleConsole::ModuleConsole(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -13,6 +14,7 @@ ModuleConsole::~ModuleConsole()
 
 void ModuleConsole::UpdateConsole()
 {
+
     for (int i = 0; i < logs_array_size; i++)
     {
         ImGui::Text("%s", logs_array[i].logs.c_str());

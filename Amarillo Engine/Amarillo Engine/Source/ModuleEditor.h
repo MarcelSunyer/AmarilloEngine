@@ -11,7 +11,7 @@
 #include <iostream>
 #include <string> 
 #include "GameObject.h"
-
+#define MAX_NAME_CHARACTERS 32
 class ModuleEditor : public Module
 {
 public:
@@ -55,8 +55,9 @@ public:  //Windows Settings
 
 	//Show config window
 	bool showWindow = true;
+	bool showAddComponent = false;
 	bool showConsole = false;
-	
+	char newName[MAX_NAME_CHARACTERS];
 public:
 	int w = SCREEN_WIDTH;
 	int h = SCREEN_HEIGHT;

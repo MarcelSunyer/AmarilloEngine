@@ -234,9 +234,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	Grid.Render();
 
-
-	App->mesh->RenderBoundingBoxes();
-
+	App->mesh->UpdateBoundingBoxes(App->scene->game_objects);
 
 	//glMatrixMode(GL_MODELVIEW);
 	//glLoadMatrixf(App->camera->GetViewMatrix());

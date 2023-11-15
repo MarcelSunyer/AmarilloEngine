@@ -43,7 +43,6 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 		{
 			Mesh* mesh_obj = new Mesh();
 
-
 			for (unsigned int o = 0; o < imported_scene->mMeshes[i]->mNumVertices; o++)
 			{
 				Vertex vertex_data;
@@ -99,7 +98,7 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 			ourMeshes.push_back(mesh_obj);
 			InitBoundingBoxes(mesh_obj);
 		}
-		App->mesh->UpdateBoundingBoxes(newMesh);
+
 		aiReleaseImport(imported_scene);
 		
 	}
@@ -163,25 +162,36 @@ void ModuleMesh::InitBoundingBoxes(Mesh* vertex)
 	aabb.SetFrom(&floatArray[0], floatArray.size());
 }
 
-void ModuleMesh::UpdateBoundingBoxes(GameObject* gameobject)
+void ModuleMesh::UpdateBoundingBoxes(std::vector<GameObject*> gameobjects)
 {
-	obb = aabb;
-	obb.Transform(gameobject->transform->transform);
+	for (const auto& gameobject : gameobjects)
+	{
+		if (gameobject != nullptr && gameobject->transform != nullptr)
+		{
+			obb = aabb;
+			obb.Transform(gameobject->transform->transform);
 
-	globalAABB.SetNegativeInfinity();
-	globalAABB.Enclose(obb);
-	RenderBoundingBoxes();
+			globalAABB.SetNegativeInfinity();
+			globalAABB.Enclose(obb);
+			RenderBoundingBoxes();
+			RenderBoundingBoxes();
+		}
+		else
+		{
+			LOG("Error: GameObject or its transform is null");
+		}
+	}
 }
 
 void ModuleMesh::RenderBoundingBoxes()
 {
-	float3 verticesOBB[8];
-	obb.GetCornerPoints(verticesOBB);
-	App->renderer3D->DrawBoundingBox(verticesOBB, float3(0, 0, 255));
+	float3 verticesO[8];
+	obb.GetCornerPoints(verticesO);
+	App->renderer3D->DrawBoundingBox(verticesO, float3(0, 255, 0));
 
-	float3 verticesAABB[8];
-	globalAABB.GetCornerPoints(verticesAABB);
-	App->renderer3D->DrawBoundingBox(verticesAABB, float3(0, 0, 255));
+	float3 verticesA[8];
+	globalAABB.GetCornerPoints(verticesA);
+	App->renderer3D->DrawBoundingBox(verticesA, float3(0, 255, 0));
 }
 
 

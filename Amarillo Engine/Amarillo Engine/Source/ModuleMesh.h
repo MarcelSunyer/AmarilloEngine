@@ -46,7 +46,7 @@ public:
 
 	void InitBoundingBoxes(Mesh* vertex);
 
-	void UpdateBoundingBoxes(GameObject* gameobject);
+	void UpdateBoundingBoxes(std::vector<GameObject*> gameobjects);
 
 	void RenderBoundingBoxes();
 };
