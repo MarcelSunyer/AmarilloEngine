@@ -33,7 +33,7 @@ int main(int argc, char** argv)
     main_states state = MAIN_CREATION;
     Application* App = NULL;
 
-    Timer timer;
+
 
     while (state != MAIN_EXIT)
     {
@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 
         case MAIN_UPDATE:
         {
-            timer.Start();
+            //App->editor->timer.Start();
 
             int update_return = App->Update();
 
@@ -76,7 +76,7 @@ int main(int argc, char** argv)
                 state = MAIN_FINISH;
             }
 
-            App->editor->elapsed_time += timer.Read();
+            App->editor->elapsed_time += App->editor->timer.Read();
         }
         break;
 

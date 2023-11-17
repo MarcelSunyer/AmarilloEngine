@@ -6,7 +6,7 @@
 #include "Timer.h"
 
 // ---------------------------------------------
-Timer::Timer()
+Timer::Timer() : started_at(0U), stopped_at(0U)
 {
 	Start();
 }
@@ -23,6 +23,7 @@ void Timer::Stop()
 {
 	running = false;
 	stopped_at = SDL_GetTicks();
+	started_at = stopped_at;
 }
 
 // ---------------------------------------------

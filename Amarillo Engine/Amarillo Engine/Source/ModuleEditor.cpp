@@ -20,7 +20,7 @@
 
 
 
-ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled)
+ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app,start_enabled), elapsed_time(0U)
 {
 
 }
@@ -192,6 +192,8 @@ void ModuleEditor::DrawEditor()
         if (ImGui::Button("Play"))
         {
             //TODO: Lógica cuando se presiona el botón Play
+            timer.Start();
+            LOG("Start Timer %u ", elapsed_time);
         }
         ImGui::SameLine();
 
@@ -204,6 +206,8 @@ void ModuleEditor::DrawEditor()
         if (ImGui::Button("Stop"))
         {
             //TODO: Lógica cuando se presiona el botón Stop
+            timer.Stop();
+            LOG("Stop Timer: %u ", elapsed_time);
         }
         ImGui::SameLine();
         //ImGui::Text("                                                   ");

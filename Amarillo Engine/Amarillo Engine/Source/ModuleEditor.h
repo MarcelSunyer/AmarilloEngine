@@ -69,6 +69,7 @@ public:
 
 	//Timer
 	Uint32 elapsed_time;
+	Timer timer;
 
 };
 
