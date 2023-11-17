@@ -26,21 +26,16 @@ void ComponentTexture::Update() {
 
 void ComponentTexture::OnEditor() {
 
-	if (texture != nullptr)
-	{
-		if (ImGui::CollapsingHeader("Component Texture"))
-		{
+    if (ImGui::CollapsingHeader("Component Texture"))
+    {
+        if (texture)
+        {
+            ImGui::Text("Path: %s", texture->path_);
+            ImGui::Text("Image:");
 
-			ImGui::Text("Path: %s", texture->path_);
-			ImGui::Text("Image:");
-
-			ImGui::Image(reinterpret_cast<void*>(static_cast<size_t>(texture->textID)), ImVec2(100, 100));
-		}
-
-	}
-
-
-	
+            ImGui::Image(reinterpret_cast<void*>(static_cast<size_t>(texture->textID)), ImVec2(100, 100));
+        }
+    }
 }
 
 void ComponentTexture::SetTexture(Texture* texture)
