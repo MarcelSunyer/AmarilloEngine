@@ -9,6 +9,21 @@
 #include "glmath.h"
 #include "..\External\ImGui/imgui_internal.h"
 
+class Camera3D
+{
+public:
+	Camera3D();
+
+	void SetPosition(const float3& pos);
+	const float3 GetPosition();
+
+private:
+	Frustum Camera_frustum;
+	float	aspect_ratio = 0.0f;
+	float   vertical_fov = 0.0f;
+
+	bool	frustum_culling = true;
+};
 class ModuleCamera3D : public Module
 {
 public:

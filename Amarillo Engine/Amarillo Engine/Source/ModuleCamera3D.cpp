@@ -177,3 +177,17 @@ float* ModuleCamera3D::GetViewMatrix()
 
 	return tempMat4x4.Transposed().ptr();
 }
+
+Camera3D::Camera3D()
+{
+	Camera_frustum.type = FrustumType::PerspectiveFrustum;
+	Camera_frustum.pos = float3(0, 3, -10);
+	Camera_frustum.front = float3::unitZ;
+	Camera_frustum.up = float3::unitY;
+
+	Camera_frustum.nearPlaneDistance = 1.0f;
+	Camera_frustum.farPlaneDistance = 1000.0f;
+
+	Camera_frustum.verticalFov = 60.0f * DEGTORAD;
+	Camera_frustum.horizontalFov = 2.0f * atanf(tanf(Camera_frustum.verticalFov / 2.0f) * 1.3f);
+}
