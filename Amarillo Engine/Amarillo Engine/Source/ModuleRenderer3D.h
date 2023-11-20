@@ -48,6 +48,9 @@ public:
 
 	void DrawBoundingBox(float3* vertices, float3 color);
 
+	void CreateMainBuffer();
+	void RenderMainBuffer(bool toggle);
+	void DeleteMainBuffer();
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
@@ -74,6 +77,8 @@ public:
 	GLuint texWidth, texHeight;
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
-
+	GLuint FBO;
+	GLuint TCB; 
+	GLuint RBO;
 
 };

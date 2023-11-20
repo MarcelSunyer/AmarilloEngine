@@ -35,7 +35,7 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 	const aiScene* imported_scene = aiImportFile(file_path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 	newMesh= App->scene->CreateGameObject(name + std::to_string(num));
-	num += 1;
+	num ++;
 	Mesh* mesh_obj = new Mesh();
 	if (imported_scene->HasMeshes() && imported_scene != nullptr)
 	{

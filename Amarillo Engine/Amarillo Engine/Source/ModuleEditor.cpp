@@ -91,7 +91,14 @@ void ModuleEditor::DrawEditor()
     ImGui::End();
 
     InspectorWindow();
-    
+    if (ImGui::Begin("Scene"),true) {
+
+        // Display the contents of the framebuffer texture
+        ImVec2 size = ImGui::GetContentRegionAvail();
+        ImGui::Image((ImTextureID)App->renderer3D->TCB, size, ImVec2(0, 1), ImVec2(1, 0));
+
+        ImGui::End();
+    }
     if (showWindow)
     {
         if (ImGui::Begin("Config", &showWindow))
