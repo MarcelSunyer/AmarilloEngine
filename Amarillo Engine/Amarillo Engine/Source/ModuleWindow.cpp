@@ -19,63 +19,65 @@ ModuleWindow::~ModuleWindow()
 // Called before render is available
 bool ModuleWindow::Init()
 {
-	InitLogs();
-	App->editor->AddLog("Init SDL window & surface");
-	bool ret = true;
+    InitLogs();
+    App->editor->AddLog("Init SDL window & surface");
+    bool ret = true;
 
-	if(SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		App->editor->AddLog("SDL_VIDEO could not initialize! SDL_Error: \n" + std::string(SDL_GetError()));
-		ret = false;
-	}
-	else
-	{
-		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
-		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
+        App->editor->AddLog("SDL_VIDEO could not initialize! SDL_Error: \n" + std::string(SDL_GetError()));
+        ret = false;
+    }
+    else
+    {
+        // Create window
+        int width = SCREEN_WIDTH * SCREEN_SIZE;
+        int height = SCREEN_HEIGHT * SCREEN_SIZE;
+        Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_MAXIMIZED; 
 
-		//Use OpenGL 2.1
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+        // Use OpenGL 2.1
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-		if(WIN_FULLSCREEN == true)
-		{
-			flags |= SDL_WINDOW_FULLSCREEN;
-		}
+        if (WIN_FULLSCREEN == true)
+        {
+            flags |= SDL_WINDOW_FULLSCREEN;
+        }
+        if (WIN_FULLSCREEN == true)
+        {
+            flags |= SDL_WINDOW_MAXIMIZED;
+            
+        }
+        if (WIN_RESIZABLE == true)
+        {
+            flags |= SDL_WINDOW_RESIZABLE;
+        }
 
-		if(WIN_RESIZABLE == true)
-		{
-			flags |= SDL_WINDOW_RESIZABLE;
-		}
+        if (WIN_BORDERLESS == true)
+        {
+            flags |= SDL_WINDOW_BORDERLESS;
+        }
 
-		if(WIN_BORDERLESS == true)
-		{
-			flags |= SDL_WINDOW_BORDERLESS;
-		}
+        if (WIN_FULLSCREEN_DESKTOP == true)
+        {
+            flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+        }
 
-		if(WIN_FULLSCREEN_DESKTOP == true)
-		{
-			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
-		}
+        window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+        if (window == NULL)
+        {
+            App->editor->AddLog("Window could not be created! SDL_Error: %s\n" + std::string(SDL_GetError()));
+            ret = false;
+        }
+        else
+        {
+            // Get window surface
+            screen_surface = SDL_GetWindowSurface(window);
+        }
+    }
 
-		if(window == NULL)
-		{
-			App->editor->AddLog("Window could not be created! SDL_Error: %s\n" + std::string(SDL_GetError()));
-			ret = false;
-		}
-		else
-		{
-			//Get window surface
-			screen_surface = SDL_GetWindowSurface(window);
-		}
-	}
-
-
-
-	return ret;
+    return ret;
 }
 
 // Called before quitting

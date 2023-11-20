@@ -93,7 +93,6 @@ void ModuleEditor::DrawEditor()
     InspectorWindow();
     if (ImGui::Begin("Scene"),true) {
 
-        // Display the contents of the framebuffer texture
         ImVec2 size = ImGui::GetContentRegionAvail();
         App->renderer3D->OnResize(size.x,size.y);
         ImGui::Image((ImTextureID)App->renderer3D->TCB, size, ImVec2(0, 1), ImVec2(1, 0));
