@@ -20,6 +20,7 @@
 #include "../MathGeoLibFwd.h"
 #include "../Math/float2.h"
 #include "../Math/float3.h"
+
 #include "Ray.h"
 
 #ifdef MATH_TINYXML_INTEROP

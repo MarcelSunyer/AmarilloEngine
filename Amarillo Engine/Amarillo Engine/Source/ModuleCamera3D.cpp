@@ -178,6 +178,53 @@ float* ModuleCamera3D::GetViewMatrix()
 	return tempMat4x4.Transposed().ptr();
 }
 
+float* ModuleCamera3D::GetProjectionMatrix()
+{
+	return frustum.ProjectionMatrix().Transposed().ptr();
+}
+
+void ModuleCamera3D::SetAspectRatio(int width, int height)
+{
+	float VerticalAspectRatio = (float)width / (float)height;
+
+	frustum.verticalFov = 2.f * Atan(Tan(frustum.horizontalFov * 0.5f) / VerticalAspectRatio);
+}
+
+Camera3D* ModuleCamera3D::CreateCamera()
+{
+	Camera3D* ret = new Camera3D;
+	cameras.push_back(ret);
+	return ret;
+}
+void ModuleCamera3D::DestroyCamera(Camera3D* cam)
+{
+	/*for (std::vector<Camera3D*>::iterator it = cameras.begin(); it != cameras.end();)
+	{
+		if (cam == (*it))
+		{
+			RELEASE(*it);
+			cameras.erase(it);
+			break;
+		}
+		else
+			++it;
+	}*/
+}
+
+void ModuleCamera3D::DestroyAllCameras()
+{
+	/*for (std::vector<Camera3D*>::iterator it = cameras.begin(); it != cameras.end();)
+	{
+		RELEASE(*it);
+		it = cameras.erase(it);
+	}*/
+}
+
+std::vector<Camera3D*> ModuleCamera3D::GetCameras()
+{
+	return cameras;
+}
+
 Camera3D::Camera3D()
 {
 	Camera_frustum.type = FrustumType::PerspectiveFrustum;
@@ -191,3 +238,199 @@ Camera3D::Camera3D()
 	Camera_frustum.verticalFov = 60.0f * DEGTORAD;
 	Camera_frustum.horizontalFov = 2.0f * atanf(tanf(Camera_frustum.verticalFov / 2.0f) * 1.3f);
 }
+
+void Camera3D::SetPosition(const float3& pos)
+{
+	Camera_frustum.pos = pos;
+}
+const float3 Camera3D::GetPosition()
+{
+	return Camera_frustum.pos;
+}
+
+float3 Camera3D::GetZDir()
+{
+	return Camera_frustum.front;
+}
+
+float3 Camera3D::GetYDir()
+{
+	return Camera_frustum.up;
+}
+
+void Camera3D::GetCorners(float3* corners)
+{
+	Camera_frustum.GetCornerPoints(corners);
+}
+
+void Camera3D::SetNearPlaneDistance(const float& set)
+{
+	Camera_frustum.nearPlaneDistance = set;
+}
+
+void Camera3D::SetFarPlaneDistance(const float& set)
+{
+	Camera_frustum.farPlaneDistance = set;
+}
+
+void Camera3D::SetFOV(const float& set)
+{
+	Camera_frustum.verticalFov = set;
+}
+
+void Camera3D::SetAspectRatio()
+{
+	Camera_frustum.AspectRatio();
+}
+
+const float Camera3D::GetNearPlaneDistance() const
+{
+	return Camera_frustum.nearPlaneDistance;
+}
+
+const float Camera3D::GetFarPlaneDistance() const
+{
+	return Camera_frustum.farPlaneDistance;
+}
+
+const float Camera3D::GetVerticalFOV() const
+{
+	return Camera_frustum.verticalFov;
+}
+
+const float Camera3D::GetHorizontalFOV() const
+{
+	return Camera_frustum.horizontalFov;
+}
+
+const float4x4 Camera3D::GetViewMatrix() const
+{
+	return Camera_frustum.ViewMatrix();
+}
+
+const float4x4 Camera3D::GetProjectionMatrix() const
+{
+	return Camera_frustum.ProjectionMatrix();
+}
+
+const float4x4 Camera3D::GetOpenGLViewMatrix() const
+{
+	float4x4 view = Camera_frustum.ViewMatrix();
+	return view.Transposed();
+}
+
+const float4x4 Camera3D::GetOpenGLProjectionMatrix() const
+{
+	return Camera_frustum.ProjectionMatrix().Transposed();
+}
+
+void Camera3D::MoveFront(const float& speed)
+{
+	if (speed <= 0)
+		return;
+
+	float3 movement = float3::zero;
+	movement += Camera_frustum.front * speed;
+	Camera_frustum.Translate(movement);
+}
+void Camera3D::MoveBack(const float& speed)
+{
+	if (speed <= 0)
+		return;
+
+	float3 movement = float3::zero;
+	movement -= Camera_frustum.front * speed;
+	Camera_frustum.Translate(movement);
+}
+
+void Camera3D::MoveRight(const float& speed)
+{
+	if (speed <= 0)
+		return;
+
+	float3 movement = float3::zero;
+	movement += Camera_frustum.WorldRight() * speed;
+	Camera_frustum.Translate(movement);
+}
+
+void Camera3D::MoveLeft(const float& speed)
+{
+	if (speed <= 0)
+		return;
+
+	float3 movement = float3::zero;
+	movement -= Camera_frustum.WorldRight() * speed;
+	Camera_frustum.Translate(movement);
+}
+
+void Camera3D::MoveUp(const float& speed)
+{
+	if (speed <= 0)
+		return;
+
+	float3 movement = float3::zero;
+	movement += float3::unitY * speed;
+	Camera_frustum.Translate(movement);
+}
+
+void Camera3D::MoveDown(const float& speed)
+{
+	if (speed <= 0)
+		return;
+
+	float3 movement = float3::zero;
+	movement -= float3::unitY * speed;
+	Camera_frustum.Translate(movement);
+}
+
+Frustum Camera3D::GetFrustum()
+{
+	return Camera_frustum;
+}
+
+void Camera3D::Orbit(const float3& rotate_center, const float& motion_x, const float& motion_y)
+{
+	float3 distance = Camera_frustum.pos - rotate_center;
+
+	Quat X(Camera_frustum.WorldRight(), motion_y);
+	Quat Y(Camera_frustum.up, motion_x);
+
+	distance = X.Transform(distance);
+	distance = Y.Transform(distance);
+
+	Camera_frustum.pos = distance + rotate_center;
+}
+
+void Camera3D::Rotate(const float& motion_x, const float& motion_y)
+{
+	Quat rotation_x = Quat::RotateY(motion_x);
+	Camera_frustum.front = rotation_x.Mul(Camera_frustum.front).Normalized();
+	Camera_frustum.up = rotation_x.Mul(Camera_frustum.up).Normalized();
+
+	Quat rotation_y = Quat::RotateAxisAngle(Camera_frustum.WorldRight(), motion_y);
+	Camera_frustum.front = rotation_y.Mul(Camera_frustum.front).Normalized();
+	Camera_frustum.up = rotation_y.Mul(Camera_frustum.up).Normalized();
+}
+
+void Camera3D::Look(const float3& look_pos)
+{
+	float3 dir = look_pos - Camera_frustum.pos;
+
+	float3x3 direction_matrix = float3x3::LookAt(Camera_frustum.front, dir.Normalized(), Camera_frustum.up, float3::unitY);
+
+	Camera_frustum.front = direction_matrix.MulDir(Camera_frustum.front).Normalized();
+	Camera_frustum.up = direction_matrix.MulDir(Camera_frustum.up).Normalized();
+}
+void Camera3D::Focus(const float3& focus_center, const float& distance)
+{
+	float3 dir = Camera_frustum.pos - focus_center;
+	Camera_frustum.pos = dir.Normalized() * distance;
+
+	Look(focus_center);
+}
+
+void Camera3D::Focus(const AABB& aabb)
+{
+	Focus(aabb.CenterPoint(), aabb.Size().Length());
+}
+

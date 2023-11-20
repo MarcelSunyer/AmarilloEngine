@@ -213,6 +213,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->camera->GetProjectionMatrix());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 	
@@ -318,7 +320,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		}
 
 	}
-	
+
 	
 	Grid.Render();
 
@@ -357,18 +359,7 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
-	glViewport(0, 0, width, height);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	//todo: USE MATHGEOLIB here BEFORE 1st delivery! (TIP: Use MathGeoLib/Geometry/Frustum.h, view and projection matrices are managed internally.)
-	//ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-
-	glLoadMatrixf(App->camera->frustum.ProjectionMatrix().ptr());
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	App->camera->SetAspectRatio(width, height);
 }
 
 void ModuleRenderer3D::InitDevil()
