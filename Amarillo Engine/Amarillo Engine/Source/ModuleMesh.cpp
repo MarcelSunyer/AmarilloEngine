@@ -36,12 +36,12 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 
 	newMesh= App->scene->CreateGameObject(name + std::to_string(num));
 	num += 1;
-
+	Mesh* mesh_obj = new Mesh();
 	if (imported_scene->HasMeshes() && imported_scene != nullptr)
 	{
 		for (int i = 0; i < imported_scene->mNumMeshes; i++)
 		{
-			Mesh* mesh_obj = new Mesh();
+			
 
 			for (unsigned int o = 0; o < imported_scene->mMeshes[i]->mNumVertices; o++)
 			{
@@ -96,9 +96,10 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 			mesh_component->SetMesh(mesh_obj);
 			mesh_component->SetPath(file_path);
 			ourMeshes.push_back(mesh_obj);
-			InitBoundingBoxes(mesh_obj);
+			
+			
 		}
-
+		InitBoundingBoxes(mesh_obj);
 		aiReleaseImport(imported_scene);
 		
 	}
@@ -173,14 +174,14 @@ void ModuleMesh::UpdateBoundingBoxes(std::vector<GameObject*> gameobjects)
 
 			globalAABB.SetNegativeInfinity();
 			globalAABB.Enclose(obb);
-			RenderBoundingBoxes();
-			RenderBoundingBoxes();
+			
 		}
 		else
 		{
 			LOG("Error: GameObject or its transform is null");
 		}
 	}
+	RenderBoundingBoxes();
 }
 
 void ModuleMesh::RenderBoundingBoxes()
