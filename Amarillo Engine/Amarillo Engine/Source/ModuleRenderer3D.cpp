@@ -181,8 +181,8 @@ bool ModuleRenderer3D::Init()
 
 	glEnable(GL_TEXTURE_2D);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &checkersTexture);
-	glBindTexture(GL_TEXTURE_2D, checkersTexture);
+	glGenTextures(1, &checkTexture);
+	glBindTexture(GL_TEXTURE_2D, checkTexture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -301,7 +301,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 			}
 			else
 			{
-				glBindTexture(GL_TEXTURE_2D, checkersTexture);
+				glBindTexture(GL_TEXTURE_2D, checkTexture);
 			}
 
 			glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));

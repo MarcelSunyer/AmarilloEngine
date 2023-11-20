@@ -72,9 +72,10 @@ public:
 
 	bool activeWire = false;
 	bool activeNormals = false;
-
-	GLuint checkersTexture;
-	GLuint texWidth, texHeight;
+	
+	//Creat the scene on the window
+	GLuint checkTexture;
+	GLuint textureWidth, textureHeight;
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
 	GLuint FBO;
