@@ -165,8 +165,7 @@ bool ModuleRenderer3D::Init()
 		//Init Devil
 		InitDevil();
 	}
-
-	// Projection matrix for
+	//Profe
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	for (int i = 0; i < CHECKERS_WIDTH; i++) {
@@ -364,8 +363,9 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 
 	//todo: USE MATHGEOLIB here BEFORE 1st delivery! (TIP: Use MathGeoLib/Geometry/Frustum.h, view and projection matrices are managed internally.)
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(ProjectionMatrix.M);
+	//ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
+
+	glLoadMatrixf(App->camera->frustum.ProjectionMatrix().ptr());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -419,8 +419,8 @@ void ModuleRenderer3D::CreateMainBuffer()
 	glGenTextures(1, &TCB);
 	glBindTexture(GL_TEXTURE_2D, TCB);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // Cambiado a GL_NEAREST
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // Cambiado a GL_NEAREST
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, TCB, 0);
 
 	// Create a Renderbuffer Attachment
@@ -432,7 +432,8 @@ void ModuleRenderer3D::CreateMainBuffer()
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RBO);
 
 	// Check Framebuffer Completeness
-
+		// Projection matrix for
+	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
 
 		LOG("Framebuffer is not complete");
@@ -460,6 +461,7 @@ void ModuleRenderer3D::RenderMainBuffer(bool toggle)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	}
+
 }
 
 void ModuleRenderer3D::DeleteMainBuffer()

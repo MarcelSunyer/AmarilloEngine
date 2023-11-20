@@ -56,9 +56,6 @@ public:
 	SDL_GLContext context;
 	CPlane Grid;
 
-	//You won't need this after using Frustum
-	mat4x4 ProjectionMatrix;
-
 	/*LoadFBX loader;
 	LoadFBX* myModel = nullptr;*/
 	Primitive* PrimitiveTest = nullptr;

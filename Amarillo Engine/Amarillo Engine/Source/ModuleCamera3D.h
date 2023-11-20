@@ -31,7 +31,7 @@ public:
 	bool windowMovement;
 	
 
-private:
+public:
  
 	Frustum frustum; 
 };
