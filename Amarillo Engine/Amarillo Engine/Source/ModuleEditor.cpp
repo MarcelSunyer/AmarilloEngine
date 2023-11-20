@@ -282,8 +282,8 @@ void ModuleEditor::DrawEditor()
         if (ImGui::MenuItem("Pikachu"))
         {
             LOG("Create a Pikachu GameObject");
-            App->mesh->LoadMesh("../Assets/Pikachu.fbx");
-            App->texture->LoadTexture("../Assets/Pikachu-Texture.png");
+            App->scene->LoadMeshAndTexture("../Assets/Pikachu.fbx", "../Assets/Pikachu-Texture.png");
+
             App->renderer3D->BindBuffers();
 
         }
