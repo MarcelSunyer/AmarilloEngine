@@ -200,7 +200,7 @@ bool ModuleRenderer3D::Init()
 	App->scene->LoadMeshAndTexture("../Assets/Skybox.fbx", "../Assets/skybox.png")->mName = "Skybox";
 	App->scene->LoadMeshAndTexture("../Assets/BakerHouse.fbx", "../Assets/Baker_house.png")->mName = "Baker House";
 
-
+	SDL_MaximizeWindow(App->window->window);
 	BindBuffers();
 	CreateMainBuffer();
 
