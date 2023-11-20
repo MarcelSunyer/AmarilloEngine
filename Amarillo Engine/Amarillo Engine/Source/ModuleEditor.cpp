@@ -200,6 +200,7 @@ void ModuleEditor::DrawEditor()
         if (ImGui::Button("Pause"))
         {
             //TODO: Lógica cuando se presiona el botón Pause
+            timer.Pause();
         }
         ImGui::SameLine();
 
@@ -207,6 +208,7 @@ void ModuleEditor::DrawEditor()
         {
             //TODO: Lógica cuando se presiona el botón Stop
             timer.Stop();
+            elapsed_time = 0;
             LOG("Stop Timer: %u ", elapsed_time);
         }
         ImGui::SameLine();
