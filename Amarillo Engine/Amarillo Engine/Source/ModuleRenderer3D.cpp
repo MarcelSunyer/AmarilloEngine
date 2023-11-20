@@ -198,8 +198,8 @@ bool ModuleRenderer3D::Init()
 	ilInit();
 
 
-	App->scene->LoadMeshAndTexture("../Assets/Skybox.fbx", "../Assets/skybox.png");
-	App->scene->LoadMeshAndTexture("../Assets/BakerHouse.fbx", "../Assets/Baker_house.png");
+	App->scene->LoadMeshAndTexture("../Assets/Skybox.fbx", "../Assets/skybox.png")->mName = "Skybox";
+	App->scene->LoadMeshAndTexture("../Assets/BakerHouse.fbx", "../Assets/Baker_house.png")->mName = "Baker House";
 
 
 	BindBuffers();
