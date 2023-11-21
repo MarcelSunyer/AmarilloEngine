@@ -214,14 +214,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glLoadIdentity();
 
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(App->camera->GetProjectionMatrix());
+	glLoadMatrixf(App->camera->.camerasGetProjectionMatrixs());
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	glLoadMatrixf(App->camera->GetViewMatrixs());
 	
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+	//{
+	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//}
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();

@@ -49,6 +49,6 @@ void ComponentCamera::OnEditor()
 		}
 		float3 corners[8];
 		camera->GetCorners(corners);
-		applic->renderer3D->DebugDraw(camera->GetFrustum(), Color(0, 0, 255), true, 4);
+		applic->renderer3D->DrawBoundingBox(corners,float3( 0, 0, 255));
 	}
 }

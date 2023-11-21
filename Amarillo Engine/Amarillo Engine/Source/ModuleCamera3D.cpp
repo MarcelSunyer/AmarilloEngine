@@ -433,4 +433,15 @@ void Camera3D::Focus(const AABB& aabb)
 {
 	Focus(aabb.CenterPoint(), aabb.Size().Length());
 }
+//Meter esto en una funcion para poder meter difernetes camaras en la funcion de arriva
+float* Camera3D::GetViewMatrixs()
+{
+	float4x4 tempMat4x4 = Camera_frustum.ViewMatrix();
 
+	return tempMat4x4.Transposed().ptr();
+}
+
+float* Camera3D::GetProjectionMatrixs()
+{
+	return Camera_frustum.ProjectionMatrix().Transposed().ptr();
+}

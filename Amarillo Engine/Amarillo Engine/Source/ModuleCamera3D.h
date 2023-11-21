@@ -29,6 +29,8 @@ public:
 	const float GetFarPlaneDistance() const;
 	const float GetVerticalFOV() const;
 	const float GetHorizontalFOV() const;
+	float* GetViewMatrixs();
+	float* GetProjectionMatrixs();
 
 	const float4x4 GetViewMatrix() const;
 	const float4x4 GetProjectionMatrix() const;
