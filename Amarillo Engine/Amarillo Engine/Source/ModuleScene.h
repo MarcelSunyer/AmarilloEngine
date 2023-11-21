@@ -7,6 +7,9 @@
 #include "ModuleTexture.h"
 #include <vector>
 #include "Application.h"
+#include "ModuleInput.h"
+#include "ModuleEditor.h"
+#include "../External/ImGuizmo/ImGuizmo.h"
 
 
 class ModuleScene : public Module
@@ -26,16 +29,17 @@ public:
 	GameObject* CreateChildObject(std::string name);
 	std::vector<GameObject*> GetGameObjects();
 
+	void ImGuizmoHandling();
+
 public:
 	std::vector<GameObject*> game_objects; 
 	GameObject* root_object = nullptr;
 	GameObject* child = nullptr;
 
+	//ImGuizmo
+	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE gizmoMode = ImGuizmo::MODE::WORLD;
+
 };
-
-
-
-
-
 
 #endif //MODULE_IMPORTER

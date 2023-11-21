@@ -11,6 +11,8 @@
 #include <iostream>
 #include <string> 
 #include "GameObject.h"
+#include "../External/ImGuizmo/ImGuizmo.h"
+
 #define MAX_NAME_CHARACTERS 32
 class ModuleEditor : public Module
 {

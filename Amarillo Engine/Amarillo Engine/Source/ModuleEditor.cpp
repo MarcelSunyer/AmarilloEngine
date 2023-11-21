@@ -485,6 +485,9 @@ void ModuleEditor::InspectorWindow()
 
         ImGui::End();
     }
+
+    App->scene->ImGuizmoHandling();
+
 }
 
 
