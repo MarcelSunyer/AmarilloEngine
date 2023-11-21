@@ -38,7 +38,7 @@ public:
 
 	//ImGuizmo
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
-	ImGuizmo::MODE gizmoMode = ImGuizmo::MODE::WORLD;
+	ImGuizmo::MODE guizmoMode = ImGuizmo::MODE::WORLD;
 
 };
 

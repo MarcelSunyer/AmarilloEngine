@@ -78,31 +78,52 @@ void ModuleScene::ImGuizmoHandling()
 
 	ComponentTransform* selected_transform = (ComponentTransform*)App->editor->GameObject_selected->GetComponent(ComponentTypes::TRANSFORM);
 
+	//ViewMatrixOpenGL()
 	float4x4 viewMatrix = App->camera->frustum.ViewMatrix();
-	viewMatrix.Transpose();
+	viewMatrix = viewMatrix.Transposed();
+
+	//ProjectionMatrixOpenGL()
 	float4x4 projectionMatrix = App->camera->frustum.ProjectionMatrix();
-	projectionMatrix.Transpose();
+	projectionMatrix = projectionMatrix.Transposed();
 
 	float3 mPosition = App->editor->GameObject_selected->transform->GetPosition();
 	float4x4 modelProjection = float4x4::Translate(mPosition);
 
+	
 	ImGuizmo::SetRect(0.0f, 0.0f, App->editor->w, App->editor->h);
+
+
+	//TODO: Que no salga de la ventana "Scene" -> Ahora es "Debug" 
+	///
+	//ImVec2 windowPosition = ImGui::GetWindowPos();
+	//ImVec2 contentRegionMax = ImGui::GetContentRegionMax();
+
+	//int offset = ImGui::GetFrameHeight() / 2;
+	//ImGuizmo::SetRect(windowPosition.x, windowPosition.y + offset, contentRegionMax.x, contentRegionMax.y);
+
+	//ImGuizmo::SetDrawlist();
+	///
+
+
+	ComponentTransform* trans = App->editor->GameObject_selected->transform;
+	float4x4 mat = trans->GetTransformMatrix().Transposed();
 
 	//gizmoOperation
 	float modelPtr[16];
 	memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));
 
-	ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : gizmoMode);
-
-	ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
+	ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : guizmoMode);
+	
+	ImGuizmo::Manipulate(viewMatrix.v[0], projectionMatrix.v[0], gizmoOperation, finalMode, mat.ptr());
+	//ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
 
 
 	if (ImGuizmo::IsUsing())
 	{
 		//Reformat ImGuizmo Transform output to our matrix
-		float4x4 newMatrix;
+		/*float4x4 newMatrix;
 		newMatrix.Set(modelPtr);
-		modelProjection = newMatrix;
+		modelProjection = newMatrix;*/
 
 
 		//Set Global Transform 
