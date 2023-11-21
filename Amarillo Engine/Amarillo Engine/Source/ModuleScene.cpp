@@ -1,4 +1,5 @@
 #include "ModuleScene.h"
+#include "../External/ImGuizmo/ImGuizmo.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -82,7 +83,7 @@ void ModuleScene::ImGuizmoHandling()
 	float4x4 projectionMatrix = App->camera->frustum.ProjectionMatrix();
 	projectionMatrix.Transpose();
 
-	float3 mPosition = selected_transform->GetPosition();
+	float3 mPosition = App->editor->GameObject_selected->transform->GetPosition();
 	float4x4 modelProjection = float4x4::Translate(mPosition);
 
 	ImGuizmo::SetRect(0.0f, 0.0f, App->editor->w, App->editor->h);
