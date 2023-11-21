@@ -214,9 +214,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glLoadIdentity();
 
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(App->camera->.camerasGetProjectionMatrixs());
+	glLoadMatrixf(App->camera->GetProjectionMatrix());
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrixs());
+	glLoadMatrixf(App->camera->GetViewMatrix());
 	
 	//if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 	//{
