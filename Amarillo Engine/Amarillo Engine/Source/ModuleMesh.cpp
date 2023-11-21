@@ -41,8 +41,6 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 	{
 		for (int i = 0; i < imported_scene->mNumMeshes; i++)
 		{
-			
-
 			for (unsigned int o = 0; o < imported_scene->mMeshes[i]->mNumVertices; o++)
 			{
 				Vertex vertex_data;

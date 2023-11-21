@@ -1,5 +1,7 @@
 #include "ComponentCamera.h"
 #include "Application.h"
+#include "ModuleRenderer3D.h"
+#include "Color.h"
 
 ComponentCamera::ComponentCamera(GameObject* parent) : Component(parent)
 {
@@ -14,7 +16,9 @@ void ComponentCamera::Enable()
 
 void ComponentCamera::Update()
 {
-
+	float3 corners[8];
+	camera->GetCorners(corners);
+	applic->renderer3D->DebugDraw(camera->GetFrustum(), Color(0, 0, 255), true, 4);
 }
 
 void ComponentCamera::Disable()
@@ -43,5 +47,8 @@ void ComponentCamera::OnEditor()
 		{
 			camera->SetFOV(fov);
 		}
+		float3 corners[8];
+		camera->GetCorners(corners);
+		applic->renderer3D->DebugDraw(camera->GetFrustum(), Color(0, 0, 255), true, 4);
 	}
 }

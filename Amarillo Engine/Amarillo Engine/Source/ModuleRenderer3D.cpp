@@ -462,6 +462,69 @@ void ModuleRenderer3D::DeleteMainBuffer()
 	glDeleteFramebuffers(1, &FBO);
 }
 
+void ModuleRenderer3D::DebugDrawBox(const float3* corners, Color color, bool lines, const float& line_size)
+{
+	GLint previous[2];
+	if (lines)
+	{
+		glGetIntegerv(GL_POLYGON_MODE, previous);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
+	glColor3f(color.r, color.g, color.b);
+
+	glLineWidth(line_size);
+
+	glBegin(GL_QUADS);
+
+	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy, sz);
+	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f( sx, -sy, sz);
+	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f( sx,  sy, sz);
+	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx,  sy, sz);
+
+	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f( sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx,  sy, -sz);
+	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f( sx,  sy, -sz);
+
+	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f(sx, -sy,  sz);
+	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f(sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f(sx,  sy, -sz);
+	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f(sx,  sy,  sz);
+
+	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy,  sz);
+	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx,  sy,  sz);
+	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx,  sy, -sz);
+
+	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx, sy,  sz);
+	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f( sx, sy,  sz);
+	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f( sx, sy, -sz);
+	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx, sy, -sz);
+
+	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f( sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f( sx, -sy,  sz);
+	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy,  sz);
+
+	glEnd();
+
+	if (lines)
+		glPolygonMode(GL_FRONT_AND_BACK, previous[0]);
+
+	glLineWidth(1.0f);
+
+	glColor3f(255, 255, 255);
+}
+
+void ModuleRenderer3D::DebugDraw(const Frustum& frustum, Color color, bool lines, const float& line_size)
+{
+		float3 vertices[8];
+		frustum.GetCornerPoints(vertices);
+
+		DebugDrawBox(vertices, color, lines, line_size);
+}
+
 void ModuleRenderer3D::BindBuffers()
 {
 	//Todo: Hacer binnd de todos los meshes arreglar

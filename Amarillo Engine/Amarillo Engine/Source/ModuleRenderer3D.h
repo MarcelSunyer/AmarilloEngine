@@ -51,6 +51,10 @@ public:
 	void CreateMainBuffer();
 	void RenderMainBuffer(bool toggle);
 	void DeleteMainBuffer();
+
+	void DebugDrawBox(const float3* corners, Color color, bool lines, const float& line_size);
+	void DebugDraw(const Frustum& frustum, Color color, bool lines, const float& line_size);
+
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

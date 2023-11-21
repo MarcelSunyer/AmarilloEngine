@@ -118,7 +118,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	frustum.pos -= newPos;
 
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 	{
 		int mx = App->input->GetMouseXMotion();
 		int my = App->input->GetMouseYMotion();
