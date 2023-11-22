@@ -202,140 +202,40 @@ bool ModuleRenderer3D::Init()
 
 	SDL_MaximizeWindow(App->window->window);
 	BindBuffers();
+
 	CreateMainBuffer();
 
 	return ret;
 }
 
-// PreUpdate: clear buffer
+
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(App->camera->GetProjectionMatrix());
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
-	
-	//if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
-	//{
-	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//}
-
-	for(uint i = 0; i < MAX_LIGHTS; ++i)
-		lights[i].Render();
-	
 	return UPDATE_CONTINUE;
 }
 
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	RenderMainBuffer(true);
-	Grid.Render();
-
-	App->mesh->UpdateBoundingBoxes(App->scene->game_objects);
-
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadMatrixf(App->camera->GetViewMatrix());
-	//glTranslatef(0.0f, 0.0f, 0.0f);
-	//myModel->Draw();
-
-	if (activeWire)
-	{
-		
-		PrimitiveTest->wire |= true;
-		PrimitiveTest->Render();
-	}
-	if (!activeWire)
-	{
-		
-		PrimitiveTest->wire = false;
-		PrimitiveTest->Render();
-	}
+	scene_render_texture->Bind();
 	
+	RenderFromCamera(App->camera->GetEditorCamera(),true);
+
+	scene_render_texture->Unbind();
 	
-	std::vector<GameObject*> gameObject_list = App->scene->GetGameObjects();
-
-	for (uint n = 0; n < gameObject_list.size(); n++)
+	if (App->camera->active_camera != nullptr)
 	{
+		game_render_texture->Bind();
 
-		GameObject* gameobject = gameObject_list[n];
+		RenderFromCamera(App->camera->active_camera,false);
 
-		for (uint m = 0; m < gameobject->components.size(); m++)
-		{
-			//Pregunta profe al borrar el 
-			Component* component = gameobject->components[m];
-			if (component->type != ComponentTypes::MESH)
-			{
-				continue;
-			}
-
-			ComponentMesh* componentMesh = (ComponentMesh*)component;
-
-			float4x4 matrix = float4x4::FromTRS(float3(5,1,1),Quat::identity, float3(1,1,1));
-
-			glPushMatrix();
-			glMultMatrixf(gameobject->transform->GetTransformMatrix().Transposed().ptr());
-			glEnable(GL_TEXTURE_2D);
-			glEnable(GL_TEXTURE_COORD_ARRAY);
-			//Bind Mesh
-			glBindBuffer(GL_ARRAY_BUFFER, componentMesh->mesh->VBO);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, componentMesh->mesh->EBO);
-			glEnableClientState(GL_VERTEX_ARRAY);	
-			glEnableClientState(GL_NORMAL_ARRAY);	
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
-
-			//Bind Textures
-			if (gameobject->GetComponent(ComponentTypes::TEXTURE) != nullptr)
-			{
-				const Texture* mTexture = dynamic_cast<ComponentTexture*>(gameobject->GetComponent(ComponentTypes::TEXTURE))->GetTexture();
-
-				if (mTexture != nullptr)
-				{
-
-
-					glBindTexture(GL_TEXTURE_2D, mTexture->textID);
-				}
-			}
-			else
-			{
-				glBindTexture(GL_TEXTURE_2D, checkTexture);
-			}
-
-			glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
-			glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
-
-			glDrawElements(GL_TRIANGLES, componentMesh->mesh->indices.size(), GL_UNSIGNED_INT, NULL);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-			glDisable(GL_TEXTURE_2D);
-			glDisableClientState(GL_VERTEX_ARRAY);
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glDisable(GL_TEXTURE_COORD_ARRAY);
-			glPopMatrix();
-		}
-
+		game_render_texture->Unbind();
 	}
-
-	
-	Grid.Render();
-
-	if (activeNormals)
-	{
-		App->mesh->DrawNormals();
-	}
-	else
-	{
-
-	}
-	RenderMainBuffer(false);
 	App->editor->DrawEditor();
 
 	SDL_GL_SwapWindow(App->window->window);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -374,9 +274,7 @@ void ModuleRenderer3D::InitDevil()
 
 void ModuleRenderer3D::DrawBoundingBox(float3* vertices, float3 color)
 {
-
 	uint indices[24] = {
-
 		0,2,2,
 		6,6,4,
 		4,0,0,
@@ -385,7 +283,6 @@ void ModuleRenderer3D::DrawBoundingBox(float3* vertices, float3 color)
 		5,6,7,
 		5,7,3,
 		7,1,5
-
 	};
 	glBegin(GL_LINES);
 	glColor3fv(color.ptr());
@@ -402,64 +299,128 @@ void ModuleRenderer3D::DrawBoundingBox(float3* vertices, float3 color)
 
 void ModuleRenderer3D::CreateMainBuffer()
 {
-	glGenFramebuffers(1, &FBO);
-	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-
-	// Create a Texture Attachment (Texture Color Buffer [TCB])
-
-	glGenTextures(1, &TCB);
-	glBindTexture(GL_TEXTURE_2D, TCB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // Cambiado a GL_NEAREST
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // Cambiado a GL_NEAREST
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, TCB, 0);
-
-	// Create a Renderbuffer Attachment
-
-	glGenRenderbuffers(1, &RBO);
-	glBindRenderbuffer(GL_RENDERBUFFER, RBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RBO);
-
-	// Check Framebuffer Completeness
-		// Projection matrix for
-	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-
-		LOG("Framebuffer is not complete");
-
-	}
-
-	// Bind the Default Framebuffer
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-void ModuleRenderer3D::RenderMainBuffer(bool toggle)
-{
-	if (toggle) {
-
-		glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	}
-	else {
-
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	}
-
+	scene_render_texture = new RenderTexture();
+	scene_render_texture->Create(SCREEN_WIDTH,SCREEN_HEIGHT);
+	
+	game_render_texture = new RenderTexture();
+	game_render_texture->Create(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 void ModuleRenderer3D::DeleteMainBuffer()
 {
-	glDeleteRenderbuffers(1, &RBO);
-	glDeleteTextures(1, &TCB);
-	glDeleteFramebuffers(1, &FBO);
+	delete(scene_render_texture);
+	delete(game_render_texture);
+}
+
+GLuint ModuleRenderer3D::GetSceneRenderTexture()
+{
+	return scene_render_texture->GetTexture();
+}
+
+GLuint ModuleRenderer3D::GetGameRenderTexture()
+{
+	return game_render_texture->GetTexture();
+}
+
+void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enabled)
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(camera->GetProjectionMatrix());
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(camera->GetViewMatrix());
+
+	for (uint i = 0; i < MAX_LIGHTS; ++i)
+		lights[i].Render();
+
+	if (debug_draw_enabled)
+	{
+		Grid.Render();
+		App->scene->DebugDrawGameObjects();
+		/*App->mesh->UpdateBoundingBoxes(App->scene->game_objects);*/
+	}
+	if (activeWire)
+	{
+
+		PrimitiveTest->wire |= true;
+		PrimitiveTest->Render();
+	}
+	if (!activeWire)
+	{
+
+		PrimitiveTest->wire = false;
+		PrimitiveTest->Render();
+	}
+
+	std::vector<GameObject*> gameObject_list = App->scene->GetGameObjects();
+
+	for (uint n = 0; n < gameObject_list.size(); n++)
+	{
+
+		GameObject* gameobject = gameObject_list[n];
+
+		for (uint m = 0; m < gameobject->components.size(); m++)
+		{
+			//Pregunta profe al borrar el 
+			Component* component = gameobject->components[m];
+			if (component->type != ComponentTypes::MESH)
+			{
+				continue;
+			}
+
+			ComponentMesh* componentMesh = (ComponentMesh*)component;
+
+			float4x4 matrix = float4x4::FromTRS(float3(5, 1, 1), Quat::identity, float3(1, 1, 1));
+
+			glPushMatrix();
+			glMultMatrixf(gameobject->transform->GetTransformMatrix().Transposed().ptr());
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_TEXTURE_COORD_ARRAY);
+			//Bind Mesh
+			glBindBuffer(GL_ARRAY_BUFFER, componentMesh->mesh->VBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, componentMesh->mesh->EBO);
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glVertexPointer(3, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)0);
+
+			//Bind Textures
+			if (gameobject->GetComponent(ComponentTypes::TEXTURE) != nullptr)
+			{
+				const Texture* mTexture = dynamic_cast<ComponentTexture*>(gameobject->GetComponent(ComponentTypes::TEXTURE))->GetTexture();
+
+				if (mTexture != nullptr)
+				{
+
+
+					glBindTexture(GL_TEXTURE_2D, mTexture->textID);
+				}
+			}
+			else
+			{
+				glBindTexture(GL_TEXTURE_2D, checkTexture);
+			}
+
+			glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
+			glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
+
+			glDrawElements(GL_TRIANGLES, componentMesh->mesh->indices.size(), GL_UNSIGNED_INT, NULL);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+			glDisable(GL_TEXTURE_2D);
+			glDisableClientState(GL_VERTEX_ARRAY);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glDisable(GL_TEXTURE_COORD_ARRAY);
+			glPopMatrix();
+		}
+	}
+	if (activeNormals)
+	{
+		App->mesh->DrawNormals();
+	}
 }
 
 void ModuleRenderer3D::DebugDrawBox(const float3* corners, Color color, bool lines, const float& line_size)
@@ -477,35 +438,35 @@ void ModuleRenderer3D::DebugDrawBox(const float3* corners, Color color, bool lin
 
 	glBegin(GL_QUADS);
 
-	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy, sz);
-	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f( sx, -sy, sz);
-	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f( sx,  sy, sz);
-	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx,  sy, sz);
+	glVertex3fv((GLfloat*)&corners[1]);
+	glVertex3fv((GLfloat*)&corners[5]);
+	glVertex3fv((GLfloat*)&corners[7]);
+	glVertex3fv((GLfloat*)&corners[3]);
 
-	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f( sx, -sy, -sz);
-	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
-	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx,  sy, -sz);
-	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f( sx,  sy, -sz);
+	glVertex3fv((GLfloat*)&corners[4]);
+	glVertex3fv((GLfloat*)&corners[0]);
+	glVertex3fv((GLfloat*)&corners[2]);
+	glVertex3fv((GLfloat*)&corners[6]);
 
-	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f(sx, -sy,  sz);
-	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f(sx, -sy, -sz);
-	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f(sx,  sy, -sz);
-	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f(sx,  sy,  sz);
+	glVertex3fv((GLfloat*)&corners[5]);
+	glVertex3fv((GLfloat*)&corners[4]);
+	glVertex3fv((GLfloat*)&corners[6]);
+	glVertex3fv((GLfloat*)&corners[7]);
 
-	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
-	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy,  sz);
-	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx,  sy,  sz);
-	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx,  sy, -sz);
+	glVertex3fv((GLfloat*)&corners[0]);
+	glVertex3fv((GLfloat*)&corners[1]);
+	glVertex3fv((GLfloat*)&corners[3]);
+	glVertex3fv((GLfloat*)&corners[2]);
 
-	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx, sy,  sz);
-	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f( sx, sy,  sz);
-	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f( sx, sy, -sz);
-	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx, sy, -sz);
+	glVertex3fv((GLfloat*)&corners[3]);
+	glVertex3fv((GLfloat*)&corners[7]);
+	glVertex3fv((GLfloat*)&corners[6]); 
+	glVertex3fv((GLfloat*)&corners[2]); 
 
-	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
-	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f( sx, -sy, -sz);
-	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f( sx, -sy,  sz);
-	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy,  sz);
+	glVertex3fv((GLfloat*)&corners[0]); 
+	glVertex3fv((GLfloat*)&corners[4]); 
+	glVertex3fv((GLfloat*)&corners[5]); 
+	glVertex3fv((GLfloat*)&corners[1]); 
 
 	glEnd();
 

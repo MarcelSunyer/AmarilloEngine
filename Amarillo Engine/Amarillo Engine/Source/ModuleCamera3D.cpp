@@ -11,16 +11,7 @@
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	frustum.type = FrustumType::PerspectiveFrustum;
-	frustum.pos = float3(0,3,-10);
-	frustum.front = float3::unitZ;
-	frustum.up = float3::unitY;
-
-	frustum.nearPlaneDistance = 1.0f;
-	frustum.farPlaneDistance = 1000.0f;
-
-	frustum.verticalFov = 60.0f * DEGTORAD;
-	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.3f);
+	editor_camera = new Camera3D();
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -60,11 +51,11 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos += frustum.WorldRight() * speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos -= frustum.WorldRight() * speed;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos += editor_camera->Camera_frustum.WorldRight() * speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos -= editor_camera->Camera_frustum.WorldRight() * speed;
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= frustum.front * speed;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += frustum.front * speed;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= editor_camera->Camera_frustum.front * speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += editor_camera->Camera_frustum.front * speed;
 		
 		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos.y += speed;
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos.y -= speed;
@@ -83,40 +74,40 @@ update_status ModuleCamera3D::Update(float dt)
 			float3 rotationAxis(0.0f, 1.0f, 0.0f);
 			Quat rotationQuat = Quat::RotateAxisAngle(rotationAxis, DeltaX);
 
-			frustum.up = rotationQuat * frustum.up;
+			editor_camera->Camera_frustum.up = rotationQuat * editor_camera->Camera_frustum.up;
 
-			frustum.front = rotationQuat * frustum.front;
+			editor_camera->Camera_frustum.front = rotationQuat * editor_camera->Camera_frustum.front;
 		}
 
 		if(dy != 0)
 		{
 			float DeltaY = (float)dy * Sensitivity;
 
-			Quat rotationQuat = Quat::RotateAxisAngle(frustum.WorldRight(), DeltaY);
+			Quat rotationQuat = Quat::RotateAxisAngle(editor_camera->Camera_frustum.WorldRight(), DeltaY);
 
-			frustum.up = rotationQuat * frustum.up;
+			editor_camera->Camera_frustum.up = rotationQuat * editor_camera->Camera_frustum.up;
 
-			frustum.front = rotationQuat * frustum.front;
+			editor_camera->Camera_frustum.front = rotationQuat * editor_camera->Camera_frustum.front;
 
-			if(frustum.up.y < 0.0f)
+			if(editor_camera->Camera_frustum.up.y < 0.0f)
 			{
-				frustum.front = float3(0.0f, frustum.front.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				frustum.up = frustum.front.Cross(frustum.WorldRight());
+				editor_camera->Camera_frustum.front = float3(0.0f, editor_camera->Camera_frustum.front.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+				editor_camera->Camera_frustum.up = editor_camera->Camera_frustum.front.Cross(editor_camera->Camera_frustum.WorldRight());
 			}
 		}
 	}
 
 	if (App->input->GetMouseZ() > 0)
 	{
-		newPos -= frustum.front * speed *3;
+		newPos -= editor_camera->Camera_frustum.front * speed *3;
 	}
 
 	if (App->input->GetMouseZ() < 0)
 	{
-		newPos += frustum.front * speed*3;
+		newPos += editor_camera->Camera_frustum.front * speed*3;
 	}
 
-	frustum.pos -= newPos;
+	editor_camera->Camera_frustum.pos -= newPos;
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 	{
@@ -128,16 +119,16 @@ update_status ModuleCamera3D::Update(float dt)
 		if (mx != 0)
 		{
 			float DeltaX = (float)mx * Sensitivity;
-			newPos += -frustum.WorldRight() * DeltaX;
+			newPos += -editor_camera->Camera_frustum.WorldRight() * DeltaX;
 		}
 
 		if (my != 0)
 		{
 			float DeltaY = (float)my * Sensitivity;
-			newPos += frustum.up * DeltaY;
+			newPos += editor_camera->Camera_frustum.up * DeltaY;
 		}
 
-		frustum.pos += newPos;
+		editor_camera->Camera_frustum.pos += newPos;
 
 	}
 
@@ -157,43 +148,49 @@ update_status ModuleCamera3D::Update(float dt)
 // -----------------------------------------------------------------
 void ModuleCamera3D::LookAt( const float3&Spot)
 {	
-	frustum.front = (Spot - frustum.pos).Normalized();
-	float3 X = (float3(0.0f, 1.0f, 0.0f).Cross(frustum.front)).Normalized();
-	frustum.up = frustum.front.Cross(X);
+	editor_camera->Camera_frustum.front = (Spot - editor_camera->Camera_frustum.pos).Normalized();
+	float3 X = (float3(0.0f, 1.0f, 0.0f).Cross(editor_camera->Camera_frustum.front)).Normalized();
+	editor_camera->Camera_frustum.up = editor_camera->Camera_frustum.front.Cross(X);
 }
 
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Move(const float3&Movement)
 {
-	frustum.pos += Movement;
-	frustum.front += Movement;
+	editor_camera->Camera_frustum.pos += Movement;
+	editor_camera->Camera_frustum.front += Movement;
 }
 
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	float4x4 tempMat4x4 = frustum.ViewMatrix();
+	float4x4 tempMat4x4 = editor_camera->Camera_frustum.ViewMatrix();
 
 	return tempMat4x4.Transposed().ptr();
 }
 
 float* ModuleCamera3D::GetProjectionMatrix()
 {
-	return frustum.ProjectionMatrix().Transposed().ptr();
+	return editor_camera->Camera_frustum.ProjectionMatrix().Transposed().ptr();
 }
 
 void ModuleCamera3D::SetAspectRatio(int width, int height)
 {
 	float VerticalAspectRatio = (float)width / (float)height;
 
-	frustum.verticalFov = 2.f * Atan(Tan(frustum.horizontalFov * 0.5f) / VerticalAspectRatio);
+	editor_camera->Camera_frustum.verticalFov = 2.f * Atan(Tan(editor_camera->Camera_frustum.horizontalFov * 0.5f) / VerticalAspectRatio);
 }
 
 Camera3D* ModuleCamera3D::CreateCamera()
 {
+
 	Camera3D* ret = new Camera3D;
 	cameras.push_back(ret);
+
+	if (active_camera == nullptr)
+	{
+		active_camera = ret;
+	}
 	return ret;
 }
 void ModuleCamera3D::DestroyCamera(Camera3D* cam)
@@ -225,6 +222,11 @@ std::vector<Camera3D*> ModuleCamera3D::GetCameras()
 	return cameras;
 }
 
+Camera3D* ModuleCamera3D::GetEditorCamera()
+{
+	return editor_camera;
+}
+
 Camera3D::Camera3D()
 {
 	Camera_frustum.type = FrustumType::PerspectiveFrustum;
@@ -237,6 +239,7 @@ Camera3D::Camera3D()
 
 	Camera_frustum.verticalFov = 60.0f * DEGTORAD;
 	Camera_frustum.horizontalFov = 2.0f * atanf(tanf(Camera_frustum.verticalFov / 2.0f) * 1.3f);
+
 }
 
 void Camera3D::SetPosition(const float3& pos)
@@ -434,14 +437,14 @@ void Camera3D::Focus(const AABB& aabb)
 	Focus(aabb.CenterPoint(), aabb.Size().Length());
 }
 //Meter esto en una funcion para poder meter difernetes camaras en la funcion de arriva
-float* Camera3D::GetViewMatrixs()
+float* Camera3D::GetViewMatrix()
 {
 	float4x4 tempMat4x4 = Camera_frustum.ViewMatrix();
 
 	return tempMat4x4.Transposed().ptr();
 }
 
-float* Camera3D::GetProjectionMatrixs()
+float* Camera3D::GetProjectionMatrix()
 {
 	return Camera_frustum.ProjectionMatrix().Transposed().ptr();
 }

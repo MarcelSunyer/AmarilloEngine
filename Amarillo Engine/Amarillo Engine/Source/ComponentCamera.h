@@ -3,7 +3,6 @@
 #include "ModuleCamera3D.h"
 #include "Application.h"
 
-
 class ComponentCamera : public Component {
 
 public:
@@ -13,7 +12,12 @@ public:
 	void Disable() override;
 	void OnEditor() override;
 
+	void DebugDraw() override;
+
+
+
+
 private:
 	Camera3D* camera = nullptr;
-
+	
 };

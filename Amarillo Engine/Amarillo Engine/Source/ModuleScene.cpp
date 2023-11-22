@@ -16,20 +16,19 @@ bool ModuleScene::Init()
 	root_object = new GameObject("Scene");
 	game_objects.push_back(root_object);
 
-	//Per a poder afegir fills al game objects ho fas amb el child, pero dona problemes per al render de la mesh i l atextura, dirli al profe pq em cago al damunt
-	child = new GameObject("Camera");
-	child->AddComponent(ComponentTypes::CAMERA);
-	root_object->AddChildren(child);
-
+	GameObject* camera = CreateGameObject("Camera");
+	camera->AddComponent(ComponentTypes::CAMERA);
 
 	return true;
 }
 
-update_status ModuleScene::Update()
+update_status ModuleScene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_W)) gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 	else if (App->input->GetKey(SDL_SCANCODE_E)) gizmoOperation = ImGuizmo::OPERATION::ROTATE;
 	else if (App->input->GetKey(SDL_SCANCODE_R)) gizmoOperation = ImGuizmo::OPERATION::SCALE;
+
+	UpdateGameObjects();
 
 	return update_status();
 }
@@ -79,11 +78,11 @@ void ModuleScene::ImGuizmoHandling()
 	ComponentTransform* selected_transform = (ComponentTransform*)App->editor->GameObject_selected->GetComponent(ComponentTypes::TRANSFORM);
 
 	//ViewMatrixOpenGL()
-	float4x4 viewMatrix = App->camera->frustum.ViewMatrix();
+	float4x4 viewMatrix = App->camera->editor_camera->Camera_frustum.ViewMatrix();
 	viewMatrix = viewMatrix.Transposed();
 
 	//ProjectionMatrixOpenGL()
-	float4x4 projectionMatrix = App->camera->frustum.ProjectionMatrix();
+	float4x4 projectionMatrix = App->camera->editor_camera->Camera_frustum.ProjectionMatrix();
 	projectionMatrix = projectionMatrix.Transposed();
 
 	float3 mPosition = App->editor->GameObject_selected->transform->GetPosition();
@@ -130,3 +129,22 @@ void ModuleScene::ImGuizmoHandling()
 		//selected_transform->SetGlobalTransform(modelProjection);
 	}
 }
+
+void ModuleScene::UpdateGameObjects()
+{
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
+	{
+		GameObject* update = *it;
+		update->Update();
+	}
+}
+
+void ModuleScene::DebugDrawGameObjects()
+{
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
+	{
+		GameObject* update = *it;
+		update->DebugDraw();
+	}
+}
+

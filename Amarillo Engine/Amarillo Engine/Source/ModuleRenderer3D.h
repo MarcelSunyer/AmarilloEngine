@@ -49,8 +49,11 @@ public:
 	void DrawBoundingBox(float3* vertices, float3 color);
 
 	void CreateMainBuffer();
-	void RenderMainBuffer(bool toggle);
 	void DeleteMainBuffer();
+	GLuint GetSceneRenderTexture();
+	GLuint GetGameRenderTexture();
+
+	void RenderFromCamera(Camera3D* camera, bool debug_draw_enabled);
 
 	void DebugDrawBox(const float3* corners, Color color, bool lines, const float& line_size);
 	void DebugDraw(const Frustum& frustum, Color color, bool lines, const float& line_size);
@@ -78,9 +81,8 @@ public:
 	GLuint checkTexture;
 	GLuint textureWidth, textureHeight;
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
-	
-	GLuint FBO;
-	GLuint TCB; 
-	GLuint RBO;
+
+	RenderTexture* scene_render_texture;
+	RenderTexture* game_render_texture;
 
 };

@@ -91,14 +91,23 @@ void ModuleEditor::DrawEditor()
     ImGui::End();
 
     InspectorWindow();
+    if (ImGui::Begin("Game"), true) {
+
+        ImVec2 size = ImGui::GetContentRegionAvail();
+        App->renderer3D->OnResize(size.x, size.y);
+        ImGui::Image((ImTextureID)App->renderer3D->GetGameRenderTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
+
+        ImGui::End();
+    }
     if (ImGui::Begin("Scene"),true) {
 
         ImVec2 size = ImGui::GetContentRegionAvail();
         App->renderer3D->OnResize(size.x,size.y);
-        ImGui::Image((ImTextureID)App->renderer3D->TCB, size, ImVec2(0, 1), ImVec2(1, 0));
+        ImGui::Image((ImTextureID)App->renderer3D->GetSceneRenderTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
 
         ImGui::End();
     }
+   
     if (showWindow)
     {
         if (ImGui::Begin("Config", &showWindow))

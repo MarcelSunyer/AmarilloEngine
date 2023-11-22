@@ -77,7 +77,11 @@ bool GameObject::Disable()
 
 void GameObject::Update()
 {
-	
+	for (std::vector<Component*>::iterator co =components.begin(); co != components.end(); co++)
+	{
+		Component* component_update = *co;
+		component_update->Update();
+	}
 }
 
 
@@ -126,6 +130,15 @@ void GameObject::DeleteChild(GameObject* child)
 			children.erase(children.begin() + i);
 			child->parent = nullptr;
 		}
+	}
+}
+
+void GameObject::DebugDraw()
+{
+	for (std::vector<Component*>::iterator co = components.begin(); co != components.end(); co++)
+	{
+		Component* component_update = *co;
+		component_update->DebugDraw();
 	}
 }
 

@@ -28,6 +28,7 @@ public:
 	bool IsChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
 
+	void DebugDraw();
 
 	Component* AddComponent(ComponentTypes component);
 	Component* GetComponent(ComponentTypes type);

@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "..\External\SDL/include/SDL.h"
+#include "../External/MathGeoLib/include/Math/float2.h"
 
 class Application;
 
@@ -22,6 +23,7 @@ public:
 
 	void InitLogs();
 
+	float2 GetWindowSize();
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;

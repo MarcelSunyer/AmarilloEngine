@@ -97,7 +97,7 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 			
 			
 		}
-		InitBoundingBoxes(mesh_obj);
+		/*InitBoundingBoxes(mesh_obj);*/
 		aiReleaseImport(imported_scene);
 		
 	}
@@ -143,54 +143,54 @@ void ModuleMesh::DrawNormals() {
 	glEnd(); // End drawing lines
 }
 
-void ModuleMesh::InitBoundingBoxes(Mesh* vertex)
-{
-	obb.SetNegativeInfinity();
-	globalAABB.SetNegativeInfinity();
-
-	std::vector<float3> floatArray;
-
-	floatArray.reserve(vertex->ourVertex.size());
-
-	for (const auto& vertex : vertex->ourVertex) {
-
-		floatArray.push_back(vertex.Position);
-
-	}
-
-	aabb.SetFrom(&floatArray[0], floatArray.size());
-}
-
-void ModuleMesh::UpdateBoundingBoxes(std::vector<GameObject*> gameobjects)
-{
-	for (const auto& gameobject : gameobjects)
-	{
-		if (gameobject != nullptr && gameobject->transform != nullptr)
-		{
-			obb = aabb;
-			obb.Transform(gameobject->transform->transform);
-
-			globalAABB.SetNegativeInfinity();
-			globalAABB.Enclose(obb);
-			
-		}
-		else
-		{
-			LOG("Error: GameObject or its transform is null");
-		}
-	}
-	RenderBoundingBoxes();
-}
-
-void ModuleMesh::RenderBoundingBoxes()
-{
-	float3 verticesO[8];
-	obb.GetCornerPoints(verticesO);
-	App->renderer3D->DrawBoundingBox(verticesO, float3(0, 255, 0));
-
-	float3 verticesA[8];
-	globalAABB.GetCornerPoints(verticesA);
-	App->renderer3D->DrawBoundingBox(verticesA, float3(0, 255, 0));
-}
+//void ModuleMesh::InitBoundingBoxes(Mesh* vertex)
+//{
+//	obb.SetNegativeInfinity();
+//	globalAABB.SetNegativeInfinity();
+//
+//	std::vector<float3> floatArray;
+//
+//	floatArray.reserve(vertex->ourVertex.size());
+//
+//	for (const auto& vertex : vertex->ourVertex) {
+//
+//		floatArray.push_back(vertex.Position);
+//
+//	}
+//
+//	aabb.SetFrom(&floatArray[0], floatArray.size());
+//}
+//
+//void ModuleMesh::UpdateBoundingBoxes(std::vector<GameObject*> gameobjects)
+//{
+//	for (const auto& gameobject : gameobjects)
+//	{
+//		if (gameobject != nullptr && gameobject->transform != nullptr)
+//		{
+//			obb = aabb;
+//			obb.Transform(gameobject->transform->transform);
+//
+//			globalAABB.SetNegativeInfinity();
+//			globalAABB.Enclose(obb);
+//			
+//		}
+//		else
+//		{
+//			LOG("Error: GameObject or its transform is null");
+//		}
+//	}
+//	RenderBoundingBoxes();
+//}
+//
+//void ModuleMesh::RenderBoundingBoxes()
+//{
+//	float3 verticesO[8];
+//	obb.GetCornerPoints(verticesO);
+//	App->renderer3D->DrawBoundingBox(verticesO, float3(0, 255, 0));
+//
+//	float3 verticesA[8];
+//	globalAABB.GetCornerPoints(verticesA);
+//	App->renderer3D->DrawBoundingBox(verticesA, float3(0, 255, 0));
+//}
 
 

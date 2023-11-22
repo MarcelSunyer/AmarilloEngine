@@ -70,9 +70,12 @@ Texture* ModuleTexture::LoadTexture(std::string file_name)
 void ModuleTexture::LoadTextureToGameObject(GameObject* texture, std::string textfile)
 {
     Texture* tex = LoadTexture(textfile);
-
-    ComponentTexture* texture_component = (ComponentTexture*)texture->AddComponent(ComponentTypes::TEXTURE);
-   
+    ComponentTexture* texture_component = (ComponentTexture*)texture->GetComponent(ComponentTypes::TEXTURE);
+    
+    if (texture_component == nullptr)
+    {
+        texture_component = (ComponentTexture*)texture->AddComponent(ComponentTypes::TEXTURE);
+    }
     texture_component->SetTexture(tex);
 
 }

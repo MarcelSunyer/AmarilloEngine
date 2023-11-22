@@ -5,6 +5,7 @@
 #include "..\External\MathGeoLib/include/Math/float3.h"
 #include "..\External\MathGeoLib/include/Math/float4x4.h"
 #include <vector>
+#include "RenderTexture.h"
 
 #include "..\External\ImGui/imgui_internal.h"
 
@@ -29,8 +30,8 @@ public:
 	const float GetFarPlaneDistance() const;
 	const float GetVerticalFOV() const;
 	const float GetHorizontalFOV() const;
-	float* GetViewMatrixs();
-	float* GetProjectionMatrixs();
+	float* GetViewMatrix();
+	float* GetProjectionMatrix();
 
 	const float4x4 GetViewMatrix() const;
 	const float4x4 GetProjectionMatrix() const;
@@ -52,8 +53,9 @@ public:
 	void Look(const float3& look_pos);
 
 	Frustum GetFrustum();
-private:
 	Frustum Camera_frustum;
+
+private:
 	float	aspect_ratio = 0.0f;
 	float   vertical_fov = 0.0f;
 
@@ -75,19 +77,19 @@ public:
 	float* GetViewMatrix();
 	float* GetProjectionMatrix();
 	void SetAspectRatio(int width, int height);
-	
-
 
 	Camera3D* CreateCamera();
 	void DestroyCamera(Camera3D* cam);
 	void DestroyAllCameras();
 	std::vector<Camera3D*> GetCameras();
 
+	Camera3D* GetEditorCamera();
 public:
-
 	bool holdingWindowTab = false;	
 
 public:
 	std::vector<Camera3D*> cameras;
-	Frustum frustum; 
+ 
+	Camera3D* editor_camera;
+	Camera3D* active_camera = nullptr;
 };

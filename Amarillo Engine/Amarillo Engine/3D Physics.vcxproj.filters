@@ -451,6 +451,7 @@
     <ClInclude Include="Source\ComponentCamera.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Source\RenderTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -657,6 +658,7 @@
     <ClCompile Include="Source\ComponentCamera.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Source\RenderTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\include\Math\Matrix.inl">

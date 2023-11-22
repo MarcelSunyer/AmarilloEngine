@@ -22,7 +22,7 @@ public:
 
 	void SetTexture(Texture* texture);
 	Texture* GetTexture();
-	void SwapTextures(std::string textfile);
+	
 
 	ComponentTexture(GameObject* parent);
 };

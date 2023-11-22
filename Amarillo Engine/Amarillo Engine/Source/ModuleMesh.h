@@ -39,16 +39,6 @@ public:
 	int num = 0;
 public:
 	GameObject* newMesh;
-	AABB globalAABB;
-
-	AABB aabb;
-	OBB obb;
-
-	void InitBoundingBoxes(Mesh* vertex);
-
-	void UpdateBoundingBoxes(std::vector<GameObject*> gameobjects);
-
-	void RenderBoundingBoxes();
 };
 
 #endif //MODULE_MESH

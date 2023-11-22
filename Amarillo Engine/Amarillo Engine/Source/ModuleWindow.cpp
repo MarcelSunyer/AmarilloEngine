@@ -104,3 +104,10 @@ void ModuleWindow::InitLogs()
 	App->editor->AddLog("-------------- Application Init --------------");
 
 }
+
+float2 ModuleWindow::GetWindowSize()
+{
+    int w, h;
+    SDL_GetWindowSize(window, &w, &h);
+    return float2(w, h);
+}

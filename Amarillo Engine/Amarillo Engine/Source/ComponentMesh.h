@@ -22,8 +22,19 @@ public:
 	void SetMesh(ModuleMesh::Mesh* mesh);
 	void SetPath(std::string path);
 
+	void InitBoundingBoxes(ModuleMesh::Mesh* mesh);
+
+	void UpdateBoundingBoxes(std::vector<GameObject*> gameobjects);
+
+	void RenderBoundingBoxes();
 
 	ComponentMesh(GameObject* parent);
-private:
+public:
+	AABB globalAABB;
+
+	AABB aabb;
+	OBB obb;
+
+
 
 };

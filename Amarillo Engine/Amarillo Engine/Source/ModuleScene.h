@@ -19,7 +19,7 @@ public:
 	~ModuleScene();
 
 	bool Init() override;
-	update_status Update();
+	update_status Update(float dt);
 	bool CleanUp();
 
 	GameObject* CreateGameObject(std::string name);
@@ -31,10 +31,14 @@ public:
 
 	void ImGuizmoHandling();
 
+	void UpdateGameObjects();
+
+	void DebugDrawGameObjects();
+
 public:
 	std::vector<GameObject*> game_objects; 
 	GameObject* root_object = nullptr;
-	GameObject* child = nullptr;
+
 
 	//ImGuizmo
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
