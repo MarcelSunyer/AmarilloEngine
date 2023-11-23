@@ -257,56 +257,56 @@ void ModuleEditor::DrawEditor()
         if (ImGui::MenuItem("Cube"))
         {
             LOG("Create a Cube GameObject");
-            App->mesh->LoadMesh("../Assets/Cube.fbx");
+            App->mesh->LoadMesh("../Assets/Models/Cube.fbx");
             App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Shpere"))
         {
             LOG("Create a Shpere GameObject");
-            App->mesh->LoadMesh("../Assets/Sphere.fbx");
+            App->mesh->LoadMesh("../Assets/Models/Sphere.fbx");
             App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Cone"))
         {
             LOG("Create a Cone GameObject");
-            App->mesh->LoadMesh("../Assets/Cone.fbx");
+            App->mesh->LoadMesh("../Assets/Models/Cone.fbx");
             App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Cylinder"))
         {
             LOG("Create a Cylinder GameObject");
-            App->mesh->LoadMesh("../Assets/Cylinder.fbx");
+            App->mesh->LoadMesh("../Assets/Models/Cylinder.fbx");
             App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Torus"))
         {
             LOG("Create a Torus GameObject");
-            App->mesh->LoadMesh("../Assets/Torus.fbx");
+            App->mesh->LoadMesh("../Assets/Models/Torus.fbx");
             App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Plane"))
         {
             LOG("Create a Plane GameObject");
-            App->mesh->LoadMesh("../Assets/Plane.fbx");
+            App->mesh->LoadMesh("../Assets/Models/Plane.fbx");
             App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Polygon"))
         {
             LOG("Create a Polygon GameObject");
-            App->mesh->LoadMesh("../Assets/Polygon.fbx");
+            App->mesh->LoadMesh("../Assets/Models/Polygon.fbx");
             App->renderer3D->BindBuffers();
 
         }
         if (ImGui::MenuItem("Pikachu"))
         {
             LOG("Create a Pikachu GameObject");
-            App->scene->LoadMeshAndTexture("../Assets/Pikachu.fbx", "../Assets/Pikachu-Texture.png");
+            App->scene->LoadMeshAndTexture("../Assets/Models/Pikachu.fbx", "../Assets/Textures/Pikachu-Texture.png");
 
             App->renderer3D->BindBuffers();
 
@@ -314,7 +314,7 @@ void ModuleEditor::DrawEditor()
         if (ImGui::MenuItem("Skybox"))
         {
             LOG("Create a Skybox GameObject");
-            App->scene->LoadMeshAndTexture("../Assets/Skybox.fbx", "../Assets/skybox.png");
+            App->scene->LoadMeshAndTexture("../Assets/Models/Skybox.fbx", "../Assets/Textures/skybox.png");
             App->renderer3D->BindBuffers();
 
         }

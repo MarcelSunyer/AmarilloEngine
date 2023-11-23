@@ -197,8 +197,8 @@ bool ModuleRenderer3D::Init()
 	ilInit();
 
 
-	App->scene->LoadMeshAndTexture("../Assets/Skybox.fbx", "../Assets/skybox.png")->mName = "Skybox";
-	App->scene->LoadMeshAndTexture("../Assets/BakerHouse.fbx", "../Assets/Baker_house.png")->mName = "Baker House";
+	App->scene->LoadMeshAndTexture("../Assets/Models/Skybox.fbx", "../Assets/Textures/skybox.png")->mName = "Skybox";
+	App->scene->LoadMeshAndTexture("../Assets/Models/BakerHouse.fbx", "../Assets/Textures/Baker_house.png")->mName = "Baker House";
 
 	SDL_MaximizeWindow(App->window->window);
 	BindBuffers();
