@@ -54,9 +54,13 @@ public:
 	GLuint GetGameRenderTexture();
 
 	void RenderFromCamera(Camera3D* camera, bool debug_draw_enabled);
+	bool RenderOnFrustrum(const Camera3D* camera, const AABB& aabb);
+
 
 	void DebugDrawBox(const float3* corners, Color color, bool lines, const float& line_size);
 	void DebugDraw(const Frustum& frustum, Color color, bool lines, const float& line_size);
+
+
 
 public:
 	Light lights[MAX_LIGHTS];
