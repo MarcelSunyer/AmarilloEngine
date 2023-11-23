@@ -77,7 +77,7 @@ bool GameObject::Disable()
 
 void GameObject::Update()
 {
-	for (std::vector<Component*>::iterator co =components.begin(); co != components.end(); co++)
+	for (std::vector<Component*>::iterator co = components.begin(); co != components.end(); co++)
 	{
 		Component* component_update = *co;
 		component_update->Update();

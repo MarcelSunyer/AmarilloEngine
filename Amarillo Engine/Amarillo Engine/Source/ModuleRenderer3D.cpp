@@ -202,7 +202,7 @@ bool ModuleRenderer3D::Init()
 
 	SDL_MaximizeWindow(App->window->window);
 	BindBuffers();
-
+	App->mesh->InitBoundingBoxes();
 	CreateMainBuffer();
 
 	return ret;
@@ -221,7 +221,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	scene_render_texture->Bind();
 	
 	RenderFromCamera(App->camera->GetEditorCamera(),true);
-
+	RenderOnFrustrum(App->camera->GetEditorCamera(),App->mesh->globalAABB);
 	scene_render_texture->Unbind();
 	
 	if (App->camera->active_camera != nullptr)
@@ -332,18 +332,19 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(camera->GetViewMatrix());
 
+
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
 	if (debug_draw_enabled)
 	{
+		App->mesh->UpdateBoundingBoxes();
 		Grid.Render();
 		App->scene->DebugDrawGameObjects();
-		/*App->mesh->UpdateBoundingBoxes(App->scene->game_objects);*/
+
 	}
 	if (activeWire)
 	{
-
 		PrimitiveTest->wire |= true;
 		PrimitiveTest->Render();
 	}
@@ -353,7 +354,7 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 		PrimitiveTest->wire = false;
 		PrimitiveTest->Render();
 	}
-
+	
 	std::vector<GameObject*> gameObject_list = App->scene->GetGameObjects();
 
 	for (uint n = 0; n < gameObject_list.size(); n++)
@@ -421,6 +422,36 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 	{
 		App->mesh->DrawNormals();
 	}
+}
+
+bool ModuleRenderer3D::RenderOnFrustrum(const Camera3D* camera, const AABB& aabb)
+{
+	float3 corners[8];
+	aabb.GetCornerPoints(corners);
+
+	Plane planes[6];
+	camera->Camera_frustum.GetPlanes(planes);
+
+	for (uint i = 0; i < 6; ++i)
+	{
+		uint point_inside_plane = 8;
+
+		for (uint p = 0; p < 8; ++p)
+		{
+			if (planes[i].IsOnPositiveSide(corners[p]))
+			{
+				--point_inside_plane;
+			}
+		}
+
+		if (point_inside_plane == 0)
+		{
+			return false;
+		}
+	}
+
+	return true;
+
 }
 
 void ModuleRenderer3D::DebugDrawBox(const float3* corners, Color color, bool lines, const float& line_size)
