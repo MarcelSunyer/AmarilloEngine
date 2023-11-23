@@ -613,15 +613,15 @@ void ModuleEditor::DrawFolderTree(const std::string& folderPath) {
             if (entryName != "." && entryName != "..") {
                 std::string fullPath = folderPath + "\\" + entryName;
                 if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-                    // Es una carpeta, dibújala y luego recursivamente dibuja su contenido
-                    if (ImGui::TreeNode(entryName.c_str())) {
+
+                    if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
                         DrawFolderTree(fullPath);
                         ImGui::TreePop();
                     }
                 }
                 else {
-                    // Es un archivo, simplemente dibújalo
-                    ImGui::Text("%s", entryName.c_str());
+
+                    ImGui::TextColored(ImVec4(0.4f, 0.8f, 1.0f, 1.0f), "%s", entryName.c_str());
                 }
             }
         } while (FindNextFile(hFind, &findFileData) != 0);
@@ -637,15 +637,15 @@ void ModuleEditor::DrawFolderTree(const std::string& folderPath) {
             if (entryName != "." && entryName != "..") {
                 std::string fullPath = folderPath + "/" + entryName;
                 if (entry->d_type == DT_DIR) {
-                    // Es una carpeta, dibújala y luego recursivamente dibuja su contenido
-                    if (ImGui::TreeNode(entryName.c_str())) {
+
+                    if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
                         DrawFolderTree(fullPath);
                         ImGui::TreePop();
                     }
                 }
                 else {
-                    // Es un archivo, simplemente dibújalo
-                    ImGui::Text("%s", entryName.c_str());
+
+                    ImGui::TextColored(ImVec4(0.4f, 0.8f, 1.0f, 1.0f), "%s", entryName.c_str());
                 }
             }
         }
@@ -653,4 +653,3 @@ void ModuleEditor::DrawFolderTree(const std::string& folderPath) {
     }
 #endif
 }
-
