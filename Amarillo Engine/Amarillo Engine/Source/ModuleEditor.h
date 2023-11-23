@@ -12,6 +12,13 @@
 #include <string> 
 #include "GameObject.h"
 #include "../External/ImGuizmo/ImGuizmo.h"
+#include <cstring>
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <dirent.h>
+#endif
 
 #define MAX_NAME_CHARACTERS 32
 class ModuleEditor : public Module
@@ -40,6 +47,8 @@ public:
 
 	void DrawHierarchyLevel(GameObject* currentObject, int num);
 	void DrawHierarchy();
+
+	void DrawFolderTree(const std::string& folderPath);
 
 	std::string loadFile(const char* filename);
 	

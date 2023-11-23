@@ -238,7 +238,7 @@ void ModuleEditor::DrawEditor()
 
     if (ImGui::Begin("Assets"))
     {
-        
+        DrawFolderTree("../Assets/");
     }
     ImGui::End();
 
@@ -602,4 +602,55 @@ std::string ModuleEditor::loadFile(const char* filename)
     return content;
 }
 
+void ModuleEditor::DrawFolderTree(const std::string& folderPath) {
+#ifdef _WIN32
+    WIN32_FIND_DATA findFileData;
+    HANDLE hFind = FindFirstFile((folderPath + "\\*").c_str(), &findFileData);
+
+    if (hFind != INVALID_HANDLE_VALUE) {
+        do {
+            std::string entryName = findFileData.cFileName;
+            if (entryName != "." && entryName != "..") {
+                std::string fullPath = folderPath + "\\" + entryName;
+                if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+                    // Es una carpeta, dibújala y luego recursivamente dibuja su contenido
+                    if (ImGui::TreeNode(entryName.c_str())) {
+                        DrawFolderTree(fullPath);
+                        ImGui::TreePop();
+                    }
+                }
+                else {
+                    // Es un archivo, simplemente dibújalo
+                    ImGui::Text("%s", entryName.c_str());
+                }
+            }
+        } while (FindNextFile(hFind, &findFileData) != 0);
+
+        FindClose(hFind);
+    }
+#else
+    DIR* dir = opendir(folderPath.c_str());
+    if (dir != nullptr) {
+        struct dirent* entry;
+        while ((entry = readdir(dir)) != nullptr) {
+            std::string entryName = entry->d_name;
+            if (entryName != "." && entryName != "..") {
+                std::string fullPath = folderPath + "/" + entryName;
+                if (entry->d_type == DT_DIR) {
+                    // Es una carpeta, dibújala y luego recursivamente dibuja su contenido
+                    if (ImGui::TreeNode(entryName.c_str())) {
+                        DrawFolderTree(fullPath);
+                        ImGui::TreePop();
+                    }
+                }
+                else {
+                    // Es un archivo, simplemente dibújalo
+                    ImGui::Text("%s", entryName.c_str());
+                }
+            }
+        }
+        closedir(dir);
+    }
+#endif
+}
 
