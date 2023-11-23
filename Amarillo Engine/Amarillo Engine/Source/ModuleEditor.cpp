@@ -17,6 +17,8 @@
 #include "Component.h"
 
 #include <fstream>
+#include <map>
+#include "Resource.h"
 
 
 
@@ -231,6 +233,12 @@ void ModuleEditor::DrawEditor()
         //ImGui::Text("                                                   ");
         ImGui::SameLine();
         ImGui::Text("Current Time: %u ", elapsed_time);
+    }
+    ImGui::End();
+
+    if (ImGui::Begin("Assets"))
+    {
+        
     }
     ImGui::End();
 
