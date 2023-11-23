@@ -52,6 +52,9 @@
     <Filter Include="Externals\ImGuizmo">
       <UniqueIdentifier>{db79214b-96b4-4c97-af3d-4e2f8c9037bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\ResourceManagment">
+      <UniqueIdentifier>{9b3ba47c-c3fd-4d57-aae9-f305c5026632}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -452,6 +455,12 @@
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\RenderTexture.h" />
+    <ClInclude Include="Source\Resource.h">
+      <Filter>Sources\ResourceManagment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Random.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -659,6 +668,12 @@
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\RenderTexture.cpp" />
+    <ClCompile Include="Source\Resource.cpp">
+      <Filter>Sources\ResourceManagment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Random.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\include\Math\Matrix.inl">
