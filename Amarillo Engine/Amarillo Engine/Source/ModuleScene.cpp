@@ -77,13 +77,15 @@ void ModuleScene::ImGuizmoHandling()
 
 	ComponentTransform* selected_transform = (ComponentTransform*)App->editor->GameObject_selected->GetComponent(ComponentTypes::TRANSFORM);
 
-	//ViewMatrixOpenGL()
-	float4x4 viewMatrix = App->camera->editor_camera->Camera_frustum.ViewMatrix();
-	viewMatrix = viewMatrix.Transposed();
+	//TODO: Probar a cambiar las Transposed() por no transposed y mirar que el SetRect() tenga el tamaño de la textura de la ventana "Scene"
 
-	//ProjectionMatrixOpenGL()
+	//ViewMatrix from OpenGL
+	float4x4 viewMatrix = App->camera->editor_camera->Camera_frustum.ViewMatrix();
+	//viewMatrix = viewMatrix.Transposed();
+
+	//ProjectionMatrix from OpenGL
 	float4x4 projectionMatrix = App->camera->editor_camera->Camera_frustum.ProjectionMatrix();
-	projectionMatrix = projectionMatrix.Transposed();
+	//projectionMatrix = projectionMatrix.Transposed();
 
 	float3 mPosition = App->editor->GameObject_selected->transform->GetPosition();
 	float4x4 modelProjection = float4x4::Translate(mPosition);
