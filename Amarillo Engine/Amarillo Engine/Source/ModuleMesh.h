@@ -49,17 +49,18 @@ public:
 	int num = 0;
 public:
 	GameObject* newMesh;
-	void InitBoundingBoxes();
-
-	void UpdateBoundingBoxes();
-
-	void RenderBoundingBoxes();
-public:
-	AABB globalAABB;
-	float scale_factor = 1.0f;
-
-	AABB aabb;
-	OBB obb;
+	GameObject* parent;
+//	void InitBoundingBoxes();
+//
+//	void UpdateBoundingBoxes();
+//
+//	void RenderBoundingBoxes();
+//public:
+//	AABB globalAABB;
+//	float scale_factor = 1.0f;
+//
+//	AABB aabb;
+//	OBB obb;
 
 };
 

@@ -11,6 +11,7 @@
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
 #include "ModuleScene.h"
+#include "../External/MathGeoLib/include/Math/float3.h"
 
 class GameObject
 {

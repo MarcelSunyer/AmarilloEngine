@@ -6,7 +6,8 @@
 ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent)
 {
 	type = ComponentTypes::MESH;
-};
+}
+
 
 void ComponentMesh::Enable() {
 
@@ -39,5 +40,9 @@ void ComponentMesh::OnEditor() {
 		ImGui::Text("Vertices: %d", mesh->ourVertex.size());
 	}
 }
+
+
+
+
 
 

@@ -14,17 +14,14 @@ public:
 
 	//Methods
 public:
+	ComponentMesh(GameObject* parent);
 	void Enable() override;
 	void Update() override;
 	void Disable() override;
 	void OnEditor() override;
 
-	ModuleMesh::Mesh* GetMesh();
 	void SetMesh(ModuleMesh::Mesh* mesh);
 	void SetPath(std::string path);
-
-	ComponentMesh(GameObject* parent);
-
 
 
 };
