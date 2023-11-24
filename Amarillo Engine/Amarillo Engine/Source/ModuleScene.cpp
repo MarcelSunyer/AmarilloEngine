@@ -81,29 +81,28 @@ void ModuleScene::ImGuizmoHandling()
 
 	//ViewMatrix from OpenGL
 	float4x4 viewMatrix = App->camera->editor_camera->Camera_frustum.ViewMatrix();
-	//viewMatrix = viewMatrix.Transposed();
+	viewMatrix = viewMatrix.Transposed();
 
 	//ProjectionMatrix from OpenGL
 	float4x4 projectionMatrix = App->camera->editor_camera->Camera_frustum.ProjectionMatrix();
-	//projectionMatrix = projectionMatrix.Transposed();
+	projectionMatrix = projectionMatrix.Transposed();
 
 	float3 mPosition = App->editor->GameObject_selected->transform->GetPosition();
 	float4x4 modelProjection = float4x4::Translate(mPosition);
 
 	
-	ImGuizmo::SetRect(0.0f, 0.0f, App->editor->w, App->editor->h);
-
+	ImGuizmo::SetRect(App->editor->windowPosition.x, App->editor->windowPosition.y + App->editor->offset, App->editor->size_texture_scene.x, App->editor->size_texture_scene.y);
+	
 
 	//TODO: Que no salga de la ventana "Scene" -> Ahora es "Debug" 
-	///
-	//ImVec2 windowPosition = ImGui::GetWindowPos();
-	//ImVec2 contentRegionMax = ImGui::GetContentRegionMax();
+	
+/*	ImVec2 windowPosition = ImGui::GetWindowPos();
+	ImVec2 contentRegionMax = ImGui::GetContentRegionMax();
 
-	//int offset = ImGui::GetFrameHeight() / 2;
-	//ImGuizmo::SetRect(windowPosition.x, windowPosition.y + offset, contentRegionMax.x, contentRegionMax.y);
+	int offset = ImGui::GetFrameHeight() / 2;
+	ImGuizmo::SetRect(windowPosition.x, windowPosition.y + offset, contentRegionMax.x, contentRegionMax.y);
 
-	//ImGuizmo::SetDrawlist();
-	///
+	ImGuizmo::SetDrawlist()*/;
 
 
 	ComponentTransform* trans = App->editor->GameObject_selected->transform;

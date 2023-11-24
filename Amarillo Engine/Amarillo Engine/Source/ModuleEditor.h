@@ -82,6 +82,10 @@ public:
 	Uint32 elapsed_time;
 	Timer timer;
 
+	ImVec2 size_texture_scene;
+	ImVec2 windowPosition;
+	int offset;
+
 };
 
 #endif // MODULE_EDITOR
