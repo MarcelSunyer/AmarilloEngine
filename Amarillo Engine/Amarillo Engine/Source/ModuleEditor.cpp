@@ -368,7 +368,7 @@ void ModuleEditor::DrawEditor()
       
         if (ImGui::MenuItem("GitHub"))
         {
-            ShellExecute(NULL, "open", "https://github.com/MarcelSunyer/Amarillo_Engine", 0, 0, SW_SHOWNORMAL);
+            ShellExecute(NULL, "open", "https://github.com/MarcelSunyer/AmarilloEngine", 0, 0, SW_SHOWNORMAL);
         }
         ImGui::EndMenu();
     }
