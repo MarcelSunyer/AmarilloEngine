@@ -6,6 +6,8 @@ GameObject::GameObject(std::string name) : mName(name), active(true), parent(nul
 {
 	transform = (ComponentTransform*)AddComponent(ComponentTypes::TRANSFORM);
 	//texture = (ComponentTexture*)AddComponent(ComponentTypes::TEXTURE);
+	InitBoundingBoxes();
+
 }
 
 GameObject::~GameObject()
@@ -81,6 +83,8 @@ void GameObject::Update()
 	{
 		Component* component_update = *co;
 		component_update->Update();
+		
+
 	}
 }
 
@@ -139,12 +143,60 @@ void GameObject::DebugDraw()
 	{
 		Component* component_update = *co;
 		component_update->DebugDraw();
+		UpdateBoundingBoxes();
+		RenderBoundingBoxes();
 	}
 }
 
 GameObject* GameObject::GetParent()
 {
 	return parent;
+}
+
+void GameObject::InitBoundingBoxes()
+{
+	obb.SetNegativeInfinity();
+	globalAABB.SetNegativeInfinity();
+
+	if(this->GetComponent(ComponentTypes::MESH) != NULL)
+	{
+		std::vector<float3> floatArray;
+		floatArray.reserve(mesh->mesh->ourVertex.size());
+		
+		for (const auto& vertex : mesh->mesh->ourVertex) {
+			floatArray.push_back(vertex.Position);
+		}
+
+		aabb.SetFrom(&floatArray[0], floatArray.size());
+	}
+}
+
+void GameObject::UpdateBoundingBoxes()
+{
+	if (this != nullptr && this->transform != nullptr)
+	{
+		obb = aabb;
+		obb.Transform(this->transform->transform);
+
+		globalAABB.SetNegativeInfinity();
+		globalAABB.Enclose(obb);
+		
+	}
+	else
+	{
+		LOG("Error: GameObject or its transform is null");
+	}
+}
+
+void GameObject::RenderBoundingBoxes()
+{
+	float3 verticesO[8];
+	obb.GetCornerPoints(verticesO);
+	applic->renderer3D->DrawBoundingBox(verticesO, float3(0, 255, 0));
+
+	float3 verticesA[8];
+	globalAABB.GetCornerPoints(verticesA);
+	applic->renderer3D->DrawBoundingBox(verticesA, float3(0, 255, 0));
 }
 
 Component* GameObject::AddComponent(ComponentTypes type)

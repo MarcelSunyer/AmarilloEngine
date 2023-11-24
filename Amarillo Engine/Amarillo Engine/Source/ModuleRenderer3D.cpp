@@ -202,7 +202,7 @@ bool ModuleRenderer3D::Init()
 
 	SDL_MaximizeWindow(App->window->window);
 	BindBuffers();
-	App->mesh->InitBoundingBoxes();
+	//App->mesh->InitBoundingBoxes();
 	CreateMainBuffer();
 
 	return ret;
@@ -221,7 +221,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	scene_render_texture->Bind();
 	
 	RenderFromCamera(App->camera->GetEditorCamera(),true);
-	RenderOnFrustrum(App->camera->GetEditorCamera(),App->mesh->globalAABB);
+	//RenderOnFrustrum(App->camera->GetEditorCamera(),App->mesh->globalAABB);
 	scene_render_texture->Unbind();
 	
 	if (App->camera->active_camera != nullptr)
@@ -339,7 +339,7 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 
 	if (debug_draw_enabled)
 	{
-		App->mesh->UpdateBoundingBoxes();
+		//App->mesh->UpdateBoundingBoxes();
 		Grid.Render();
 		App->scene->DebugDrawGameObjects();
 

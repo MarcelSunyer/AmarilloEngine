@@ -16,7 +16,7 @@ bool ModuleScene::Init()
 	root_object = new GameObject("Scene");
 	game_objects.push_back(root_object);
 
-	GameObject* camera = CreateGameObject("Camera");
+	GameObject* camera = CreateGameObject("Camera", nullptr);
 	camera->AddComponent(ComponentTypes::CAMERA);
 
 	return true;
@@ -39,11 +39,20 @@ bool ModuleScene::CleanUp()
 	return false;
 }
 
-GameObject* ModuleScene::CreateGameObject(std::string name)
+GameObject* ModuleScene::CreateGameObject(std::string name,GameObject* parent)
 {
 	GameObject* newObject = new GameObject(name);
+
+	if (parent == nullptr)
+	{
+		newObject->SetParent(root_object);
+
+	}
+	else
+	{
+		parent->AddChildren(newObject);
+	}
 	game_objects.push_back(newObject);
-	newObject->SetParent(root_object);
 	return newObject;
 }
 
