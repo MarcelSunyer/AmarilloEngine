@@ -20,8 +20,14 @@ ModuleMesh::~ModuleMesh()
 {
 }
 
-update_status ModuleMesh::Update()
+bool ModuleMesh::Init()
 {
+	return true;
+}
+
+update_status ModuleMesh::Update(float dt)
+{
+
 	return UPDATE_CONTINUE;
 }
 
@@ -167,18 +173,18 @@ void ModuleMesh::UpdateBoundingBoxes()
 	{
 		if (gameobject != nullptr && gameobject->transform != nullptr)
 		{	
-
 			obb = aabb;
 			obb.Transform(gameobject->transform->transform);
 
 			globalAABB.SetNegativeInfinity();
 			globalAABB.Enclose(obb);
+			RenderBoundingBoxes();
 		}
 		else
 		{
 			LOG("Error: GameObject or its transform is null");
 		}
-		RenderBoundingBoxes();
+		
 	}
 }
 

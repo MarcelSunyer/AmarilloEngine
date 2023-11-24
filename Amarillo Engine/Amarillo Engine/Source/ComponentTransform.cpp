@@ -51,6 +51,12 @@ inline void ComponentTransform::SetScale(float3 scale)
 	this->new_scale = scale;
 	UpdateMatrix();
 }
+
+float3 ComponentTransform::GetScale()
+{
+	return new_scale;
+}
+
 void ComponentTransform::UpdateMatrix() {
 
 	transform = float4x4::FromTRS(new_position, new_rotation, new_scale);

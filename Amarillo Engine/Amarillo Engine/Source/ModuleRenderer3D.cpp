@@ -259,6 +259,7 @@ bool ModuleRenderer3D::CleanUp()
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {
+	//Falta poner la del game
 	App->camera->SetAspectRatio(width, height);
 }
 

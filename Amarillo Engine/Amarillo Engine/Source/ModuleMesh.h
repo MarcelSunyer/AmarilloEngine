@@ -20,7 +20,9 @@ public:
 	GameObject* LoadMesh(const char* file_path);
 
 	~ModuleMesh();
-	update_status Update();
+
+	bool Init() override;
+	update_status Update(float dt);
 	bool CleanUp();
 	void DrawNormals();
 

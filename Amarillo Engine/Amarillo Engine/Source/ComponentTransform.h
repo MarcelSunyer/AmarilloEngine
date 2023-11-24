@@ -21,6 +21,8 @@ public:
 	float3 inline GetScale() const { return this->new_scale; };
 	float4x4 inline GetTransformMatrix() const { return this->transform; };
 
+	float3 GetScale( );
+
 	ComponentTransform(GameObject* parent);
 	ComponentTransform(GameObject* parent, float3 position, float3 scale, Quat rotation);
 public:

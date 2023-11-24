@@ -18,7 +18,7 @@ public:
 	GameObject(std::string name);
 	~GameObject();
 
-	Application* App = nullptr;
+
 	bool Enable();
 	bool Disable();
 
@@ -53,5 +53,17 @@ public:
 private:
 	ComponentTexture* texture = nullptr;
 	ComponentMesh* mesh = nullptr;
+
+	void InitBoundingBoxes();
+
+	void UpdateBoundingBoxes();
+
+	void RenderBoundingBoxes();
+public:
+	AABB globalAABB;
+	float scale_factor = 1.0f;
+
+	AABB aabb;
+	OBB obb;
 };
 #endif
