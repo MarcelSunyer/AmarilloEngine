@@ -52,8 +52,12 @@ public:
 
 	void Look(const float3& look_pos);
 
+	void OnClick(float pos_x, float pos_y);
+
 	Frustum GetFrustum();
 	Frustum Camera_frustum;
+
+	LineSegment latest_ray;
 
 private:
 	float	aspect_ratio = 0.0f;

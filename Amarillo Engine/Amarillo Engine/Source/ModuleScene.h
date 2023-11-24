@@ -10,6 +10,12 @@
 #include "ModuleInput.h"
 #include "ModuleEditor.h"
 #include "../External/ImGuizmo/ImGuizmo.h"
+#include "../External/MathGeoLib/include/Geometry/LineSegment.h"
+#include "../External/MathGeoLib/include/Geometry/Triangle.h"
+#include "../External/MathGeoLib/include/MathGeoLibFwd.h"
+
+#include <map>
+#include <vector>
 
 
 class ModuleScene : public Module
@@ -34,6 +40,8 @@ public:
 	void UpdateGameObjects();
 
 	void DebugDrawGameObjects();
+
+	void TestGameObjectSelection(const LineSegment& ray);
 
 public:
 	std::vector<GameObject*> game_objects; 

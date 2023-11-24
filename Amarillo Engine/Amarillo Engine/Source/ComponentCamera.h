@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "ModuleCamera3D.h"
 #include "Application.h"
+#include "ModuleWindow.h"
 
 class ComponentCamera : public Component {
 
@@ -13,6 +14,7 @@ public:
 	void OnEditor() override;
 
 	void DebugDraw() override;
+
 
 
 
