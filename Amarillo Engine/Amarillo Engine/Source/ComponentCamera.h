@@ -15,10 +15,6 @@ public:
 
 	void DebugDraw() override;
 
-
-
-
-
 private:
 	Camera3D* camera = nullptr;
 	

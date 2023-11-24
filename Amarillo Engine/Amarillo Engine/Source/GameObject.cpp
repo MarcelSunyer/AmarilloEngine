@@ -86,9 +86,8 @@ void GameObject::Update()
 		
 
 	}
+
 }
-
-
 
 bool GameObject::SetParent(GameObject* newParent)
 {
@@ -199,6 +198,7 @@ void GameObject::RenderBoundingBoxes()
 	applic->renderer3D->DrawBoundingBox(verticesA, float3(0, 255, 0));
 }
 
+
 Component* GameObject::AddComponent(ComponentTypes type)
 {
 	Component* ret = nullptr;
@@ -249,4 +249,9 @@ Component* GameObject::GetComponent(ComponentTypes type)
 	}
 
 	return nullptr;
+}
+
+void GameObject::UpdateCamera(Camera3D* camera)
+{
+	camera->SetPosition(transform->new_position);
 }

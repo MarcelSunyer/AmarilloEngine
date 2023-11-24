@@ -245,6 +245,7 @@ Camera3D::Camera3D()
 void Camera3D::SetPosition(const float3& pos)
 {
 	Camera_frustum.pos = pos;
+
 }
 const float3 Camera3D::GetPosition()
 {

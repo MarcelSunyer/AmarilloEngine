@@ -35,6 +35,7 @@ public:
 	Component* GetComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);
 	GameObject* GetParent();
+	GameObject* GetChild();
 
 public:
 	std::string mName;
@@ -48,7 +49,7 @@ public:
 
 	std::vector<Component*> components;
 
-
+	void UpdateCamera(Camera3D* camera);
 	//No use, only reference
 	ComponentTransform* transform = nullptr;
 private:
@@ -60,6 +61,8 @@ private:
 	void UpdateBoundingBoxes();
 
 	void RenderBoundingBoxes();
+
+
 public:
 	AABB globalAABB;
 	float scale_factor = 1.0f;

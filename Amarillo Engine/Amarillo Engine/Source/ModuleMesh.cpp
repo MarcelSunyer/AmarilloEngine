@@ -42,7 +42,7 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 
 	if (imported_scene->HasMeshes() && imported_scene != nullptr)
 	{
-		GameObject* parentObject = App->scene->CreateGameObject("Parent", App->scene->root_object);
+		GameObject* parentObject = App->scene->CreateGameObject("GameObject", App->scene->root_object);
 
 		GetSceneInfo(imported_scene->mRootNode, imported_scene, file_path, parentObject);
 

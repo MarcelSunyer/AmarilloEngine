@@ -39,6 +39,8 @@ update_status ModuleScene::Update(float dt)
 
 	UpdateGameObjects();
 
+	//Actua
+	
 	return update_status();
 }
 
@@ -140,6 +142,15 @@ void ModuleScene::UpdateGameObjects()
 	{
 		GameObject* update = *it;
 		update->Update();
+	}
+	
+	//GameObjectIterator para el transform
+	if (App->editor->GameObject_selected != nullptr)
+	{
+		for (std::vector<GameObject*>::iterator co = App->editor->GameObject_selected->children.begin(); co != App->editor->GameObject_selected->children.end(); co++)
+		{
+			(*co)->transform->transform = App->editor->GameObject_selected->transform->GetTransformMatrix();
+		}
 	}
 }
 

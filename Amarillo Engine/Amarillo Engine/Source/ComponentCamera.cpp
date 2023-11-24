@@ -7,6 +7,7 @@ ComponentCamera::ComponentCamera(GameObject* parent) : Component(parent)
 {
 	type = ComponentTypes::CAMERA;
 	camera = applic->camera->CreateCamera();
+	camera->SetPosition(float3(0, 5, -15));
 }
 
 void ComponentCamera::Enable()
@@ -16,7 +17,7 @@ void ComponentCamera::Enable()
 
 void ComponentCamera::Update()
 {
-	//Actualizar posicion camera con el transform para que se muevaaa jiji
+	parent->UpdateCamera(camera);
 }
 
 void ComponentCamera::Disable()
@@ -54,3 +55,6 @@ void ComponentCamera::DebugDraw()
 	camera->GetCorners(corners);
 	applic->renderer3D->DebugDraw(camera->GetFrustum(), Color(0, 0, 255), true, 4);
 }
+
+
+
