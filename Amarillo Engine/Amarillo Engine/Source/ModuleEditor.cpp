@@ -104,6 +104,13 @@ void ModuleEditor::DrawEditor()
     if (ImGui::Begin("Scene"),true) {
 
         ImVec2 size = ImGui::GetContentRegionAvail();
+
+        ///Guizmos things
+        size_texture_scene = size;
+        windowPosition = ImGui::GetWindowPos();
+        offset = ImGui::GetFrameHeight() / 2;
+        ///
+
         App->renderer3D->OnResize(size.x,size.y);
         ImGui::Image((ImTextureID)App->renderer3D->GetSceneRenderTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
 
@@ -361,7 +368,7 @@ void ModuleEditor::DrawEditor()
       
         if (ImGui::MenuItem("GitHub"))
         {
-            ShellExecute(NULL, "open", "https://github.com/MarcelSunyer/Game_Engine", 0, 0, SW_SHOWNORMAL);
+            ShellExecute(NULL, "open", "https://github.com/MarcelSunyer/Amarillo_Engine", 0, 0, SW_SHOWNORMAL);
         }
         ImGui::EndMenu();
     }
@@ -371,6 +378,8 @@ void ModuleEditor::DrawEditor()
         //Exit game
         App->input->quit = true;
     }
+
+    App->scene->ImGuizmoHandling();
    
     ImGui::EndMainMenuBar();
     ImGui::Render();
@@ -385,6 +394,8 @@ void ModuleEditor::DrawEditor()
         ImGui::RenderPlatformWindowsDefault();
         SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
     }
+
+
 
 }
 
@@ -503,7 +514,7 @@ void ModuleEditor::InspectorWindow()
         ImGui::End();
     }
 
-    App->scene->ImGuizmoHandling();
+
 
 }
 
