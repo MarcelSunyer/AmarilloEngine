@@ -24,9 +24,12 @@ bool ModuleScene::Init()
 
 update_status ModuleScene::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_W)) gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
-	else if (App->input->GetKey(SDL_SCANCODE_E)) gizmoOperation = ImGuizmo::OPERATION::ROTATE;
-	else if (App->input->GetKey(SDL_SCANCODE_R)) gizmoOperation = ImGuizmo::OPERATION::SCALE;
+	if (App->input->GetKey(SDL_SCANCODE_W) && !ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
+		gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+	else if (App->input->GetKey(SDL_SCANCODE_E) && !ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
+		gizmoOperation = ImGuizmo::OPERATION::ROTATE;
+	else if (App->input->GetKey(SDL_SCANCODE_R) && !ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
+		gizmoOperation = ImGuizmo::OPERATION::SCALE;
 
 	UpdateGameObjects();
 
