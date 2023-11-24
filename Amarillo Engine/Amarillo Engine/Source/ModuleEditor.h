@@ -13,12 +13,9 @@
 #include "GameObject.h"
 #include "../External/ImGuizmo/ImGuizmo.h"
 #include <cstring>
+#include <filesystem>
 
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <dirent.h>
-#endif
+namespace fs = std::filesystem;
 
 #define MAX_NAME_CHARACTERS 32
 class ModuleEditor : public Module
@@ -82,9 +79,14 @@ public:
 	Uint32 elapsed_time;
 	Timer timer;
 
+	//Guizmo
 	ImVec2 size_texture_scene;
 	ImVec2 windowPosition;
 	int offset;
+
+	//Assets Tab
+	bool showModal = false;
+	std::string selectedFilePath;
 
 };
 

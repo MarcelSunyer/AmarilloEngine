@@ -614,53 +614,71 @@ std::string ModuleEditor::loadFile(const char* filename)
 }
 
 void ModuleEditor::DrawFolderTree(const std::string& folderPath) {
-#ifdef _WIN32
-    WIN32_FIND_DATA findFileData;
-    HANDLE hFind = FindFirstFile((folderPath + "\\*").c_str(), &findFileData);
 
-    if (hFind != INVALID_HANDLE_VALUE) {
-        do {
-            std::string entryName = findFileData.cFileName;
+    // Process Directories First
+
+    for (const auto& entry : fs::directory_iterator(folderPath)) {
+
+        if (entry.is_directory()) {
+
+            std::string entryName = entry.path().filename().string();
+
             if (entryName != "." && entryName != "..") {
-                std::string fullPath = folderPath + "\\" + entryName;
-                if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 
-                    if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
-                        DrawFolderTree(fullPath);
-                        ImGui::TreePop();
-                    }
-                }
-                else {
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 0.0f, 1.0f)); // Amarillo más claro
 
-                    ImGui::TextColored(ImVec4(0.4f, 0.8f, 1.0f, 1.0f), "%s", entryName.c_str());
+                if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
+
+                    DrawFolderTree(entry.path().string());
+
+                    ImGui::TreePop();
+
                 }
+
+                ImGui::PopStyleColor();
+
             }
-        } while (FindNextFile(hFind, &findFileData) != 0);
 
-        FindClose(hFind);
-    }
-#else
-    DIR* dir = opendir(folderPath.c_str());
-    if (dir != nullptr) {
-        struct dirent* entry;
-        while ((entry = readdir(dir)) != nullptr) {
-            std::string entryName = entry->d_name;
-            if (entryName != "." && entryName != "..") {
-                std::string fullPath = folderPath + "/" + entryName;
-                if (entry->d_type == DT_DIR) {
-
-                    if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
-                        DrawFolderTree(fullPath);
-                        ImGui::TreePop();
-                    }
-                }
-                else {
-
-                    ImGui::TextColored(ImVec4(0.4f, 0.8f, 1.0f, 1.0f), "%s", entryName.c_str());
-                }
-            }
         }
-        closedir(dir);
+
     }
-#endif
+
+    // Process Files Afterwards
+
+    for (const auto& entry : fs::directory_iterator(folderPath)) {
+
+        if (!entry.is_directory()) {
+
+            std::string entryName = entry.path().filename().string();
+
+            if (entryName != "." && entryName != "..") {
+
+                if ((entryName.find(".meta") != std::string::npos) || (entryName.find(".glsl") != std::string::npos)) {
+
+                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.7f, 0.7f, 0.1f, 1.0f)); // Amarillo más oscuro
+
+                    if (ImGui::Selectable(entryName.c_str())) {
+
+                        selectedFilePath = entry.path().string();
+                        showModal = true;  // Set the flag to open the modal
+                    }
+
+                    ImGui::PopStyleColor();
+
+                }
+                else {
+
+                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.6f, 0.6f, 0.0f, 1.0f)); // Amarillo más oscuro
+
+                    ImGui::Selectable(entryName.c_str());
+
+                    ImGui::PopStyleColor();
+
+                }
+
+            }
+
+        }
+
+    }
 }
