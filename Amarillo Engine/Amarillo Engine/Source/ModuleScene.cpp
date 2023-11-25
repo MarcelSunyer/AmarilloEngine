@@ -126,13 +126,15 @@ void ModuleScene::ImGuizmoHandling()
 	if (ImGuizmo::IsUsing())
 	{
 		//Reformat ImGuizmo Transform output to our matrix
-		/*float4x4 newMatrix;
+		float4x4 newMatrix;
 		newMatrix.Set(modelPtr);
-		modelProjection = newMatrix;*/
+		modelProjection = newMatrix;
 
+		//Column or Row? idk
+		float3 firtsCol = float3(modelProjection[0][0], modelProjection[1][0], modelProjection[2][0]);
 
 		//Set Global Transform 
-		//selected_transform->SetGlobalTransform(modelProjection);
+		selected_transform->new_position = firtsCol;
 	}
 }
 
