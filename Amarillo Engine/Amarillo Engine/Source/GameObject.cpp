@@ -83,10 +83,7 @@ void GameObject::Update()
 	{
 		Component* component_update = *co;
 		component_update->Update();
-		
-
 	}
-
 }
 
 bool GameObject::SetParent(GameObject* newParent)

@@ -504,6 +504,15 @@ void ModuleEditor::InspectorWindow()
                         {
                             GameObject_selected->AddComponent(ComponentTypes::TEXTURE);
                         }
+
+                    }
+                    if (ImGui::Selectable("aaa"))
+                    {
+                        if (GameObject_selected->GetComponent(ComponentTypes::CAMERA) == nullptr)
+                        {
+                            GameObject_selected->AddComponent(ComponentTypes::CAMERA);
+                        }
+
                     }
                 }
                 // Finaliza el combo
