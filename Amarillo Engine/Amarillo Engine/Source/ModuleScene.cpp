@@ -69,11 +69,37 @@ GameObject* ModuleScene::CreateGameObject(std::string name,GameObject* parent)
 
 void ModuleScene::DeleteGameObject(GameObject* gameobject)
 {
-	if (gameobject == App->editor->GameObject_selected)
-	{
-		App->editor->GameObject_selected = nullptr;
-	}
+	std::vector<GameObject*> todelete;
 
+	todelete.push_back(gameobject);
+	gameobject->RemoveParent();
+
+	while (!todelete.empty())
+	{
+		GameObject* deletes = *todelete.begin();
+
+		todelete.erase(todelete.begin());
+
+		deletes->Disable();
+
+		for (std::vector<GameObject*>::iterator dt = deletes->children.begin(); dt != deletes->children.end(); dt++)
+		{
+			todelete.push_back(*dt);
+		}
+		deletes->children.clear();
+
+		for (size_t i = 0; i < deletes->components.size(); ++i)
+		{
+			Component* component = deletes->components[i];
+			delete deletes->components[i];
+		}
+		deletes->components.clear();
+
+		if (deletes == App->editor->GameObject_selected)
+		{
+			App->editor->GameObject_selected = nullptr;
+		}
+	}
 }
 
 GameObject* ModuleScene::LoadMeshAndTexture(std::string path_mesh, std::string path_tex)

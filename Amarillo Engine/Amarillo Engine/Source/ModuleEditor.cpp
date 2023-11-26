@@ -477,16 +477,17 @@ void ModuleEditor::InspectorWindow()
            
             if (ImGui::Button("Delete")) {
 
-                GameObject_selected->deleteGameObject = true;
-                delete GameObject_selected;
+                App->scene->DeleteGameObject(GameObject_selected);
 
             }
            
             ImGui::Separator();
-
-            for (uint m = 0; m < GameObject_selected->components.size(); m++)
+            if (GameObject_selected != nullptr)
             {
-                GameObject_selected->components[m]->OnEditor();
+                for (uint m = 0; m < GameObject_selected->components.size(); m++)
+                {
+                    GameObject_selected->components[m]->OnEditor();
+                }
             }
           
             ImGui::Dummy(ImVec2(0,15));

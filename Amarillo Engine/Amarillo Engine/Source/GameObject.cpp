@@ -5,36 +5,11 @@
 GameObject::GameObject(std::string name) : mName(name), active(true), parent(nullptr)
 {
 	transform = (ComponentTransform*)AddComponent(ComponentTypes::TRANSFORM);
-	//texture = (ComponentTexture*)AddComponent(ComponentTypes::TEXTURE);
-
-
 }
 
 GameObject::~GameObject()
 {
 	transform = nullptr;
-	
-	if (deleteGameObject && parent != nullptr) {
-		parent->DeleteChild(this);
-	}
-
-	for (size_t i = 0; i < components.size(); ++i)
-	{
-		Component* component = components[i];
-		if (component != nullptr)
-		{
-			delete components[i];
-			components[i] = nullptr;
-
-		}
-	}
-
-	for (size_t i = 0; i < children.size(); ++i)
-	{
-		delete children[i];
-		children[i] = nullptr;
-	}
-
 }
 
 void GameObject::Enable() 
@@ -91,6 +66,15 @@ bool GameObject::SetParent(GameObject* newParent)
 	newParent->children.push_back(this);
 
 	return true;
+}
+
+void GameObject::RemoveParent()
+{
+	if (parent == nullptr)
+	{
+		return;
+	}
+	parent->DeleteChild(this);
 }
 
 bool GameObject::IsChildOf(GameObject* gameobject)

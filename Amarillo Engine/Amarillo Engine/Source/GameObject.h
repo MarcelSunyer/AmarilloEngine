@@ -26,6 +26,7 @@ public:
 	void Update();
 	
 	bool SetParent(GameObject* parent);
+	void RemoveParent();
 	bool IsChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
 
@@ -35,7 +36,7 @@ public:
 	Component* GetComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);
 	GameObject* GetParent();
-	GameObject* GetChild();
+	
 
 public:
 	std::string mName;
