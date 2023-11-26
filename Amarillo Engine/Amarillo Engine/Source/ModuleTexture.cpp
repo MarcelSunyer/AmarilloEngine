@@ -43,7 +43,6 @@ Texture* ModuleTexture::LoadTexture(std::string file_name)
         ILubyte* texture_data = ilGetData();
         GLuint texture_width = ilGetInteger(IL_IMAGE_WIDTH);
         GLuint texture_height = ilGetInteger(IL_IMAGE_HEIGHT);
-        
 
         glEnable(GL_TEXTURE_2D);
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

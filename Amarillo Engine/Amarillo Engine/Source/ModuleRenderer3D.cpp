@@ -101,11 +101,6 @@ bool ModuleRenderer3D::Init()
 			LOG("Error initializing OpenGL! %s\n", errorMessage);
 			ret = false;
 		}
-
-		//Initialize Modelview Matrix
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
 		//Check for error
 		error = glGetError();
 		if(error != GL_NO_ERROR)
@@ -190,8 +185,6 @@ bool ModuleRenderer3D::Init()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 
-	BindBuffers();
-
 	Grid.axis = true;
 
 	ilInit();
@@ -202,7 +195,7 @@ bool ModuleRenderer3D::Init()
 
 	SDL_MaximizeWindow(App->window->window);
 	BindBuffers();
-	//App->mesh->InitBoundingBoxes();
+
 	CreateMainBuffer();
 
 	return ret;

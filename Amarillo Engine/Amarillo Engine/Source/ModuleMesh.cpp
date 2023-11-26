@@ -106,8 +106,6 @@ void ModuleMesh::GetSceneInfo(aiNode* node, const aiScene* scene, const char* fi
 ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, const char* file_path, GameObject* gameObject)
 {
 	Mesh* myMesh = new Mesh();
-
-	std::vector<ModuleMesh::Mesh> meshes;
 	
 	newMesh = App->scene->CreateGameObject(file_path, gameObject);
 
@@ -162,7 +160,6 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, const char* file_path, Ga
 	mesh_component->SetMesh(myMesh);
 	mesh_component->SetPath(file_path);
 
-	App->renderer3D->BindBuffers();
 	ourMeshes.push_back(myMesh);
 
 	return *myMesh;
