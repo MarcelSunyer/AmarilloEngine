@@ -20,8 +20,8 @@ public:
 	~GameObject();
 
 
-	bool Enable();
-	bool Disable();
+	void Enable();
+	void Disable();
 
 	void Update();
 	
@@ -55,18 +55,7 @@ public:
 private:
 	ComponentTexture* texture = nullptr;
 	ComponentMesh* mesh = nullptr;
-
-	void InitBoundingBoxes();
-
-	void UpdateBoundingBoxes();
-
-	void RenderBoundingBoxes();
-
-
-public:
-	AABB globalAABB;
-	float scale_factor = 1.0f;
-
+public: 
 	AABB aabb;
 	OBB obb;
 };

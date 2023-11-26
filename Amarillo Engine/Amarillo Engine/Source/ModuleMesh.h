@@ -48,8 +48,6 @@ public:
 	std::string name = "EmptyObject_";
 	int num = 0;
 public:
-	GameObject* newMesh;
-	GameObject* parent;
 //	void InitBoundingBoxes();
 //
 //	void UpdateBoundingBoxes();

@@ -6,7 +6,7 @@ GameObject::GameObject(std::string name) : mName(name), active(true), parent(nul
 {
 	transform = (ComponentTransform*)AddComponent(ComponentTypes::TRANSFORM);
 	//texture = (ComponentTexture*)AddComponent(ComponentTypes::TEXTURE);
-	InitBoundingBoxes();
+
 
 }
 
@@ -37,44 +37,34 @@ GameObject::~GameObject()
 
 }
 
-bool GameObject::Enable() {
-	if (!active) {
-		active = true;
-
-		// Realizar acciones específicas cuando se activa el objeto
-		// Por ejemplo, habilitar el renderizado de la malla
-		if (mesh != nullptr) {
-			//mesh->SetVisibility(true);
-		}
-
-		// ... (otras acciones específicas que puedas necesitar)
-
-		glEnable(GL_DEPTH_TEST); // Puedes habilitar la prueba de profundidad aquí o en otro lugar según tu lógica.
-
-		return true;
+void GameObject::Enable() 
+{
+	if (active) 
+	{
+		return;
 	}
-	return false;
+	active = true;
+	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); it++)
+	{
+		Component* component_enable = *it;
+		component_enable->Enable();
+	}
 }
 
 
-bool GameObject::Disable()
+void GameObject::Disable()
 {
-	if (active) {
-		active = false;
-
-		// Realizar acciones específicas cuando se desactiva el objeto
-		// Por ejemplo, deshabilitar el renderizado de la malla
-		if (mesh != nullptr) {
-			//mesh->SetVisibility(false);
-		}
-
-		// ... (otras acciones específicas que puedas necesitar)
-
-		glDisable(GL_DEPTH_TEST); // Puedes deshabilitar la prueba de profundidad aquí o en otro lugar según tu lógica.
-
-		return true;
+	if (!active)
+	{
+		return;
 	}
-	return false;
+	active = false;
+
+	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); it++)
+	{
+		Component* component_enable = *it;
+		component_enable->Disable();
+	}
 }
 
 void GameObject::Update()
@@ -139,8 +129,6 @@ void GameObject::DebugDraw()
 	{
 		Component* component_update = *co;
 		component_update->DebugDraw();
-		UpdateBoundingBoxes();
-		RenderBoundingBoxes();
 	}
 }
 
@@ -148,53 +136,6 @@ GameObject* GameObject::GetParent()
 {
 	return parent;
 }
-
-void GameObject::InitBoundingBoxes()
-{
-	obb.SetNegativeInfinity();
-	globalAABB.SetNegativeInfinity();
-
-	if(this->GetComponent(ComponentTypes::MESH) != NULL)
-	{
-		std::vector<float3> floatArray;
-		floatArray.reserve(mesh->mesh->ourVertex.size());
-		
-		for (const auto& vertex : mesh->mesh->ourVertex) {
-			floatArray.push_back(vertex.Position);
-		}
-
-		aabb.SetFrom(&floatArray[0], floatArray.size());
-	}
-}
-
-void GameObject::UpdateBoundingBoxes()
-{
-	if (this != nullptr && this->transform != nullptr)
-	{
-		obb = aabb;
-		obb.Transform(this->transform->transform);
-
-		globalAABB.SetNegativeInfinity();
-		globalAABB.Enclose(obb);
-		
-	}
-	else
-	{
-		LOG("Error: GameObject or its transform is null");
-	}
-}
-
-void GameObject::RenderBoundingBoxes()
-{
-	float3 verticesO[8];
-	obb.GetCornerPoints(verticesO);
-	applic->renderer3D->DrawBoundingBox(verticesO, float3(0, 255, 0));
-
-	float3 verticesA[8];
-	globalAABB.GetCornerPoints(verticesA);
-	applic->renderer3D->DrawBoundingBox(verticesA, float3(0, 255, 0));
-}
-
 
 Component* GameObject::AddComponent(ComponentTypes type)
 {

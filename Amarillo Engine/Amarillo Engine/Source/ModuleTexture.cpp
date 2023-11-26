@@ -28,6 +28,11 @@ bool ModuleTexture::CleanUp()
 
 Texture* ModuleTexture::LoadTexture(std::string file_name)
 {
+    bool found = textures.find(file_name) != textures.end();
+    if (found) 
+    {
+        return textures[file_name];
+    }
     ILenum image_id;
 
     ilGenImages(1, &image_id);
@@ -60,6 +65,11 @@ Texture* ModuleTexture::LoadTexture(std::string file_name)
 
         Texture* new_texture = new Texture(texture_id, texture_width, texture_height, file_name);
      
+        textures[file_name] = new_texture;
+      
+            // not found
+        
+
         LOG(file_name.c_str());
 
         return new_texture;

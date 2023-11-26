@@ -67,11 +67,24 @@ GameObject* ModuleScene::CreateGameObject(std::string name,GameObject* parent)
 	return newObject;
 }
 
+void ModuleScene::DeleteGameObject(GameObject* gameobject)
+{
+	if (gameobject == App->editor->GameObject_selected)
+	{
+		App->editor->GameObject_selected = nullptr;
+	}
+
+}
+
 GameObject* ModuleScene::LoadMeshAndTexture(std::string path_mesh, std::string path_tex)
 {
 	GameObject* gameObject = App->mesh->LoadMesh(path_mesh.c_str());
-	App->texture->LoadTextureToGameObject(gameObject, path_tex);
 
+	for (std::vector<GameObject*>::iterator it = gameObject->children.begin(); it != gameObject->children.end(); it++)
+	{
+		App->texture->LoadTextureToGameObject((*it), path_tex);
+	}
+	
 	return gameObject;
 }
 
@@ -140,9 +153,14 @@ void ModuleScene::ImGuizmoHandling()
 
 void ModuleScene::UpdateGameObjects()
 {
+	
 	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
 	{
 		GameObject* update = *it;
+		if (!update->active)
+		{
+			continue;
+		}
 		update->Update();
 	}
 	
@@ -161,6 +179,10 @@ void ModuleScene::DebugDrawGameObjects()
 	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
 	{
 		GameObject* update = *it;
+		if (!update->active)
+		{
+			continue;
+		}
 		update->DebugDraw();
 	}
 }

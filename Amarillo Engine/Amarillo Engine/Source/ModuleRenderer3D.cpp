@@ -353,12 +353,15 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 
 	for (uint n = 0; n < gameObject_list.size(); n++)
 	{
-
 		GameObject* gameobject = gameObject_list[n];
+		
+		if (!gameobject->active)
+		{
+			continue;
+		}
 
 		for (uint m = 0; m < gameobject->components.size(); m++)
 		{
-			//Pregunta profe al borrar el 
 			Component* component = gameobject->components[m];
 			if (component->type != ComponentTypes::MESH)
 			{

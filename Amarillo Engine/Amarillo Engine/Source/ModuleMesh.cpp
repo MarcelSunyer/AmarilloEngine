@@ -47,13 +47,13 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 		GetSceneInfo(imported_scene->mRootNode, imported_scene, file_path, parentObject);
 
 		aiReleaseImport(imported_scene);
-	}
-	else
-	{
-		LOG("Error loading scene % s", file_path);
+
+		return parentObject;
 	}
 
-	return newMesh;
+	LOG("Error loading scene % s", file_path);
+
+	return nullptr;
 }
 
 void ModuleMesh::DrawNormals() {
@@ -93,7 +93,6 @@ void ModuleMesh::GetSceneInfo(aiNode* node, const aiScene* scene, const char* fi
 {
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-
 		GetSceneInfo(node->mChildren[i], scene, file_path, gameObject);
 	}
 
@@ -107,7 +106,7 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, const char* file_path, Ga
 {
 	Mesh* myMesh = new Mesh();
 	
-	newMesh = App->scene->CreateGameObject(file_path, gameObject);
+	GameObject* newMesh = App->scene->CreateGameObject(file_path, gameObject);
 
 	for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 	{

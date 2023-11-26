@@ -30,6 +30,8 @@ public:
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent);
 
+	void DeleteGameObject(GameObject* gameobject);
+
 	GameObject* LoadMeshAndTexture(std::string path_mesh, std::string path_tex);
 
 	GameObject* CreateChildObject(std::string name);

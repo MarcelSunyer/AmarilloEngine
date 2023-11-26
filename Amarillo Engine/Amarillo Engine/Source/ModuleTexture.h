@@ -8,6 +8,7 @@
 #include <string>
 #include "GameObject.h"
 #include <gl/GL.h>
+#include <map>
 #include <gl/GLU.h>
 
 
@@ -41,7 +42,8 @@ public:
 
 	void LoadTextureToGameObject(GameObject* texture, std::string textfile);
 
-	std::string texturePath;
+	std::map<std::string, Texture*> textures;
 
+	
 
 };
