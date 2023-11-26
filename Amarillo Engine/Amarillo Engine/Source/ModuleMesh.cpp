@@ -189,7 +189,8 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, const char* file_path, Ga
 //		if (gameobject != nullptr && gameobject->transform != nullptr)
 //		{	
 //			obb = aabb;
-//			obb.Transform(gameobject->transform->transform);
+//			obb.Transform(gameobject->
+// );
 //
 //			globalAABB.SetNegativeInfinity();
 //			globalAABB.Enclose(obb);

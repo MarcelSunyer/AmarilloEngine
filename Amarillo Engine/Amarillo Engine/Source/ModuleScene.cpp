@@ -173,7 +173,7 @@ void ModuleScene::ImGuizmoHandling()
 		float3 firtsCol = float3(modelProjection[0][0], modelProjection[1][0], modelProjection[2][0]);
 
 		//Set Global Transform 
-		selected_transform->new_position = firtsCol;
+		selected_transform->world_position = firtsCol;
 	}
 }
 
@@ -188,15 +188,6 @@ void ModuleScene::UpdateGameObjects()
 			continue;
 		}
 		update->Update();
-	}
-	
-	//GameObjectIterator para el transform
-	if (App->editor->GameObject_selected != nullptr)
-	{
-		for (std::vector<GameObject*>::iterator co = App->editor->GameObject_selected->children.begin(); co != App->editor->GameObject_selected->children.end(); co++)
-		{
-			(*co)->transform->transform = App->editor->GameObject_selected->transform->GetTransformMatrix();
-		}
 	}
 }
 

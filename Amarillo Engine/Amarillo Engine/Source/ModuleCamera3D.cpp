@@ -134,7 +134,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT && App->editor->GameObject_selected != nullptr)
 	{
-		LookAt(App->editor->GameObject_selected->transform->new_position);
+		LookAt(App->editor->GameObject_selected->transform->world_position);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)

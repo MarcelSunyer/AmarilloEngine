@@ -71,7 +71,7 @@ void ComponentMesh::UpdateBoundingBoxes()
 	if (mesh != nullptr)
 	{
 		obb = aabb;
-		obb.Transform(parent->transform->transform);
+		obb.Transform(owner->transform->world_matrix);
 
 		globalAABB.SetNegativeInfinity();
 		globalAABB.Enclose(obb);

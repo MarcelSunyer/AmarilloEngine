@@ -17,7 +17,7 @@ void ComponentCamera::Enable()
 
 void ComponentCamera::Update()
 {
-	parent->UpdateCamera(camera);
+	owner->UpdateCamera(camera);
 }
 
 void ComponentCamera::Disable()

@@ -6,15 +6,15 @@
 ComponentTransform::ComponentTransform(GameObject* parent) : Component(parent)
 {
 	type = ComponentTypes::TRANSFORM;
-	UpdateMatrix();
+	UpdateLocalMatrix();
 
 };
 
 ComponentTransform::ComponentTransform(GameObject* parent, float3 position, float3 scale, Quat rotation) :
-	Component(parent), new_scale(scale), new_rotation(rotation), new_position(position)
+	Component(parent), world_scale(scale), world_rotation(rotation), world_position(position)
 {
 
-};
+}
 
 void ComponentTransform::Enable() {
 	if (!this->active) {
@@ -34,51 +34,150 @@ void ComponentTransform::Update() {
 
 }
 
-inline void ComponentTransform::SetPosition(float3 position)
+inline void ComponentTransform::SetWorldPosition(float3 position)
 {
-	this->new_position = position;
-	UpdateMatrix();
+	float3 parentWorldPosition = float3::zero;
+	if (owner->parent != nullptr)
+	{
+		parentWorldPosition = owner->parent->transform->world_position;
+	}
+	float3 newLocalPostion = position - parentWorldPosition;
+	SetLocalPosition(newLocalPostion);
 }
 
-inline void ComponentTransform::SetRotation(Quat rotation)
+inline void ComponentTransform::SetWorldRotation(Quat rotation)
 {
-	this->new_rotation = rotation;
-	UpdateMatrix();
+	Quat parentWorldRotation = Quat::identity;
+	if (owner->parent != nullptr)
+	{
+		parentWorldRotation = owner->parent->transform->world_rotation;
+	}
+	Quat parentWorldRotationInverse = parentWorldRotation;
+	parentWorldRotationInverse.Inverse();
+	
+	Quat newLocalRotation = rotation.Mul(parentWorldRotation);
+	SetLocalRotation(newLocalRotation);
+
 }
 
-inline void ComponentTransform::SetScale(float3 scale)
+inline void ComponentTransform::SetWorldScale(float3 scale)
 {
-	this->new_scale = scale;
-	UpdateMatrix();
+	float3 parentWorldScale = float3::one;
+	if (owner->parent != nullptr)
+	{
+		parentWorldScale = owner->parent->transform->world_scale;
+	}
+	float3 newLocalScale = scale - parentWorldScale;
+	SetLocalScale(newLocalScale);
+
+}
+
+inline void ComponentTransform::SetWorldRotationEuler(float3 rotation)
+{
+	Quat quaternion = Quat::FromEulerXYZ(rotation.x, rotation.y, rotation.z);
+
+	SetWorldRotation(quaternion);
+}
+
+inline void ComponentTransform::SetLocalPosition(float3 position)
+{
+	this->local_position = position;
+	UpdateLocalMatrix();
+	RecalculateTransformHierarchy();
+}
+
+inline void ComponentTransform::SetLocalRotation(Quat rotation)
+{
+	this->local_rotation = rotation;
+	this->local_rotation_euler = local_rotation.ToEulerXYZ();
+	UpdateLocalMatrix();
+	RecalculateTransformHierarchy();
+}
+
+inline void ComponentTransform::SetLocalScale(float3 scale)
+{
+	this->local_scale = scale;
+	UpdateLocalMatrix();
+	RecalculateTransformHierarchy();
+}
+inline void ComponentTransform::SetLocalRotationEuler(float3 rotation)
+{
+	local_rotation_euler = rotation;
+	local_rotation = Quat::FromEulerXYZ(rotation.x, rotation.y, rotation.z);
+
+	UpdateLocalMatrix();
+	RecalculateTransformHierarchy();
 }
 
 float3 ComponentTransform::GetScale()
 {
-	return new_scale;
+	return world_scale;
 }
 
-void ComponentTransform::UpdateMatrix() {
+void ComponentTransform::UpdateLocalMatrix() {
 
-	transform = float4x4::FromTRS(new_position, new_rotation, new_scale);
+	local_matrix = float4x4::FromTRS(local_position, local_rotation, local_scale);
+}
+
+void ComponentTransform::RecalculateTransformHierarchy()
+{
+	std::vector<ComponentTransform*> torecalculate;
+
+	torecalculate.push_back(this);
+
+	while (!torecalculate.empty())
+	{
+		ComponentTransform* recalculate = *torecalculate.begin();
+		
+		torecalculate.erase(torecalculate.begin());
+
+		for (std::vector<GameObject*>::iterator dt = recalculate->owner->children.begin(); dt != recalculate->owner->children.end(); dt++)
+		{
+			torecalculate.push_back((*dt)->transform);
+		}
+
+		float4x4 parentWorldMatrix = float4x4::identity;
+
+		if (recalculate->owner->parent != nullptr)
+		{
+			parentWorldMatrix = recalculate->owner->parent->transform->world_matrix;
+		}	
+		recalculate->world_matrix = parentWorldMatrix * recalculate->local_matrix;
+
+		recalculate->world_matrix.Decompose(world_position, world_rotation, world_scale);
+		this->world_rotation_euler = world_rotation.ToEulerXYZ();
+	}
 }
 
 void ComponentTransform::OnEditor() {
 	
 	if (ImGui::CollapsingHeader("Component Transform"))
 	{
-		float3 euler_rotation = new_rotation.ToEulerXYZ();
-		float3 euler_degree = euler_rotation * RADTODEG;
-		ImGui::DragFloat3("Position:", (float*)&new_position);
-		ImGui::DragFloat3("Scale:", (float*)&new_scale);
-		bool rot_change = ImGui::DragFloat3("Rotation:", (float*)&euler_degree);
+		float3 newworldposition = local_position;
+
+		float3 newsworldscale = local_scale;
+
+		float3 new_euler_degree = local_rotation_euler * RADTODEG;
+
+		bool pos_change = ImGui::DragFloat3("Position:", (float*)&newworldposition);
+		bool scale_change = ImGui::DragFloat3("Scale:", (float*)&newsworldscale);
+		bool rot_change = ImGui::DragFloat3("Rotation:", (float*)&new_euler_degree);
+		
+		if (pos_change)
+		{
+			SetLocalPosition(newworldposition);
+		}
+		if (scale_change)
+		{
+			SetLocalScale(newsworldscale);
+		}
 		
 		if (rot_change)
 		{
-			euler_rotation = euler_degree * DEGTORAD;
-			new_rotation = Quat::FromEulerXYZ(euler_rotation.x, euler_rotation.y, euler_rotation.z);
+			new_euler_degree = new_euler_degree * DEGTORAD;
+
+			SetLocalRotationEuler(new_euler_degree);
 		}
-		
-		UpdateMatrix();
 	}
 }
 
