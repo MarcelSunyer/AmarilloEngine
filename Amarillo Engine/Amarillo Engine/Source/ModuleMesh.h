@@ -39,7 +39,7 @@ public:
 	bool CleanUp();
 	void DrawNormals();
 	void GetSceneInfo(aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject);
-	Mesh ProcessMesh(aiMesh* Mesh, const char* file_path, GameObject* gameObject);
+	Mesh ProcessMesh(aiMesh* mesh, const char* file_path, GameObject* gameObject);
 
 	
 

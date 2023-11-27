@@ -106,7 +106,11 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, const char* file_path, Ga
 {
 	Mesh* myMesh = new Mesh();
 	
-	GameObject* newMesh = App->scene->CreateGameObject(file_path, gameObject);
+	// Extract the file name from the file_path
+	const char* fileNameStart = strrchr(file_path, '/');
+	const char* fileName = (fileNameStart != nullptr) ? fileNameStart + 1 : file_path;
+
+	GameObject* newMesh = App->scene->CreateGameObject(fileName, gameObject);
 
 	for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 	{
