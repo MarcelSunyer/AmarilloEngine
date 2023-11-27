@@ -454,11 +454,13 @@
     <ClInclude Include="Source\ComponentCamera.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Source\RenderTexture.h" />
     <ClInclude Include="Source\Resource.h">
       <Filter>Sources\ResourceManagment</Filter>
     </ClInclude>
     <ClInclude Include="Source\Random.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderTexture.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
   </ItemGroup>
@@ -667,11 +669,13 @@
     <ClCompile Include="Source\ComponentCamera.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Source\RenderTexture.cpp" />
     <ClCompile Include="Source\Resource.cpp">
       <Filter>Sources\ResourceManagment</Filter>
     </ClCompile>
     <ClCompile Include="Source\Random.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderTexture.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>
