@@ -22,6 +22,7 @@ public:
 	void inline SetLocalRotation(Quat rotation);
 	void inline SetLocalScale(float3 scale);
 	void inline SetLocalRotationEuler(float3 rotation);
+	
 	float3 inline GetPosition() const { return this->world_position; };
 	Quat inline GetRotation() const { return this->world_rotation; };
 	float3 inline GetScale() const { return this->world_scale; };

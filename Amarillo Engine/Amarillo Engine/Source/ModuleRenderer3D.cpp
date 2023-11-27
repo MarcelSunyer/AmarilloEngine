@@ -255,6 +255,11 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	//Falta poner la del game
 	App->camera->SetAspectRatio(width, height);
 }
+//Falta arreglar la camara game
+void ModuleRenderer3D::OnResizeGame(int width, int height)
+{
+	App->camera->SetAspectRatioGame(width, height);
+}
 
 void ModuleRenderer3D::InitDevil()
 {
@@ -348,6 +353,7 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 		PrimitiveTest->wire = false;
 		PrimitiveTest->Render();
 	}
+	
 	
 	std::vector<GameObject*> gameObject_list = App->scene->GetGameObjects();
 

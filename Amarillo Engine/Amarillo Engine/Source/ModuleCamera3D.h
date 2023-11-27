@@ -81,6 +81,7 @@ public:
 	float* GetViewMatrix();
 	float* GetProjectionMatrix();
 	void SetAspectRatio(int width, int height);
+	void SetAspectRatioGame(int width, int height);
 
 	Camera3D* CreateCamera();
 	void DestroyCamera(Camera3D* cam);

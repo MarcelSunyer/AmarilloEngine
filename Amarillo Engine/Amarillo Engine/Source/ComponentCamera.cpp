@@ -7,7 +7,7 @@ ComponentCamera::ComponentCamera(GameObject* parent) : Component(parent)
 {
 	type = ComponentTypes::CAMERA;
 	camera = applic->camera->CreateCamera();
-	camera->SetPosition(float3(0, 5, -15));
+	camera->SetPosition(float3(0, 5, -40));
 }
 
 void ComponentCamera::Enable()

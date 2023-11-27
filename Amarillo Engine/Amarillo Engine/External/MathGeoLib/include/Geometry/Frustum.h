@@ -132,6 +132,7 @@ public:
 		@see front, FarPlane(), LeftPlane(), RightPlane(), TopPlane(), BottomPlane(), GetPlane(), GetPlanes(). */
 	Plane FarPlane() const;
 
+	void Rotation();
 	/// Returns the plane equation of the specified side of this Frustum.
 	/** The normal vector of the returned plane points outwards from the volume inside the frustum.
 		[indexTitle: Left/Right/Top/BottomPlane]

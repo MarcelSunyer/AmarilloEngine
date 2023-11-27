@@ -43,6 +43,7 @@ public:
 	bool CleanUp();
 
 	void OnResize(int width, int height);
+	void OnResizeGame(int width, int height);
 
 	void InitDevil();
 

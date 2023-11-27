@@ -181,6 +181,13 @@ void ModuleCamera3D::SetAspectRatio(int width, int height)
 	editor_camera->Camera_frustum.verticalFov = 2.f * Atan(Tan(editor_camera->Camera_frustum.horizontalFov * 0.5f) / VerticalAspectRatio);
 }
 
+void ModuleCamera3D::SetAspectRatioGame(int width, int height)
+{
+	float VerticalAspectRatio = (float)width / (float)height;
+
+	active_camera->Camera_frustum.verticalFov = 2.f * Atan(Tan(editor_camera->Camera_frustum.horizontalFov * 0.5f) / VerticalAspectRatio);
+}
+
 Camera3D* ModuleCamera3D::CreateCamera()
 {
 
