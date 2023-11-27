@@ -193,10 +193,10 @@ Camera3D* ModuleCamera3D::CreateCamera()
 
 	Camera3D* ret = new Camera3D;
 	cameras.push_back(ret);
-
 	if (active_camera == nullptr)
 	{
 		active_camera = ret;
+
 	}
 	return ret;
 }

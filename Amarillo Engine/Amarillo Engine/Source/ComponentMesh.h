@@ -11,6 +11,11 @@ public:
 public:
 	ModuleMesh::Mesh* mesh;
 	std::string paths;
+	AABB globalAABB;
+	float scale_factor = 1.0f;
+
+	AABB aabb;
+	OBB obb;
 
 	//Methods
 public:
@@ -33,10 +38,5 @@ public:
 
 
 public:
-	AABB globalAABB;
-	float scale_factor = 1.0f;
-
-	AABB aabb;
-	OBB obb;
-
+	
 };

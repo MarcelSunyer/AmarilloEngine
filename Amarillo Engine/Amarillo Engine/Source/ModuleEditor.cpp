@@ -96,7 +96,7 @@ void ModuleEditor::DrawEditor()
     if (ImGui::Begin("Game"), true) {
 
         ImVec2 size = ImGui::GetContentRegionAvail();
-        App->renderer3D->OnResize(size.x, size.y);
+        App->renderer3D->OnResizeGame(size.x, size.y);
         ImGui::Image((ImTextureID)App->renderer3D->GetGameRenderTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
 
         ImGui::End();

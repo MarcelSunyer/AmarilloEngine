@@ -360,6 +360,7 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 	for (uint n = 0; n < gameObject_list.size(); n++)
 	{
 		GameObject* gameobject = gameObject_list[n];
+		ComponentMesh* juan = (ComponentMesh*)gameobject->GetComponent(ComponentTypes::MESH);
 		
 		if (!gameobject->active)
 		{
@@ -369,11 +370,19 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 		for (uint m = 0; m < gameobject->components.size(); m++)
 		{
 			Component* component = gameobject->components[m];
+
 			if (component->type != ComponentTypes::MESH)
 			{
 				continue;
 			}
-
+			if (!RenderOnFrustrum(App->camera->active_camera, juan->aabb))
+			{
+				gameobject->Disable();
+			}
+			else
+			{
+				gameobject->Enable();
+			}
 			ComponentMesh* componentMesh = (ComponentMesh*)component;
 
 			float4x4 matrix = float4x4::FromTRS(float3(5, 1, 1), Quat::identity, float3(1, 1, 1));
