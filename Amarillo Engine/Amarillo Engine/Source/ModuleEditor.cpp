@@ -13,7 +13,7 @@
 #include "..\External\ImGui/backends/imgui_impl_sdl2.h"
 #include "..\External\SDL/include/SDL.h"
 #include "GameObject.h"
-#include "../External/ImGuizmo/ImGuizmo.h"
+
 #include "Component.h"
 
 #include <fstream>

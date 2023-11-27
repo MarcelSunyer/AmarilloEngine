@@ -130,7 +130,6 @@ std::vector<GameObject*> ModuleScene::GetGameObjects()
 
 void ModuleScene::ImGuizmoHandling()
 {
-
 	ImGuizmo::BeginFrame();
 	if (App->editor->GameObject_selected == nullptr) return;
 
