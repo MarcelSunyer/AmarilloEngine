@@ -1,5 +1,5 @@
 // https://github.com/CedricGuillemet/ImGuizmo
-// v 1.89 WIP
+// v 1.83
 //
 // The MIT License(MIT)
 //
@@ -74,8 +74,6 @@ namespace ImCurveEdit
       // handle undo/redo thru this functions
       virtual void BeginEdit(int /*index*/) {}
       virtual void EndEdit() {}
-
-      virtual ~Delegate() = default;
    };
 
    int Edit(Delegate& delegate, const ImVec2& size, unsigned int id, const ImRect* clippingRect = NULL, ImVector<EditPoint>* selectedPoints = NULL);
