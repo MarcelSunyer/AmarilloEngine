@@ -135,30 +135,26 @@ void ModuleScene::ImGuizmoHandling()
 
 	ComponentTransform* selected_transform = (ComponentTransform*)App->editor->GameObject_selected->GetComponent(ComponentTypes::TRANSFORM);
 
-	//ViewMatrix from OpenGL
 	float4x4 viewMatrix = App->camera->editor_camera->Camera_frustum.ViewMatrix();
-	viewMatrix = viewMatrix.Transposed();
-
-	//ProjectionMatrix from OpenGL
+	viewMatrix.Transpose();
 	float4x4 projectionMatrix = App->camera->editor_camera->Camera_frustum.ProjectionMatrix();
-	projectionMatrix = projectionMatrix.Transposed();
+	projectionMatrix.Transpose();
+	float4x4 modelProjection = selected_transform->local_matrix;
+	modelProjection.Transpose();
 
-	float3 mPosition = App->editor->GameObject_selected->transform->GetPosition();
-	float4x4 modelProjection = float4x4::Translate(mPosition);
+	//ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
+	//ImGuizmo::
 
 	ImGuizmo::SetRect(App->editor->windowPosition.x, App->editor->windowPosition.y + App->editor->offset, App->editor->size_texture_scene.x, App->editor->size_texture_scene.y);
-
-	ComponentTransform* trans = App->editor->GameObject_selected->transform;
-	float4x4 mat = trans->GetTransformMatrix().Transposed();
 
 	//gizmoOperation
 	float modelPtr[16];
 	memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));
 
 	ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : guizmoMode);
-	
-	ImGuizmo::Manipulate(viewMatrix.v[0], projectionMatrix.v[0], gizmoOperation, finalMode, mat.ptr());
-	//ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
+
+	//Nothing Else Matters
+	ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
 
 
 	if (ImGuizmo::IsUsing())
@@ -166,13 +162,10 @@ void ModuleScene::ImGuizmoHandling()
 		//Reformat ImGuizmo Transform output to our matrix
 		float4x4 newMatrix;
 		newMatrix.Set(modelPtr);
-		modelProjection = newMatrix;
+		modelProjection = newMatrix.Transposed();
 
-		//Column or Row? idk
-		float3 firtsCol = float3(modelProjection[0][0], modelProjection[1][0], modelProjection[2][0]);
-
-		//Set Global Transform 
-		selected_transform->world_position = firtsCol;
+		selected_transform->local_matrix = modelProjection;
+		App->editor->GameObject_selected->transform->RecalculateTransformHierarchy();
 	}
 }
 

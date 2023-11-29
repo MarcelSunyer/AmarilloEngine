@@ -109,6 +109,8 @@ inline void ComponentTransform::SetLocalRotationEuler(float3 rotation)
 	RecalculateTransformHierarchy();
 }
 
+
+
 float3 ComponentTransform::GetScale()
 {
 	return world_scale;
@@ -166,6 +168,7 @@ void ComponentTransform::OnEditor() {
 		if (pos_change)
 		{
 			SetLocalPosition(newworldposition);
+
 		}
 		if (scale_change)
 		{
