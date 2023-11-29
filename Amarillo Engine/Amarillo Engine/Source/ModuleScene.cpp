@@ -201,22 +201,26 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 	std::map<float, GameObject*> game_object_candidates;
 	App->editor->GameObject_selected = nullptr;
 
-	for (uint i = 0; i < game_objects.size(); i++)
+	float closest = 0;
+	float furthest = 50;
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
 	{
 		//We don't test against meshless components. 
-		if (game_objects[i]->GetComponent(ComponentTypes::MESH) == nullptr)
+		if ((*it)->GetComponent(ComponentTypes::MESH) == nullptr)
 		{
 			continue;
 		}
+		ComponentMesh* mesh_select = (ComponentMesh*)(*it)->GetComponent(ComponentTypes::MESH);
 
-		if (ray.Intersects(game_objects[i]->aabb))
+
+		if (ray.Intersects(mesh_select->globalAABB))
 		{
-			float closest, furthest;
-			if (ray.Intersects(game_objects[i]->obb, closest, furthest)) //Intersect has issues with near-0 sizes, so sometimes misses the Plane :/
+			if (ray.Intersects(mesh_select->obb, closest, furthest)) //Intersect has issues with near-0 sizes, so sometimes misses the Plane :/
 			{
-				game_object_candidates[closest] = game_objects[i];
+				game_object_candidates[closest] = (*it);
 			}
 		}
+
 	}
 
 	//I Initially wanted to do a <algorythm>Sort, but a custom operator couldn't take in external stuff like ray.

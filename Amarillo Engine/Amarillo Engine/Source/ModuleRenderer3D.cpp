@@ -353,7 +353,10 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 		PrimitiveTest->wire = false;
 		PrimitiveTest->Render();
 	}
-	
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		App->camera->editor_camera->OnClick(App->input->GetMouseX(), App->window->GetWindowSize().y - App->input->GetMouseY());
+	}
 	
 	std::vector<GameObject*> gameObject_list = App->scene->GetGameObjects();
 
