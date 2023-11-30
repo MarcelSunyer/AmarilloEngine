@@ -198,7 +198,11 @@ void ModuleEditor::DrawEditor()
                     if (ImGui::Checkbox("Normals", &App->renderer3D->activeNormals))
                     {
                     }
-                    
+
+                    if(ImGui::Checkbox("FrustumCulling on editor", &App->renderer3D->activeCullingOnEditorCamera))
+                    {
+
+                    }
                 }
             }
         }
@@ -398,6 +402,18 @@ void ModuleEditor::DrawEditor()
 
 
 }
+
+update_status ModuleEditor::Update(float dt)
+{
+    if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+    {
+        App->camera->editor_camera->OnClick(App->input->GetMouseX(), App->input->GetMouseY());
+    }
+
+    return update_status::UPDATE_CONTINUE;
+}
+
+
 
 bool ModuleEditor::CleanUp()
 {

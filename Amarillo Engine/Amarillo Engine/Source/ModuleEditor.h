@@ -27,6 +27,7 @@ public:
 
 	bool Init() override;
 	void DrawEditor();
+	update_status Update(float dt) override;
 	bool CleanUp() override;
 
 	void AddFPS(float FPS);

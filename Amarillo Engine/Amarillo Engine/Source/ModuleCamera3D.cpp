@@ -460,8 +460,8 @@ float* Camera3D::GetProjectionMatrix()
 void Camera3D::OnClick(float pos_x, float pos_y)
 {
 	float2 size = applic->window->GetWindowSize();
-	float normalPos_x = pos_x / size[0];
-	float normalPos_y = pos_y / size[1];
+	float normalPos_x = pos_x / size.x;
+	float normalPos_y = pos_y / size.y;
 
 	normalPos_x = (normalPos_x - 0.5) / 0.5;
 	normalPos_y = (normalPos_y - 0.5) / 0.5;

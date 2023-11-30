@@ -54,7 +54,7 @@ public:
 	GLuint GetSceneRenderTexture();
 	GLuint GetGameRenderTexture();
 
-	void RenderFromCamera(Camera3D* camera, bool debug_draw_enabled);
+	void RenderFromCamera(Camera3D* camera, bool debug_draw_enabled, bool useculling);
 	bool RenderOnFrustrum(const Camera3D* camera, const AABB& aabb);
 
 
@@ -81,6 +81,7 @@ public:
 
 	bool activeWire = false;
 	bool activeNormals = false;
+	bool activeCullingOnEditorCamera = false;
 	
 	//Creat the scene on the window
 	GLuint checkTexture;

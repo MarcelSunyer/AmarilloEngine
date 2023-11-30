@@ -213,7 +213,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	scene_render_texture->Bind();
 	
-	RenderFromCamera(App->camera->GetEditorCamera(),true);
+	RenderFromCamera(App->camera->GetEditorCamera(),true, activeCullingOnEditorCamera);
 	//RenderOnFrustrum(App->camera->GetEditorCamera(),App->mesh->globalAABB);
 	scene_render_texture->Unbind();
 	
@@ -221,7 +221,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	{
 		game_render_texture->Bind();
 
-		RenderFromCamera(App->camera->active_camera,false);
+		RenderFromCamera(App->camera->active_camera,false,true);
 
 		game_render_texture->Unbind();
 	}
@@ -321,7 +321,7 @@ GLuint ModuleRenderer3D::GetGameRenderTexture()
 	return game_render_texture->GetTexture();
 }
 
-void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enabled)
+void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enabled, bool useculling)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
@@ -353,17 +353,12 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 		PrimitiveTest->wire = false;
 		PrimitiveTest->Render();
 	}
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		App->camera->editor_camera->OnClick(App->input->GetMouseX(), App->window->GetWindowSize().y - App->input->GetMouseY());
-	}
 	
 	std::vector<GameObject*> gameObject_list = App->scene->GetGameObjects();
 
 	for (uint n = 0; n < gameObject_list.size(); n++)
 	{
 		GameObject* gameobject = gameObject_list[n];
-		ComponentMesh* juan = (ComponentMesh*)gameobject->GetComponent(ComponentTypes::MESH);
 		
 		if (!gameobject->active)
 		{
@@ -378,15 +373,18 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 			{
 				continue;
 			}
-			if (!RenderOnFrustrum(App->camera->active_camera, juan->aabb))
-			{
-				gameobject->Disable();
-			}
-			else
-			{
-				gameobject->Enable();
-			}
+			
 			ComponentMesh* componentMesh = (ComponentMesh*)component;
+
+			if (useculling) 
+			{
+				bool isInsideFrustum = RenderOnFrustrum(App->camera->active_camera, componentMesh->globalAABB);
+
+				if (!isInsideFrustum)
+				{
+					continue;
+				}
+			}
 
 			float4x4 matrix = float4x4::FromTRS(float3(5, 1, 1), Quat::identity, float3(1, 1, 1));
 

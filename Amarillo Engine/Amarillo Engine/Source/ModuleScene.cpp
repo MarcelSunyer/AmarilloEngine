@@ -199,25 +199,29 @@ void ModuleScene::DebugDrawGameObjects()
 void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 {
 	std::map<float, GameObject*> game_object_candidates;
-	App->editor->GameObject_selected = nullptr;
 
 	float closest = 0;
 	float furthest = 50;
+	
 	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
 	{
-		//We don't test against meshless components. 
-		if ((*it)->GetComponent(ComponentTypes::MESH) == nullptr)
+		for (uint m = 0; m < (*it)->components.size(); m++)
 		{
-			continue;
-		}
-		ComponentMesh* mesh_select = (ComponentMesh*)(*it)->GetComponent(ComponentTypes::MESH);
+			Component* component = (*it)->components[m];
 
-
-		if (ray.Intersects(mesh_select->globalAABB))
-		{
-			if (ray.Intersects(mesh_select->obb, closest, furthest)) //Intersect has issues with near-0 sizes, so sometimes misses the Plane :/
+			if (component->type != ComponentTypes::MESH)
 			{
-				game_object_candidates[closest] = (*it);
+				continue;
+			}
+
+			ComponentMesh* componentMesh = (ComponentMesh*)component;
+
+			if (ray.Intersects(componentMesh->globalAABB))
+			{
+				if (ray.Intersects(componentMesh->obb, closest, furthest))
+				{
+					game_object_candidates[closest] = (*it);
+				}
 			}
 		}
 
