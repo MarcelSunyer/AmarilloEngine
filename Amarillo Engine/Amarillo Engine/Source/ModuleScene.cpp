@@ -196,6 +196,13 @@ void ModuleScene::DebugDrawGameObjects()
 	}
 }
 
+bool ModuleScene::IsPointInsideAABB(const float3& point, const AABB& aabb)
+{
+	return point.x >= aabb.minPoint.x && point.x <= aabb.maxPoint.x &&
+		point.y >= aabb.minPoint.y && point.y <= aabb.maxPoint.y &&
+		point.z >= aabb.minPoint.z && point.z <= aabb.maxPoint.z;
+}
+
 void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 {
 	std::map<float, GameObject*> game_object_candidates;
@@ -220,9 +227,14 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 			{
 				if (ray.Intersects(componentMesh->obb, closest, furthest))
 				{
-					game_object_candidates[closest] = (*it);
+					if (!IsPointInsideAABB(ray.a, componentMesh->globalAABB))
+					{
+						game_object_candidates[closest] = (*it);
+					}
 				}
+
 			}
+			
 		}
 
 	}

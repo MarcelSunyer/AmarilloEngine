@@ -27,7 +27,7 @@ public:
 
 	bool Init() override;
 	void DrawEditor();
-	update_status Update(float dt) override;
+	update_status Update(float dt);
 	bool CleanUp() override;
 
 	void AddFPS(float FPS);
@@ -47,6 +47,10 @@ public:
 	void DrawHierarchy();
 
 	void DrawFolderTree(const std::string& folderPath);
+
+	void OnClick(float pos_x, float pos_y);
+
+
 
 	std::string loadFile(const char* filename);
 	
@@ -89,6 +93,11 @@ public:
 	bool showModal = false;
 	std::string selectedFilePath;
 
+	//Size Editor Window
+	ImVec2 size_editor;
+	ImVec2 size_game;
+
+	ImVec2 position_editor;
 };
 
 #endif // MODULE_EDITOR

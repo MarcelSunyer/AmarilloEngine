@@ -95,24 +95,24 @@ void ModuleEditor::DrawEditor()
     InspectorWindow();
     if (ImGui::Begin("Game"), true) {
 
-        ImVec2 size = ImGui::GetContentRegionAvail();
-        App->renderer3D->OnResizeGame(size.x, size.y);
-        ImGui::Image((ImTextureID)App->renderer3D->GetGameRenderTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
+        size_game = ImGui::GetContentRegionAvail();
+        App->renderer3D->OnResizeGame(size_game.x, size_game.y);
+        ImGui::Image((ImTextureID)App->renderer3D->GetGameRenderTexture(), size_game, ImVec2(0, 1), ImVec2(1, 0));
 
         ImGui::End();
     }
     if (ImGui::Begin("Scene"),true) {
 
-        ImVec2 size = ImGui::GetContentRegionAvail();
-
+        size_editor = ImGui::GetContentRegionAvail();
+        position_editor = ImGui::GetWindowPos();
         ///Guizmos things
-        size_texture_scene = size;
+        size_texture_scene = size_editor;
         windowPosition = ImGui::GetWindowPos();
         offset = ImGui::GetFrameHeight() / 2;
         ///
 
-        App->renderer3D->OnResize(size.x,size.y);
-        ImGui::Image((ImTextureID)App->renderer3D->GetSceneRenderTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
+        App->renderer3D->OnResize(size_editor.x, size_editor.y);
+        ImGui::Image((ImTextureID)App->renderer3D->GetSceneRenderTexture(), size_editor, ImVec2(0, 1), ImVec2(1, 0));
 
         ImGui::End();
     }
@@ -398,22 +398,18 @@ void ModuleEditor::DrawEditor()
         ImGui::RenderPlatformWindowsDefault();
         SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
     }
-
-
-
 }
 
 update_status ModuleEditor::Update(float dt)
 {
+    //Arreglar mouse picking con el gizmo
     if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
     {
-        App->camera->editor_camera->OnClick(App->input->GetMouseX(), App->input->GetMouseY());
+        OnClick(App->input->GetMouseX(), App->input->GetMouseY());
     }
 
     return update_status::UPDATE_CONTINUE;
 }
-
-
 
 bool ModuleEditor::CleanUp()
 {
@@ -707,4 +703,19 @@ void ModuleEditor::DrawFolderTree(const std::string& folderPath) {
         }
 
     }
+}
+void ModuleEditor::OnClick(float pos_x, float pos_y)
+{
+    pos_x -= position_editor.x;
+    pos_y -= position_editor.y;
+
+    float normalPos_x = pos_x / size_editor.x;
+    float normalPos_y = 1 - (pos_y / size_editor.y);
+
+    normalPos_x = (2 * normalPos_x) - 1;
+    normalPos_y = (2 * normalPos_y) - 1;
+    
+    LineSegment latest_ray = App->camera->editor_camera->Camera_frustum.UnProjectLineSegment(normalPos_x, normalPos_y);
+
+    applic->scene->TestGameObjectSelection(latest_ray);
 }

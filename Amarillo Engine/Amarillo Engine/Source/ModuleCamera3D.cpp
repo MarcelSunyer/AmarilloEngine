@@ -457,16 +457,3 @@ float* Camera3D::GetProjectionMatrix()
 	return Camera_frustum.ProjectionMatrix().Transposed().ptr();
 }
 
-void Camera3D::OnClick(float pos_x, float pos_y)
-{
-	float2 size = applic->window->GetWindowSize();
-	float normalPos_x = pos_x / size.x;
-	float normalPos_y = pos_y / size.y;
-
-	normalPos_x = (normalPos_x - 0.5) / 0.5;
-	normalPos_y = (normalPos_y - 0.5) / 0.5;
-
-	latest_ray = Camera_frustum.UnProjectLineSegment(normalPos_x, normalPos_y);
-
-	applic->scene->TestGameObjectSelection(latest_ray);
-}
