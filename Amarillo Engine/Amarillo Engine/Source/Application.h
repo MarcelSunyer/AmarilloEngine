@@ -17,8 +17,6 @@ class ModuleMesh;
 class ModuleTexture;
 class ModuleScene;
 
-// asd
-
 
 
 
