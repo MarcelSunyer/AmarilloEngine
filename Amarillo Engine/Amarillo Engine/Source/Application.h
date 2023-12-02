@@ -16,9 +16,7 @@ class ModuleConsole;
 class ModuleMesh;
 class ModuleTexture;
 class ModuleScene;
-
-
-
+class ModuleResourceManager;
 
 class Application
 {
@@ -32,6 +30,7 @@ public:
 	ModuleMesh* mesh;
 	ModuleTexture* texture;
 	ModuleScene* scene;
+	ModuleResourceManager* resourceManager;
 
 private:
 

@@ -18,7 +18,7 @@
 
 #include <fstream>
 #include <map>
-#include "Resource.h"
+#include "ResourceManager.h"
 
 
 

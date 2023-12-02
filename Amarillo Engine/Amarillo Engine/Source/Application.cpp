@@ -10,6 +10,7 @@
 #include "ModuleMesh.h"
 #include "ModuleTexture.h"
 #include "ModuleScene.h"
+#include "ResourceManager.h"
 
 extern Application* applic = nullptr;
 
@@ -26,6 +27,7 @@ Application::Application()
 	mesh = new ModuleMesh(this);
 	texture = new ModuleTexture(this);
 	scene = new ModuleScene(this);
+	resourceManager = new ModuleResourceManager(this);
 
 	// They will CleanUp() in reverse order
 
@@ -42,6 +44,7 @@ Application::Application()
 	AddModule(renderer3D);
 	AddModule(editor);
 	AddModule(console);
+	AddModule(resourceManager);
 }
 
 Application::~Application()

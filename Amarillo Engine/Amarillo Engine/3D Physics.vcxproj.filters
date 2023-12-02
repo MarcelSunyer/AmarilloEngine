@@ -55,6 +55,12 @@
     <Filter Include="Sources\ResourceManagment">
       <UniqueIdentifier>{9b3ba47c-c3fd-4d57-aae9-f305c5026632}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GameObject\Components">
+      <UniqueIdentifier>{d809535b-ff0f-4cbd-9508-403cbb5fb2a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\ResourceManagment\Resources">
+      <UniqueIdentifier>{41d1b084-8bdc-43df-bb21-a03160a84434}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -411,15 +417,6 @@
     <ClInclude Include="Source\GameObject.h">
       <Filter>Sources\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Component.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ComponentMesh.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ComponentTransform.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ModuleMesh.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -428,9 +425,6 @@
     </ClInclude>
     <ClInclude Include="Source\ModuleScene.h">
       <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ComponentTexture.h">
-      <Filter>Sources\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="External\ImGuizmo\GraphEditor.h">
@@ -451,10 +445,7 @@
     <ClInclude Include="External\ImGuizmo\ImZoomSlider.h">
       <Filter>Externals\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ComponentCamera.h">
-      <Filter>Sources\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Resource.h">
+    <ClInclude Include="Source\ResourceManager.h">
       <Filter>Sources\ResourceManagment</Filter>
     </ClInclude>
     <ClInclude Include="Source\Random.h">
@@ -462,6 +453,27 @@
     </ClInclude>
     <ClInclude Include="Source\RenderTexture.h">
       <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentCamera.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentMesh.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentTexture.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentTransform.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Define_Resource.h">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AssetDirectory.h">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -630,15 +642,6 @@
     <ClCompile Include="Source\GameObject.cpp">
       <Filter>Sources\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Component.cpp">
-      <Filter>Sources\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ComponentMesh.cpp">
-      <Filter>Sources\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ComponentTransform.cpp">
-      <Filter>Sources\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ModuleMesh.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -647,9 +650,6 @@
     </ClCompile>
     <ClCompile Include="Source\ModuleScene.cpp">
       <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ComponentTexture.cpp">
-      <Filter>Sources\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="External\ImGuizmo\GraphEditor.cpp">
       <Filter>Externals\ImGuizmo</Filter>
@@ -666,10 +666,7 @@
     <ClCompile Include="External\ImGuizmo\ImSequencer.cpp">
       <Filter>Externals\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ComponentCamera.cpp">
-      <Filter>Sources\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Resource.cpp">
+    <ClCompile Include="Source\ResourceManager.cpp">
       <Filter>Sources\ResourceManagment</Filter>
     </ClCompile>
     <ClCompile Include="Source\Random.cpp">
@@ -677,6 +674,27 @@
     </ClCompile>
     <ClCompile Include="Source\RenderTexture.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentCamera.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentMesh.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentTexture.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentTransform.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Define_Resource.cpp">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AssetDirectory.cpp">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
