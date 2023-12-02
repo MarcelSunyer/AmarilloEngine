@@ -3,6 +3,8 @@
 #include<string>
 #include"Globals.h"
 #include<vector>
+#include "Application.h"
+
 
 //TODO: Add full directory name to use as loading target
 struct AssetDir
@@ -12,7 +14,7 @@ struct AssetDir
 
 	void ClearData();
 
-	bool HasMeta();
+	//bool HasMeta();
 	void GenerateMeta();
 	//void ReadMeta();
 

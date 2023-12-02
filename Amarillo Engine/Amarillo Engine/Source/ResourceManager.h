@@ -3,9 +3,11 @@
 
 #include "Application.h"
 #include "Module.h"
+#include "Globals.h"
+#include "Random.h"
 
-#include "Define_Resource.h"
 #include "AssetDirectory.h"
+#include "Define_Resource.h"
 
 #include <map>
 #include "Random.h"
@@ -25,6 +27,7 @@ public:
 	bool CleanUp() override;
 
 	void GetUID();
+	void PopulateFileArray();
 	int ExistsOnLibrary(const char* file_in_assets) const;
 
 	int ImportFile(const char* assetsFile, Resource::Type type);
@@ -51,6 +54,9 @@ public:
 	std::string GetMetaPath(const char* assetsFile);
 	Resource::Type GetMetaType(const char* metaFile);
 
+	void NeedsDirsUpdate(AssetDir& dir);
+	void UpdateMeshesDisplay();
+
 private:
 	void LoadResource(int uid);
 	void ReleaseResource(int uid);
@@ -66,7 +72,10 @@ private:
 	float fileUpdateDelay;
 
 public:
-	/*AssetDir assetsRoot;
-	AssetDir meshesLibraryRoot;*/
+	AssetDir assetsRoot;
+	AssetDir meshesLibraryRoot;
+
+private:
+	Random random_int;
 };
 #endif //__RESOURCE_H__

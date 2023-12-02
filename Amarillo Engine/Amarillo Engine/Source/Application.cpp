@@ -14,6 +14,8 @@
 
 extern Application* applic = nullptr;
 
+
+
 Application::Application()
 {
 	applic = this;

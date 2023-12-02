@@ -475,6 +475,9 @@
     <ClInclude Include="Source\AssetDirectory.h">
       <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="External\Parson\parson.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -695,6 +698,9 @@
     </ClCompile>
     <ClCompile Include="Source\AssetDirectory.cpp">
       <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="External\Parson\parson.c">
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
