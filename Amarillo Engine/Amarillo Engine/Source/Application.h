@@ -18,6 +18,7 @@ class ModuleTexture;
 class ModuleScene;
 class ModuleResourceManager;
 class ModuleJSON;
+class FileSystem;
 
 class Application
 {
@@ -33,6 +34,7 @@ public:
 	ModuleScene* scene;
 	ModuleResourceManager* resourceManager;
 	ModuleJSON* json_module;
+	FileSystem* file_system;
 
 private:
 
@@ -48,6 +50,7 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+	const char* GetBasePath();
 
 private:
 

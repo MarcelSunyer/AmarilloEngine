@@ -29,7 +29,7 @@ JSON_Doc* ModuleJSON::LoadJSON(const char* path)
 	bool exists = false;
 	for (std::list<JSON_Doc*>::iterator it = jsons.begin(); it != jsons.end(); it++)
 	{
-		if (TextCmp(path, (*it)->GetPath().c_str()))
+		if (App->file_system->TextCmp(path, (*it)->GetPath().c_str()))
 		{
 			ret = (*it);
 			exists = true;
@@ -77,7 +77,7 @@ JSON_Doc* ModuleJSON::CreateJSON(const char* path)
 	bool exists = false;
 	for (std::list<JSON_Doc*>::iterator it = jsons.begin(); it != jsons.end(); it++)
 	{
-		if (TextCmp(path, (*it)->GetPath().c_str()))
+		if (App->file_system->TextCmp(path, (*it)->GetPath().c_str()))
 		{
 			exists = true;
 			break;
@@ -506,20 +506,6 @@ bool JSON_Doc::FindArrayValue(const char* arr, int index, json_value_type type)
 		if (val != nullptr && json_value_get_type(val) == type)
 			ret = true;
 	}
-
-	return ret;
-}
-
-//Usefull fuctions
-bool ModuleJSON::TextCmp(const char* text1, const char* text2)
-{
-	bool ret = false;
-
-	if (text1 == nullptr || text2 == nullptr)
-		return false;
-
-	if (strcmp(text1, text2) == 0)
-		ret = true;
 
 	return ret;
 }

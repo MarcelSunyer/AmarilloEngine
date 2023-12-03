@@ -12,6 +12,7 @@
 #include "ModuleScene.h"
 #include "ResourceManager.h"
 #include "ModuleJSON.h"
+#include "ModuleFileSystem.h"
 
 extern Application* applic = nullptr;
 
@@ -32,6 +33,7 @@ Application::Application()
 	scene = new ModuleScene(this);
 	resourceManager = new ModuleResourceManager(this);
 	json_module = new ModuleJSON(this);
+	file_system = new FileSystem(this);
 
 	// They will CleanUp() in reverse order
 
@@ -44,6 +46,7 @@ Application::Application()
 	AddModule(texture);
 	AddModule(scene);
 	AddModule(json_module);
+	AddModule(file_system);
 
 	// Renderer last!
 	AddModule(renderer3D);
@@ -137,3 +140,9 @@ void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
+
+const char* Application::GetBasePath()
+{
+	return SDL_GetBasePath();
+}
+

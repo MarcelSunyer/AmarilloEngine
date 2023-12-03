@@ -1,8 +1,10 @@
 #ifndef _JSONLOADER_H_
 #define _JSONLOADER_H_
 
+#include "Application.h"
 #include "Module.h"
 #include "Globals.h"
+#include "ModuleFileSystem.h"
 #include "../External/Parson/parson.h"
 
 #include "../External/MathGeoLib/include/MathBuildConfig.h"
@@ -75,8 +77,6 @@ public:
 
 	bool Awake();
 	bool CleanUp();
-
-	bool TextCmp(const char* text1, const char* text2);
 
 	JSON_Doc* LoadJSON(const char* path);
 	JSON_Doc* CreateJSON(const char* path, const char* name, const char* extension);

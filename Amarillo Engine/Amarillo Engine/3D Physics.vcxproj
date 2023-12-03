@@ -26,7 +26,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -209,6 +209,7 @@
     <ClInclude Include="Source\ModuleConsole.h" />
     <ClInclude Include="Source\ModuleEditor.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\ModuleFileSystem.h" />
     <ClInclude Include="Source\ModuleInput.h" />
     <ClInclude Include="Source\ModuleJSON.h" />
     <ClInclude Include="Source\ModuleMesh.h" />
@@ -287,6 +288,7 @@
     <ClCompile Include="Source\ModuleConsole.cpp" />
     <ClCompile Include="Source\ModuleEditor.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\ModuleFieSystem.cpp" />
     <ClCompile Include="Source\ModuleInput.cpp" />
     <ClCompile Include="Source\ModuleJSON.cpp" />
     <ClCompile Include="Source\ModuleMesh.cpp" />
