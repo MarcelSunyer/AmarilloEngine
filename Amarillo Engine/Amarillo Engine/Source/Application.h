@@ -17,6 +17,7 @@ class ModuleMesh;
 class ModuleTexture;
 class ModuleScene;
 class ModuleResourceManager;
+class ModuleJSON;
 
 class Application
 {
@@ -31,6 +32,7 @@ public:
 	ModuleTexture* texture;
 	ModuleScene* scene;
 	ModuleResourceManager* resourceManager;
+	ModuleJSON* json_module;
 
 private:
 

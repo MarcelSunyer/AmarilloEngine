@@ -40,3 +40,24 @@ enum update_status
 
 #define VSYNC true
 #define TITLE "Amarillo Engine by Eric Luque & Marcel Sunyer"
+
+// Deletes a buffer
+#define RELEASE( x )		\
+    {                       \
+    if( x != nullptr )      \
+	    {                   \
+      delete x;             \
+	  x = nullptr;          \
+	    }                   \
+    }
+
+// Deletes an array of buffers
+#define RELEASE_ARRAY( x )  \
+    {                       \
+    if( x != nullptr )      \
+	    {                   \
+      delete[] x;           \
+	  x = nullptr;          \
+	    }                   \
+                            \
+    }

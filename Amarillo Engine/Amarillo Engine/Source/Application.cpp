@@ -11,6 +11,7 @@
 #include "ModuleTexture.h"
 #include "ModuleScene.h"
 #include "ResourceManager.h"
+#include "ModuleJSON.h"
 
 extern Application* applic = nullptr;
 
@@ -30,6 +31,7 @@ Application::Application()
 	texture = new ModuleTexture(this);
 	scene = new ModuleScene(this);
 	resourceManager = new ModuleResourceManager(this);
+	json_module = new ModuleJSON(this);
 
 	// They will CleanUp() in reverse order
 
@@ -41,6 +43,7 @@ Application::Application()
 	AddModule(mesh);
 	AddModule(texture);
 	AddModule(scene);
+	AddModule(json_module);
 
 	// Renderer last!
 	AddModule(renderer3D);

@@ -478,6 +478,10 @@
     <ClInclude Include="External\Parson\parson.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CFF_Mesh.h" />
+    <ClInclude Include="Source\ModuleJSON.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -701,6 +705,10 @@
     </ClCompile>
     <ClCompile Include="External\Parson\parson.c">
       <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CFF_Mesh.cpp" />
+    <ClCompile Include="Source\ModuleJSON.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
