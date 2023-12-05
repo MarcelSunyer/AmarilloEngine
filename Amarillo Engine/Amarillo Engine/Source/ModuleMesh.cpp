@@ -98,19 +98,16 @@ void ModuleMesh::GetSceneInfo(aiNode* node, const aiScene* scene, const char* fi
 
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-		ProcessMesh(scene->mMeshes[node->mMeshes[i]], file_path, gameObject);
+		ProcessMesh(scene->mMeshes[node->mMeshes[i]], node, file_path, gameObject);
+
 	}
 }
 
-ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, const char* file_path, GameObject* gameObject)
+ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const char* file_path, GameObject* gameObject)
 {
 	Mesh* myMesh = new Mesh();
-	
-	// Extract the file name from the file_path
-	const char* fileNameStart = strrchr(file_path, '/');
-	const char* fileName = (fileNameStart != nullptr) ? fileNameStart + 1 : file_path;
 
-	GameObject* newMesh = App->scene->CreateGameObject(fileName, gameObject);
+	GameObject* newMesh = App->scene->CreateGameObject(node->mName.C_Str(), gameObject);
 
 	for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 	{

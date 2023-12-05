@@ -136,7 +136,7 @@ update_status ModuleInput::PreUpdate(float dt)
 							App->mesh->LoadMesh(dropped_filedir);
 							App->renderer3D->BindBuffers();
 						}
-						else if ((strcmp(ext, ".png") == 0 || strcmp(ext, ".dds") == 0) && App->editor->GameObject_selected != nullptr)
+						else if ((strcmp(ext, ".png") == 0 || strcmp(ext, ".tga") == 0 || strcmp(ext, ".dds") == 0) && App->editor->GameObject_selected != nullptr )
 						{
 							LOG(("Texture dropped on window - File Path: %s", dropped_filedir));
 
