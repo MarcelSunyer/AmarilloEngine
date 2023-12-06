@@ -1,44 +1,68 @@
-#ifndef __ResourceMesh_H__
-#define __ResourceMesh_H__
+#ifndef __RESOURCE_MESH_H__
+#define __RESOURCE_MESH_H__
 
-#include "Globals.h"
-#include "../External/MathGeoLib/include/Geometry/AABB.h"
 #include "Resource.h"
-
-using namespace std;
+#include "Globals.h"
+#include "../External/MathGeoLib/include/Math/float3.h"
+#include "../External/MathGeoLib/include/Geometry/AABB.h"
+#include "../External/MathGeoLib/include/Math/Quat.h"
+#include "ModuleRenderer3D.h"
 
 
 class ResourceMesh : public Resource
 {
 public:
+	ResourceMesh(std::string unique_id);
+	virtual ~ResourceMesh();
 
-	uint* indices = nullptr;
+	void CleanUp();
+
+	void SetFaces(float* vertices, uint num_vertices, uint* indices, uint num_indices);
+	void SetUvs(float* uvs, uint num_uvs);
+	void SetTransform(float3 pos, Quat rotation, float3 scale);
+
+	uint GetIdVertices();
+	uint GetNumVertices();
+	uint GetIdIndices();
+	uint GetNumIndices();
+	uint GetIdUV();
+	uint GetNumUVs();
+	float* GetVertices();
+	uint* GetIndices();
+	float* GetUVs();
+	AABB GetBBox();
+	float GetDiagonal();
+
+	float3 GetPosition();
+	Quat   GetRotation();
+	float3 GetScale();
+
+	void Render();
+
+private:
+	void CalcMeshBBox();
+
+	void LoadToMemory();
+	void UnloadFromMemory();
+
+private:
+	uint   id_vertices = 0;
+	uint   num_vertices = 0;
 	float* vertices = nullptr;
-	float* normals = nullptr;
-	float* texCoords = nullptr;
 
-	enum  Buffers
-	{
-		index,
-		vertex,
-		normal,
-		texture,
-		NONE
-	};
-	uint ID[NONE];
-	uint size[NONE];
+	uint   id_indices = 0;
+	uint   num_indices = 0;
+	uint* indices = nullptr;
 
-	AABB aabb;
-public:
+	uint   id_uv = 0;
+	uint   num_uvs = 0;
+	float* uvs = nullptr;
 
-	ResourceMesh();
-	ResourceMesh(const char* assetsFile, const char* libraryFile, const char* name, uint32 UID);
-	~ResourceMesh();
+	float3 position = float3::zero;
+	Quat   rotation = Quat::identity;
+	float3 scale = float3(1, 1, 1);
 
-	void DrawNormals();
-	void DrawTexCoords();
-	void SetUpBuffers(ResourceMesh* mesh);
-	void CreateAABB();
-
+	AABB   bbox;
 };
-#endif //__ResourceMesh_H__
+
+#endif

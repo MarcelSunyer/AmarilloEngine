@@ -479,7 +479,13 @@
     <ClInclude Include="Source\ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Resource_Def.h">
+    <ClInclude Include="Source\ResourceMesh.h">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceTexture.h">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Resource.h">
       <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClInclude>
   </ItemGroup>
@@ -707,7 +713,13 @@
     <ClCompile Include="Source\ModuleFieSystem.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Resoruce_Def.cpp">
+    <ClCompile Include="Source\ResourceTexture.cpp">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceMesh.cpp">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Resource.cpp">
       <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClCompile>
   </ItemGroup>

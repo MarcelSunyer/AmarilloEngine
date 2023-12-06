@@ -60,9 +60,13 @@ public:
 
 	void DebugDrawBox(const float3* corners, Color color, bool lines, const float& line_size);
 	void DebugDraw(const Frustum& frustum, Color color, bool lines, const float& line_size);
-
-
-
+	
+	uint LoadBuffer(float* elements, uint size); //Float
+	uint LoadBuffer(uint* elements, uint size); 
+	uint LoadTextureBuffer(const void* texture, uint size, int format, int width, int height, uint wrap_s, uint wrap_t, uint mag, uint min);
+	
+	void UnloadTextureBuffer(uint id, uint size);
+	void UnloadBuffer(uint id, uint size);
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

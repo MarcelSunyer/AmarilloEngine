@@ -218,8 +218,10 @@
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\RenderTexture.h" />
+    <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\ResourceManager.h" />
-    <ClInclude Include="Source\Resource_Def.h" />
+    <ClInclude Include="Source\ResourceMesh.h" />
+    <ClInclude Include="Source\ResourceTexture.h" />
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -296,8 +298,10 @@
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\RenderTexture.cpp" />
-    <ClCompile Include="Source\Resoruce_Def.cpp" />
+    <ClCompile Include="Source\Resource.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
+    <ClCompile Include="Source\ResourceMesh.cpp" />
+    <ClCompile Include="Source\ResourceTexture.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

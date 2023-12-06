@@ -174,15 +174,7 @@ bool ModuleRenderer3D::Init()
 	}
 
 	glEnable(GL_TEXTURE_2D);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &checkTexture);
-	glBindTexture(GL_TEXTURE_2D, checkTexture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
-	glBindTexture(GL_TEXTURE_2D, 0);
+
 	glDisable(GL_TEXTURE_2D);
 
 	Grid.axis = true;
@@ -480,37 +472,49 @@ void ModuleRenderer3D::DebugDrawBox(const float3* corners, Color color, bool lin
 
 	glLineWidth(line_size);
 
-	glBegin(GL_QUADS);
+	glBegin(GL_LINES);
+	
+	// Base del cubo
+	glVertex3fv((GLfloat*)&corners[0]);
+	glVertex3fv((GLfloat*)&corners[1]);
+	glVertex3fv((GLfloat*)&corners[5]);
+	glVertex3fv((GLfloat*)&corners[4]);
 
+	// Cara frontal del cubo
 	glVertex3fv((GLfloat*)&corners[1]);
 	glVertex3fv((GLfloat*)&corners[5]);
 	glVertex3fv((GLfloat*)&corners[7]);
 	glVertex3fv((GLfloat*)&corners[3]);
 
+	// Cara posterior del cubo
 	glVertex3fv((GLfloat*)&corners[4]);
 	glVertex3fv((GLfloat*)&corners[0]);
 	glVertex3fv((GLfloat*)&corners[2]);
 	glVertex3fv((GLfloat*)&corners[6]);
 
+	// Cara superior del cubo
 	glVertex3fv((GLfloat*)&corners[5]);
 	glVertex3fv((GLfloat*)&corners[4]);
 	glVertex3fv((GLfloat*)&corners[6]);
 	glVertex3fv((GLfloat*)&corners[7]);
 
+	// Cara inferior del cubo
 	glVertex3fv((GLfloat*)&corners[0]);
 	glVertex3fv((GLfloat*)&corners[1]);
 	glVertex3fv((GLfloat*)&corners[3]);
 	glVertex3fv((GLfloat*)&corners[2]);
 
+	// Cara izquierda del cubo
 	glVertex3fv((GLfloat*)&corners[3]);
 	glVertex3fv((GLfloat*)&corners[7]);
-	glVertex3fv((GLfloat*)&corners[6]); 
-	glVertex3fv((GLfloat*)&corners[2]); 
+	glVertex3fv((GLfloat*)&corners[6]);
+	glVertex3fv((GLfloat*)&corners[2]);
 
-	glVertex3fv((GLfloat*)&corners[0]); 
-	glVertex3fv((GLfloat*)&corners[4]); 
-	glVertex3fv((GLfloat*)&corners[5]); 
-	glVertex3fv((GLfloat*)&corners[1]); 
+	// Cara derecha del cubo
+	glVertex3fv((GLfloat*)&corners[0]);
+	glVertex3fv((GLfloat*)&corners[4]);
+	glVertex3fv((GLfloat*)&corners[5]);
+	glVertex3fv((GLfloat*)&corners[1]);
 
 	glEnd();
 
@@ -529,7 +533,79 @@ void ModuleRenderer3D::DebugDraw(const Frustum& frustum, Color color, bool lines
 
 		DebugDrawBox(vertices, color, lines, line_size);
 }
+uint ModuleRenderer3D::LoadBuffer(float* elements, uint size)
+{
+	uint id = 0;
 
+	glGenBuffers(1, (GLuint*)&(id));
+	glBindBuffer(GL_ARRAY_BUFFER, id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * size, elements, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	return id;
+
+};
+uint ModuleRenderer3D::LoadBuffer(uint* elements, uint size)
+{
+
+	uint id = 0;
+
+	glGenBuffers(1, (GLuint*)&(id));
+	glBindBuffer(GL_ARRAY_BUFFER, id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * size, elements, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	return id;
+
+};
+
+uint ModuleRenderer3D::LoadTextureBuffer(const void* texture, uint size, int format, int width, int height, uint wrap_s, uint wrap_t, uint mag, uint min)
+{
+	uint id = 0;
+
+	GLenum err;
+	while ((err = glGetError()) != GL_NO_ERROR)
+	{
+		LOG("%d", err);
+	}
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(size, (GLuint*)&(id));
+	glBindTexture(GL_TEXTURE_2D, id);
+
+	while ((err = glGetError()) != GL_NO_ERROR)
+	{
+		LOG("%d", err);
+	}
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_s);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_t);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, texture);
+
+	while ((err = glGetError()) != GL_NO_ERROR)
+	{
+		LOG("%d", err);
+	}
+
+
+	return id;
+}
+
+void ModuleRenderer3D::UnloadTextureBuffer(uint id, uint size)
+{
+	glDeleteTextures(size, &id);
+}
+
+void ModuleRenderer3D::UnloadBuffer(uint id, uint size)
+{
+	if (id != 0)
+	{
+		glDeleteBuffers(1, (GLuint*)&id);
+	}
+}
 void ModuleRenderer3D::BindBuffers()
 {
 	//Todo: Hacer binnd de todos los meshes arreglar

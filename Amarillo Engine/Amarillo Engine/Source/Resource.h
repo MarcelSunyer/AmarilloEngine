@@ -3,21 +3,22 @@
 
 #include <string>
 
+
 enum ResourceType
 {
-	NONE,
-	TEXTURE,
-	MESH,
-	SCENE,
+	RT_NULL,
+	RT_TEXTURE,
+	RT_MESH,
+	RT_SCENE,
 };
 
 class Resource
 {
 public:
-	Resource(std::string unique_id, ResourceType type);
+	Resource(std::string _unique_id, ResourceType type);
 	virtual ~Resource();
 
-	virtual void CleanUp() {};
+	virtual void CleanUp();
 
 	void SetFileName(const char* file_name);
 	std::string GetFileName();
@@ -29,15 +30,8 @@ public:
 	bool IsUsed();
 	int  UsedCount();
 
-	void StartUsing();
-	void StopUsing();
-
 private:
-	virtual void LoadToMemory() {};
-	virtual void UnloadFromMemory() {};
-
-private:
-	ResourceType type = NONE;
+	ResourceType type = RT_NULL;
 	std::string  unique_id;
 	int			 count_ref = 0;
 
