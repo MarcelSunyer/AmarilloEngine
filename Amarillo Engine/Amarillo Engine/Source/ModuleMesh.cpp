@@ -57,36 +57,34 @@ GameObject* ModuleMesh::LoadMesh(const char* file_path)
 }
 
 void ModuleMesh::DrawNormals() {
-	float length = 0.2f; // Define the length of the normals you want to draw
+	float length = 0.2f;
 
-	glBegin(GL_LINES); // Start drawing lines
+	glBegin(GL_LINES);
 
 	for (Mesh* mesh : ourMeshes) {
 		for (unsigned int i = 0; i < mesh->indices.size(); i += 3) {
-			// Get the vertices of the triangle
+
 			float3 vertex1 = mesh->ourVertex[mesh->indices[i]].Position;
 			float3 vertex2 = mesh->ourVertex[mesh->indices[i + 1]].Position;
 			float3 vertex3 = mesh->ourVertex[mesh->indices[i + 2]].Position;
 
-			// Calculate the center of the triangle
 			float3 center = (vertex1 + vertex2 + vertex3) / 3.0f;
 
-			// Get the normal of the center (this assumes the normals are the same for all vertices in the triangle)
+
 			float3 normal = mesh->ourVertex[mesh->indices[i]].Normal;
 
-			// Calculate the end point of the normal
+
 			float3 normalEnd = center + normal * length;
 
-			// Set the color of the line (optional)
-			glColor3f(1.0f, 1.0f, 0.0f); // Red color
 
-			// Define the start and end points of the line
+			glColor3f(1.0f, 1.0f, 0.0f); 
+
 			glVertex3f(center.x, center.y, center.z);
 			glVertex3f(normalEnd.x, normalEnd.y, normalEnd.z);
 		}
 	}
 
-	glEnd(); // End drawing lines
+	glEnd();
 }
 
 void ModuleMesh::GetSceneInfo(aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject)
@@ -141,7 +139,7 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const char*
 
 	if (mesh->HasFaces())
 	{
-		myMesh->indices.resize(mesh->mNumFaces * 3);	//assume each face is a triangle
+		myMesh->indices.resize(mesh->mNumFaces * 3);
 
 		for (uint y = 0; y < mesh->mNumFaces; y++)
 		{
@@ -164,56 +162,3 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const char*
 
 	return *myMesh;
 }
-
-//void ModuleMesh::InitBoundingBoxes()
-//{
-//	obb.SetNegativeInfinity();
-//	globalAABB.SetNegativeInfinity();
-//
-//	for (const auto& mesh : ourMeshes) {
-//		std::vector<float3> floatArray;
-//		floatArray.reserve(mesh->ourVertex.size());
-//
-//		for (const auto& vertex : mesh->ourVertex) {
-//			floatArray.push_back(vertex.Position);
-//		}
-//
-//		aabb.SetFrom(&floatArray[0], floatArray.size());
-//	}
-//}
-//
-//
-//void ModuleMesh::UpdateBoundingBoxes()
-//{
-//	for (const auto& gameobject : App->scene->game_objects)
-//	{
-//		if (gameobject != nullptr && gameobject->transform != nullptr)
-//		{	
-//			obb = aabb;
-//			obb.Transform(gameobject->
-// );
-//
-//			globalAABB.SetNegativeInfinity();
-//			globalAABB.Enclose(obb);
-//			RenderBoundingBoxes();
-//		}
-//		else
-//		{
-//			LOG("Error: GameObject or its transform is null");
-//		}
-//		
-//	}
-//}
-//
-//void ModuleMesh::RenderBoundingBoxes()
-//{
-//	float3 verticesO[8];
-//	obb.GetCornerPoints(verticesO);
-//	App->renderer3D->DrawBoundingBox(verticesO, float3(0, 255, 0));
-//
-//	float3 verticesA[8];
-//	globalAABB.GetCornerPoints(verticesA);
-//	App->renderer3D->DrawBoundingBox(verticesA, float3(0, 255, 0));
-//}
-//
-

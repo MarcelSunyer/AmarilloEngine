@@ -192,7 +192,6 @@
     <ClInclude Include="External\Parson\parson.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Application.h" />
-    <ClInclude Include="Source\AssetDirectory.h" />
     <ClInclude Include="Source\CFF_Mesh.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
@@ -200,7 +199,6 @@
     <ClInclude Include="Source\ComponentMesh.h" />
     <ClInclude Include="Source\ComponentTexture.h" />
     <ClInclude Include="Source\ComponentTransform.h" />
-    <ClInclude Include="Source\Define_Resource.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />
@@ -221,6 +219,7 @@
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\RenderTexture.h" />
     <ClInclude Include="Source\ResourceManager.h" />
+    <ClInclude Include="Source\Resource_Def.h" />
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -271,7 +270,6 @@
     <ClCompile Include="External\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="External\Parson\parson.c" />
     <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\AssetDirectory.cpp" />
     <ClCompile Include="Source\CFF_Mesh.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
@@ -279,7 +277,6 @@
     <ClCompile Include="Source\ComponentMesh.cpp" />
     <ClCompile Include="Source\ComponentTexture.cpp" />
     <ClCompile Include="Source\ComponentTransform.cpp" />
-    <ClCompile Include="Source\Define_Resource.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\log.cpp" />
@@ -299,6 +296,7 @@
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\RenderTexture.cpp" />
+    <ClCompile Include="Source\Resoruce_Def.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>

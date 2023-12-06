@@ -469,12 +469,6 @@
     <ClInclude Include="Source\ComponentTransform.h">
       <Filter>Sources\GameObject\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Define_Resource.h">
-      <Filter>Sources\ResourceManagment\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\AssetDirectory.h">
-      <Filter>Sources\ResourceManagment\Resources</Filter>
-    </ClInclude>
     <ClInclude Include="External\Parson\parson.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
@@ -484,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="Source\ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Resource_Def.h">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -700,12 +697,6 @@
     <ClCompile Include="Source\ComponentTransform.cpp">
       <Filter>Sources\GameObject\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Define_Resource.cpp">
-      <Filter>Sources\ResourceManagment\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\AssetDirectory.cpp">
-      <Filter>Sources\ResourceManagment\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="External\Parson\parson.c">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
@@ -715,6 +706,9 @@
     </ClCompile>
     <ClCompile Include="Source\ModuleFieSystem.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Resoruce_Def.cpp">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
