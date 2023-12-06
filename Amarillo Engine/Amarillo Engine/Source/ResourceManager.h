@@ -67,5 +67,4 @@ private:
 
 	bool draw_resource_selector_win = false;
 };
-};
 #endif //__RESOURCE_MANAGER_H__

@@ -66,10 +66,10 @@ std::string IntToHexa(int value)
 	return result;
 }*/
 
-std::string GetUIDRandomHexadecimal()
-{
-	double val = GetUIDRandomInt();
-	std::string ret = IntToHexa(val);
-
-	return ret;
-}
+//std::string GetUIDRandomHexadecimal()
+//{
+//	double val = GetUIDRandomInt();
+//	std::string ret = IntToHexa(val);
+//
+//	return ret;
+//}

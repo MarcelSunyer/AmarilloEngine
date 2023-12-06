@@ -408,10 +408,10 @@ bool ModuleResourceManager::FileIsMeta(const char* filepath)
 	return ret;
 }
 
-std::string ModuleResourceManager::GetNewUID()
-{
-	return GetUIDRandomHexadecimal();
-}
+//std::string ModuleResourceManager::GetNewUID()
+//{
+//	return GetUIDRandomHexadecimal();
+//}
 
 bool ModuleResourceManager::DrawResourceSelector(const char* id, const char* name, ResourceType type, Resource*& res)
 {
