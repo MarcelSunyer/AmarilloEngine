@@ -6,13 +6,16 @@
 #include "Random.h"
 #include <map>
 #include "Random.h"
+#include "Resource.h"
+#include "Resource_Loader.h"
 
 
-class ResourceManager : public Module
+class ModuleResourceManager : public Module
 {
+
 public:
-	ResourceManager(bool start_enabled = true);
-	virtual ~ResourceManager();
+	ModuleResourceManager(Application* app, bool start_enabled = true);
+	virtual ~ModuleResourceManager();
 
 	bool Awake();
 	bool Start();
@@ -64,6 +67,5 @@ private:
 
 	bool draw_resource_selector_win = false;
 };
-
 };
 #endif //__RESOURCE_MANAGER_H__

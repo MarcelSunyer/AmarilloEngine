@@ -44,3 +44,32 @@ std::string ToLowerCase(std::string str)
 
 	return str;
 }
+/*
+int GetRandomValue(int range_1, int range_2)
+{
+	 rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<> dis(range_1, range_2);
+
+	return dis(gen);
+}
+int GetUIDRandomInt()
+{
+	return GetRandomValue(0, INT_MAX);
+}
+
+std::string IntToHexa(int value)
+{
+	std::stringstream stream;
+	stream << std::hex << value;
+	std::string result(stream.str());
+	return result;
+}*/
+
+std::string GetUIDRandomHexadecimal()
+{
+	double val = GetUIDRandomInt();
+	std::string ret = IntToHexa(val);
+
+	return ret;
+}

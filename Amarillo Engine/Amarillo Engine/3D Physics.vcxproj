@@ -199,6 +199,7 @@
     <ClInclude Include="Source\ComponentMesh.h" />
     <ClInclude Include="Source\ComponentTexture.h" />
     <ClInclude Include="Source\ComponentTransform.h" />
+    <ClInclude Include="Source\Functions.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Light.h" />
@@ -222,6 +223,7 @@
     <ClInclude Include="Source\ResourceManager.h" />
     <ClInclude Include="Source\ResourceMesh.h" />
     <ClInclude Include="Source\ResourceTexture.h" />
+    <ClInclude Include="Source\Resource_Loader.h" />
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +281,7 @@
     <ClCompile Include="Source\ComponentMesh.cpp" />
     <ClCompile Include="Source\ComponentTexture.cpp" />
     <ClCompile Include="Source\ComponentTransform.cpp" />
+    <ClCompile Include="Source\Functions.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\log.cpp" />
@@ -302,6 +305,7 @@
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\ResourceMesh.cpp" />
     <ClCompile Include="Source\ResourceTexture.cpp" />
+    <ClCompile Include="Source\Resource_Loader.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
