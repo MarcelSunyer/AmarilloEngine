@@ -17,9 +17,9 @@ public:
 
 	void CleanUp();
 
-	void SetFaces(float* vertices, uint num_vertices, uint* indices, uint num_indices);
-	void SetUvs(float* uvs, uint num_uvs);
-	void SetTransform(float3 pos, Quat rotation, float3 scale);
+	void SetFaces(float* _vertices, uint _num_vertices, uint* _indices, uint _num_indices);
+	void SetUvs(float* _uvs, uint _num_uvs);
+	void SetTransform(float3 _pos, Quat _rotation, float3 _scale);
 
 	uint GetIdVertices();
 	uint GetNumVertices();
