@@ -154,6 +154,32 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const char*
 		}
 	}
 
+	// Process Textures
+
+	//if (mesh->mMaterialIndex >= 0)
+	//{
+	//	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+	//	uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
+
+	//	if (numTextures > 0) {
+
+	//		aiString aiPath;
+	//		material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
+
+	//		std::string path = directory + aiPath.C_Str();
+
+	//		Texture tmpTexture;
+
+	//		tmpTexture.path = path;
+	//		tmpTexture.type = TextureTypes::DIFFUSE;
+
+	//		textures.push_back(tmpTexture);
+
+	//	}
+
+	//}
+
 	ComponentMesh* mesh_component = (ComponentMesh*)newMesh->AddComponent(ComponentTypes::MESH);
 	mesh_component->SetMesh(myMesh);
 	mesh_component->SetPath(file_path);
