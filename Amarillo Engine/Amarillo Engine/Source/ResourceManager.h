@@ -53,7 +53,7 @@ public:
 	bool IsAssetMeta(const char* filepath, const char* metapath);
 	bool FileIsMeta(const char* filepath);
 
-	std::string GetNewUID();
+	//std::string GetNewUID();
 
 	bool DrawResourceSelector(const char* id, const char* name, ResourceType type, Resource*& res);
 

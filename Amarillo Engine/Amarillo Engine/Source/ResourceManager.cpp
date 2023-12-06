@@ -121,7 +121,7 @@ Resource* ModuleResourceManager::Get(std::string unique_id, ResourceType type)
 }
 Resource* ModuleResourceManager::CreateNewResource(ResourceType type)
 {
-	std::string new_id = GetNewUID();
+	std::string new_id = "juan";//GetNewUID();
 	return CreateNewResource(type, new_id);
 }
 Resource* ModuleResourceManager::CreateNewResource(ResourceType type, std::string unique_id)
