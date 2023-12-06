@@ -129,7 +129,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 					if (ext != NULL)
 					{
-						if (strcmp(ext, ".fbx") == 0 || strcmp(ext, ".FBX") == 0 )
+						if (strcmp(ext, ".fbx") == 0 || strcmp(ext, ".FBX" ) == 0 || strcmp(ext, ".dae") == 0 || strcmp(ext, ".DAE") == 0)
 						{
 							LOG(("Mesh dropped on window - File Path: %s", dropped_filedir));
 							// Load mesh
