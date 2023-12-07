@@ -3,7 +3,9 @@
 #include "../External/ImGui/imgui.h"
 #include "../External/Parson/parson.h"
 #include "ModuleScene.h"
-//Importers aqui
+#include "Resource_Mesh_Loader.h"
+#include "Resource_Texture_Loader.h"
+
 
 
 ModuleResourceManager::ModuleResourceManager(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -16,15 +18,29 @@ ModuleResourceManager::~ModuleResourceManager()
 
 bool ModuleResourceManager::Awake()
 {
-	//Meter todos los loaders
-	bool ret = true;
-	
-	return ret;
+	return true;
 }
 
 bool ModuleResourceManager::Start()
 {
-	return false;
+	//Meter todos los loaders
+	bool ret = true;
+
+
+	ResourceMeshLoader* mesh_loader = new ResourceMeshLoader();
+	mesh_loader->AddAssetExtensionToLoad("fbx");
+	mesh_loader->AddLibraryExtensionToLoad("sustomesh");
+
+	ResourceTextureLoader* texture_loader = new ResourceTextureLoader();
+	texture_loader->AddAssetExtensionToLoad("png");
+	texture_loader->AddAssetExtensionToLoad("tga");
+	texture_loader->AddAssetExtensionToLoad("dds");
+	texture_loader->AddLibraryExtensionToLoad("dds");
+
+	AddLoader(mesh_loader);
+	AddLoader(texture_loader);
+
+	return ret;
 }
 
 bool ModuleResourceManager::CleanUp()
