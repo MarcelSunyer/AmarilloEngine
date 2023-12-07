@@ -41,6 +41,9 @@ public:
 	Texture* LoadTexture(std::string textfile);
 
 	void LoadTextureToGameObject(GameObject* texture, std::string textfile);
+	Texture* LoadOrGetTexture(const std::string& resolved_path);
+
+	std::string ResolveTexturePath(const std::string& modelFilePath, const std::string& textureRelativePath);
 
 	std::map<std::string, Texture*> textures;
 

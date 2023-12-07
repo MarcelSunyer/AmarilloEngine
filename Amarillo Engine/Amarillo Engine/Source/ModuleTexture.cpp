@@ -89,4 +89,33 @@ void ModuleTexture::LoadTextureToGameObject(GameObject* texture, std::string tex
 
 }
 
+Texture* ModuleTexture::LoadOrGetTexture(const std::string& resolved_path)
+{
+    bool found = textures.find(resolved_path) != textures.end();
+    if (found)
+    {
+        return textures[resolved_path];
+    }
+
+    // Load the texture using the resolved path
+    Texture* new_texture = LoadTexture(resolved_path);
+
+    return new_texture;
+}
+
+std::string ModuleTexture::ResolveTexturePath(const std::string& modelFilePath, const std::string& textureRelativePath)
+{
+    namespace fs = std::filesystem;
+
+    // Obtener el directorio del modelo
+    fs::path modelPath(modelFilePath);
+    fs::path modelDirectory = modelPath.parent_path();
+
+    // Concatenar el directorio del modelo con la ruta relativa de la textura
+    fs::path resolvedPath = modelDirectory / fs::path(textureRelativePath);
+
+    // Devolver la ruta como una cadena
+    return resolvedPath.string();
+}
+
 

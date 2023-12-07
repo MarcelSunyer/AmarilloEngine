@@ -26,6 +26,7 @@ public:
 	struct Mesh {
 		std::vector<unsigned int> indices;
 		std::vector<Vertex> ourVertex;
+		/*std::vector<Texture*> ourTextures;*/
 		unsigned int VBO = 0, EBO = 0;
 	};
 	ModuleMesh(Application* app, bool start_enabled = true);
@@ -39,7 +40,7 @@ public:
 	bool CleanUp();
 	void DrawNormals();
 	void GetSceneInfo(aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject);
-	Mesh ProcessMesh(aiMesh* mesh, aiNode* node, const char* file_path, GameObject* gameObject);
+	ModuleMesh::Mesh ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject);
 
 	
 

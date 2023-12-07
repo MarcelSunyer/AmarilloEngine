@@ -96,12 +96,12 @@ void ModuleMesh::GetSceneInfo(aiNode* node, const aiScene* scene, const char* fi
 
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-		ProcessMesh(scene->mMeshes[node->mMeshes[i]], node, file_path, gameObject);
+		ProcessMesh(scene->mMeshes[node->mMeshes[i]], node, scene, file_path, gameObject);
 
 	}
 }
 
-ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const char* file_path, GameObject* gameObject)
+ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject)
 {
 	Mesh* myMesh = new Mesh();
 
@@ -155,30 +155,26 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const char*
 	}
 
 	// Process Textures
+	if (mesh->mMaterialIndex >= 0)
+	{
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-	//if (mesh->mMaterialIndex >= 0)
-	//{
-	//	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
 
-	//	uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
+		for (uint i = 0; i < numTextures; i++)
+		{
+			aiString aiPath;
+			material->GetTexture(aiTextureType_DIFFUSE, i, &aiPath);
 
-	//	if (numTextures > 0) {
+			std::string path = std::string(aiPath.C_Str());
+			std::string resolvedPath = App->texture->ResolveTexturePath(file_path, path);
 
-	//		aiString aiPath;
-	//		material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
+			Texture* tmpTexture = App->texture->LoadOrGetTexture(resolvedPath);
 
-	//		std::string path = directory + aiPath.C_Str();
-
-	//		Texture tmpTexture;
-
-	//		tmpTexture.path = path;
-	//		tmpTexture.type = TextureTypes::DIFFUSE;
-
-	//		textures.push_back(tmpTexture);
-
-	//	}
-
-	//}
+			// Usar ourTextures en lugar de textures (De momento no va)
+			//myMesh->ourTextures.push_back(tmpTexture);
+		}
+	}
 
 	ComponentMesh* mesh_component = (ComponentMesh*)newMesh->AddComponent(ComponentTypes::MESH);
 	mesh_component->SetMesh(myMesh);
