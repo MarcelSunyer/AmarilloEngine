@@ -172,7 +172,7 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiSce
 			Texture* tmpTexture = App->texture->LoadOrGetTexture(resolvedPath);
 
 			// Usar ourTextures en lugar de textures (De momento no va)
-			//myMesh->ourTextures.push_back(tmpTexture);
+			myMesh->ourTextures.push_back(tmpTexture);
 		}
 	}
 
