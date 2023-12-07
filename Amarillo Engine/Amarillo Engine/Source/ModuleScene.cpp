@@ -153,9 +153,6 @@ void ModuleScene::ImGuizmoHandling()
 	float4x4 modelProjection = selected_transform->local_matrix;
 	modelProjection.Transpose();
 
-	//ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
-	//ImGuizmo::
-
 	ImGuizmo::SetRect(App->editor->windowPosition.x, App->editor->windowPosition.y + App->editor->offset, App->editor->size_texture_scene.x, App->editor->size_texture_scene.y);
 
 	//gizmoOperation
@@ -182,7 +179,6 @@ void ModuleScene::ImGuizmoHandling()
 
 void ModuleScene::UpdateGameObjects()
 {
-	
 	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
 	{
 		GameObject* update = *it;
