@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ResourceManager.h"
 #include "ModuleJSON.h"
+#include "ModuleFileSystem.h"
 
 ResourceTextureLoader::ResourceTextureLoader() :
 	ResourceLoader(ResourceType::RT_TEXTURE, applic->file_system->GetLibraryTexturePath(), "TexturesLoader")
@@ -278,6 +279,11 @@ bool ResourceTextureLoader::ImportResourceFromLibrary(DecomposedFilePath d_filep
 	}
 
 	return ret;
+}
+
+bool ResourceTextureLoader::LoadAssetIntoScene(DecomposedFilePath decomposed_file_path)
+{
+	return false;
 }
 
 bool ResourceTextureLoader::IsAssetOnLibrary(DecomposedFilePath d_filepath, std::vector<std::string>& library_files_used)

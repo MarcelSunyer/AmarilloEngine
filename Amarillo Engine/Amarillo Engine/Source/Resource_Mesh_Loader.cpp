@@ -8,6 +8,10 @@
 #include "ResourceManager.h"
 #include "Resource.h"
 #include "ResourceTexture.h"
+#include "ComponentTransform.h"
+#include "../External/MathGeoLib/include/Math/Quat.h"
+#include "../External/MathGeoLib/include/Math/float3.h"
+
 
 ResourceMeshLoader::ResourceMeshLoader() :
 	ResourceLoader(ResourceType::RT_MESH, applic->file_system->GetLibraryMeshPath(), "MeshLoader")
@@ -61,14 +65,14 @@ bool ResourceMeshLoader::LoadFileToEngine(DecomposedFilePath d_filepath, std::ve
 			root->mTransformation.Decompose(aiscaling, airotation, aitranslation);
 			position = float3(aitranslation.x, aitranslation.y, aitranslation.z);
 			scale = float3(aiscaling.x, aiscaling.y, aiscaling.z);
-			rotation = Quat(airotation.x, airotation.y, airotation.z, airotation.w);
+			/*rotation = Quat(airotation.x, airotation.y, airotation.z, airotation.w);*/
 		}
 
 		// Create root go
 		GameObject* parent = new GameObject(" ");
 
 		parent->transform->SetLocalPosition(float3(position.x, position.y, position.z));
-		parent->transform->SetLocalRotation(Quat(rotation.x, rotation.y, rotation.w, rotation.z));
+		/*parent->transform->SetLocalRotation(Quat(rotation.x, rotation.y, rotation.w, rotation.z));*/
 		parent->transform->SetLocalScale(float3(scale.x, scale.y, scale.z));
 
 		std::string name = applic->file_system->GetFileNameFromFilePath(d_filepath.file_path.c_str());
@@ -342,7 +346,7 @@ bool ResourceMeshLoader::ImportResourceFromLibrary(DecomposedFilePath d_filepath
 	return ret;
 }
 
-bool ResourceMeshLoader::LoadAssetIntoScene(DecomposedFilePath decomposed_file_path)
+bool ResourceMeshLoader::LoadAssetIntoSceneMesh(DecomposedFilePath decomposed_file_path)
 {
 	bool ret = false;
 
@@ -513,10 +517,10 @@ void ResourceMeshLoader::RecursiveLoadMesh(const aiScene* scene, aiNode* node, c
 
 			RELEASE_ARRAY(uvs);
 		}
-
+		//Todo: Peta la rotracion ns pq
 		// POSITION, ROTATION AND SCALE
 		float3 position = float3::zero;
-		Quat rotation = Quat::identity;
+		//Quat rotation = Quat::identity;
 		float3 scale = float3::one;
 
 		if (mesh_valid && node_valid)
@@ -528,9 +532,9 @@ void ResourceMeshLoader::RecursiveLoadMesh(const aiScene* scene, aiNode* node, c
 			node->mTransformation.Decompose(aiscaling, airotation, aitranslation);
 			position = float3(aitranslation.x, aitranslation.y, aitranslation.z);
 			scale = float3(aiscaling.x, aiscaling.y, aiscaling.z);
-			rotation = Quat(airotation.x, airotation.y, airotation.z, airotation.w);
+			//rotation = Quat(airotation.x, airotation.y, airotation.z, airotation.w);
 
-			mesh->SetTransform(position, rotation, scale);
+			//mesh->SetTransform(position, rotation, scale);
 		}
 
 		// GENERAL BBOX
@@ -570,7 +574,7 @@ void ResourceMeshLoader::RecursiveLoadMesh(const aiScene* scene, aiNode* node, c
 				go->SetParent(parent);
 
 				go->transform->SetLocalPosition(mesh->GetPosition());
-				go->transform->SetLocalRotation(mesh->GetRotation());
+				//go->transform->SetLocalRotation(mesh->GetRotation());
 				go->transform->SetLocalScale(mesh->GetScale());
 
 				go->AddComponent(MESH);

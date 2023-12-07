@@ -502,6 +502,12 @@
     <ClInclude Include="resource.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Resource_Mesh_Loader.h">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Resource_Texture_Loader.h">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -741,6 +747,12 @@
     </ClCompile>
     <ClCompile Include="Source\Application.cpp">
       <Filter>Sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Resource_Mesh_Loader.cpp">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Resource_Texture_Loader.cpp">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

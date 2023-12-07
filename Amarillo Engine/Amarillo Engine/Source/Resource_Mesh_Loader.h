@@ -2,6 +2,9 @@
 #define __RESOURCE_MESH_LOADER_H__
 
 #include "Resource_Loader.h"
+#include "../External/MathGeoLib/include/Geometry/AABB.h"
+#include "../External/Assimp/include/scene.h"
+
 
 
 class UsedResource
@@ -41,7 +44,7 @@ public:
 	bool ExportResourceToLibrary(Resource* resource);
 	bool ImportResourceFromLibrary(DecomposedFilePath decomposed_file_path);
 
-	bool LoadAssetIntoScene(DecomposedFilePath decomposed_file_path);
+	bool LoadAssetIntoSceneMesh(DecomposedFilePath decomposed_file_path);
 
 	bool IsAssetOnLibrary(DecomposedFilePath d_filepath, std::vector<std::string>& library_files_used);
 	bool RenameAsset(DecomposedFilePath decomposed_file_path, const char* new_name);
