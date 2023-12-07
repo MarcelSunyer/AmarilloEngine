@@ -193,6 +193,7 @@ bool ModuleRenderer3D::Init()
 
 	return ret;
 }
+//Juan
 
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
@@ -200,12 +201,13 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-
+// PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	scene_render_texture->Bind();
 	
 	RenderFromCamera(App->camera->GetEditorCamera(),true, activeCullingOnEditorCamera);
+	//RenderOnFrustrum(App->camera->GetEditorCamera(),App->mesh->globalAABB);
 	scene_render_texture->Unbind();
 	
 	if (App->camera->active_camera != nullptr)

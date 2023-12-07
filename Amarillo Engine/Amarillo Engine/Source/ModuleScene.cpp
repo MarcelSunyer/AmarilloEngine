@@ -246,9 +246,11 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 
 	}
 
+	//I Initially wanted to do a <algorythm>Sort, but a custom operator couldn't take in external stuff like ray.
+
 	std::vector<GameObject*> game_objects_sorted;
 
-	
+	//Turn map to vector cause iterating vectors is easy :)
 	for (std::map<float, GameObject*>::iterator i = game_object_candidates.begin(); i != game_object_candidates.end(); i++)
 	{
 		game_objects_sorted.push_back(i->second);
@@ -266,6 +268,7 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 
 			local_ray.Transform(c_transform->GetTransformMatrix().Inverted());
 
+			//Iterate points in a mesh jump 3 by 3 because triangles
 			for (uint j = 0; j < mesh->indices.size(); j += 3) {
 				uint triangle_indices[3] = { mesh->indices[j], mesh->indices[j + 1], mesh->indices[j + 2] };
 

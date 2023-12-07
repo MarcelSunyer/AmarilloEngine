@@ -383,7 +383,7 @@ void ModuleEditor::DrawEditor()
         App->input->quit = true;
     }
 
-
+    App->scene->ImGuizmoHandling();
    
     ImGui::EndMainMenuBar();
     ImGui::Render();
@@ -402,7 +402,7 @@ void ModuleEditor::DrawEditor()
 
 update_status ModuleEditor::Update(float dt)
 {
-    App->scene->ImGuizmoHandling();
+    //Arreglar mouse picking con el gizmo
     if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
     {
         OnClick(App->input->GetMouseX(), App->input->GetMouseY());
@@ -717,5 +717,5 @@ void ModuleEditor::OnClick(float pos_x, float pos_y)
     
     LineSegment latest_ray = App->camera->editor_camera->Camera_frustum.UnProjectLineSegment(normalPos_x, normalPos_y);
 
-    applic->scene->ClickRaycast(latest_ray);
+    applic->scene->TestGameObjectSelection(latest_ray);
 }
