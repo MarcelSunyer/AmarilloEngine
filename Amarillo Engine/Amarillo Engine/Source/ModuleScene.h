@@ -43,7 +43,7 @@ public:
 
 	void DebugDrawGameObjects();
 
-	void TestGameObjectSelection(const LineSegment& ray);
+	void ClickRaycast(const LineSegment& ray);
 	bool IsPointInsideAABB(const float3& point, const AABB& aabb);
 
 public:
