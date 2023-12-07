@@ -192,7 +192,6 @@
     <ClInclude Include="External\Parson\parson.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Application.h" />
-    <ClInclude Include="Source\CFF_Mesh.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentCamera.h" />
@@ -276,7 +275,6 @@
     <ClCompile Include="External\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="External\Parson\parson.c" />
     <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\CFF_Mesh.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentCamera.cpp" />

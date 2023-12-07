@@ -38,14 +38,6 @@ update_status ModuleScene::Update(float dt)
 		//App->camera->active_camera->OnClick(App->input->GetMouseX(), App->window->GetWindowSize()[0] - App->input->GetMouseY());
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-	{
-		ComponentMesh* component = (ComponentMesh*)(App->editor->GameObject_selected->GetComponent(ComponentTypes::MESH));
-
-
-		CFF_Mesh::SaveMeshToFile(component->mesh_, std::string("../Library/") + App->editor->GameObject_selected->mName);
-		LOG("File created: %s", App->editor->GameObject_selected->mName)
-	}
 
 
 	UpdateGameObjects();
