@@ -89,15 +89,15 @@ void ModuleMesh::DrawNormals() {
 
 void ModuleMesh::GetSceneInfo(aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject)
 {
-	for (unsigned int i = 0; i < node->mNumChildren; i++)
-	{
-		GetSceneInfo(node->mChildren[i], scene, file_path, gameObject);
-	}
-
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		ProcessMesh(scene->mMeshes[node->mMeshes[i]], node, scene, file_path, gameObject);
 
+	}
+
+	for (unsigned int i = 0; i < node->mNumChildren; i++)
+	{
+		GetSceneInfo(node->mChildren[i], scene, file_path, gameObject);
 	}
 }
 
@@ -168,17 +168,11 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiSce
 
 			std::string path = std::string(aiPath.C_Str());
 
-			///
-			/*std::string resolvedPath = App->texture->ResolveTexturePath(file_path, path);
-
-			Texture* tmpTexture = App->texture->LoadOrGetTexture(resolvedPath);*/
-			///
-
 			Texture tmpTexture;
 
 			tmpTexture.path_ = path;
 
-			// Usar ourTextures en lugar de textures (De momento no va)
+			// Usar ourTextures en lugar de textures
 			myMesh->ourTextures.push_back(&tmpTexture);
 			
 		}

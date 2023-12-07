@@ -29,6 +29,18 @@ public:
 		std::vector<Vertex> ourVertex;
 		std::vector<Texture*> ourTextures;
 		unsigned int VBO = 0, EBO = 0;
+
+		Mesh()
+		{
+
+		}
+
+		Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture*>& textures)
+		{
+			this->indices = indices;
+			this->ourVertex = vertices;
+			this->ourTextures = textures;
+		}
 	};
 	ModuleMesh(Application* app, bool start_enabled = true);
 
