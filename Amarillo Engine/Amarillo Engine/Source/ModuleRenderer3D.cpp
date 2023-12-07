@@ -386,8 +386,8 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_TEXTURE_COORD_ARRAY);
 			//Bind Mesh
-			glBindBuffer(GL_ARRAY_BUFFER, componentMesh->mesh->VBO);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, componentMesh->mesh->EBO);
+			glBindBuffer(GL_ARRAY_BUFFER, componentMesh->mesh_->VBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, componentMesh->mesh_->EBO);
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glEnableClientState(GL_NORMAL_ARRAY);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -413,7 +413,7 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 			glNormalPointer(GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, Normal));
 			glTexCoordPointer(2, GL_FLOAT, sizeof(ModuleMesh::Vertex), (void*)offsetof(ModuleMesh::Vertex, TexCoords));
 
-			glDrawElements(GL_TRIANGLES, componentMesh->mesh->indices.size(), GL_UNSIGNED_INT, NULL);
+			glDrawElements(GL_TRIANGLES, componentMesh->mesh_->indices.size(), GL_UNSIGNED_INT, NULL);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 

@@ -43,7 +43,7 @@ update_status ModuleScene::Update(float dt)
 		ComponentMesh* component = (ComponentMesh*)(App->editor->GameObject_selected->GetComponent(ComponentTypes::MESH));
 
 
-		CFF_Mesh::SaveMeshToFile(component->mesh, std::string("../Library/") + App->editor->GameObject_selected->mName);
+		CFF_Mesh::SaveMeshToFile(component->mesh_, std::string("../Library/") + App->editor->GameObject_selected->mName);
 		LOG("File created: %s", App->editor->GameObject_selected->mName)
 	}
 
@@ -259,7 +259,7 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 	for (uint i = 0; i < game_objects_sorted.size(); i++)
 	{
 		ComponentMesh* mesh_to_test = (ComponentMesh*)game_objects_sorted[i]->GetComponent(ComponentTypes::MESH);
-		ModuleMesh::Mesh* mesh = mesh_to_test->mesh;
+		ModuleMesh::Mesh* mesh = mesh_to_test->mesh_;
 		if (mesh != nullptr)
 		{
 			LineSegment local_ray = ray;

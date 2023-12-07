@@ -23,7 +23,7 @@ void ComponentMesh::Update() {
 
 void ComponentMesh::SetMesh(ModuleMesh::Mesh* mesh)
 {
-	this->mesh = mesh;
+	this->mesh_ = mesh;
 	InitBoundingBoxes();
 }
 
@@ -37,8 +37,8 @@ void ComponentMesh::OnEditor() {
 	if (ImGui::CollapsingHeader("Component Mesh"))
 	{
 		ImGui::Text("Path: %s", paths),
-		ImGui::Text("Index: %d", mesh->indices.size());
-		ImGui::Text("Vertices: %d", mesh->ourVertex.size());
+		ImGui::Text("Index: %d", mesh_->indices.size());
+		ImGui::Text("Vertices: %d", mesh_->ourVertex.size());
 	}
 }
 
@@ -53,12 +53,12 @@ void ComponentMesh::InitBoundingBoxes()
 	obb.SetNegativeInfinity();
 	globalAABB.SetNegativeInfinity();
 
-	if (mesh != NULL)
+	if (mesh_ != NULL)
 	{
 		std::vector<float3> floatArray;
-		floatArray.reserve(mesh->ourVertex.size());
+		floatArray.reserve(mesh_->ourVertex.size());
 
-		for (const auto& vertex : mesh->ourVertex) {
+		for (const auto& vertex : mesh_->ourVertex) {
 			floatArray.push_back(vertex.Position);
 		}
 
@@ -68,7 +68,7 @@ void ComponentMesh::InitBoundingBoxes()
 
 void ComponentMesh::UpdateBoundingBoxes()
 {
-	if (mesh != nullptr)
+	if (mesh_ != nullptr)
 	{
 		obb = aabb;
 		obb.Transform(owner->transform->world_matrix);

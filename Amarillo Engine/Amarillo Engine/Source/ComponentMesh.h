@@ -9,7 +9,7 @@ class ComponentMesh : public Component {
 public:
 
 public:
-	ModuleMesh::Mesh* mesh;
+	ModuleMesh::Mesh* mesh_;
 	std::string paths;
 	AABB globalAABB;
 	float scale_factor = 1.0f;
