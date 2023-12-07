@@ -161,18 +161,26 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiSce
 
 		uint numTextures = material->GetTextureCount(aiTextureType_DIFFUSE);
 
-		for (uint i = 0; i < numTextures; i++)
+		if (numTextures > 0) 
 		{
 			aiString aiPath;
-			material->GetTexture(aiTextureType_DIFFUSE, i, &aiPath);
+			material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
 
 			std::string path = std::string(aiPath.C_Str());
-			std::string resolvedPath = App->texture->ResolveTexturePath(file_path, path);
 
-			Texture* tmpTexture = App->texture->LoadOrGetTexture(resolvedPath);
+			///
+			/*std::string resolvedPath = App->texture->ResolveTexturePath(file_path, path);
+
+			Texture* tmpTexture = App->texture->LoadOrGetTexture(resolvedPath);*/
+			///
+
+			Texture tmpTexture;
+
+			tmpTexture.path_ = path;
 
 			// Usar ourTextures en lugar de textures (De momento no va)
-			myMesh->ourTextures.push_back(tmpTexture);
+			myMesh->ourTextures.push_back(&tmpTexture);
+			
 		}
 	}
 
