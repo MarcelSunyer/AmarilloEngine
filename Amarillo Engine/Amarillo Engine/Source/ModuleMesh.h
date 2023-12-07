@@ -14,6 +14,7 @@
 #include "../External/Glew/include/glew.h"
 
 class GameObject;
+struct Texture;
 
 class ModuleMesh : public Module
 {
@@ -26,7 +27,7 @@ public:
 	struct Mesh {
 		std::vector<unsigned int> indices;
 		std::vector<Vertex> ourVertex;
-		/*std::vector<Texture*> ourTextures;*/
+		std::vector<Texture*> ourTextures;
 		unsigned int VBO = 0, EBO = 0;
 	};
 	ModuleMesh(Application* app, bool start_enabled = true);
