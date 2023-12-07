@@ -1,4 +1,5 @@
 #include "ModuleMesh.h"
+#include "Globals.h"
 #include "Application.h"
 #include "../External/Assimp/include/cimport.h"
 #include "../External/Assimp/include/scene.h"
@@ -168,9 +169,21 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiSce
 
 			std::string path = std::string(aiPath.C_Str());
 
+			////Setear el path a la fuerza
+			std::string asset_dir = "../Assets/";
+			//path = asset_dir + ObtainFileName(path);
+
 			Texture tmpTexture;
 
-			tmpTexture.path_ = path;
+			tmpTexture.path_ = asset_dir + path;
+
+			ComponentTexture* text_component = (ComponentTexture*)newMesh->AddComponent(ComponentTypes::TEXTURE);
+			App->renderer3D->BindBuffers();
+			text_component->SetTexture(&tmpTexture);
+			LOG("File TEXTURE Path: %s", tmpTexture.path_.c_str());
+			
+			
+			
 
 			// Usar ourTextures en lugar de textures
 			myMesh->ourTextures.push_back(&tmpTexture);
@@ -181,8 +194,28 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiSce
 	ComponentMesh* mesh_component = (ComponentMesh*)newMesh->AddComponent(ComponentTypes::MESH);
 	mesh_component->SetMesh(myMesh);
 	mesh_component->SetPath(file_path);
+	LOG("File MESH Path: %s", file_path);
+	
 
+	//App->scene->game_objects.push_back(newMesh);
 	ourMeshes.push_back(myMesh);
 
+
+	
+
 	return *myMesh;
+}
+
+std::string ModuleMesh::ObtainFileName(const std::string& ruta) {
+	// Encuentra la posición de la última barra diagonal en la ruta
+	size_t ultimaBarra = ruta.find_last_of("\\/");
+
+	// Si se encuentra la barra, extrae el nombre del archivo
+	if (ultimaBarra != std::string::npos) {
+		return ruta.substr(ultimaBarra + 1);
+	}
+	else {
+		// Si no hay barra, la ruta en sí es el nombre del archivo
+		return ruta;
+	}
 }

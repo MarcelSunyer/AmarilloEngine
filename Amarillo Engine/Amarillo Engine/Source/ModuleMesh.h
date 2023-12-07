@@ -55,6 +55,8 @@ public:
 	void GetSceneInfo(aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject);
 	ModuleMesh::Mesh ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject);
 
+	std::string ObtainFileName(const std::string& ruta);
+
 	
 
 	

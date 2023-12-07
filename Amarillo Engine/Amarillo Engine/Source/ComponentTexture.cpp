@@ -30,7 +30,7 @@ void ComponentTexture::OnEditor() {
     {
         if (texture)
         {
-            ImGui::Text("Path: %s", texture->path_);
+            ImGui::Text("Path: %s", texture->path_.c_str());
             ImGui::Text("Image:");
 
             ImGui::Image(reinterpret_cast<void*>(static_cast<size_t>(texture->textID)), ImVec2(100, 100));
