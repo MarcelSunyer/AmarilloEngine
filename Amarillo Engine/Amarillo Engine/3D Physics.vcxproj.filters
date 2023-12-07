@@ -64,6 +64,9 @@
     <Filter Include="Sources\ResourceManagment\Loaders">
       <UniqueIdentifier>{dd2ebde7-eb9b-40e8-8b5c-2054957e4213}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Main">
+      <UniqueIdentifier>{e86c6448-8d5b-4a3c-b73e-f8d58ea13bb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -95,12 +98,6 @@
     </ClInclude>
     <ClInclude Include="Source\Timer.h">
       <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Application.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Globals.h">
-      <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Source\Color.h">
       <Filter>Sources\Containers</Filter>
@@ -429,7 +426,6 @@
     <ClInclude Include="Source\ModuleScene.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="External\ImGuizmo\GraphEditor.h">
       <Filter>Externals\ImGuizmo</Filter>
     </ClInclude>
@@ -497,6 +493,15 @@
     <ClInclude Include="Source\Functions.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Application.h">
+      <Filter>Sources\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Globals.h">
+      <Filter>Sources\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -528,12 +533,6 @@
     </ClCompile>
     <ClCompile Include="Source\Timer.cpp">
       <Filter>Sources\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Application.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main.cpp">
-      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Source\Color.cpp">
       <Filter>Sources\Containers</Filter>
@@ -736,6 +735,12 @@
     </ClCompile>
     <ClCompile Include="Source\Functions.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Sources\Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
