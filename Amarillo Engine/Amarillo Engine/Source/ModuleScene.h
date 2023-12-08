@@ -9,6 +9,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleEditor.h"
+#include "ModuleJSON.h"
 #include "../External/ImGuizmo/ImGuizmo.h"
 #include "../External/MathGeoLib/include/Geometry/LineSegment.h"
 #include "../External/MathGeoLib/include/Geometry/Triangle.h"
@@ -17,6 +18,7 @@
 #include <map>
 #include <vector>
 
+class JSON_Doc;
 
 class ModuleScene : public Module
 {
@@ -46,10 +48,14 @@ public:
 	void TestGameObjectSelection(const LineSegment& ray);
 	bool IsPointInsideAABB(const float3& point, const AABB& aabb);
 
+	void SaveScene();
+	void LoadScene();
+
 public:
 	std::vector<GameObject*> game_objects; 
 	GameObject* root_object = nullptr;
 
+	//JSON_Doc loadedScene;
 
 	//ImGuizmo
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
@@ -57,4 +63,4 @@ public:
 
 };
 
-#endif //MODULE_IMPORTER
+#endif //MODULE_SCENE

@@ -5,6 +5,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "ModuleFileSystem.h"
+#include "GameObject.h"
 #include "../External/Parson/parson.h"
 
 #include "../External/MathGeoLib/include/MathBuildConfig.h"
@@ -61,6 +62,16 @@ public:
 private:
 	bool FindValue(const char* str, json_value_type type);
 	bool FindArrayValue(const char* array, int index, json_value_type type);
+
+	//save Scene 
+	void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);
+	void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
+	void SetComponent(JSON_Object* componentObject, const Component& component);
+
+	//load Scene
+	std::vector<GameObject*> GetHierarchy(const char* key) const;
+	void GetGameObject(const std::vector<GameObject*>& gameObjects, const JSON_Object* gameObjectObject, GameObject& gameObject) const;
+	void GetComponent(const JSON_Object* componentObject, Component& component) const;
 
 private:
 	JSON_Value* value = nullptr;

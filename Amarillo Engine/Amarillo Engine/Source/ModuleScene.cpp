@@ -1,6 +1,7 @@
 #include "ModuleScene.h"
 #include "../External/ImGuizmo/ImGuizmo.h"
 #include "CFF_Mesh.h"
+#include "ModuleJSON.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -200,6 +201,21 @@ bool ModuleScene::IsPointInsideAABB(const float3& point, const AABB& aabb)
 	return point.x >= aabb.minPoint.x && point.x <= aabb.maxPoint.x &&
 		point.y >= aabb.minPoint.y && point.y <= aabb.maxPoint.y &&
 		point.z >= aabb.minPoint.z && point.z <= aabb.maxPoint.z;
+}
+
+void ModuleScene::SaveScene()
+{
+	//loadedScene.SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
+	//loadedScene.SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
+	//loadedScene.SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
+	//loadedScene.SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	
+	//loadedScene.CreateJSON(applic->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
+}
+
+void ModuleScene::LoadScene()
+{
+
 }
 
 void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
