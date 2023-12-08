@@ -4,6 +4,7 @@
 #include "ModuleRenderer3D.h"
 #include "..\External\ImGui\backends/imgui_impl_sdl2.h"
 #include "ModuleEditor.h"
+#include "ResourceManager.h"
 
 
 #define MAX_KEYS 300
@@ -144,6 +145,8 @@ update_status ModuleInput::PreUpdate(float dt)
 
 							App->renderer3D->BindBuffers();
 						}
+
+						App->resourceManager->LoadNewFile(dropped_filedir);
 					}
 
 					// Free memory

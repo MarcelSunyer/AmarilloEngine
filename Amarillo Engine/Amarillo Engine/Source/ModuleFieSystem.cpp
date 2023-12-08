@@ -7,7 +7,6 @@
 
 FileSystem::FileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
 	assets_path = CreateFolder(App->GetBasePath(), "Assets");
 	library_path = CreateFolder(App->GetBasePath(), "Library");
 	library_mesh_path = CreateFolder(library_path.c_str(), "Meshes");
@@ -650,7 +649,31 @@ bool FileSystem::FileSave(const char* path, const char* file_content, const char
 	}
 
 	if (new_file)
+	{
 		fclose(new_file);
+	}
+
+	return ret;
+}
+
+bool FileSystem::FileSave(std::filesystem::path path, const char* file_content, int size)
+{
+	bool ret = false;
+
+	const char* path_c = path.string().c_str();
+
+	std::ofstream outputFile(path, std::ios::binary);
+
+	if (outputFile.is_open())
+	{
+		outputFile.write(file_content, size);
+		outputFile.close();
+		ret = true;
+	}
+	else
+	{
+		LOG("Error saving file %s: ", path_c);
+	}
 
 	return ret;
 }

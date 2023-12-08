@@ -113,6 +113,7 @@
     <ClInclude Include="External\Assimp\include\vector2.h" />
     <ClInclude Include="External\Assimp\include\vector3.h" />
     <ClInclude Include="External\Assimp\include\version.h" />
+    <ClInclude Include="External\Guid\uuid.h" />
     <ClInclude Include="External\ImGuizmo\GraphEditor.h" />
     <ClInclude Include="External\ImGuizmo\ImCurveEdit.h" />
     <ClInclude Include="External\ImGuizmo\ImGradient.h" />
@@ -222,9 +223,9 @@
     <ClInclude Include="Source\ResourceManager.h" />
     <ClInclude Include="Source\ResourceMesh.h" />
     <ClInclude Include="Source\ResourceTexture.h" />
-    <ClInclude Include="Source\Resource_Loader.h" />
-    <ClInclude Include="Source\Resource_Mesh_Loader.h" />
-    <ClInclude Include="Source\Resource_Texture_Loader.h" />
+    <ClInclude Include="Source\ResourceLoader.h" />
+    <ClInclude Include="Source\ResourceMeshLoader.h" />
+    <ClInclude Include="Source\ResourceTextureLoader.h" />
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -305,9 +306,9 @@
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\ResourceMesh.cpp" />
     <ClCompile Include="Source\ResourceTexture.cpp" />
-    <ClCompile Include="Source\Resource_Loader.cpp" />
-    <ClCompile Include="Source\Resource_Mesh_Loader.cpp" />
-    <ClCompile Include="Source\Resource_Texture_Loader.cpp" />
+    <ClCompile Include="Source\ResourceLoader.cpp" />
+    <ClCompile Include="Source\ResourceMeshLoader.cpp" />
+    <ClCompile Include="Source\ResourceTextureLoader.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

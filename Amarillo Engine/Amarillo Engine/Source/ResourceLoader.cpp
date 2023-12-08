@@ -1,4 +1,4 @@
-#include "Resource_Loader.h"
+#include "ResourceLoader.h"
 
 ResourceLoader::ResourceLoader(ResourceType _resources_to_load, std::string _library_path, std::string _loader_name)
 {
@@ -14,12 +14,12 @@ ResourceLoader::~ResourceLoader()
 
 void ResourceLoader::AddAssetExtensionToLoad(const char* extension)
 {
-
+	assets_extensions_to_load.push_back(extension);
 }
 
 void ResourceLoader::AddLibraryExtensionToLoad(const char* extension)
 {
-
+	library_extensions_to_load.push_back(extension);
 }
 
 bool ResourceLoader::CanLoadExtensionAsset(const char* extension)
@@ -58,50 +58,7 @@ bool ResourceLoader::CanLoadExtensionLibrary(const char* extension)
 	return ret;
 }
 
-Resource* ResourceLoader::GetResource(std::string unique_id)
-{
-	std::map<std::string, Resource*>::iterator it = resources.find(unique_id);
-
-	if (it != resources.end())
-		return it->second;
-
-	return nullptr;
-}
-
-void ResourceLoader::AddResource(Resource* resource)
-{
-	resources[resource->GetUniqueId()] = resource;
-}
-
-bool ResourceLoader::DeleteResource(std::string unique_id)
-{
-	bool ret = false;
-
-	std::map<std::string, Resource*>::iterator it = resources.find(unique_id);
-
-	if (it != resources.end())
-	{
-		it->second->CleanUp();
-		RELEASE(it->second);
-		resources.erase(it);
-
-		ret = true;
-	}
-
-	return ret;
-}
-
-std::map<std::string, Resource*> ResourceLoader::GetResources()
-{
-	return resources;
-}
-
 ResourceType ResourceLoader::GetLoaderType()
 {
 	return resources_to_load;
-}
-
-float3 ResourceLoader::GetResourceColour() const
-{
-	return resource_colour;
 }

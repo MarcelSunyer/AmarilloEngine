@@ -52,6 +52,7 @@ public:
 	bool FileDelete(const char* filepath);
 	bool FolderDelete(const char* folderpath);
 	bool FileSave(const char* path, const char* file_content, const char* name, const char* extension, int size);
+	bool FileSave(std::filesystem::path path, const char* file_content, int size);
 	std::vector<std::string> GetFilesAndFoldersInPath(const char* path, const char* extension = "");
 	std::vector<std::string> GetFoldersInPath(const char* path);
 	std::vector<std::string> GetFilesInPath(const char* path, const char* extension = "");
