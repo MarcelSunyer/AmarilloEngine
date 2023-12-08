@@ -21,6 +21,18 @@ bool ModuleScene::Init()
 	GameObject* camera = CreateGameObject("Camera", nullptr);
 	camera->AddComponent(ComponentTypes::CAMERA);
 
+	//init loadedScene
+	
+	loadedScene = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
+
+	loadedScene->SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
+	loadedScene->SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
+	loadedScene->SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
+	loadedScene->SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	//loadedScene.SetHierarchy("Hierarchy", game_objects);
+	
+	loadedScene = App->json_module->CreateJSON(App->file_system->GetLibraryPath().c_str(), "Scene", "ascene");
+
 	return true;
 }
 
@@ -205,12 +217,12 @@ bool ModuleScene::IsPointInsideAABB(const float3& point, const AABB& aabb)
 
 void ModuleScene::SaveScene()
 {
-	//loadedScene.SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
-	//loadedScene.SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
-	//loadedScene.SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
-	//loadedScene.SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	loadedScene->SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
+	loadedScene->SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
+	loadedScene->SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
+	loadedScene->SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
 	
-	//loadedScene.CreateJSON(applic->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".yscene");
+	//loadedScene.CreateJSON(applic->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".ascene");
 }
 
 void ModuleScene::LoadScene()
