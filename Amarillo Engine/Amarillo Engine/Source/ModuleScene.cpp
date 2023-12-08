@@ -30,8 +30,9 @@ bool ModuleScene::Init()
 	loadedScene->SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
 	loadedScene->SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
 	//loadedScene.SetHierarchy("Hierarchy", game_objects);
+
 	
-	loadedScene = App->json_module->CreateJSON(App->file_system->GetLibraryPath().c_str(), "Scene", "ascene");
+	loadedScene = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
 
 	return true;
 }
@@ -49,6 +50,18 @@ update_status ModuleScene::Update(float dt)
 	{
 
 		//App->camera->active_camera->OnClick(App->input->GetMouseX(), App->window->GetWindowSize()[0] - App->input->GetMouseY());
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) 
+	{
+		LOG("Saved Scene!");
+		SaveScene();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		LOG("Loaded Scene!");
+		LoadScene();
 	}
 
 
@@ -217,10 +230,17 @@ bool ModuleScene::IsPointInsideAABB(const float3& point, const AABB& aabb)
 
 void ModuleScene::SaveScene()
 {
-	loadedScene->SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
-	loadedScene->SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
-	loadedScene->SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
-	loadedScene->SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	JSON_Doc tmpDoc;
+
+
+	tmpDoc.SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
+	tmpDoc.SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
+	tmpDoc.SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
+	tmpDoc.SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+
+	loadedScene = &tmpDoc;
+
+	tmpDoc.CleanUp();
 	
 	//loadedScene.CreateJSON(applic->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".ascene");
 }
