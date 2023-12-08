@@ -1,7 +1,6 @@
 #include "ModuleScene.h"
 #include "../External/ImGuizmo/ImGuizmo.h"
 #include "CFF_Mesh.h"
-#include "ModuleJSON.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -25,10 +24,10 @@ bool ModuleScene::Init()
 	
 	loadedScene = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
 
-	loadedScene->SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
-	loadedScene->SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
-	loadedScene->SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
-	loadedScene->SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	loadedScene.SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
+	loadedScene.SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
+	loadedScene.SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
+	loadedScene.SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
 	//loadedScene.SetHierarchy("Hierarchy", game_objects);
 
 	
@@ -232,13 +231,12 @@ void ModuleScene::SaveScene()
 {
 	JSON_Doc tmpDoc;
 
-
 	tmpDoc.SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
 	tmpDoc.SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
 	tmpDoc.SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
 	tmpDoc.SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
 
-	loadedScene = &tmpDoc;
+	loadedScene = tmpDoc;
 
 	tmpDoc.CleanUp();
 	

@@ -1,6 +1,6 @@
 #include "ResourceMesh.h"
 
-ResourceMesh::ResourceMesh(std::string unique_id) : Resource(unique_id, ResourceType::RT_TEXTURE)
+ResourceMesh::ResourceMesh(uuids::uuid unique_id) : Resource(unique_id, ResourceType::RT_TEXTURE)
 {
 
 }

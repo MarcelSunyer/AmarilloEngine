@@ -30,7 +30,7 @@ public:
 	// LOADER ---------------------------------------------------
 	ResourceType GetLoaderType();
 
-	virtual uuids::uuid CreateLibraryFromAsset(std::filesystem::path path) = 0;
+	virtual bool CreateLibraryFromAsset(std::filesystem::path path, uuids::uuid uid) = 0;
 	virtual Resource* LoadResourceFromLibrary(uuids::uuid guid) = 0;
 
 protected:

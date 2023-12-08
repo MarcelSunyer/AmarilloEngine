@@ -496,87 +496,25 @@ void FileSystem::FileMove(const char* filepath, const char* new_path, bool repla
 	}
 }
 
-bool FileSystem::FileCopyPaste(const char* filepath, const char* new_path, bool overwrite, std::string& resultant_path)
+bool FileSystem::FileCopyPaste(std::filesystem::path filepath, std::filesystem::path new_path, bool overwrite = false)
 {
-	bool ret = false;
+	std::filesystem::copy_options options = std::filesystem::copy_options::recursive;
 
-	std::string s_new_path = new_path;
-
-	if (s_new_path[s_new_path.length() - 1] != '\\')
+	if (overwrite)
 	{
-		s_new_path += '\\';
+		options |= std::filesystem::copy_options::overwrite_existing;
 	}
 
-	if (FolderExists(s_new_path.c_str()) && FileExists(filepath))
+	try 
 	{
-		DecomposedFilePath d_filepath = DecomposeFilePath(filepath);
-
-		if (d_filepath.path != new_path)
-		{
-			std::string original_name = d_filepath.file_name;
-
-			std::string new_filepath = s_new_path + d_filepath.file_name + "." + d_filepath.file_extension;
-
-			if (!overwrite)
-			{
-				d_filepath.file_name = FileRenameOnNameCollision(new_path, d_filepath.file_name.c_str(), d_filepath.file_extension.c_str());
-
-				std::string new_filepath = s_new_path + d_filepath.file_name + "." + d_filepath.file_extension;
-
-				bool need_rename = false;
-				if (d_filepath.file_name != original_name)
-					need_rename = true;
-
-				if (need_rename)
-					FileRename(filepath, d_filepath.file_name.c_str());
-
-				std::string curr_path = d_filepath.path + d_filepath.file_name + "." + d_filepath.file_extension;
-				std::string curr_new_path = s_new_path + d_filepath.file_name + "." + d_filepath.file_extension;
-				if (CopyFile(curr_path.c_str(), curr_new_path.c_str(), false) == 0)
-				{
-					DWORD error = GetLastError();
-					if (error != 0)
-						LOG("Error moving file:[%s] to [%s]", filepath, s_new_path.c_str())
-				}
-				else
-				{
-					resultant_path = curr_new_path;
-					ret = true;
-				}
-
-				if (need_rename)
-					FileRename(curr_path.c_str(), original_name.c_str());
-			}
-			else
-			{
-				if (FileExists(new_filepath.c_str()))
-				{
-					FileDelete(new_filepath.c_str());
-				}
-
-				if (CopyFile(filepath, new_filepath.c_str(), false) == 0)
-				{
-					DWORD error = GetLastError();
-					if (error != 0)
-						LOG("Error moving file:[%s] to [%s]", filepath, s_new_path.c_str())
-				}
-				else
-				{
-					resultant_path = new_filepath;
-					ret = true;
-				}
-
-			}
-		}
+		std::filesystem::copy(filepath, new_path, options);
+	}
+	catch (const std::filesystem::filesystem_error& e) 
+	{
+		return false;
 	}
 
-	return ret;
-}
-
-bool FileSystem::FileCopyPaste(const char* filepath, const char* new_path, bool overwrite = false)
-{
-	std::string result;
-	return FileCopyPaste(filepath, new_path, overwrite, result);
+	return true;
 }
 
 void FileSystem::FileCopyPasteWithNewName(const char* filepath, const char* new_path, const char* new_name)

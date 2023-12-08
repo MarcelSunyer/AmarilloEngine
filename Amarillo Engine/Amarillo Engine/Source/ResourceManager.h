@@ -32,22 +32,14 @@ public:
 	ResourceType GetLibraryResourceTypeFromExtension(const char* extension);
 
 	void LoadNewFile(std::string path);
+	void CreateMetaForAsset(std::filesystem::path assetpath, uuids::uuid uid);
+	void LoadResourcesFromAssets();
 
 	// Resource management
 	Resource* Get(std::string unique_id);
 	bool DeleteResource(std::string unique_id);
 
-	// Resource, assets and library management
-	//void LoadFileToEngine(const char* filepath, std::vector<Resource*>& resources = std::vector<Resource*>());
-	//void UnloadAssetFromEngine(const char* filepath);
-	//void RemoveAssetInfoFromEngine(const char* filepath);
-	//void ClearResourceFromGameObjects(Resource* res);
-	//void ExportResourceToLibrary(Resource* resource);
-	//void ImportResourceFromLibrary(const char* uid);
-	//void LoadAssetIntoScene(const char* filepath);
-	//bool IsAssetOnLibrary(const char* filepath, std::vector<std::string>& library_files_used = std::vector<std::string>());
-	//void ReimportAssetToEngine(const char* filepath);
-	//void RenameAsset(const char* filepath, const char* new_name);
+	
 
 	// Meta control
 	bool IsAssetMeta(const char* filepath, const char* metapath);

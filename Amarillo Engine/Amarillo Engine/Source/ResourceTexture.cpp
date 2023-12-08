@@ -1,7 +1,8 @@
 #include "ResourceTexture.h"
 
-ResourceTexture::ResourceTexture(std::string unique_id) : Resource(unique_id, ResourceType::RT_TEXTURE)
+ResourceTexture::ResourceTexture(uuids::uuid unique_id) : Resource(unique_id, ResourceType::RT_TEXTURE)
 { 
+
 }
 
 ResourceTexture::~ResourceTexture()

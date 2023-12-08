@@ -19,7 +19,7 @@ ResourceTextureLoader::~ResourceTextureLoader()
 {
 }
 
-uuids::uuid ResourceTextureLoader::CreateLibraryFromAsset(std::filesystem::path path)
+bool ResourceTextureLoader::CreateLibraryFromAsset(std::filesystem::path path, uuids::uuid uid)
 {
 	bool ret = false;
 
@@ -30,7 +30,7 @@ uuids::uuid ResourceTextureLoader::CreateLibraryFromAsset(std::filesystem::path 
 	if (!ret)
 	{
 		LOG("Cannot load image %s. Error: %s", path_c, iluErrorString(ilGetError()));
-		return uuids::uuid();
+		return false;
 	}
 
 	// Get texture info
@@ -54,10 +54,8 @@ uuids::uuid ResourceTextureLoader::CreateLibraryFromAsset(std::filesystem::path 
 	if (data_size <= 0)
 	{
 		LOG("Cannot load image %s. Error: %s", path_c, iluErrorString(ilGetError()));
-		return uuids::uuid::uuid();
+		return false;
 	}
-
-	uuids::uuid uid = applic->resourceManager->NewGuid();
 
 	std::string libraryfolder = applic->file_system->GetLibraryTexturePath();
 
@@ -81,12 +79,50 @@ uuids::uuid ResourceTextureLoader::CreateLibraryFromAsset(std::filesystem::path 
 
     RELEASE_ARRAY(data);
 
-	ilDeleteImages(1, &ImageInfo.Id);	
+	ilDeleteImages(1, &ImageInfo.Id);
+
+	return true;
 }
 
 Resource* ResourceTextureLoader::LoadResourceFromLibrary(uuids::uuid guid)
 {
-	return nullptr;
+	std::string libraryfolder = applic->file_system->GetLibraryTexturePath();
+
+	std::filesystem::path newpath = std::filesystem::path(libraryfolder) / uuids::to_string<wchar_t>(guid);
+	newpath.replace_extension(".dds");
+
+	std::string newpath_s = newpath.string();
+	bool loaded = ilLoad(IL_TYPE_UNKNOWN, newpath_s.c_str());
+
+	if (!loaded)
+	{
+		LOG("Cannot load image %s. Error: %s", newpath_s.c_str(), iluErrorString(ilGetError()));
+		return nullptr;
+	}
+	// Get texture info
+	ILinfo ImageInfo;
+	iluGetImageInfo(&ImageInfo);
+
+	// Convert image to rgb and a byte chain
+	ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
+
+	ILubyte* data = ilGetData();
+	uint data_size = ilGetInteger(IL_IMAGE_SIZE_OF_DATA);
+	uint image_width = ilGetInteger(IL_IMAGE_WIDTH);
+	uint image_height = ilGetInteger(IL_IMAGE_HEIGHT);
+	uint format = ilGetInteger(IL_IMAGE_FORMAT);
+
+	if (data_size <= 0)
+	{
+		LOG("Cannot load image %s. Error: %s", newpath_s.c_str(), iluErrorString(ilGetError()));
+		return nullptr;
+	}
+
+	ResourceTexture* ret = new ResourceTexture(guid);
+
+	ret->SetData(data, data_size, image_width, image_height, format, GL_REPEAT, GL_REPEAT, GL_NEAREST, GL_NEAREST);
+
+	ilDeleteImages(1, &ImageInfo.Id);
 }
 
 //bool ResourceTextureLoader::LoadFileToEngine(DecomposedFilePath d_filepath, std::vector<Resource*>& resources)

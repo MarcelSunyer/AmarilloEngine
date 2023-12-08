@@ -46,8 +46,8 @@ public:
 
 	std::string CreateFolder(const char* path, const char* name);
 	void FileMove(const char* filepath, const char* new_path, bool replace_existing = false);
-	bool FileCopyPaste(const char* filepath, const char* new_path, bool overwrite, std::string& resultant_path);
-	bool FileCopyPaste(const char* filepath, const char* new_path, bool overwrite);
+
+	bool FileCopyPaste(std::filesystem::path filepath, std::filesystem::path new_path, bool overwrite);
 	void FileCopyPasteWithNewName(const char* filepath, const char* new_path, const char* new_name);
 	bool FileDelete(const char* filepath);
 	bool FolderDelete(const char* folderpath);

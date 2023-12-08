@@ -1,6 +1,6 @@
 #include "Resource.h"
 
-Resource::Resource(std::string _unique_id, ResourceType _type)
+Resource::Resource(uuids::uuid _unique_id, ResourceType _type)
 {
 	unique_id = _unique_id;
 	type = _type;
@@ -29,7 +29,7 @@ ResourceType Resource::GetType()
 	return type;
 }
 
-std::string Resource::GetUniqueId()
+uuids::uuid Resource::GetUniqueId()
 {
 	return unique_id;
 }

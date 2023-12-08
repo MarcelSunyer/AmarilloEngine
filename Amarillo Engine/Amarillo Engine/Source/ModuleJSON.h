@@ -5,11 +5,11 @@
 #include "Module.h"
 #include "Globals.h"
 #include "ModuleFileSystem.h"
-#include "GameObject.h"
 #include "../External/Parson/parson.h"
 
 #include "../External/MathGeoLib/include/MathBuildConfig.h"
 #include "../External/MathGeoLib/include/MathGeoLib.h"
+#include "../External/Guid/uuid.h"
 
 #include <string>
 #include <list>
@@ -19,7 +19,7 @@ class JSON_Doc
 public:
 	JSON_Doc();
 	JSON_Doc(JSON_Value* value, JSON_Object* object, const char* path);
-	JSON_Doc(JSON_Doc& doc);
+	JSON_Doc(const JSON_Doc& doc);
 	~JSON_Doc();
 
 	void SetString(const std::string& set, const char* str);
@@ -27,6 +27,7 @@ public:
 	void SetNumber(const std::string& set, double nu);
 	void SetNumber3(const std::string& set, float3 val);
 	void SetNumber4(const std::string& set, float4 val);
+	void SetUid(const std::string& set, uuids::uuid val);
 	const char* GetString(const std::string& str, const char* defaul = "");
 	const bool GetBool(const std::string& bo, bool defaul = false);
 	const double GetNumber(const std::string& nu, double defaul = 0);
@@ -63,15 +64,10 @@ private:
 	bool FindValue(const char* str, json_value_type type);
 	bool FindArrayValue(const char* array, int index, json_value_type type);
 
-	//save Scene 
-	void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);
-	void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
-	void SetComponent(JSON_Object* componentObject, const Component& component);
-
-	//load Scene
-	std::vector<GameObject*> GetHierarchy(const char* key) const;
-	void GetGameObject(const std::vector<GameObject*>& gameObjects, const JSON_Object* gameObjectObject, GameObject& gameObject) const;
-	void GetComponent(const JSON_Object* componentObject, Component& component) const;
+	////save Scene 
+	//void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);
+	//void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
+	//void SetComponent(JSON_Object* componentObject, const Component& component);
 
 private:
 	JSON_Value* value = nullptr;
@@ -89,13 +85,13 @@ public:
 	bool Awake();
 	bool CleanUp();
 
-	JSON_Doc* LoadJSON(const char* path);
-	JSON_Doc* CreateJSON(const char* path, const char* name, const char* extension);
-	JSON_Doc* CreateJSON(const char* path);
-	void UnloadJSON(JSON_Doc* path);
+	JSON_Doc LoadJSON(const char* path);
+	JSON_Doc CreateJSON(const char* path, const char* name, const char* extension);
+	JSON_Doc CreateJSON(const char* path);
+	void UnloadJSON(JSON_Doc path);
 
 private:
-	std::list<JSON_Doc*> jsons;
+	std::list<JSON_Doc> jsons;
 };
 
 #endif // !_JSONLOADER_H_

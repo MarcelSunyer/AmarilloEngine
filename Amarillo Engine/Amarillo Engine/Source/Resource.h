@@ -2,6 +2,7 @@
 #define __RESOURCE_H__
 
 #include <string>
+#include "../External/Guid/uuid.h"
 
 
 enum ResourceType
@@ -15,7 +16,7 @@ enum ResourceType
 class Resource
 {
 public:
-	Resource(std::string _unique_id, ResourceType type);
+	Resource(uuids::uuid _unique_id, ResourceType type);
 	virtual ~Resource();
 
 	virtual void CleanUp();
@@ -25,14 +26,14 @@ public:
 
 	ResourceType GetType();
 
-	std::string GetUniqueId();
+	uuids::uuid GetUniqueId();
 
 	bool IsUsed();
 	int  UsedCount();
 
 private:
 	ResourceType type = RT_NULL;
-	std::string  unique_id;
+	uuids::uuid  unique_id;
 	int			 count_ref = 0;
 
 	std::string  file_name;

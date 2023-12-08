@@ -27,7 +27,7 @@ public:
 	ResourceTextureLoader();
 	virtual ~ResourceTextureLoader();
 
-	uuids::uuid CreateLibraryFromAsset(std::filesystem::path path) override;
+	bool CreateLibraryFromAsset(std::filesystem::path path, uuids::uuid uid) override;
 	Resource* LoadResourceFromLibrary(uuids::uuid guid) override;
 };
 

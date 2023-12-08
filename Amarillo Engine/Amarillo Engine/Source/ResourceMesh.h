@@ -12,7 +12,7 @@
 class ResourceMesh : public Resource
 {
 public:
-	ResourceMesh(std::string unique_id);
+	ResourceMesh(uuids::uuid unique_id);
 	virtual ~ResourceMesh();
 
 	void CleanUp();

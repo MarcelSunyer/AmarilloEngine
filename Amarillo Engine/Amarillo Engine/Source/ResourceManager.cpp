@@ -138,10 +138,29 @@ void ModuleResourceManager::LoadNewFile(std::string path)
 		return;
 	}
 
+	std::filesystem::path assetpath = App->file_system->GetAssetsPath();
+	std::filesystem::path newPath = assetpath / fsPath.filename();
+
+	bool couldCopyPaste = App->file_system->FileCopyPaste(fsPath, newPath, false);
+
+	if (!couldCopyPaste)
+	{
+		return;
+	}
+
+	uuids::uuid uid = applic->resourceManager->NewGuid();
+
+	CreateMetaForAsset(newPath, uid);
+
 	ResourceLoader* loader = GetLoader(type);
 
-	uuids::uuid uid = loader->CreateLibraryFromAsset(fsPath);
-	
+	bool couldCreateLibrary = loader->CreateLibraryFromAsset(newPath, uid);
+
+	if (!couldCreateLibrary)
+	{
+		return;
+	}
+
 	Resource* resource = loader->LoadResourceFromLibrary(uid);
 
 	if (resource == nullptr)
@@ -150,6 +169,24 @@ void ModuleResourceManager::LoadNewFile(std::string path)
 	}
 
 	resourcesLoaded[type].push_back(resource);
+}
+
+void ModuleResourceManager::CreateMetaForAsset(std::filesystem::path assetpath, uuids::uuid uid)
+{
+	std::filesystem::path metapath = assetpath;
+	metapath.replace_extension(assetpath.extension().string() + ".meta");
+
+	JSON_Doc meta = applic->json_module->CreateJSON(metapath.string().c_str());
+
+	meta.SetUid("uid", uid);
+
+	meta.Save();
+}
+
+void ModuleResourceManager::LoadResourcesFromAssets()
+{
+	//Mirar sobre los metas, mirar si existe, ver sie sta cargado en el library y subrilo a la ram
+
 }
 
 Resource* ModuleResourceManager::Get(std::string unique_id)
