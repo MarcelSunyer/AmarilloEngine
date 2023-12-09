@@ -237,6 +237,7 @@ void ModuleScene::SaveScene()
 	tmpDoc.SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
 
 	loadedScene = tmpDoc;
+	loadedScene.Save();
 
 	tmpDoc.CleanUp();
 	
@@ -245,7 +246,18 @@ void ModuleScene::SaveScene()
 
 void ModuleScene::LoadScene()
 {
+	/*JSON_Doc* sceneToLoad = JSON_Doc::GetJsonNode GetJSON(External->fileSystem->libraryScenesPath + std::to_string(mRootNode->UID) + ".yscene");
 
+	App->camera->editorCamera->SetPos(sceneToLoad->GetFloat3("Editor Camera Position"));
+	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));
+	App->camera->editorCamera->SetFront(sceneToLoad->GetFloat3("Editor Camera Front (Z)"));
+
+	ClearScene();
+
+	gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+	mRootNode = gameObjects[0];
+
+	delete sceneToLoad;*/
 }
 
 void ModuleScene::TestGameObjectSelection(const LineSegment& ray)

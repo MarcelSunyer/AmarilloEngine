@@ -16,6 +16,7 @@
 class GameObject
 {
 public:
+	GameObject();
 	GameObject(std::string name);
 	~GameObject();
 
@@ -33,6 +34,7 @@ public:
 	void DebugDraw();
 
 	Component* AddComponent(ComponentTypes component);
+	void AddComponent(Component* component);
 	Component* GetComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);
 	GameObject* GetParent();

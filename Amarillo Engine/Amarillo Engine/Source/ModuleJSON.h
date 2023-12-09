@@ -11,6 +11,12 @@
 #include "../External/MathGeoLib/include/MathGeoLib.h"
 #include "../External/Guid/uuid.h"
 
+#include "Component.h"
+#include "ComponentMesh.h"
+#include "ComponentTexture.h"
+#include "ComponentCamera.h"
+#include "ComponentTransform.h"
+
 #include <string>
 #include <list>
 
@@ -22,6 +28,9 @@ public:
 	JSON_Doc(const JSON_Doc& doc);
 	~JSON_Doc();
 
+	JSON_Doc* GetJSON(const std::string& route);
+	void DeleteJSON(const std::string& route);
+	
 	void SetString(const std::string& set, const char* str);
 	void SetBool(const std::string& set, bool bo);
 	void SetNumber(const std::string& set, double nu);
@@ -64,10 +73,27 @@ private:
 	bool FindValue(const char* str, json_value_type type);
 	bool FindArrayValue(const char* array, int index, json_value_type type);
 
-	////save Scene 
-	//void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);
-	//void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
-	//void SetComponent(JSON_Object* componentObject, const Component& component);
+	// Getters & Setters
+	GameObject* GetGameObject(const char* key) const;
+	//Falta:
+	//void SetComponent(const char* key, const Component& component);
+	//Component* GetComponent(const char* key) const;
+	//void SetGameObject(const char* key, const GameObject& gameObject);
+
+	//save Scene 
+	void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);	
+	void SetComponent(JSON_Object* componentObject, const Component& component);
+	void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
+
+	//load scene
+	void GetComponent(const JSON_Object* componentObject, Component& component) const;
+	//Falta:
+	//std::vector<GameObject*> GetHierarchy(const char* key) const;
+	//void GetGameObject(const std::vector<GameObject*>& gameObjects, const JSON_Object* gameObjectObject, GameObject& gameObject) const;
+
+	
+	
+	
 
 private:
 	JSON_Value* value = nullptr;

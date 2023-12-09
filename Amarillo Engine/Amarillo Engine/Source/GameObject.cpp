@@ -2,6 +2,17 @@
 #include <vector>
 
 
+GameObject::GameObject()
+{
+	this->mName = "";
+	parent = nullptr;
+
+	active = true;
+	selected = false;
+
+	AddComponent(new ComponentTransform(this));
+}
+
 GameObject::GameObject(std::string name) : mName(name), active(true), parent(nullptr)
 {
 	transform = (ComponentTransform*)AddComponent(ComponentTypes::TRANSFORM);
@@ -150,6 +161,11 @@ Component* GameObject::AddComponent(ComponentTypes type)
 	//components.push_back(ret);
 	components.push_back(ret);
 	return ret;
+}
+
+void GameObject::AddComponent(Component* component)
+{
+	components.push_back(component);
 }
 
 GameObject* GameObject::AddChildren(GameObject* children) 

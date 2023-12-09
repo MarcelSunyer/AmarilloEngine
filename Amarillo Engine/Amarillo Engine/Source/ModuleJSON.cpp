@@ -505,180 +505,334 @@ bool JSON_Doc::FindArrayValue(const char* arr, int index, json_value_type type)
 	return ret;
 }
 
-//void JSON_Doc::SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects)
-//{
-//	JSON_Value* hierarchyValue = json_value_init_array();
-//	JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
-//
-//	for (const auto& gameObject : gameObjects) {
-//
-//		JSON_Value* gameObjectValue = json_value_init_object();
-//		JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
-//
-//		// Call the existing SetGameObject function to set individual GameObject properties
-//		SetGameObject(gameObjectObject, *gameObject);
-//
-//		// Add the GameObject to the hierarchy array
-//		json_array_append_value(hierarchyArray, gameObjectValue);
-//	}
-//
-//	// Add the hierarchy array to the main object
-//	json_object_set_value(object, key, hierarchyValue);
-//}
-//
-//void JSON_Doc::SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject)
-//{
-//	// Set Name
-//	json_object_set_string(gameObjectObject, "Name", gameObject.mName.c_str());
-//
-//	// Set UID - TODO: Add UID to gameobjects
-//	//json_object_set_number(gameObjectObject, "UID", gameObject.UID);
-//
-//	// Set Parent UID
-//	if (gameObject.parent != nullptr) {
-//		//json_object_set_number(gameObjectObject, "Parent UID", gameObject.parent->UID);	//TODO: Add UID to gameobjects
-//	}
-//
-//	// Set Children UID
-//	std::vector<int> childrenUID;
-//	for (const auto& child : gameObject.children) {
-//		//childrenUID.push_back(child->UID);	//TODO: Add UID to gameobjects
-//	}
-//
-//	if (!childrenUID.empty()) {
-//		JSON_Value* childrenValue = json_value_init_array();
-//		JSON_Array* childrenArray = json_value_get_array(childrenValue);
-//
-//		for (const auto& childUID : childrenUID) {
-//			json_array_append_number(childrenArray, childUID);
-//		}
-//
-//		json_object_set_value(gameObjectObject, "Children UID", childrenValue);
-//	}
-//
-//	// Save Components Info
-//
-//	JSON_Value* componentsValue = json_value_init_array();
-//	JSON_Array* componentsArray = json_value_get_array(componentsValue);
-//
-//	for (const auto& component : gameObject.components) {
-//
-//		JSON_Value* componentValue = json_value_init_object();
-//		JSON_Object* componentObject = json_value_get_object(componentValue);
-//
-//		// Call the existing SetGameObject function to set individual GameObject properties
-//		SetComponent(componentObject, *component);
-//
-//		// Add the GameObject to the hierarchy array
-//		json_array_append_value(componentsArray, componentValue);
-//	}
-//
-//	// Add the hierarchy array to the main object
-//	json_object_set_value(gameObjectObject, "Components", componentsValue);
-//
-//}
-//
-//void JSON_Doc::SetComponent(JSON_Object* componentObject, const Component& component)
-//{
-//	if (component.type == ComponentTypes::NONE) {
-//
-//		// Handle NONE case (if needed)
-//
-//	}
-//	else if (component.type == ComponentTypes::TRANSFORM) {
-//
-//		json_object_set_string(componentObject, "Type", "Transform");
-//
-//		ComponentTransform* transform = (ComponentTransform*)&component;
-//
-//		json_object_set_number(componentObject, "Active", transform->active);
-//
-//		// Translation
-//
-//		JSON_Value* translationArrayValue = json_value_init_array();
-//		JSON_Array* translationArray = json_value_get_array(translationArrayValue);
-//
-//		json_array_append_number(translationArray, transform->GetPosition().x);	//Puede dar error @eric
-//		json_array_append_number(translationArray, transform->GetPosition().y);
-//		json_array_append_number(translationArray, transform->GetPosition().z);
-//
-//		json_object_set_value(componentObject, "Translation", translationArrayValue);
-//
-//		// Rotation
-//
-//		JSON_Value* rotationArrayValue = json_value_init_array();
-//		JSON_Array* rotationArray = json_value_get_array(rotationArrayValue);
-//
-//		json_array_append_number(rotationArray, transform->GetRotation().x);	//Puede dar error @eric
-//		json_array_append_number(rotationArray, transform->GetRotation().y);
-//		json_array_append_number(rotationArray, transform->GetRotation().z);
-//
-//		json_object_set_value(componentObject, "Rotation", rotationArrayValue);
-//
-//		// Scale
-//
-//		JSON_Value* scaleArrayValue = json_value_init_array();
-//		JSON_Array* scaleArray = json_value_get_array(scaleArrayValue);
-//
-//		json_array_append_number(scaleArray, transform->GetScale().x);
-//		json_array_append_number(scaleArray, transform->GetScale().y);
-//		json_array_append_number(scaleArray, transform->GetScale().z);
-//
-//		json_object_set_value(componentObject, "Scale", scaleArrayValue);
-//
-//	}
-//	else if (component.type == ComponentTypes::MESH) {
-//
-//		json_object_set_string(componentObject, "Type", "Mesh");
-//
-//		ComponentMesh* mesh = (ComponentMesh*)&component;
-//
-//		json_object_set_number(componentObject, "Active", mesh->active);
-//
-//		json_object_set_number(componentObject, "Vertex Count", mesh->mesh_->ourVertex.size());		//Puede dar error @eric
-//		json_object_set_number(componentObject, "Index Count", mesh->mesh_->indices.size());		//Puede dar error @eric
-//
-//	}
-//	else if (component.type == ComponentTypes::TEXTURE) {
-//
-//		json_object_set_string(componentObject, "Type", "Material");
-//
-//		ComponentTexture* texture = (ComponentTexture*)&component;
-//
-//		json_object_set_number(componentObject, "Active", texture->active);
-//
-//	}
-//	else if (component.type == ComponentTypes::CAMERA) {
-//
-//		json_object_set_string(componentObject, "Type", "Camera");
-//
-//		ComponentCamera* camera = (ComponentCamera*)&component;
-//
-//		json_object_set_number(componentObject, "Active", camera->active);
-//
-//		// Pos (Aqui faltan cosas)
-//
-//		JSON_Value* posArrayValue = json_value_init_array();
-//		JSON_Array* posArray = json_value_get_array(posArrayValue);
-//
-//		json_array_append_number(posArray, camera->camera->GetPosition().x);
-//		json_array_append_number(posArray, camera->camera->GetPosition().y);
-//		json_array_append_number(posArray, camera->camera->GetPosition().z);
-//
-//		json_object_set_value(componentObject, "Position", posArrayValue);
-//
-//		// FOV
-//
-//		json_object_set_number(componentObject, "FOV", camera->camera->GetVerticalFOV());
-//
-//		// Near Plane
-//
-//		json_object_set_number(componentObject, "Near Plane", camera->camera->GetNearPlaneDistance());
-//
-//		// Far Plane
-//
-//		json_object_set_number(componentObject, "Far Plane", camera->camera->GetFarPlaneDistance());
-//
-//	}
-//
-//}
+void JSON_Doc::SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects)
+{
+	JSON_Value* hierarchyValue = json_value_init_array();
+	JSON_Array* hierarchyArray = json_value_get_array(hierarchyValue);
+
+	for (const auto& gameObject : gameObjects) {
+
+		JSON_Value* gameObjectValue = json_value_init_object();
+		JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+
+		// Call the existing SetGameObject function to set individual GameObject properties
+		SetGameObject(gameObjectObject, *gameObject);
+
+		// Add the GameObject to the hierarchy array
+		json_array_append_value(hierarchyArray, gameObjectValue);
+	}
+
+	// Add the hierarchy array to the main object
+	json_object_set_value(object, key, hierarchyValue);
+}
+
+GameObject* JSON_Doc::GetGameObject(const char* key) const
+{
+	JSON_Value* gameObjectValue = json_object_get_value(object, key);
+
+	if (gameObjectValue != nullptr && json_value_get_type(gameObjectValue) == JSONObject) {
+		JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+
+		// Create a new GameObject
+		GameObject* gameObject = new GameObject();
+
+		// Get Name
+		const char* name = json_object_get_string(gameObjectObject, "Name");
+		gameObject->name = (name != nullptr) ? name : "";
+
+		// Get UID
+		gameObject->UID = static_cast<int>(json_object_get_number(gameObjectObject, "UID"));
+
+		// Get Parent UID
+		if (json_object_has_value_of_type(gameObjectObject, "Parent UID", JSONNumber)) {
+			gameObject->mParent->UID = static_cast<int>(json_object_get_number(gameObjectObject, "Parent UID"));
+		}
+
+		// Get Children UID
+		if (json_object_has_value_of_type(gameObjectObject, "Children UID", JSONArray)) {
+			JSON_Array* childrenArray = json_object_get_array(gameObjectObject, "Children UID");
+			size_t numChildren = json_array_get_count(childrenArray);
+
+			for (size_t i = 0; i < numChildren; ++i) {
+				int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
+				// You need to find the corresponding child GameObject using the UID
+				// and add it to gameObject->mChildren.
+				// Assuming you have a function like FindGameObjectByUID, implement it accordingly.
+				//gameObject->mChildren.push_back(FindGameObjectByUID(childUID));
+			}
+
+		}
+
+		// Get Components
+		if (json_object_has_value_of_type(gameObjectObject, "Components", JSONArray)) {
+			JSON_Array* componentsArray = json_object_get_array(gameObjectObject, "Components");
+			size_t numComponents = json_array_get_count(componentsArray);
+
+			for (size_t i = 0; i < numComponents; ++i) {
+				JSON_Value* componentValue = json_array_get_value(componentsArray, i);
+
+				if (json_value_get_type(componentValue) == JSONObject) {
+					JSON_Object* componentObject = json_value_get_object(componentValue);
+
+					// Create a new Component
+					Component* component = new Component();
+
+					// Call the existing GetComponent function to retrieve individual Component properties
+					GetComponent(componentObject, *component);
+
+					// Add the Component to the GameObject's components vector
+					gameObject->mComponents.push_back(component);
+				}
+			}
+		}
+
+		return gameObject;
+	}
+
+	return nullptr;
+}
+
+void JSON_Doc::SetComponent(JSON_Object* componentObject, const Component& component)
+{
+	if (component.type == ComponentTypes::NONE) {
+
+		// Handle NONE case (if needed)
+
+	}
+	else if (component.type == ComponentTypes::TRANSFORM) {
+
+		json_object_set_string(componentObject, "Type", "Transform");
+
+		ComponentTransform* transform = (ComponentTransform*)&component;
+
+		json_object_set_number(componentObject, "Active", transform->active);
+
+		// Translation
+
+		JSON_Value* translationArrayValue = json_value_init_array();
+		JSON_Array* translationArray = json_value_get_array(translationArrayValue);
+
+		json_array_append_number(translationArray, transform->GetPosition().x);	//Puede dar error @eric
+		json_array_append_number(translationArray, transform->GetPosition().y);
+		json_array_append_number(translationArray, transform->GetPosition().z);
+
+		json_object_set_value(componentObject, "Translation", translationArrayValue);
+
+		// Rotation
+
+		JSON_Value* rotationArrayValue = json_value_init_array();
+		JSON_Array* rotationArray = json_value_get_array(rotationArrayValue);
+
+		json_array_append_number(rotationArray, transform->GetRotation().x);	//Puede dar error @eric
+		json_array_append_number(rotationArray, transform->GetRotation().y);
+		json_array_append_number(rotationArray, transform->GetRotation().z);
+
+		json_object_set_value(componentObject, "Rotation", rotationArrayValue);
+
+		// Scale
+
+		JSON_Value* scaleArrayValue = json_value_init_array();
+		JSON_Array* scaleArray = json_value_get_array(scaleArrayValue);
+
+		json_array_append_number(scaleArray, transform->GetScale().x);
+		json_array_append_number(scaleArray, transform->GetScale().y);
+		json_array_append_number(scaleArray, transform->GetScale().z);
+
+		json_object_set_value(componentObject, "Scale", scaleArrayValue);
+
+	}
+	else if (component.type == ComponentTypes::MESH) {
+
+		json_object_set_string(componentObject, "Type", "Mesh");
+
+		ComponentMesh* mesh = (ComponentMesh*)&component;
+
+		json_object_set_number(componentObject, "Active", mesh->active);
+
+		json_object_set_number(componentObject, "Vertex Count", mesh->mesh_->ourVertex.size());		//Puede dar error @eric
+		json_object_set_number(componentObject, "Index Count", mesh->mesh_->indices.size());		//Puede dar error @eric
+
+	}
+	else if (component.type == ComponentTypes::TEXTURE) {
+
+		json_object_set_string(componentObject, "Type", "Texture");
+
+		ComponentTexture* texture = (ComponentTexture*)&component;
+
+		json_object_set_number(componentObject, "Active", texture->active);
+
+	}
+	else if (component.type == ComponentTypes::CAMERA) {
+
+		json_object_set_string(componentObject, "Type", "Camera");
+
+		ComponentCamera* camera = (ComponentCamera*)&component;
+
+		json_object_set_number(componentObject, "Active", camera->active);
+
+		// Pos (Aqui faltan cosas)
+
+		JSON_Value* posArrayValue = json_value_init_array();
+		JSON_Array* posArray = json_value_get_array(posArrayValue);
+
+		json_array_append_number(posArray, camera->camera->GetPosition().x);
+		json_array_append_number(posArray, camera->camera->GetPosition().y);
+		json_array_append_number(posArray, camera->camera->GetPosition().z);
+
+		json_object_set_value(componentObject, "Position", posArrayValue);
+
+		// FOV
+
+		json_object_set_number(componentObject, "FOV", camera->camera->GetVerticalFOV());
+
+		// Near Plane
+
+		json_object_set_number(componentObject, "Near Plane", camera->camera->GetNearPlaneDistance());
+
+		// Far Plane
+
+		json_object_set_number(componentObject, "Far Plane", camera->camera->GetFarPlaneDistance());
+
+	}
+
+}
+
+void JSON_Doc::DeleteJSON(const std::string& route)
+{
+	// Check if the file exists before attempting to delete
+	if (applic->file_system->FileExists(route.c_str()))
+	{
+		// Delete the file
+		applic->file_system->FileDelete(route.c_str());
+		LOG("Deleted File: %s", route);
+
+	}
+}
+
+JSON_Doc* JSON_Doc::GetJSON(const std::string& route) {
+
+	JSON_Doc* jsonFile = new JSON_Doc();
+
+	// Load the existing JSON file
+
+	jsonFile->value = json_parse_file(route.c_str());
+
+	// Error handling
+	if (!jsonFile->value) {
+
+		LOG("Error: Unable to load JSON file from %s", route.c_str());
+
+		delete jsonFile;
+
+		return nullptr;
+	}
+
+	// Get the JSON object from the root value
+	jsonFile->object = json_value_get_object(jsonFile->value);
+
+	return jsonFile;
+}
+
+void JSON_Doc::GetComponent(const JSON_Object* componentObject, Component& component) const {
+
+	// Get common properties
+	std::string type = json_object_get_string(componentObject, "Type");
+
+	if (type == "Transform") {
+
+		component.type = ComponentTypes::TRANSFORM;
+
+	}
+	else if (type == "Mesh") {
+
+		component.type = ComponentTypes::MESH;
+
+	}
+	else if (type == "Texture") {
+
+		component.type = ComponentTypes::TEXTURE;
+
+	}
+	else if (type == "Camera") {
+
+		component.type = ComponentTypes::CAMERA;
+
+	}
+
+}
+
+void JSON_Doc::SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject)
+{
+	// Set Name
+	json_object_set_string(gameObjectObject, "Name", gameObject.name.c_str());
+
+	// Set Position
+	//JSON_Value* positionValue = json_value_init_array();
+	//JSON_Array* positionArray = json_value_get_array(positionValue);
+	//json_array_append_number(positionArray, gameObject.mTransform->translation.x);
+	//json_array_append_number(positionArray, gameObject.mTransform->translation.y);
+	//json_array_append_number(positionArray, gameObject.mTransform->translation.z);
+	//json_object_set_value(gameObjectObject, "Position", positionValue);
+
+	// Set Rotation
+	//JSON_Value* rotationValue = json_value_init_array();
+	//JSON_Array* rotationArray = json_value_get_array(rotationValue);
+	//json_array_append_number(rotationArray, gameObject.mTransform->rotation.x);
+	//json_array_append_number(rotationArray, gameObject.mTransform->rotation.y);
+	//json_array_append_number(rotationArray, gameObject.mTransform->rotation.z);
+	//json_object_set_value(gameObjectObject, "Rotation", rotationValue);
+
+	// Set Scale
+	//JSON_Value* scaleValue = json_value_init_array();
+	//JSON_Array* scaleArray = json_value_get_array(scaleValue);
+	//json_array_append_number(scaleArray, gameObject.mTransform->scale.x);
+	//json_array_append_number(scaleArray, gameObject.mTransform->scale.y);
+	//json_array_append_number(scaleArray, gameObject.mTransform->scale.z);
+	//json_object_set_value(gameObjectObject, "Scale", scaleValue);
+
+	// Set UID
+	json_object_set_number(gameObjectObject, "UID", gameObject.UID);
+
+	// Set Parent UID
+	if (gameObject.mParent != nullptr) {
+		json_object_set_number(gameObjectObject, "Parent UID", gameObject.mParent->UID);
+	}
+
+	// Set Children UID
+	std::vector<int> childrenUID;
+	for (const auto& child : gameObject.mChildren) {
+		childrenUID.push_back(child->UID);
+	}
+
+	if (!childrenUID.empty()) {
+		JSON_Value* childrenValue = json_value_init_array();
+		JSON_Array* childrenArray = json_value_get_array(childrenValue);
+
+		for (const auto& childUID : childrenUID) {
+			json_array_append_number(childrenArray, childUID);
+		}
+
+		json_object_set_value(gameObjectObject, "Children UID", childrenValue);
+	}
+
+	// Save Components Info
+
+	JSON_Value* componentsValue = json_value_init_array();
+	JSON_Array* componentsArray = json_value_get_array(componentsValue);
+
+	for (const auto& component : gameObject.mComponents) {
+
+		JSON_Value* componentValue = json_value_init_object();
+		JSON_Object* componentObject = json_value_get_object(componentValue);
+
+		// Call the existing SetGameObject function to set individual GameObject properties
+		SetComponent(componentObject, *component);
+
+		// Add the GameObject to the hierarchy array
+		json_array_append_value(componentsArray, componentValue);
+	}
+
+	// Add the hierarchy array to the main object
+	json_object_set_value(gameObjectObject, "Components", componentsValue);
+
+}
