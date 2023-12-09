@@ -7,11 +7,11 @@ ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, sta
 {
 	app = app;
 	ImGuizmo::Enable(true);
-	//loadedScene->InitializeJSON();
 }
 
 ModuleScene::~ModuleScene()
 {
+
 }
 
 bool ModuleScene::Init()
@@ -23,17 +23,20 @@ bool ModuleScene::Init()
 	camera->AddComponent(ComponentTypes::CAMERA);
 
 	//init loadedScene
+	JSON_Doc tmpDoc;
 
-	loadedScene = &App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
+	tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
 
-	loadedScene->SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
-	loadedScene->SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
-	loadedScene->SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
-	loadedScene->SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
-	//loadedScene.SetHierarchy("Hierarchy", game_objects);
-
+	tmpDoc.SetNumber3("Editor Camera Pos", App->camera->editor_camera->GetPosition());
+	tmpDoc.SetNumber3("Editor Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
+	tmpDoc.SetNumber3("Editor Camera PosY (Up)", App->camera->editor_camera->GetYDir());
+	tmpDoc.SetNumber3("Editor Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	tmpDoc.Save();
 	
+	loadedScene = &tmpDoc;
 	loadedScene->Save();
+
+	tmpDoc.CleanUp();
 
 	return true;
 }
@@ -246,22 +249,22 @@ void ModuleScene::SaveScene()
 	playScene = &tmpDoc;
 	playScene->Save();
 
-	LOG("Camera saved position: %f , %f , %f", playScene->GetNumber3("Editor Camera Position").x, playScene->GetNumber3("Editor Camera Position").y, playScene->GetNumber3("Editor Camera Position").z)
+	LOG("Camera saved position: %f , %f , %f", playScene->GetNumber3("Editor Camera Pos").x, playScene->GetNumber3("Editor Camera Pos").y, playScene->GetNumber3("Editor Camera Pos").z)
 
 	tmpDoc.CleanUp();
 	
+	loaded_playScene = true;
 }
 
 void ModuleScene::LoadScene()
 {
-	JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "scene_backup" + ".ascene"));
+	JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "Scene" + ".ascene"));
 
 	//Load Editor Camera Position (Todo: De momento falla)
 	App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
 	App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera PosY (Up)"));
 	App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera PosZ (Front)"));
 	LOG("Camera loaded position: %f , %f , %f", sceneToLoad->GetNumber3("Editor Camera Pos").x, sceneToLoad->GetNumber3("Editor Camera Pos").y, sceneToLoad->GetNumber3("Editor Camera Pos").z)
-	//LOG("Camera loaded position: %f , %f , %f", App->camera->editor_camera->GetPosition().x, App->camera->editor_camera->GetPosition().y, App->camera->editor_camera->GetPosition().z)
 
 	//ClearScene(); -> TODO
 

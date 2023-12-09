@@ -59,6 +59,7 @@ public:
 
 	JSON_Doc* loadedScene = nullptr;
 	JSON_Doc* playScene = nullptr;
+	bool loaded_playScene = false;
 
 	//ImGuizmo
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
