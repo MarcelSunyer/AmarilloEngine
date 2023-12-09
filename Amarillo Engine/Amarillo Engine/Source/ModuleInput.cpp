@@ -130,6 +130,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 					if (ext != NULL)
 					{
+						//Meter que desde la carpeta assets peudas arrastarlo en el escenario tambien con la mesh
 						if (strcmp(ext, ".fbx") == 0 || strcmp(ext, ".FBX" ) == 0 || strcmp(ext, ".dae") == 0 || strcmp(ext, ".DAE") == 0)
 						{
 							LOG(("Mesh dropped on window - File Path: %s", dropped_filedir));

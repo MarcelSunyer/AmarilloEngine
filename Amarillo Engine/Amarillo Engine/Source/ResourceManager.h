@@ -34,12 +34,12 @@ public:
 	void LoadNewFile(std::string path);
 	void CreateMetaForAsset(std::filesystem::path assetpath, uuids::uuid uid);
 	void LoadResourcesFromAssets();
-
+	
 	// Resource management
 	Resource* Get(std::string unique_id);
 	bool DeleteResource(std::string unique_id);
 
-	
+	std::map<ResourceType, std::vector<Resource*>> GetResources();
 
 	// Meta control
 	bool IsAssetMeta(const char* filepath, const char* metapath);

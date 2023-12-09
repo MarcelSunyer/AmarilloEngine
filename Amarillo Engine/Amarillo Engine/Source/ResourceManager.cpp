@@ -39,6 +39,9 @@ bool ModuleResourceManager::Start()
 	//7AddLoader(mesh_loader);
 	AddLoader(texture_loader);
 
+
+	LoadResourcesFromAssets();
+
 	return ret;
 }
 
@@ -186,7 +189,52 @@ void ModuleResourceManager::CreateMetaForAsset(std::filesystem::path assetpath, 
 void ModuleResourceManager::LoadResourcesFromAssets()
 {
 	//Mirar sobre los metas, mirar si existe, ver sie sta cargado en el library y subrilo a la ram
+	std::filesystem::path assetspath = App->file_system->GetAssetsPath();
 
+	std::vector<std::filesystem::path> files = App->file_system->GetFilesFromFolder(assetspath, true);
+
+	for (std::vector< std::filesystem::path>::iterator it = files.begin(); it != files.end(); it++)
+	{
+		if ((*it).extension() == ".meta")
+		{
+			continue;
+		}
+
+		ResourceType type = GetAssetsResourceTypeFromExtension((*it).extension().string().c_str());
+
+		if (type == RT_NULL)
+		{
+			continue;
+		}
+
+		ResourceLoader* loader = GetLoader(type);
+
+		std::filesystem::path metapath = (*it);
+		metapath.replace_extension((*it).extension().string() + ".meta");
+
+		if (!App->file_system->FileExists(metapath))
+		{
+			continue;
+		}
+		
+		JSON_Doc meta = applic->json_module->LoadJSON(metapath.string().c_str());
+
+		uuids::uuid uid = meta.GetUid("uid");
+
+		if (uid.is_nil())
+		{
+			continue;
+		}
+
+		Resource* resource = loader->LoadResourceFromLibrary(uid);
+
+		if (resource == nullptr)
+		{
+			continue;
+		}
+
+		resourcesLoaded[type].push_back(resource);
+	}
 }
 
 Resource* ModuleResourceManager::Get(std::string unique_id)
@@ -211,6 +259,11 @@ bool ModuleResourceManager::DeleteResource(std::string unique_id)
 
 	//return ret;
 	return false;
+}
+
+std::map<ResourceType, std::vector<Resource*>> ModuleResourceManager::GetResources()
+{
+	return resourcesLoaded;
 }
 
 bool ModuleResourceManager::IsAssetMeta(const char* filepath, const char* metapath)

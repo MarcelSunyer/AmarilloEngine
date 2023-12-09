@@ -92,6 +92,20 @@ void ModuleEditor::DrawEditor()
 
     ImGui::End();
 
+    ImGui::Begin("Resources");
+
+    std::map<ResourceType, std::vector<Resource*>> resources = App->resourceManager->GetResources();
+    for (std::map<ResourceType, std::vector<Resource*>>::iterator it = resources.begin(); it != resources.end(); it++)
+    {
+        for (std::vector<Resource*>::iterator re = (*it).second.begin(); re != (*it).second.end(); re++)
+        {
+            std::string string = uuids::to_string<char>((*re)->GetUniqueId());
+            ImGui::Text("Uid: %s", string.c_str());
+        }
+    }
+        
+    ImGui::End();
+
     InspectorWindow();
     if (ImGui::Begin("Game"), true) {
 

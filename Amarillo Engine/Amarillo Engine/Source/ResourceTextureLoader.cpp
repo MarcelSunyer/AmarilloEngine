@@ -123,6 +123,8 @@ Resource* ResourceTextureLoader::LoadResourceFromLibrary(uuids::uuid guid)
 	ret->SetData(data, data_size, image_width, image_height, format, GL_REPEAT, GL_REPEAT, GL_NEAREST, GL_NEAREST);
 
 	ilDeleteImages(1, &ImageInfo.Id);
+
+	return ret;
 }
 
 //bool ResourceTextureLoader::LoadFileToEngine(DecomposedFilePath d_filepath, std::vector<Resource*>& resources)
