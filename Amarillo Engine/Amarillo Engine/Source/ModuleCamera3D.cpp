@@ -269,6 +269,11 @@ float3 Camera3D::GetYDir()
 	return Camera_frustum.up;
 }
 
+float3 Camera3D::GetXDir()
+{
+	return Camera_frustum.WorldRight();
+}
+
 void Camera3D::GetCorners(float3* corners)
 {
 	Camera_frustum.GetCornerPoints(corners);
@@ -457,3 +462,12 @@ float* Camera3D::GetProjectionMatrix()
 	return Camera_frustum.ProjectionMatrix().Transposed().ptr();
 }
 
+void Camera3D::SetFront(float3 front)
+{
+	Camera_frustum.front = front;
+}
+
+void Camera3D::SetUp(float3 up)
+{
+	Camera_frustum.up = up;
+}

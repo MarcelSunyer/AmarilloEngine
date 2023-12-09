@@ -18,6 +18,8 @@
 #include <map>
 #include <vector>
 
+#include "../External/Guid/uuid.h"
+
 class JSON_Doc;
 
 class ModuleScene : public Module

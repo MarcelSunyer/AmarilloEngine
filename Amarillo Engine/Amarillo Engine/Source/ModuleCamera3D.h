@@ -17,8 +17,10 @@ public:
 	void SetPosition(const float3& pos);
 	const float3 GetPosition();
 
+	float3 GetXDir();
 	float3 GetZDir();
 	float3 GetYDir();
+
 
 	void GetCorners(float3* corners);
 	void SetNearPlaneDistance(const float& set);
@@ -32,6 +34,9 @@ public:
 	const float GetHorizontalFOV() const;
 	float* GetViewMatrix();
 	float* GetProjectionMatrix();
+
+	void SetFront(float3 front);
+	void SetUp(float3 up);
 
 	const float4x4 GetViewMatrix() const;
 	const float4x4 GetProjectionMatrix() const;

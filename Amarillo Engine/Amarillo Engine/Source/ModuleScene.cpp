@@ -231,34 +231,35 @@ void ModuleScene::SaveScene()
 {
 	JSON_Doc tmpDoc;
 
+	tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "scene_backup", "ascene");
+
 	tmpDoc.SetNumber3("Camera Pos", App->camera->editor_camera->GetPosition());
-	tmpDoc.SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetYDir());	//TODO: Cambiar a GetXDir() que no existe @Marcel
+	tmpDoc.SetNumber3("Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
 	tmpDoc.SetNumber3("Camera PosY (Up)", App->camera->editor_camera->GetYDir());
 	tmpDoc.SetNumber3("Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	tmpDoc.Save();
 
 	loadedScene = &tmpDoc;
-	loadedScene->Save();
 
 	tmpDoc.CleanUp();
-
-	loadedScene = &App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene_2", "ascene");
 	
 }
 
 void ModuleScene::LoadScene()
 {
-	/*JSON_Doc* sceneToLoad = JSON_Doc::GetJsonNode GetJSON(External->fileSystem->libraryScenesPath + std::to_string(mRootNode->UID) + ".yscene");
+	JSON_Doc* sceneToLoad = loadedScene;
+	//sceneToLoad->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "scene_backup" + ".ascene"));
 
-	App->camera->editorCamera->SetPos(sceneToLoad->GetFloat3("Editor Camera Position"));
-	App->camera->editorCamera->SetUp(sceneToLoad->GetFloat3("Editor Camera Up (Y)"));
-	App->camera->editorCamera->SetFront(sceneToLoad->GetFloat3("Editor Camera Front (Z)"));
+	App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Position"));
+	App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera Up (Y)"));
+	App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera Front (Z)"));
 
-	ClearScene();
+	//ClearScene(); -> TODO
 
-	gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
-	mRootNode = gameObjects[0];
+	//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+	root_object = game_objects[0];
 
-	delete sceneToLoad;*/
+	delete sceneToLoad;
 }
 
 void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
