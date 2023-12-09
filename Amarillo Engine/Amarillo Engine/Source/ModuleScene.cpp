@@ -258,20 +258,40 @@ void ModuleScene::SaveScene()
 
 void ModuleScene::LoadScene()
 {
-	JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "Scene" + ".ascene"));
+	if (loaded_playScene)
+	{
+		JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "scene_Backup" + ".ascene"));
 
-	//Load Editor Camera Position (Todo: De momento falla)
-	App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
-	App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera PosY (Up)"));
-	App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera PosZ (Front)"));
-	LOG("Camera loaded position: %f , %f , %f", sceneToLoad->GetNumber3("Editor Camera Pos").x, sceneToLoad->GetNumber3("Editor Camera Pos").y, sceneToLoad->GetNumber3("Editor Camera Pos").z)
+		//Load Editor Camera Position
+		App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
+		App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera PosY (Up)"));
+		App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera PosZ (Front)"));
+		LOG("Camera loaded position: %f , %f , %f", sceneToLoad->GetNumber3("Editor Camera Pos").x, sceneToLoad->GetNumber3("Editor Camera Pos").y, sceneToLoad->GetNumber3("Editor Camera Pos").z)
 
-	//ClearScene(); -> TODO
+		//ClearScene(); -> TODO
 
-	//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
-	root_object = game_objects[0];
+		//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+		root_object = game_objects[0];
 
-	delete sceneToLoad;
+		delete sceneToLoad;
+	}
+	else
+	{
+		JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "Scene" + ".ascene"));
+
+		//Load Editor Camera Position
+		App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
+		App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera PosY (Up)"));
+		App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera PosZ (Front)"));
+		LOG("Camera loaded position: %f , %f , %f", sceneToLoad->GetNumber3("Editor Camera Pos").x, sceneToLoad->GetNumber3("Editor Camera Pos").y, sceneToLoad->GetNumber3("Editor Camera Pos").z)
+
+		//ClearScene(); -> TODO
+
+		//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+		root_object = game_objects[0];
+
+		delete sceneToLoad;
+	}
 }
 
 void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
