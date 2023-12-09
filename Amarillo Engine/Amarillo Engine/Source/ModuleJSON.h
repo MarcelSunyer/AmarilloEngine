@@ -17,6 +17,7 @@
 #include "ComponentCamera.h"
 #include "ComponentTransform.h"
 #include "GameObject.h"
+#include "ModuleScene.h"
 
 #include <string>
 #include <list>
@@ -26,10 +27,13 @@ class GameObject;
 class JSON_Doc
 {
 public:
+	
 	JSON_Doc();
 	JSON_Doc(JSON_Value* value, JSON_Object* object, const char* path);
 	JSON_Doc(const JSON_Doc& doc);
 	~JSON_Doc();
+
+	void InitializeJSON();
 
 	JSON_Doc* GetJSON(const std::string& route);
 	void DeleteJSON(const std::string& route);
@@ -124,4 +128,4 @@ private:
 	std::list<JSON_Doc> jsons;
 };
 
-#endif // !_JSONLOADER_H_
+#endif //_JSONLOADER_H_

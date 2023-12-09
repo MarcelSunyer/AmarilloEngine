@@ -57,7 +57,8 @@ public:
 	std::vector<GameObject*> game_objects; 
 	GameObject* root_object = nullptr;
 
-	JSON_Doc* loadedScene;
+	JSON_Doc* loadedScene = nullptr;
+	JSON_Doc* playScene = nullptr;
 
 	//ImGuizmo
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;

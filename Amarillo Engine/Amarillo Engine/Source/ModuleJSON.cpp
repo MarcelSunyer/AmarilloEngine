@@ -140,8 +140,16 @@ bool ModuleJSON::CleanUp()
 	return true;
 }
 
+void JSON_Doc::InitializeJSON()
+{
+	this->value = json_value_init_object();
+	this->object = json_value_get_object(this->value);
+}
+
 JSON_Doc::JSON_Doc()
 {
+	this->value = json_value_init_object();
+	this->object = json_value_get_object(this->value);
 }
 
 JSON_Doc::JSON_Doc(JSON_Value* _value, JSON_Object* _object, const char* _path)
@@ -488,7 +496,12 @@ void JSON_Doc::Save()
 
 void JSON_Doc::CleanUp()
 {
-	json_value_free(value);
+	if (value != nullptr)
+	{
+		json_value_free(value);
+		value = nullptr;
+		object = nullptr;
+	}
 }
 
 bool JSON_Doc::FindValue(const char* str, json_value_type type)
