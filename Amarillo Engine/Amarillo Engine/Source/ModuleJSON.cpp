@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 
+
 ModuleJSON::ModuleJSON(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	
@@ -528,66 +529,67 @@ void JSON_Doc::SetHierarchy(const char* key, const std::vector<GameObject*>& gam
 
 GameObject* JSON_Doc::GetGameObject(const char* key) const
 {
-	//JSON_Value* gameObjectValue = json_object_get_value(object, key);
+	JSON_Value* gameObjectValue = json_object_get_value(object, key);
 
-	//if (gameObjectValue != nullptr && json_value_get_type(gameObjectValue) == JSONObject) {
-	//	JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
+	if (gameObjectValue != nullptr && json_value_get_type(gameObjectValue) == JSONObject) 
+	{
+		JSON_Object* gameObjectObject = json_value_get_object(gameObjectValue);
 
-	//	// Create a new GameObject
-	//	GameObject* gameObject = new GameObject();
+		// Create a new GameObject
+		GameObject* gameObject = new GameObject();
+		
+		// Get Name
+		const char* name = json_object_get_string(gameObjectObject, "Name");
+		gameObject->mName = (name != nullptr) ? name : "";
 
-	//	// Get Name
-	//	const char* name = json_object_get_string(gameObjectObject, "Name");
-	//	gameObject->name = (name != nullptr) ? name : "";
+		// Get UID
+		//gameObject->UID = static_cast<int>(json_object_get_number(gameObjectObject, "UID"));
 
-	//	// Get UID
-	//	gameObject->UID = static_cast<int>(json_object_get_number(gameObjectObject, "UID"));
+		// Get Parent UID
+		if (json_object_has_value_of_type(gameObjectObject, "Parent UID", JSONNumber)) {
+			//gameObject->parent->UID = static_cast<int>(json_object_get_number(gameObjectObject, "Parent UID"));
+		}
 
-	//	// Get Parent UID
-	//	if (json_object_has_value_of_type(gameObjectObject, "Parent UID", JSONNumber)) {
-	//		gameObject->mParent->UID = static_cast<int>(json_object_get_number(gameObjectObject, "Parent UID"));
-	//	}
+		// Get Children UID
+		if (json_object_has_value_of_type(gameObjectObject, "Children UID", JSONArray)) {
+			JSON_Array* childrenArray = json_object_get_array(gameObjectObject, "Children UID");
+			size_t numChildren = json_array_get_count(childrenArray);
 
-	//	// Get Children UID
-	//	if (json_object_has_value_of_type(gameObjectObject, "Children UID", JSONArray)) {
-	//		JSON_Array* childrenArray = json_object_get_array(gameObjectObject, "Children UID");
-	//		size_t numChildren = json_array_get_count(childrenArray);
+			for (size_t i = 0; i < numChildren; ++i) {
+				int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
+				// You need to find the corresponding child GameObject using the UID
+				// and add it to gameObject->mChildren.
+				// Assuming you have a function like FindGameObjectByUID, implement it accordingly.
+				//gameObject->mChildren.push_back(FindGameObjectByUID(childUID));
+			}
 
-	//		for (size_t i = 0; i < numChildren; ++i) {
-	//			int childUID = static_cast<int>(json_array_get_number(childrenArray, i));
-	//			// You need to find the corresponding child GameObject using the UID
-	//			// and add it to gameObject->mChildren.
-	//			// Assuming you have a function like FindGameObjectByUID, implement it accordingly.
-	//			//gameObject->mChildren.push_back(FindGameObjectByUID(childUID));
-	//		}
+		}
 
-	//	}
+		// Get Components
+		if (json_object_has_value_of_type(gameObjectObject, "Components", JSONArray)) {
+			JSON_Array* componentsArray = json_object_get_array(gameObjectObject, "Components");
+			size_t numComponents = json_array_get_count(componentsArray);
 
-	//	// Get Components
-	//	if (json_object_has_value_of_type(gameObjectObject, "Components", JSONArray)) {
-	//		JSON_Array* componentsArray = json_object_get_array(gameObjectObject, "Components");
-	//		size_t numComponents = json_array_get_count(componentsArray);
+			for (size_t i = 0; i < numComponents; ++i) {
+				JSON_Value* componentValue = json_array_get_value(componentsArray, i);
 
-	//		for (size_t i = 0; i < numComponents; ++i) {
-	//			JSON_Value* componentValue = json_array_get_value(componentsArray, i);
+				if (json_value_get_type(componentValue) == JSONObject) {
+					JSON_Object* componentObject = json_value_get_object(componentValue);
 
-	//			if (json_value_get_type(componentValue) == JSONObject) {
-	//				JSON_Object* componentObject = json_value_get_object(componentValue);
+					// Create a new Component
+					Component* component = new Component();
 
-	//				// Create a new Component
-	//				Component* component = new Component();
+					// Call the existing GetComponent function to retrieve individual Component properties
+					GetComponent(componentObject, *component);
 
-	//				// Call the existing GetComponent function to retrieve individual Component properties
-	//				GetComponent(componentObject, *component);
+					// Add the Component to the GameObject's components vector
+					gameObject->components.push_back(component);
+				}
+			}
+		}
 
-	//				// Add the Component to the GameObject's components vector
-	//				gameObject->mComponents.push_back(component);
-	//			}
-	//		}
-	//	}
-
-	//	return gameObject;
-	//}
+		return gameObject;
+	}
 
 	return nullptr;
 }
@@ -763,76 +765,76 @@ void JSON_Doc::GetComponent(const JSON_Object* componentObject, Component& compo
 
 void JSON_Doc::SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject)
 {
-	//// Set Name
-	//json_object_set_string(gameObjectObject, "Name", gameObject.name.c_str());
+	// Set Name
+	json_object_set_string(gameObjectObject, "Name", gameObject.mName.c_str());
 
-	//// Set Position
-	////JSON_Value* positionValue = json_value_init_array();
-	////JSON_Array* positionArray = json_value_get_array(positionValue);
-	////json_array_append_number(positionArray, gameObject.mTransform->translation.x);
-	////json_array_append_number(positionArray, gameObject.mTransform->translation.y);
-	////json_array_append_number(positionArray, gameObject.mTransform->translation.z);
-	////json_object_set_value(gameObjectObject, "Position", positionValue);
+	// Set Position
+	//JSON_Value* positionValue = json_value_init_array();
+	//JSON_Array* positionArray = json_value_get_array(positionValue);
+	//json_array_append_number(positionArray, gameObject.mTransform->translation.x);
+	//json_array_append_number(positionArray, gameObject.mTransform->translation.y);
+	//json_array_append_number(positionArray, gameObject.mTransform->translation.z);
+	//json_object_set_value(gameObjectObject, "Position", positionValue);
 
-	//// Set Rotation
-	////JSON_Value* rotationValue = json_value_init_array();
-	////JSON_Array* rotationArray = json_value_get_array(rotationValue);
-	////json_array_append_number(rotationArray, gameObject.mTransform->rotation.x);
-	////json_array_append_number(rotationArray, gameObject.mTransform->rotation.y);
-	////json_array_append_number(rotationArray, gameObject.mTransform->rotation.z);
-	////json_object_set_value(gameObjectObject, "Rotation", rotationValue);
+	// Set Rotation
+	//JSON_Value* rotationValue = json_value_init_array();
+	//JSON_Array* rotationArray = json_value_get_array(rotationValue);
+	//json_array_append_number(rotationArray, gameObject.mTransform->rotation.x);
+	//json_array_append_number(rotationArray, gameObject.mTransform->rotation.y);
+	//json_array_append_number(rotationArray, gameObject.mTransform->rotation.z);
+	//json_object_set_value(gameObjectObject, "Rotation", rotationValue);
 
-	//// Set Scale
-	////JSON_Value* scaleValue = json_value_init_array();
-	////JSON_Array* scaleArray = json_value_get_array(scaleValue);
-	////json_array_append_number(scaleArray, gameObject.mTransform->scale.x);
-	////json_array_append_number(scaleArray, gameObject.mTransform->scale.y);
-	////json_array_append_number(scaleArray, gameObject.mTransform->scale.z);
-	////json_object_set_value(gameObjectObject, "Scale", scaleValue);
+	// Set Scale
+	//JSON_Value* scaleValue = json_value_init_array();
+	//JSON_Array* scaleArray = json_value_get_array(scaleValue);
+	//json_array_append_number(scaleArray, gameObject.mTransform->scale.x);
+	//json_array_append_number(scaleArray, gameObject.mTransform->scale.y);
+	//json_array_append_number(scaleArray, gameObject.mTransform->scale.z);
+	//json_object_set_value(gameObjectObject, "Scale", scaleValue);
 
-	//// Set UID
+	// Set UID
 	//json_object_set_number(gameObjectObject, "UID", gameObject.UID);
 
-	//// Set Parent UID
-	//if (gameObject.mParent != nullptr) {
-	//	json_object_set_number(gameObjectObject, "Parent UID", gameObject.mParent->UID);
-	//}
+	// Set Parent UID
+	if (gameObject.parent != nullptr) {
+		//json_object_set_number(gameObjectObject, "Parent UID", gameObject.parent->UID);
+	}
 
-	//// Set Children UID
-	//std::vector<int> childrenUID;
-	//for (const auto& child : gameObject.mChildren) {
-	//	childrenUID.push_back(child->UID);
-	//}
+	// Set Children UID
+	std::vector<int> childrenUID;
+	for (const auto& child : gameObject.children) {
+		//childrenUID.push_back(child->UID);
+	}
 
-	//if (!childrenUID.empty()) {
-	//	JSON_Value* childrenValue = json_value_init_array();
-	//	JSON_Array* childrenArray = json_value_get_array(childrenValue);
+	if (!childrenUID.empty()) {
+		JSON_Value* childrenValue = json_value_init_array();
+		JSON_Array* childrenArray = json_value_get_array(childrenValue);
 
-	//	for (const auto& childUID : childrenUID) {
-	//		json_array_append_number(childrenArray, childUID);
-	//	}
+		for (const auto& childUID : childrenUID) {
+			json_array_append_number(childrenArray, childUID);
+		}
 
-	//	json_object_set_value(gameObjectObject, "Children UID", childrenValue);
-	//}
+		json_object_set_value(gameObjectObject, "Children UID", childrenValue);
+	}
 
-	//// Save Components Info
+	// Save Components Info
 
-	//JSON_Value* componentsValue = json_value_init_array();
-	//JSON_Array* componentsArray = json_value_get_array(componentsValue);
+	JSON_Value* componentsValue = json_value_init_array();
+	JSON_Array* componentsArray = json_value_get_array(componentsValue);
 
-	//for (const auto& component : gameObject.mComponents) {
+	for (const auto& component : gameObject.components) {
 
-	//	JSON_Value* componentValue = json_value_init_object();
-	//	JSON_Object* componentObject = json_value_get_object(componentValue);
+		JSON_Value* componentValue = json_value_init_object();
+		JSON_Object* componentObject = json_value_get_object(componentValue);
 
-	//	// Call the existing SetGameObject function to set individual GameObject properties
-	//	SetComponent(componentObject, *component);
+		// Call the existing SetGameObject function to set individual GameObject properties
+		SetComponent(componentObject, *component);
 
-	//	// Add the GameObject to the hierarchy array
-	//	json_array_append_value(componentsArray, componentValue);
-	//}
+		// Add the GameObject to the hierarchy array
+		json_array_append_value(componentsArray, componentValue);
+	}
 
-	//// Add the hierarchy array to the main object
-	//json_object_set_value(gameObjectObject, "Components", componentsValue);
+	// Add the hierarchy array to the main object
+	json_object_set_value(gameObjectObject, "Components", componentsValue);
 
 }

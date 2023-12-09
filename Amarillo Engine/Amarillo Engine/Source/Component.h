@@ -16,6 +16,14 @@ enum ComponentTypes
 
 class Component {
 public:
+	Component()
+	{
+		owner = nullptr;
+		type = ComponentTypes::NONE;
+
+		active = true;
+	}
+
 	Component(GameObject* parent) : active(true), owner(parent), type(ComponentTypes::NONE) {};
 
 	virtual void Enable() {};

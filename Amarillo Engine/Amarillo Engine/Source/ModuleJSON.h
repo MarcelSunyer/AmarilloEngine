@@ -16,9 +16,12 @@
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
 #include "ComponentTransform.h"
+#include "GameObject.h"
 
 #include <string>
 #include <list>
+
+class GameObject;
 
 class JSON_Doc
 {

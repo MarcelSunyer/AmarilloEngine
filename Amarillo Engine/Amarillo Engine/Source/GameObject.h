@@ -13,6 +13,8 @@
 #include "ModuleScene.h"
 #include "../External/MathGeoLib/include/Math/float3.h"
 
+class Component;
+
 class GameObject
 {
 public:
