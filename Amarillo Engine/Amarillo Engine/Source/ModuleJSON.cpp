@@ -419,6 +419,20 @@ const float4 JSON_Doc::GetNumber4(const std::string& fl, float4 defaul)
 	return ret;
 }
 
+uuids::uuid JSON_Doc::GetUid(const std::string& set)
+{
+	std::string string = GetString(set);
+
+	std::optional<uuids::uuid> optionalUid = uuids::uuid::from_string(string);
+
+	if (!optionalUid.has_value())
+	{
+		return uuids::uuid();
+	}
+
+	return optionalUid.value();
+}
+
 bool JSON_Doc::MoveToSection(const std::string& set)
 {
 	bool ret = false;

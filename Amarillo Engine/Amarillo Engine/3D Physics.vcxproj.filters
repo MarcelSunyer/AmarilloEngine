@@ -486,9 +486,6 @@
     <ClInclude Include="Source\Resource.h">
       <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Resource_Loader.h">
-      <Filter>Sources\ResourceManagment\Loaders</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Functions.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
@@ -501,11 +498,17 @@
     <ClInclude Include="resource.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Resource_Mesh_Loader.h">
+    <ClInclude Include="Source\ResourceLoader.h">
       <Filter>Sources\ResourceManagment\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Resource_Texture_Loader.h">
+    <ClInclude Include="Source\ResourceMeshLoader.h">
       <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceTextureLoader.h">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="External\Guid\uuid.h">
+      <Filter>Sources\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -734,9 +737,6 @@
     <ClCompile Include="Source\Resource.cpp">
       <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Resource_Loader.cpp">
-      <Filter>Sources\ResourceManagment\Loaders</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Functions.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -746,10 +746,13 @@
     <ClCompile Include="Source\Application.cpp">
       <Filter>Sources\Main</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Resource_Mesh_Loader.cpp">
+    <ClCompile Include="Source\ResourceLoader.cpp">
       <Filter>Sources\ResourceManagment\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Resource_Texture_Loader.cpp">
+    <ClCompile Include="Source\ResourceMeshLoader.cpp">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceTextureLoader.cpp">
       <Filter>Sources\ResourceManagment\Loaders</Filter>
     </ClCompile>
   </ItemGroup>

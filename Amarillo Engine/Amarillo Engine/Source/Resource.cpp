@@ -33,6 +33,7 @@ uuids::uuid Resource::GetUniqueId()
 {
 	return unique_id;
 }
+
 bool Resource::IsUsed()
 {
 	return count_ref > 0 ? true : false;

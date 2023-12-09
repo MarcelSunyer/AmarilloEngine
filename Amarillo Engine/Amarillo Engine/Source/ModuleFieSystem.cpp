@@ -32,8 +32,6 @@ bool FileSystem::Start()
 {
 	bool ret = true;
 
-	FolderWatch(assets_path.c_str(), Changed, true);
-
 	return ret;
 }
 
@@ -62,8 +60,6 @@ bool FileSystem::Update()
 bool FileSystem::CleanUp()
 {
 	bool ret = true;
-
-	UnwatchAllFolders();
 
 	return ret;
 }
@@ -452,50 +448,6 @@ std::string FileSystem::CreateFolder(const char* path, const char* name)
 	return ret;
 }
 
-void FileSystem::FileMove(const char* filepath, const char* new_path, bool replace_existing)
-{
-	std::string s_new_path = new_path;
-
-	if (s_new_path[s_new_path.length() - 1] != '\\')
-	{
-		s_new_path += '\\';
-	}
-
-	if (FolderExists(s_new_path.c_str()) && FileExists(filepath))
-	{
-		DecomposedFilePath d_filepath = DecomposeFilePath(filepath);
-
-		if (!replace_existing)
-		{
-			d_filepath.file_name = FileRenameOnNameCollision(new_path, d_filepath.file_name.c_str(), d_filepath.file_extension.c_str());
-
-			std::string new_filepath = s_new_path + d_filepath.file_name + "." + d_filepath.file_extension;
-
-			FileRename(filepath, d_filepath.file_name.c_str());
-
-			std::string curr_path = d_filepath.path + d_filepath.file_name + "." + d_filepath.file_extension;
-			std::string curr_new_path = s_new_path + d_filepath.file_name + "." + d_filepath.file_extension;
-			if (MoveFileEx(curr_path.c_str(), curr_new_path.c_str(), MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING) == 0)
-			{
-				DWORD error = GetLastError();
-				if (error != 0)
-					LOG("Error moving file:[%s] to [%s]", filepath, s_new_path.c_str())
-			}
-		}
-		else
-		{
-			std::string curr_new_path = s_new_path + d_filepath.file_name + "." + d_filepath.file_extension;
-			if (MoveFileEx(filepath, s_new_path.c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED) == 0)
-			{
-				DWORD error = GetLastError();
-				if (error != 0)
-					LOG("Error moving file:[%s] to [%s]", filepath, s_new_path.c_str())
-			}
-		}
-
-	}
-}
-
 bool FileSystem::FileCopyPaste(std::filesystem::path filepath, std::filesystem::path new_path, bool overwrite = false)
 {
 	std::filesystem::copy_options options = std::filesystem::copy_options::recursive;
@@ -716,175 +668,39 @@ std::vector<std::string> FileSystem::GetFoldersInPath(const char* path)
 	return files;
 }
 
-std::vector<std::string> FileSystem::GetFilesInPath(const char* path, const char* extension)
+std::vector<std::filesystem::path> FileSystem::GetFilesFromFolder(std::filesystem::path folder, bool recursive)
 {
-	std::string s_path = path;
-
-	if (s_path[s_path.length() - 1] != '\\')
+	std::vector<std::filesystem::path> filespaths;
+	
+	if (!recursive)
 	{
-		s_path += '\\';
-	}
-
-	std::vector<std::string> files;
-
-	WIN32_FIND_DATA search_data;
-
-	std::string path_ex = s_path;
-
-	if (!TextCmp(extension, ""))
-	{
-		path_ex += "*.";
-		path_ex += extension;
-	}
-	else
-	{
-		path_ex += "*.*";
-	}
-
-	HANDLE handle = FindFirstFile(path_ex.c_str(), &search_data);
-
-	while (handle != INVALID_HANDLE_VALUE)
-	{
-		if (!(search_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+		for (const auto& entry : std::filesystem::directory_iterator(folder))
 		{
-			std::string path_new = s_path;
-			path_new += search_data.cFileName;
-			files.push_back(path_new);
+			if (std::filesystem::is_regular_file(entry.path()))
+			{
+				filespaths.push_back(entry.path());
+			}
 		}
-
-		if (FindNextFile(handle, &search_data) == FALSE)
-			break;
 	}
-
-	if (handle)
-		FindClose(handle);
-
-	return files;
-}
-
-std::vector<std::string> FileSystem::GetFilesInPathAndChilds(const char* path)
-{
-	std::vector<std::string> ret;
-
-	if (FolderExists(path))
+	else 
 	{
-		std::vector<std::string> folders_to_look;
-		folders_to_look.push_back(path);
-
-		while (folders_to_look.size() > 0)
+		for (const auto& entry : std::filesystem::recursive_directory_iterator(folder))
 		{
-			std::vector<std::string>::iterator fol_it = folders_to_look.begin();
-
-			std::vector<std::string> files = GetFilesInPath((*fol_it).c_str());
-
-			if (files.size() > 0)
-				ret.insert(ret.begin(), files.begin(), files.end());
-
-			std::vector<std::string> new_directories = GetFoldersInPath((*fol_it).c_str());
-
-			if (new_directories.size() > 0)
-				folders_to_look.insert(folders_to_look.end(), new_directories.begin(), new_directories.end());
-
-			folders_to_look.erase(folders_to_look.begin());
+			if (std::filesystem::is_regular_file(entry.path()))
+			{
+				filespaths.push_back(entry.path());
+			}
 		}
 	}
 
-	return ret;
+	return filespaths;
 }
 
-Folder FileSystem::GetFilesAndFoldersTree(const char* path)
+
+
+bool FileSystem::FileExists(std::filesystem::path path)
 {
-	return GetFoldersRecursive(path);
-}
-
-Folder FileSystem::GetFoldersRecursive(const char* path)
-{
-	Folder ret;
-
-	if (FolderExists(path))
-	{
-		std::vector<std::string> new_directories = GetFoldersInPath(path);
-
-		std::vector<std::string> files = GetFilesInPath(path);
-
-		for (std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it)
-		{
-			DecomposedFilePath dfp = DecomposeFilePath((*it));
-			ret.files.push_back(dfp);
-		}
-
-		ret.folder_path = path;
-		ret.folder_name = GetFolderNameFromPath(path);
-
-		ret.valid = true;
-
-		for (std::vector<std::string>::iterator it = new_directories.begin(); it != new_directories.end(); ++it)
-		{
-			Folder to_add = GetFoldersRecursive((*it).c_str());
-
-			ret.folders.push_back(to_add);
-		}
-	}
-
-	return ret;
-}
-
-void FileSystem::UnwatchAllFolders()
-{
-
-}
-
-bool FileSystem::FileExists(const char* path, const char* name, const char* extension)
-{
-	WIN32_FIND_DATA search_data;
-
-	bool has_extension = true;
-	if (TextCmp(extension, ""))
-		has_extension = false;
-
-	std::string filepath = path;
-	if (has_extension)
-	{
-		filepath += "*.";
-		filepath += extension;
-	}
-	else
-	{
-		filepath += "*.*";
-	}
-
-	std::string filename = name;
-	if (has_extension)
-	{
-		filename += ".";
-		filename += extension;
-	}
-
-	HANDLE handle = FindFirstFile(filepath.c_str(), &search_data);
-
-	while (handle != INVALID_HANDLE_VALUE)
-	{
-		std::string found_file = search_data.cFileName;
-
-		if (!has_extension)
-			found_file = GetFilenameWithoutExtension(search_data.cFileName);
-
-		if (TextCmp(found_file.c_str(), filename.c_str()))
-			return true;
-
-		if (FindNextFile(handle, &search_data) == FALSE)
-			break;
-	}
-
-	return false;
-}
-
-bool FileSystem::FileExists(const char* filepath)
-{
-	DecomposedFilePath d_filepath = DecomposeFilePath(filepath);
-
-
-	return FileExists(d_filepath.path.c_str(), d_filepath.file_name.c_str(), d_filepath.file_extension.c_str());
+	return std::filesystem::exists(path);
 }
 
 bool FileSystem::FileRename(const char* filepath, const char* new_name)
@@ -916,16 +732,7 @@ bool FileSystem::FolderRename(const char* folderpath, const char* new_name)
 	return false;
 }
 
-bool FileSystem::FolderExists(const char* path)
-{
-	bool ret = true;
 
-	DWORD ftyp = GetFileAttributesA(path);
-	if (ftyp == INVALID_FILE_ATTRIBUTES)
-		ret = false;
-
-	return ret;
-}
 
 std::string FileSystem::FileRenameOnNameCollision(const char* path, const char* name, const char* extension)
 {
@@ -952,21 +759,6 @@ std::string FileSystem::FileRenameOnNameCollision(const char* path, const char* 
 
 	if (need_rename)
 		ret = s_name;
-
-	return ret;
-}
-
-bool FileSystem::FolderWatch(const char* path, const std::function<void(const std::filesystem::path&)>& callback, bool watch_subfolders)
-{
-	bool ret = false;
-
-	if (FolderExists(path))
-	{
-		/*	WatchingFloder wfolder;
-			wfolder.folder = path;
-			wfolder.last_time = std::experimental::filesystem::last_write_time(path);
-			watching_folders.push_back(wfolder);*/
-	}
 
 	return ret;
 }

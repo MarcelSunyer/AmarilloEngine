@@ -45,6 +45,7 @@ public:
 	const double GetNumber(const std::string& nu, double defaul = 0);
 	const float3 GetNumber3(const std::string& fl, float3 defaul = float3(0, 0, 0));
 	const float4 GetNumber4(const std::string& fl, float4 defaul = float4(0, 0, 0, 0));
+	uuids::uuid GetUid(const std::string& set);
 
 	void SetArray(const std::string& set);
 	void ClearArray(const std::string& arr);

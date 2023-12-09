@@ -45,7 +45,6 @@ public:
 	bool CleanUp();
 
 	std::string CreateFolder(const char* path, const char* name);
-	void FileMove(const char* filepath, const char* new_path, bool replace_existing = false);
 
 	bool FileCopyPaste(std::filesystem::path filepath, std::filesystem::path new_path, bool overwrite);
 	void FileCopyPasteWithNewName(const char* filepath, const char* new_path, const char* new_name);
@@ -55,19 +54,12 @@ public:
 	bool FileSave(std::filesystem::path path, const char* file_content, int size);
 	std::vector<std::string> GetFilesAndFoldersInPath(const char* path, const char* extension = "");
 	std::vector<std::string> GetFoldersInPath(const char* path);
-	std::vector<std::string> GetFilesInPath(const char* path, const char* extension = "");
-	std::vector<std::string> GetFilesInPathAndChilds(const char* path);
+	std::vector<std::filesystem::path> GetFilesFromFolder(std::filesystem::path folder, bool recursive);
 
-	Folder GetFilesAndFoldersTree(const char* path);
-
-	bool FileExists(const char* path, const char* name, const char* extension = "");
-	bool FileExists(const char* filepath);
+	bool FileExists(std::filesystem::path path);
 	bool FileRename(const char* filepath, const char* new_name);
 	bool FolderRename(const char* filepath, const char* new_name);
-	bool FolderExists(const char* path);
 	std::string FileRenameOnNameCollision(const char* path, const char* name, const char* extension);
-
-	bool FolderWatch(const char* path, const std::function<void(const std::filesystem::path&)>& callback, bool watch_subfolders = false);
 
 	//Useful fuctions
 	std::string ToLowerCase(std::string str);
@@ -112,10 +104,6 @@ private:
 	std::string NewNameForFileNameCollision(const char* filename);
 	int GetFileNameNumber(const char* filename);
 	std::string SetFileNameNumber(const char* filename, int number);
-
-
-	Folder GetFoldersRecursive(const char* path);
-	void UnwatchAllFolders();
 
 private:
 	std::string assets_path;
