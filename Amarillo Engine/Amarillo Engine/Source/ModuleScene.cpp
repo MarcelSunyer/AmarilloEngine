@@ -31,7 +31,7 @@ bool ModuleScene::Init()
 	//loadedScene.SetHierarchy("Hierarchy", game_objects);
 
 	
-	*loadedScene = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
+	loadedScene = &App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
 
 	return true;
 }
@@ -240,8 +240,9 @@ void ModuleScene::SaveScene()
 	loadedScene->Save();
 
 	tmpDoc.CleanUp();
+
+	loadedScene = &App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene_2", "ascene");
 	
-	//loadedScene.CreateJSON(applic->fileSystem->libraryScenesPath, std::to_string(mRootNode->UID) + ".ascene");
 }
 
 void ModuleScene::LoadScene()
