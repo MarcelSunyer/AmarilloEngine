@@ -232,32 +232,46 @@ void ModuleEditor::DrawEditor()
     {
         ImGui::Text("                                                   ");
         ImGui::SameLine();
-        if (ImGui::Button("Play"))
+        if (ImGui::Button("Play") && (timerState == Timer_State::PAUSED || timerState == Timer_State::STOPPED))
         {
-            //TODO: Lógica cuando se presiona el botón Play
             timer.Start();
+            timerState = Timer_State::RUNNING;
+            App->scene->SaveScene();
             LOG("Start Timer %u ", elapsed_time);
         }
         ImGui::SameLine();
 
-        if (ImGui::Button("Pause"))
+        if (ImGui::Button("Pause") && timerState == Timer_State::RUNNING)
         {
-            //TODO: Lógica cuando se presiona el botón Pause
             timer.Pause();
+            timerState = Timer_State::PAUSED;
         }
         ImGui::SameLine();
 
-        if (ImGui::Button("Stop"))
+        if (ImGui::Button("Stop") && (timerState == Timer_State::RUNNING || timerState == Timer_State::PAUSED))
         {
-            //TODO: Lógica cuando se presiona el botón Stop
             timer.Stop();
             elapsed_time = 0;
+            timerState = Timer_State::STOPPED;
+            App->scene->LoadScene(true);
             LOG("Stop Timer: %u ", elapsed_time);
         }
         ImGui::SameLine();
-        //ImGui::Text("                                                   ");
+        switch (timerState)
+        {
+        case STOPPED:
+            ImGui::Text("Current State: STOPPED");
+            break;
+        case RUNNING:
+            ImGui::Text("Current State: RUNNING");
+            break;
+        case PAUSED:
+            ImGui::Text("Current State: PAUSED");
+            break;
+        }
         ImGui::SameLine();
         ImGui::Text("Current Time: %u ", elapsed_time);
+        
     }
     ImGui::End();
 

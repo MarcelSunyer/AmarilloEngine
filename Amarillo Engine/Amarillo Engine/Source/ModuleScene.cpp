@@ -65,7 +65,7 @@ update_status ModuleScene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 	{
 		LOG("Loaded Scene!");
-		LoadScene();
+		LoadScene(false);
 	}
 
 
@@ -252,13 +252,11 @@ void ModuleScene::SaveScene()
 	LOG("Camera saved position: %f , %f , %f", playScene->GetNumber3("Editor Camera Pos").x, playScene->GetNumber3("Editor Camera Pos").y, playScene->GetNumber3("Editor Camera Pos").z)
 
 	tmpDoc.CleanUp();
-	
-	loaded_playScene = true;
 }
 
-void ModuleScene::LoadScene()
+void ModuleScene::LoadScene(bool playScene)
 {
-	if (loaded_playScene)
+	if (playScene)
 	{
 		JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "scene_Backup" + ".ascene"));
 

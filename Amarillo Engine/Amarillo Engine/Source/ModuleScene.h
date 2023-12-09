@@ -51,7 +51,7 @@ public:
 	bool IsPointInsideAABB(const float3& point, const AABB& aabb);
 
 	void SaveScene();
-	void LoadScene();
+	void LoadScene(bool playScene);
 
 public:
 	std::vector<GameObject*> game_objects; 
@@ -59,7 +59,6 @@ public:
 
 	JSON_Doc* loadedScene = nullptr;
 	JSON_Doc* playScene = nullptr;
-	bool loaded_playScene = false;
 
 	//ImGuizmo
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;

@@ -17,6 +17,12 @@
 
 namespace fs = std::filesystem;
 
+enum Timer_State {
+	STOPPED,
+	RUNNING,
+	PAUSED
+};
+
 #define MAX_NAME_CHARACTERS 32
 class ModuleEditor : public Module
 {
@@ -83,6 +89,7 @@ public:
 	//Timer
 	Uint32 elapsed_time;
 	Timer timer;
+	Timer_State timerState = Timer_State::STOPPED;
 
 	//Guizmo
 	ImVec2 size_texture_scene;
