@@ -524,7 +524,7 @@ void ModuleEditor::InspectorWindow()
             ImGui::Checkbox("Active",&GameObject_selected->active);
             ImGui::SameLine;
             strcpy(newName, GameObject_selected->mName.c_str());
-            if (ImGui::InputText("##juan", &newName[0], sizeof(newName)))
+            if (ImGui::InputText("##test_1", &newName[0], sizeof(newName)))
             {
                     GameObject_selected->mName = newName;
             }
@@ -548,7 +548,7 @@ void ModuleEditor::InspectorWindow()
             ImGui::Text("     ");
             ImGui::SameLine();
             // Inicia el combo
-            if (ImGui::BeginCombo("##Juan","AddComponent"))
+            if (ImGui::BeginCombo("##test_1","AddComponent"))
             {
                 showAddComponent = true;
                 if (showAddComponent)
@@ -561,7 +561,7 @@ void ModuleEditor::InspectorWindow()
                         }
 
                     }
-                    if (ImGui::Selectable("aaa"))
+                    if (ImGui::Selectable("Camera"))
                     {
                         if (GameObject_selected->GetComponent(ComponentTypes::CAMERA) == nullptr)
                         {

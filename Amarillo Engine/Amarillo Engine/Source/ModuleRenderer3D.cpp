@@ -193,7 +193,6 @@ bool ModuleRenderer3D::Init()
 
 	return ret;
 }
-//Juan
 
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
