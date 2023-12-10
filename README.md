@@ -11,6 +11,13 @@ The new 3D Game Engine under CITM development
  -  GameObject hierarchy + Component Pattern
  -  Unity-like camera controls
  -  Editor tools (main menu and windows)
+ -  Transformation and Game Object hierarchy
+ -  Custom file format
+ -  Game viewport & editor viewport
+ -   Scene serialization
+ -   Play / Stop
+ -   Camera component, mouse pick & frustum culling
+ -   Resource Management
 
 ## Controls
 
@@ -19,6 +26,9 @@ The new 3D Game Engine under CITM development
 ○ Alt+Left click should orbit the object.
 ○ Pressing “f” should focus the camera around the geometry.
 ○ Holding SHIFT duplicates movement speed
+○ Ctrl. S Saves Scene
+○ Ctrl. L Load base scene
+○ Pressing "w", "e" or "r" toggles Gizmo mode.
 
 ## Developers
 
