@@ -41,8 +41,23 @@ The new 3D Game Engine under CITM development
 
  - Eric Luque Romero - https://github.com/ericlr1
  - Marcel Sunyer Caldú - https://github.com/MarcelSunyer
+ - 
+## Screenshots & Videos
 
-##Screenshots
+<div align="center">
+  <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/775f4186-7596-42b1-96b5-6ff69e96f411">
+</div>
+
+| Frustrum Culling | Gizmo Showcase |
+|----------|----------|
+| <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/19a0a8bd-4bc0-47fd-975f-d5f423375183"> | <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/1f93bb7c-9489-4a0f-9901-ca4ef5055e0c"> |
+
+
+
+
+
+
+
 
 
 ## License
