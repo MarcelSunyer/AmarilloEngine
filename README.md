@@ -21,13 +21,13 @@ The new 3D Game Engine under CITM development
 
 ## Controls
 
-○ While Right clicking, “WASD” fps-like movement and free look around must be enabled.
+○ While Right clicking, “WASD” fps-like movement and free look around must be enabled
 
-○ Mouse wheel should zoom in and out.
+○ Mouse wheel should zoom in and out
 
-○ Alt+Left click should orbit the object.
+○ Alt+Left click should orbit the object
 
-○ Pressing “f” should focus the camera around the geometry.
+○ Pressing “f” should focus the camera around the geometry
 
 ○ Holding SHIFT duplicates movement speed
 
@@ -35,12 +35,15 @@ The new 3D Game Engine under CITM development
 
 ○ Ctrl. L Load base scene
 
-○ Pressing "w", "e" or "r" toggles Gizmo mode.
+○ Pressing "w", "e" or "r" toggles Gizmo mode
 
 ## Developers
 
  - Eric Luque Romero - https://github.com/ericlr1
  - Marcel Sunyer Caldú - https://github.com/MarcelSunyer
+
+##Screenshots
+
 
 ## License
 
