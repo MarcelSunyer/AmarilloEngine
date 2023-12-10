@@ -394,7 +394,7 @@ void ModuleEditor::DrawEditor()
         if (ImGui::BeginMenu("About"))
         {
 
-            ImGui::TextColored({ 255,255,0,255 }, "Amarillo Engine v0.1");
+            ImGui::TextColored({ 255,255,0,255 }, "Amarillo Engine v0.5");
 
             std::string licenseContent = loadFile("../../LICENSE");
             if (!licenseContent.empty())
