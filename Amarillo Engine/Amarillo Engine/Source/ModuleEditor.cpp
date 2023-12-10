@@ -81,11 +81,6 @@ void ModuleEditor::DrawEditor()
 
     ImGuizmo::Enable(true);
 
-    //Todo: Meter el frustrum cooling primero
-   /* ImGuiIO& io = ImGui::GetIO();
-    ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
-    ImGuizmo::Manipulate(camera.mView.m16, camera.mProjection.m16, mCurrentGizmoOperation, mCurrentGizmoMode, matrix.m16, NULL, useSnap ? &snap.x : NULL);*/
-
     ImGui::Begin("Hierarchy");
 
     DrawHierarchy();
@@ -95,15 +90,29 @@ void ModuleEditor::DrawEditor()
     ImGui::Begin("Resources");
 
     std::map<ResourceType, std::vector<Resource*>> resources = App->resourceManager->GetResources();
+
     for (std::map<ResourceType, std::vector<Resource*>>::iterator it = resources.begin(); it != resources.end(); it++)
     {
         for (std::vector<Resource*>::iterator re = (*it).second.begin(); re != (*it).second.end(); re++)
         {
             std::string string = uuids::to_string<char>((*re)->GetUniqueId());
-            ImGui::Text("Uid: %s", string.c_str());
+
+            if ((*it).first == ResourceType::RT_MESH)
+            {
+                ImGui::Text("Mesh Loaded");
+                ImGui::Text("Uid: %s", string.c_str());
+                ImGui::Text("");
+            }
+            if ((*it).first == ResourceType::RT_TEXTURE)
+            {
+                ImGui::Text("Texture Loaded");
+                ImGui::Text("Uid: %s", string.c_str());
+                ImGui::Text("");
+            }
+           
         }
     }
-        
+    
     ImGui::End();
 
     InspectorWindow();
