@@ -77,4 +77,4 @@ We used external libraries (.dll) as:
 
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) for further details.
 
-Project Github Repository: https://github.com/MarcelSunyer/Game_Engine
+Project Github Repository: [https://github.com/MarcelSunyer/Game_Engine](https://github.com/MarcelSunyer/AmarilloEngine)
