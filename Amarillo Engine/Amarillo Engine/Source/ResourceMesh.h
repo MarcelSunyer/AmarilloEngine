@@ -8,13 +8,9 @@
 #include "../External/MathGeoLib/include/Math/Quat.h"
 #include "ModuleRenderer3D.h"
 
-
-class ResourceMesh : public Resource
+class ChildMesh
 {
 public:
-	ResourceMesh(uuids::uuid unique_id);
-	virtual ~ResourceMesh();
-
 	void CleanUp();
 
 	void SetFaces(float* _vertices, uint _num_vertices, uint* _indices, uint _num_indices);
@@ -37,11 +33,7 @@ public:
 	Quat   GetRotation();
 	float3 GetScale();
 
-	void Render();
-
 private:
-	void CalcMeshBBox();
-
 	void LoadToMemory();
 	void UnloadFromMemory();
 
@@ -63,6 +55,15 @@ private:
 	float3 scale = float3(1, 1, 1);
 
 	AABB   bbox;
+};
+
+class ResourceMesh : public Resource
+{
+public:
+	ResourceMesh(uuids::uuid unique_id);
+	virtual ~ResourceMesh();
+	
+	std::vector<ChildMesh*> childs;
 };
 
 #endif

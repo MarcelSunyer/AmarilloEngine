@@ -9,7 +9,7 @@ ResourceMesh::~ResourceMesh()
 {
 }
 
-void ResourceMesh::CleanUp()
+void ChildMesh::CleanUp()
 {
 	UnloadFromMemory();
 
@@ -28,118 +28,97 @@ void ResourceMesh::CleanUp()
 	RELEASE_ARRAY(uvs);
 }
 
-void ResourceMesh::SetFaces(float* _vertices, uint _num_vertices, uint* _indices, uint _num_indices)
+void ChildMesh::SetFaces(float* _vertices, uint _num_vertices, uint* _indices, uint _num_indices)
 {
-
-	if (_num_vertices > 0)
-	{
-		// Vertices
-		vertices = new float[_num_vertices * 3];
-		memcpy(vertices, _vertices, sizeof(float) * _num_vertices * 3);
-		num_vertices = _num_vertices;
-
-		if (_num_indices > 0)
-		{
-			// Indices
-			indices = new uint[_num_indices];
-			memcpy(indices, _indices, sizeof(uint) * _num_indices);
-			num_indices = _num_indices;
-		}
-
-		CalcMeshBBox();
-	}
+	vertices = _vertices;
+	num_vertices = _num_vertices;
+	indices = _indices;
+	num_indices = _num_indices;
 }
 
-void ResourceMesh::SetUvs(float* _uvs, uint _num_uvs)
+void ChildMesh::SetUvs(float* _uvs, uint _num_uvs)
 {
-	if (_num_uvs > 0)
-	{
-		// UVs
-		uvs = new float[_num_uvs * 3];
-		memcpy(uvs, _uvs, sizeof(float) * _num_uvs * 3);
-		num_uvs = _num_uvs;
-	}
+	uvs = _uvs;
+	num_uvs = _num_uvs;
 }
 
-void ResourceMesh::SetTransform(float3 _pos, Quat _rotation, float3 _scale)
+void ChildMesh::SetTransform(float3 _pos, Quat _rotation, float3 _scale)
 {
 	position = _pos;
 	rotation = _rotation;
 	scale = _scale;
-
-	CalcMeshBBox();
 }
 
-uint ResourceMesh::GetIdVertices()
+uint ChildMesh::GetIdVertices()
 {
 	return id_vertices;
 }
 
-uint ResourceMesh::GetNumVertices()
+uint ChildMesh::GetNumVertices()
 {
 	return num_vertices;
 }
 
-uint ResourceMesh::GetIdIndices()
+uint ChildMesh::GetIdIndices()
 {
 	return id_indices;
 }
 
-uint ResourceMesh::GetNumIndices()
+uint ChildMesh::GetNumIndices()
 {
 	return num_indices;
 }
 
-uint ResourceMesh::GetIdUV()
+uint ChildMesh::GetIdUV()
 {
 	return id_uv;
 }
 
-uint ResourceMesh::GetNumUVs()
+uint ChildMesh::GetNumUVs()
 {
 	return num_uvs;
 }
 
-float* ResourceMesh::GetVertices()
+float* ChildMesh::GetVertices()
 {
 	return vertices;
 }
 
-uint* ResourceMesh::GetIndices()
+uint* ChildMesh::GetIndices()
 {
 	return indices;
 }
 
-float* ResourceMesh::GetUVs()
+float* ChildMesh::GetUVs()
 {
 	return uvs;
 }
 
-AABB ResourceMesh::GetBBox()
+AABB ChildMesh::GetBBox()
 {
 	return bbox;
 }
 
-float ResourceMesh::GetDiagonal()
+float ChildMesh::GetDiagonal()
 {
 	return bbox.Diagonal().Length();
 }
 
-float3 ResourceMesh::GetPosition()
+float3 ChildMesh::GetPosition()
 {
 	return position;
 }
 
-Quat ResourceMesh::GetRotation()
+Quat ChildMesh::GetRotation()
 {
 	return rotation;
 }
 
-float3 ResourceMesh::GetScale()
+float3 ChildMesh::GetScale()
 {
 	return scale;
 }
-void ResourceMesh::LoadToMemory()
+void ChildMesh::LoadToMemory()
 {
 	if (id_vertices == 0 && vertices != nullptr)
 		id_vertices = applic->renderer3D->LoadBuffer(vertices, num_vertices * 3);
@@ -151,7 +130,7 @@ void ResourceMesh::LoadToMemory()
 		id_uv = applic->renderer3D->LoadBuffer(uvs, num_uvs * 3);
 }
 
-void ResourceMesh::UnloadFromMemory()
+void ChildMesh::UnloadFromMemory()
 {
 	if (id_vertices != 0)
 	{
@@ -169,16 +148,6 @@ void ResourceMesh::UnloadFromMemory()
 	{
 		applic->renderer3D->UnloadBuffer(id_uv, num_uvs * 3);
 		id_uv = 0;
-	}
-}
-
-void ResourceMesh::CalcMeshBBox()
-{
-	bbox.SetNegativeInfinity();
-
-	if (vertices != nullptr && num_vertices > 0)
-	{
-		bbox.Enclose((float3*)vertices, num_vertices);
 	}
 }
 

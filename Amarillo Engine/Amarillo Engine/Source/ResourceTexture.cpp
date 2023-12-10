@@ -9,12 +9,12 @@ ResourceTexture::~ResourceTexture()
 {
 }
 
-void ResourceTexture::SetData(byte* _texture_data, uint _texture_data_lenght, uint _width, uint _height, int _format, uint _wrap_s, uint _wrap_t, uint _mag, uint _min)
+void ResourceTexture::SetData(char* _texture_data, uint _texture_data_lenght, uint _width, uint _height, int _format, uint _wrap_s, uint _wrap_t, uint _mag, uint _min)
 {
 	if (_texture_data_lenght > 0)
 	{
-		texture_data = new byte[_texture_data_lenght];
-		memcpy(texture_data, _texture_data, _texture_data_lenght * sizeof(byte));
+		texture_data = new char[_texture_data_lenght];
+		memcpy(texture_data, _texture_data, _texture_data_lenght * sizeof(char));
 	}
 
 	texture_data_size = _texture_data_lenght;
@@ -41,7 +41,7 @@ float2 ResourceTexture::GetSize()
 	return size;
 }
 
-byte* ResourceTexture::GetTextureData()
+char* ResourceTexture::GetTextureData()
 {
 	return texture_data;
 }

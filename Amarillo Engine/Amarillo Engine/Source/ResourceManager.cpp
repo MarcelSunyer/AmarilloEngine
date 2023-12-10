@@ -26,9 +26,9 @@ bool ModuleResourceManager::Start()
 	//Meter todos los loaders
 	bool ret = true;
 
-	//ResourceMeshLoader* mesh_loader = new ResourceMeshLoader();
-	//mesh_loader->AddAssetExtensionToLoad("fbx");
-	//mesh_loader->AddLibraryExtensionToLoad("mesh");
+	ResourceMeshLoader* mesh_loader = new ResourceMeshLoader();
+	mesh_loader->AddAssetExtensionToLoad(".fbx");
+	mesh_loader->AddLibraryExtensionToLoad(".amarillomesh");
 
 	ResourceTextureLoader* texture_loader = new ResourceTextureLoader();
 	texture_loader->AddAssetExtensionToLoad(".png");
@@ -36,7 +36,7 @@ bool ModuleResourceManager::Start()
 	texture_loader->AddAssetExtensionToLoad(".dds");
 	texture_loader->AddLibraryExtensionToLoad(".dds");
 
-	//7AddLoader(mesh_loader);
+	AddLoader(mesh_loader);
 	AddLoader(texture_loader);
 
 

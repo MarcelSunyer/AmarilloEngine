@@ -568,6 +568,27 @@ bool FileSystem::FileSave(std::filesystem::path path, const char* file_content, 
 	return ret;
 }
 
+std::vector<char> FileSystem::LoadFile(std::filesystem::path path)
+{
+	if (std::filesystem::exists(path))
+	{
+		std::ifstream inputFile(path, std::ios::binary);
+
+		if (inputFile.is_open())
+		{
+			inputFile.seekg(0, std::ios::end);
+			std::streampos fileSize = inputFile.tellg();
+			inputFile.seekg(0, std::ios::beg);
+
+			std::vector<char> fileContents(static_cast<size_t>(fileSize));
+			inputFile.read(fileContents.data(), fileSize);
+			return fileContents;
+		}
+	}
+
+	return std::vector<char>();
+}
+
 std::vector<std::string> FileSystem::GetFilesAndFoldersInPath(const char* path, const char* extension)
 {
 	std::string s_path = path;

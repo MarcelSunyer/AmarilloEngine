@@ -104,9 +104,9 @@ void ModuleMesh::GetSceneInfo(aiNode* node, const aiScene* scene, const char* fi
 
 ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject)
 {
-	Mesh* myMesh = new Mesh();
-
 	GameObject* newMesh = App->scene->CreateGameObject(node->mName.C_Str(), gameObject);
+
+	Mesh* myMesh = new Mesh();
 
 	for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 	{

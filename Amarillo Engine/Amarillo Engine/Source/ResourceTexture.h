@@ -16,12 +16,12 @@ public:
 	ResourceTexture(uuids::uuid unique_id);
 	virtual ~ResourceTexture();
 
-	void SetData(byte* _texture_data, uint _texture_data_lenght, uint _width, uint _height, int _format, uint _wrap_s, uint _wrap_t, uint _mag, uint _min);
+	void SetData(char* _texture_data, uint _texture_data_lenght, uint _width, uint _height, int _format, uint _wrap_s, uint _wrap_t, uint _mag, uint _min);
 	void SetFlipped(bool set);
 
 	uint GetTextureId();
 	float2 GetSize();
-	byte* GetTextureData();
+	char* GetTextureData();
 	uint GetTextureDataSize();
 	bool GetFlipped();
 
@@ -30,7 +30,7 @@ private:
 	void UnloadFromMemory();
 
 private:
-	byte*  texture_data = nullptr;
+	char*  texture_data = nullptr;
 	uint   texture_data_size = 0;
 	uint   texture_id = 0;
 	int	   format = 0;

@@ -106,7 +106,7 @@ Resource* ResourceTextureLoader::LoadResourceFromLibrary(uuids::uuid guid)
 	// Convert image to rgb and a byte chain
 	ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
 
-	ILubyte* data = ilGetData();
+	char* data = (char*)ilGetData();
 	uint data_size = ilGetInteger(IL_IMAGE_SIZE_OF_DATA);
 	uint image_width = ilGetInteger(IL_IMAGE_WIDTH);
 	uint image_height = ilGetInteger(IL_IMAGE_HEIGHT);
