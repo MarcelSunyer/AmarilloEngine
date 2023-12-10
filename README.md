@@ -66,11 +66,14 @@ We used external libraries (.dll) as:
 
  - SDL2 x86
  - ImGui
+ - ImGuizmo
  - OpenGL
  - MathGeoLib x86
  - Glew x86
  - DevIL
  - PhysFS x86
+ - Assimp
+ - Parson
 
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) for further details.
 
