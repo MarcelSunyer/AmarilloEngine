@@ -584,10 +584,7 @@ GameObject* JSON_Doc::GetGameObject(const char* key) const
 
 			for (size_t i = 0; i < numChildren; ++i) {
 				std::string childUID = json_array_get_string(childrenArray, i);
-				// You need to find the corresponding child GameObject using the UID
-				// and add it to gameObject->mChildren.
-				// Assuming you have a function like FindGameObjectByUID, implement it accordingly.
-				//gameObject->children.push_back(FindGameObjectByUID(childUID));		//TODO
+				
 			}
 
 		}
@@ -818,7 +815,7 @@ void JSON_Doc::SetComponent(JSON_Object* componentObject, const Component& compo
 		JSON_Value* translationArrayValue = json_value_init_array();
 		JSON_Array* translationArray = json_value_get_array(translationArrayValue);
 
-		json_array_append_number(translationArray, transform->GetPosition().x);	//Puede dar error @eric
+		json_array_append_number(translationArray, transform->GetPosition().x);	
 		json_array_append_number(translationArray, transform->GetPosition().y);
 		json_array_append_number(translationArray, transform->GetPosition().z);
 
@@ -829,7 +826,7 @@ void JSON_Doc::SetComponent(JSON_Object* componentObject, const Component& compo
 		JSON_Value* rotationArrayValue = json_value_init_array();
 		JSON_Array* rotationArray = json_value_get_array(rotationArrayValue);
 
-		json_array_append_number(rotationArray, transform->GetRotation().x);	//Puede dar error @eric
+		json_array_append_number(rotationArray, transform->GetRotation().x);	
 		json_array_append_number(rotationArray, transform->GetRotation().y);
 		json_array_append_number(rotationArray, transform->GetRotation().z);
 
@@ -855,8 +852,8 @@ void JSON_Doc::SetComponent(JSON_Object* componentObject, const Component& compo
 
 		json_object_set_number(componentObject, "Active", mesh->active);
 
-		json_object_set_number(componentObject, "Vertex Count", mesh->mesh_->ourVertex.size());		//Puede dar error @eric
-		json_object_set_number(componentObject, "Index Count", mesh->mesh_->indices.size());		//Puede dar error @eric
+		json_object_set_number(componentObject, "Vertex Count", mesh->mesh_->ourVertex.size());		
+		json_object_set_number(componentObject, "Index Count", mesh->mesh_->indices.size());		
 
 	}
 	else if (component.type == ComponentTypes::TEXTURE) {

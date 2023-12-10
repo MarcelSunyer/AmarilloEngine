@@ -185,7 +185,6 @@ void ModuleScene::ImGuizmoHandling()
 
 	ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : guizmoMode);
 
-	//Nothing Else Matters
 	ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
 
 
@@ -272,7 +271,7 @@ void ModuleScene::LoadScene(bool playScene)
 
 		//ClearScene(); -> TODO
 
-		game_objects = sceneToLoad->GetHierarchy("Hierarchy");
+		//game_objects = sceneToLoad->GetHierarchy("Hierarchy");
 		root_object = game_objects[0];
 
 		delete sceneToLoad;
@@ -290,7 +289,7 @@ void ModuleScene::LoadScene(bool playScene)
 
 		//ClearScene(); -> TODO
 
-		game_objects = sceneToLoad->GetHierarchy("Hierarchy");
+		//game_objects = sceneToLoad->GetHierarchy("Hierarchy");
 		root_object = game_objects[0];
 
 		delete sceneToLoad;
@@ -332,8 +331,6 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 		}
 
 	}
-
-	//I Initially wanted to do a <algorythm>Sort, but a custom operator couldn't take in external stuff like ray.
 
 	std::vector<GameObject*> game_objects_sorted;
 
