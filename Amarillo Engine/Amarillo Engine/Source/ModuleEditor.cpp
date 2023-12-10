@@ -561,7 +561,7 @@ void ModuleEditor::InspectorWindow()
                         }
 
                     }
-                    if (ImGui::Selectable("aaa"))
+                    if (ImGui::Selectable("ComponentCamera"))
                     {
                         if (GameObject_selected->GetComponent(ComponentTypes::CAMERA) == nullptr)
                         {
