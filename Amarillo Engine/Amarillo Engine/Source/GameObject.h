@@ -12,6 +12,8 @@
 #include "ComponentCamera.h"
 #include "ModuleScene.h"
 #include "../External/MathGeoLib/include/Math/float3.h"
+#include "ResourceManager.h"
+
 
 class Component;
 
@@ -44,6 +46,7 @@ public:
 
 public:
 	std::string mName;
+	std::string UID;
 
 	GameObject* parent;
 	std::vector<GameObject*> children;
@@ -55,13 +58,20 @@ public:
 	std::vector<Component*> components;
 
 	void UpdateCamera(Camera3D* camera);
+	GameObject* GetGameObjectFromUID(const std::vector<GameObject*>& gameObjects, const std::string& UID);
+
 	//No use, only reference
 	ComponentTransform* transform = nullptr;
+
 private:
+
 	ComponentTexture* texture = nullptr;
 	ComponentMesh* mesh = nullptr;
+
 public: 
+
 	AABB aabb;
 	OBB obb;
+
 };
 #endif

@@ -60,6 +60,16 @@ void GameObject::Update()
 		Component* component_update = *co;
 		component_update->Update();
 	}
+
+	for (auto it = applic->scene->game_objects.begin(); it != applic->scene->game_objects.end(); ++it) {
+
+		if ((*it)->UID == this->UID && (*it) != this) { // If it is repeated, regenerate
+
+			this->UID = applic->resourceManager->NewGuid().toString();
+
+		}
+
+	}
 }
 
 bool GameObject::SetParent(GameObject* newParent)
@@ -192,4 +202,21 @@ Component* GameObject::GetComponent(ComponentTypes type)
 void GameObject::UpdateCamera(Camera3D* camera)
 {
 	camera->SetPosition(transform->world_position);
+}
+
+GameObject* GameObject::GetGameObjectFromUID(const std::vector<GameObject*>& gameObjects, const std::string& UID)
+{
+	GameObject* gameObjectWithUID = nullptr;
+
+	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it) {
+
+		if ((*it)->UID == UID) {
+
+			gameObjectWithUID = (*it);
+
+		}
+
+	}
+
+	return gameObjectWithUID;
 }

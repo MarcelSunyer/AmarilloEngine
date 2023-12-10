@@ -546,6 +546,14 @@ namespace uuids
          return uuid{ data };
       }
 
+      [[nodiscard]] std::string toString() const {
+          std::stringstream ss;
+          for (const auto& byte : data) {
+              ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(byte);
+          }
+          return ss.str();
+      }
+
    private:
       std::array<value_type, 16> data{ { 0 } };
 

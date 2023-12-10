@@ -25,13 +25,15 @@ bool ModuleScene::Init()
 	//init loadedScene
 	JSON_Doc tmpDoc;
 
-	tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
+	//tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
 
 	tmpDoc.SetNumber3("Editor Camera Pos", App->camera->editor_camera->GetPosition());
 	tmpDoc.SetNumber3("Editor Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
 	tmpDoc.SetNumber3("Editor Camera PosY (Up)", App->camera->editor_camera->GetYDir());
 	tmpDoc.SetNumber3("Editor Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
 	tmpDoc.Save();
+
+	tmpDoc.SetHierarchy("Hierarchy", game_objects);
 	
 	loadedScene = &tmpDoc;
 	loadedScene->Save();
@@ -244,6 +246,8 @@ void ModuleScene::SaveScene()
 	tmpDoc.SetNumber3("Editor Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
 	tmpDoc.Save();
 
+	tmpDoc.SetHierarchy("Hierarchy", game_objects);
+
 	//LOG("Camera saved position: %f , %f , %f", App->camera->editor_camera->GetPosition().x, App->camera->editor_camera->GetPosition().y, App->camera->editor_camera->GetPosition().z)
 
 	playScene = &tmpDoc;
@@ -268,14 +272,15 @@ void ModuleScene::LoadScene(bool playScene)
 
 		//ClearScene(); -> TODO
 
-		//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+		game_objects = sceneToLoad->GetHierarchy("Hierarchy");
 		root_object = game_objects[0];
 
 		delete sceneToLoad;
 	}
 	else
 	{
-		JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "Scene" + ".ascene"));
+		std::string asDir = "../Assets/Scenes/";
+		JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(asDir + "Base_Layout" + ".ascene"));
 
 		//Load Editor Camera Position
 		App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
@@ -285,7 +290,7 @@ void ModuleScene::LoadScene(bool playScene)
 
 		//ClearScene(); -> TODO
 
-		//gameObjects = sceneToLoad->GetHierarchy("Hierarchy");
+		game_objects = sceneToLoad->GetHierarchy("Hierarchy");
 		root_object = game_objects[0];
 
 		delete sceneToLoad;
