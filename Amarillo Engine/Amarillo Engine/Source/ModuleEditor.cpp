@@ -285,6 +285,20 @@ void ModuleEditor::DrawEditor()
     ImGui::BeginMainMenuBar();
     if (ImGui::BeginMenu("File"))
     {
+        if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
+        {
+            App->scene->SaveScene();
+        }
+
+        if (ImGui::MenuItem("Load Scene", "Stop Button"))
+        {
+            App->scene->LoadScene(true);
+        }
+
+        if (ImGui::MenuItem("Load Basic Scene", "Ctrl+L"))
+        {
+            App->scene->LoadScene(false);
+        }
         ImGui::EndMenu();
     }
     if (ImGui::BeginMenu("Edit"))
