@@ -952,7 +952,7 @@ void JSON_Doc::GetComponent(const JSON_Object* componentObject, Component& compo
 	else if (type == "Mesh") {
 
 		component.type = ComponentTypes::MESH;
-
+		
 	}
 	else if (type == "Texture") {
 
@@ -1014,26 +1014,22 @@ void JSON_Doc::GetGameObject(const std::vector<GameObject*>& gameObjects, const 
 	const char* name = json_object_get_string(gameObjectObject, "Name");
 	gameObject.mName = (name != nullptr) ? name : "";
 
-	// Get Position, Rotation, Scale (TODO)
-
 	// Get UID
 	gameObject.UID = json_object_get_string(gameObjectObject, "UID");
 
 	// Get Parent UID
 
-	if (json_object_has_value_of_type(gameObjectObject, "Parent UID", JSONNumber)) 
+	if (json_object_has_value_of_type(gameObjectObject, "Parent UID", JSONString))
 	{
 		std::string parentUID = json_object_get_string(gameObjectObject, "Parent UID");
 
-		// You need to find the corresponding parent GameObject using the UID
-		// and set it to gameObject.mParent.
-
-		GameObject* parent = parent->GetGameObjectFromUID(gameObjects, parentUID);
+		//Error: TODO: The variable 'parent' is being used without being initialized.
+		GameObject* parent = GameObject::GetGameObjectFromUID(gameObjects, parentUID);
 		gameObject.SetParent(parent);
 
 	}
 
-	// Get Children UID (commented to solve the problem with load hierarchy)
+	// Get Children UID
 
 	if (json_object_has_value_of_type(gameObjectObject, "Children UID", JSONArray)) {
 
@@ -1041,18 +1037,17 @@ void JSON_Doc::GetGameObject(const std::vector<GameObject*>& gameObjects, const 
 
 		size_t numChildren = json_array_get_count(childrenArray);
 
-	    gameObject.children.reserve(numChildren);
+		gameObject.children.reserve(numChildren);
 
-	    for (size_t i = 0; i < numChildren; ++i) {
+		for (size_t i = 0; i < numChildren; ++i) {
 
 			std::string childUID = json_array_get_string(childrenArray, i);
-	        // You need to find the corresponding child GameObject using the UID
-	        // and add it to gameObject.mChildren.
+
 			GameObject* childGO = new GameObject();
 			childGO->UID = childUID;
-	        gameObject.children.push_back(childGO);
+			gameObject.children.push_back(childGO);
 
-	    }
+		}
 
 	}
 
@@ -1071,17 +1066,66 @@ void JSON_Doc::GetGameObject(const std::vector<GameObject*>& gameObjects, const 
 
 				JSON_Object* componentObject = json_value_get_object(componentValue);
 
-				// Create a new Component
 				Component* component = new Component();
 
-				// Call the existing GetComponent function to extract individual Component properties
 				GetComponent(componentObject, *component);
 
-				// Add the Component to the GameObject's components vector
-				gameObject.components.push_back(component);
+				gameObject.AddComponent(component);
+				//gameObject.components.push_back(component);
 			}
 		}
 	}
+
+	// Get Position
+	if (json_object_has_value_of_type(gameObjectObject, "Position", JSONArray)) {
+		JSON_Array* positionArray = json_object_get_array(gameObjectObject, "Position");
+
+		if (json_array_get_count(positionArray) == 3) {
+			float x = static_cast<float>(json_array_get_number(positionArray, 0));
+			float y = static_cast<float>(json_array_get_number(positionArray, 1));
+			float z = static_cast<float>(json_array_get_number(positionArray, 2));
+
+
+			gameObject.transform->world_position = float3(x, y, z);
+		}
+	}
+
+	// Get Rotation
+	if (json_object_has_value_of_type(gameObjectObject, "Rotation", JSONArray)) {
+		JSON_Array* rotationArray = json_object_get_array(gameObjectObject, "Rotation");
+
+		if (json_array_get_count(rotationArray) == 3) {
+			float x = static_cast<float>(json_array_get_number(rotationArray, 0));
+			float y = static_cast<float>(json_array_get_number(rotationArray, 1));
+			float z = static_cast<float>(json_array_get_number(rotationArray, 2));
+
+
+			gameObject.transform->world_rotation = math::Quat::FromEulerXYZ(x, y, z);
+		}
+	}
+
+	// Get Scale
+	if (json_object_has_value_of_type(gameObjectObject, "Scale", JSONArray)) {
+		JSON_Array* scaleArray = json_object_get_array(gameObjectObject, "Scale");
+
+		if (json_array_get_count(scaleArray) == 3) {
+			float x = static_cast<float>(json_array_get_number(scaleArray, 0));
+			float y = static_cast<float>(json_array_get_number(scaleArray, 1));
+			float z = static_cast<float>(json_array_get_number(scaleArray, 2));
+
+
+			gameObject.transform->world_scale = float3(x, y, z);
+		}
+	}
+
+	//Get VBO & EBO
+	if (gameObject.mesh != nullptr)
+	{
+		gameObject.mesh->mesh_->VBO = static_cast<unsigned int>(json_object_get_number(gameObjectObject, "VBO"));
+		gameObject.mesh->mesh_->EBO = static_cast<unsigned int>(json_object_get_number(gameObjectObject, "EBO"));
+	}
+
+
 }
 
 void JSON_Doc::SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject)
@@ -1137,6 +1181,14 @@ void JSON_Doc::SetGameObject(JSON_Object* gameObjectObject, const GameObject& ga
 
 		json_object_set_value(gameObjectObject, "Children UID", childrenValue);
 	}
+
+	// Set VBO & EBO
+	if (gameObject.mesh != nullptr)
+	{
+		json_object_set_number(gameObjectObject, "VBO", static_cast<double>(gameObject.mesh->mesh_->VBO));
+		json_object_set_number(gameObjectObject, "EBO", static_cast<double>(gameObject.mesh->mesh_->EBO));
+	}
+
 
 	// Save Components Info
 

@@ -10,7 +10,7 @@ GameObject::GameObject()
 	active = true;
 	selected = false;
 
-	AddComponent(new ComponentTransform(this));
+	transform = (ComponentTransform*)AddComponent(ComponentTypes::TRANSFORM);
 }
 
 GameObject::GameObject(std::string name) : mName(name), active(true), parent(nullptr)

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
@@ -58,12 +59,12 @@ public:
 	std::vector<Component*> components;
 
 	void UpdateCamera(Camera3D* camera);
-	GameObject* GetGameObjectFromUID(const std::vector<GameObject*>& gameObjects, const std::string& UID);
+	static GameObject* GetGameObjectFromUID(const std::vector<GameObject*>& gameObjects, const std::string& UID);
 
 	//No use, only reference
 	ComponentTransform* transform = nullptr;
 
-private:
+public:
 
 	ComponentTexture* texture = nullptr;
 	ComponentMesh* mesh = nullptr;
