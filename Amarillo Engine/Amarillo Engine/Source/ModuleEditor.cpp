@@ -691,6 +691,7 @@ void ModuleEditor::InitializeIconMapping() {
     iconMapping[".fbx"] = "../Assets/Editor/model.dds";
     iconMapping[".dds"] = "../Assets/Editor/image.dds";
     iconMapping[".ascene"] = "../Assets/Editor/scene.dds";
+    iconMapping[".meta"] = "../Assets/Editor/files.dds";
 }
 
 void ModuleEditor::OpenAsset(const std::string& assetPath) {
