@@ -63,7 +63,7 @@ public:
 
 	void DrawAsset(const std::string& assetPath);
 
-	void DrawFolderContents(const std::string& folderPath);
+	void DrawFolderContents(const std::string& folderPath, std::vector<std::string>& currentPath);
 
 	void ShowAssetBrowser();
 	
@@ -112,6 +112,9 @@ public:
 	ImVec2 size_game;
 
 	ImVec2 position_editor;
+
+	//Asset explorer
+	std::vector<std::string> currentPath;
 };
 
 #endif // MODULE_EDITOR

@@ -694,7 +694,7 @@ void ModuleEditor::DrawAsset(const std::string& assetPath) {
     std::string extension = fs::path(assetPath).extension().string();
 
     // Load the corresponding icon or texture based on the extension
-    GLuint textureID = App->texture->LoadTexture(("../Assets/Editor/icons/" + extension + ".png").c_str());
+    GLuint textureID = App->texture->LoadTexture(("../Assets/Editor/" + extension + ".dds").c_str());
 
     // Display the asset with an icon
     ImGui::PushID(assetPath.c_str());
@@ -709,25 +709,58 @@ void ModuleEditor::DrawAsset(const std::string& assetPath) {
     ImGui::PopID();
 }
 
-void ModuleEditor::DrawFolderContents(const std::string& folderPath) {
+void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector<std::string>& currentPath) {
+    const float iconSize = 80.0f;
+    const float spacing = 10.0f; // Espacio entre iconos
+
     for (const auto& entry : fs::directory_iterator(folderPath)) {
         if (entry.is_directory()) {
-            DrawFolderContents(entry.path().string());
+            // Draw folder title
+            ImGui::Text("%s", entry.path().filename().string().c_str());
+            ImGui::Separator();
+
+            // DrawAsset with manual positioning
+            DrawAsset(entry.path().string());
+
+            // Check for folder click
+            if (ImGui::IsItemClicked()) {
+                // If folder is clicked, enter into the folder
+                currentPath.push_back(entry.path().filename().string());
+            }
         }
         else {
+            // DrawAsset with manual positioning
             DrawAsset(entry.path().string());
+        }
+
+        // Separación entre elementos
+        ImGui::Dummy(ImVec2(spacing, spacing));
+
+        // Nueva línea después de cada elemento (puedes ajustar según sea necesario)
+        if (ImGui::GetCursorPosX() > ImGui::GetWindowWidth() - (iconSize + spacing)) {
+            ImGui::NewLine();
         }
     }
 }
+
 
 void ModuleEditor::ShowAssetBrowser() {
     // Asset Browser Window
     ImGui::Begin("Asset Browser");
 
-    std::string assetFolderPath = "../Assets";
+    // Botón de retroceso
+    if (ImGui::Button("Back") && !currentPath.empty()) {
+        // Retroceder en la carpeta anterior
+        currentPath.pop_back();
+    }
 
-    // Draw assets in the folder
-    DrawFolderContents(assetFolderPath);
+    // Draw assets in the current folder
+    std::string currentFolder = "../Assets/";
+    for (const auto& folder : currentPath) {
+        currentFolder = currentFolder + folder + "/";
+    }
+
+    DrawFolderContents(currentFolder, currentPath);
 
     ImGui::End();
 }
