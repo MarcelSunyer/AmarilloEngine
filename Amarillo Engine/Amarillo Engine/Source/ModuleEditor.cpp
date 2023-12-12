@@ -284,11 +284,8 @@ void ModuleEditor::DrawEditor()
     }
     ImGui::End();
 
-    if (ImGui::Begin("Assets"))
-    {
-        DrawFolderTree("../Assets/");
-    }
-    ImGui::End();
+    ShowAssetBrowser();
+ 
 
     
     ImGui::BeginMainMenuBar();
@@ -686,75 +683,55 @@ std::string ModuleEditor::loadFile(const char* filename)
     return content;
 }
 
-void ModuleEditor::DrawFolderTree(const std::string& folderPath) {
+void ModuleEditor::OpenAsset(const std::string& assetPath) {
+    // Implement the action to open or use the selected asset
+    // For example, you could display a message or load the asset in your game/engine
+    printf("Opening asset: %s\n", assetPath.c_str());
+}
 
-    // Process Directories First
+void ModuleEditor::DrawAsset(const std::string& assetPath) {
+    // Get file extension
+    std::string extension = fs::path(assetPath).extension().string();
 
-    for (const auto& entry : fs::directory_iterator(folderPath)) {
+    // Load the corresponding icon or texture based on the extension
+    GLuint textureID = App->texture->LoadTexture(("../Assets/Editor/icons/" + extension + ".png").c_str());
 
-        if (entry.is_directory()) {
+    // Display the asset with an icon
+    ImGui::PushID(assetPath.c_str());
+    ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(textureID)), ImVec2(64, 64));
+    ImGui::TextWrapped("%s", fs::path(assetPath).filename().string().c_str());
 
-            std::string entryName = entry.path().filename().string();
-
-            if (entryName != "." && entryName != "..") {
-
-                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 0.0f, 1.0f)); // Amarillo más claro
-
-                if (ImGui::TreeNodeEx(entryName.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick)) {
-
-                    DrawFolderTree(entry.path().string());
-
-                    ImGui::TreePop();
-
-                }
-
-                ImGui::PopStyleColor();
-
-            }
-
-        }
-
+    // Handle double-click action
+    if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
+        OpenAsset(assetPath);
     }
 
-    // Process Files Afterwards
+    ImGui::PopID();
+}
 
+void ModuleEditor::DrawFolderContents(const std::string& folderPath) {
     for (const auto& entry : fs::directory_iterator(folderPath)) {
-
-        if (!entry.is_directory()) {
-
-            std::string entryName = entry.path().filename().string();
-
-            if (entryName != "." && entryName != "..") {
-
-                if ((entryName.find(".meta") != std::string::npos) || (entryName.find(".glsl") != std::string::npos)) {
-
-                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.7f, 0.7f, 0.1f, 1.0f)); // Amarillo más oscuro
-
-                    if (ImGui::Selectable(entryName.c_str())) {
-
-                        selectedFilePath = entry.path().string();
-                        showModal = true;  // Set the flag to open the modal
-                    }
-
-                    ImGui::PopStyleColor();
-
-                }
-                else {
-
-                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.6f, 0.6f, 0.0f, 1.0f)); // Amarillo más oscuro
-
-                    ImGui::Selectable(entryName.c_str());
-
-                    ImGui::PopStyleColor();
-
-                }
-
-            }
-
+        if (entry.is_directory()) {
+            DrawFolderContents(entry.path().string());
         }
-
+        else {
+            DrawAsset(entry.path().string());
+        }
     }
 }
+
+void ModuleEditor::ShowAssetBrowser() {
+    // Asset Browser Window
+    ImGui::Begin("Asset Browser");
+
+    std::string assetFolderPath = "../Assets";
+
+    // Draw assets in the folder
+    DrawFolderContents(assetFolderPath);
+
+    ImGui::End();
+}
+
 void ModuleEditor::OnClick(float pos_x, float pos_y)
 {
     pos_x -= position_editor.x;

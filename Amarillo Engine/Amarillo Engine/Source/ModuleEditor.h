@@ -52,13 +52,20 @@ public:
 	void DrawHierarchyLevel(GameObject* currentObject, int num);
 	void DrawHierarchy();
 
-	void DrawFolderTree(const std::string& folderPath);
 
 	void OnClick(float pos_x, float pos_y);
 
 
 
 	std::string loadFile(const char* filename);
+
+	void OpenAsset(const std::string& assetPath);
+
+	void DrawAsset(const std::string& assetPath);
+
+	void DrawFolderContents(const std::string& folderPath);
+
+	void ShowAssetBrowser();
 	
 	GameObject* GameObject_selected = nullptr;
 	GameObject* hoveredGameObj = nullptr;
