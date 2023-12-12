@@ -688,10 +688,12 @@ std::string ModuleEditor::loadFile(const char* filename)
 void ModuleEditor::InitializeIconMapping() {
     
     iconMapping[".png"] = "../Assets/Editor/image.dds";
+    iconMapping[".ico"] = "../Assets/Icon.ico";
     iconMapping[".fbx"] = "../Assets/Editor/model.dds";
     iconMapping[".dds"] = "../Assets/Editor/image.dds";
     iconMapping[".ascene"] = "../Assets/Editor/scene.dds";
     iconMapping[".meta"] = "../Assets/Editor/files.dds";
+    iconMapping[".folder"] = "../Assets/Editor/folder.dds";
 }
 
 void ModuleEditor::OpenAsset(const std::string& assetPath) {
@@ -730,8 +732,6 @@ void ModuleEditor::DrawAsset(const std::string& assetPath) {
     }
 }
 
-
-
 void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector<std::string>& currentPath) {
     const float iconSize = 80.0f;
     const float spacing = 10.0f; // Espacio entre iconos
@@ -742,8 +742,15 @@ void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector
             ImGui::Text("%s", entry.path().filename().string().c_str());
             ImGui::Separator();
 
-            // DrawAsset with manual positioning
-            DrawAsset(entry.path().string());
+            // Busca la extensión en el mapeo de iconos
+            auto iconIt = iconMapping.find(".folder");
+            if (iconIt != iconMapping.end()) {
+                // Carga el icono específico asignado a la extensión
+                Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
+
+                // Muestra el icono para la carpeta
+                ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texture->textID)), ImVec2(64, 64));
+            }
 
             // Check for folder click
             if (ImGui::IsItemClicked()) {
@@ -765,7 +772,6 @@ void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector
         }
     }
 }
-
 
 void ModuleEditor::ShowAssetBrowser() {
     // Asset Browser Window
