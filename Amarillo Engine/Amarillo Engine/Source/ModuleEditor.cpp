@@ -686,7 +686,7 @@ std::string ModuleEditor::loadFile(const char* filename)
 }
 
 void ModuleEditor::InitializeIconMapping() {
-    
+
     iconMapping[".png"] = "../Assets/Editor/image.dds";
     iconMapping[".ico"] = "../Assets/Icon.ico";
     iconMapping[".fbx"] = "../Assets/Editor/model.dds";
@@ -709,12 +709,19 @@ void ModuleEditor::DrawAsset(const std::string& assetPath) {
     // Busca la extensión en el mapeo de iconos
     auto iconIt = iconMapping.find(extension);
     if (iconIt != iconMapping.end()) {
-        // Carga el icono específico asignado a la extensión
-        Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
+        
+        // Comprueba si la textura ya está cargada
+        auto textureIt = loadedTextures.find(iconIt->second);
+        if (textureIt == loadedTextures.end() || !textureIt->second.loaded) {
+            // Si no está cargada, carga la textura y actualiza la información en el mapa
+            Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
+            loadedTextures[iconIt->second] = { texture->textID, true };
+        }
+       
 
         // Muestra el icono
         ImGui::PushID(assetPath.c_str());
-        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texture->textID)), ImVec2(64, 64));
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(loadedTextures[iconIt->second].textID)), ImVec2(64, 64));
         ImGui::TextWrapped("%s", fs::path(assetPath).filename().string().c_str());
 
         // Handle double-click action
@@ -745,11 +752,16 @@ void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector
             // Busca la extensión en el mapeo de iconos
             auto iconIt = iconMapping.find(".folder");
             if (iconIt != iconMapping.end()) {
-                // Carga el icono específico asignado a la extensión
-                Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
+                // Comprueba si la textura ya está cargada
+                auto textureIt = loadedTextures.find(iconIt->second);
+                if (textureIt == loadedTextures.end() || !textureIt->second.loaded) {
+                    // Si no está cargada, carga la textura y actualiza la información en el mapa
+                    Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
+                    loadedTextures[iconIt->second] = { texture->textID, true };
+                }
 
                 // Muestra el icono para la carpeta
-                ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texture->textID)), ImVec2(64, 64));
+                ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(loadedTextures[iconIt->second].textID)), ImVec2(64, 64));
             }
 
             // Check for folder click
@@ -770,6 +782,12 @@ void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector
         if (ImGui::GetCursorPosX() > ImGui::GetWindowWidth() - (iconSize + spacing)) {
             ImGui::NewLine();
         }
+    }
+}
+
+void ModuleEditor::MarkTexturesAsUnloaded() {
+    for (auto& texture : loadedTextures) {
+        texture.second.loaded = false;
     }
 }
 

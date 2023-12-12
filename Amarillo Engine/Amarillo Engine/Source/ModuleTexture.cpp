@@ -109,6 +109,8 @@ Texture* ModuleTexture::LoadTextureEditor(const char* filename)
     // Crea un nuevo objeto Texture
     Texture* newTexture = new Texture(textureID, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), filename);
 
+    LOG("Loaded texture %s", filename);
+
     return newTexture;
 }
 

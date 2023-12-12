@@ -68,6 +68,8 @@ public:
 
 	void DrawFolderContents(const std::string& folderPath, std::vector<std::string>& currentPath);
 
+	void MarkTexturesAsUnloaded();
+
 	void ShowAssetBrowser();
 	
 	GameObject* GameObject_selected = nullptr;
@@ -119,6 +121,14 @@ public:
 	//Asset explorer
 	std::vector<std::string> currentPath;
 	std::unordered_map<std::string, std::string> iconMapping;
+
+	struct TextureInfo_E {
+		GLuint textID;
+		bool loaded;
+	};
+	std::unordered_map<std::string, TextureInfo_E> loadedTextures;
+	std::unordered_map<std::string, bool> textureLoadedState;
+
 };
 
 #endif // MODULE_EDITOR
