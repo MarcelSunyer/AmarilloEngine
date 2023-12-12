@@ -76,14 +76,15 @@ Texture* ModuleTexture::LoadTexture(std::string file_name)
     }
 }
 
-GLuint ModuleTexture::LoadTexture(const char* filename)
+Texture* ModuleTexture::LoadTextureEditor(const char* filename)
 {
     ILuint imageID;
     ilGenImages(1, &imageID);
     ilBindImage(imageID);
 
     if (!ilLoadImage(filename)) {
-        fprintf(stderr, "Failed to load texture: %s\n", filename);
+        ILenum error = ilGetError();
+        LOG("Failed to load texture %s. DevIL Error: %d", filename, error);
         ilDeleteImages(1, &imageID);
         return 0;
     }
@@ -94,16 +95,21 @@ GLuint ModuleTexture::LoadTexture(const char* filename)
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     ilDeleteImages(1, &imageID);
 
-    return textureID;
+    // Crea un nuevo objeto Texture
+    Texture* newTexture = new Texture(textureID, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), filename);
+
+    return newTexture;
 }
 
 void ModuleTexture::LoadTextureToGameObject(GameObject* texture, std::string textfile)

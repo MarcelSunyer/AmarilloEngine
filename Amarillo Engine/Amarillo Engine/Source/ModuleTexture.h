@@ -44,7 +44,7 @@ public:
 	bool GenTexture(GLuint* imgData, GLuint width, GLuint height);
 
 	Texture* LoadTexture(std::string textfile);
-	GLuint LoadTexture(const char* filename);
+	Texture* LoadTextureEditor(const char* filename);
 
 	void LoadTextureToGameObject(GameObject* texture, std::string textfile);
 	Texture* LoadOrGetTexture(const std::string& resolved_path);

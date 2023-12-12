@@ -14,6 +14,7 @@
 #include "../External/ImGuizmo/ImGuizmo.h"
 #include <cstring>
 #include <filesystem>
+#include <unordered_map>
 
 namespace fs = std::filesystem;
 
@@ -58,6 +59,8 @@ public:
 
 
 	std::string loadFile(const char* filename);
+
+	void InitializeIconMapping();
 
 	void OpenAsset(const std::string& assetPath);
 
@@ -115,6 +118,7 @@ public:
 
 	//Asset explorer
 	std::vector<std::string> currentPath;
+	std::unordered_map<std::string, std::string> iconMapping;
 };
 
 #endif // MODULE_EDITOR

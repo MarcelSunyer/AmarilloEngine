@@ -66,6 +66,8 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
 
+    InitializeIconMapping();
+
 	return true;
 }
 
@@ -683,31 +685,51 @@ std::string ModuleEditor::loadFile(const char* filename)
     return content;
 }
 
+void ModuleEditor::InitializeIconMapping() {
+    
+    iconMapping[".png"] = "../Assets/Editor/image.dds";
+    iconMapping[".fbx"] = "../Assets/Editor/model.dds";
+    iconMapping[".dds"] = "../Assets/Editor/image.dds";
+    iconMapping[".ascene"] = "../Assets/Editor/scene.dds";
+}
+
 void ModuleEditor::OpenAsset(const std::string& assetPath) {
     // Implement the action to open or use the selected asset
     // For example, you could display a message or load the asset in your game/engine
-    printf("Opening asset: %s\n", assetPath.c_str());
+    LOG("Opening asset: %s\n", assetPath.c_str());
 }
 
 void ModuleEditor::DrawAsset(const std::string& assetPath) {
     // Get file extension
     std::string extension = fs::path(assetPath).extension().string();
 
-    // Load the corresponding icon or texture based on the extension
-    GLuint textureID = App->texture->LoadTexture(("../Assets/Editor/" + extension + ".dds").c_str());
+    // Busca la extensión en el mapeo de iconos
+    auto iconIt = iconMapping.find(extension);
+    if (iconIt != iconMapping.end()) {
+        // Carga el icono específico asignado a la extensión
+        Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
 
-    // Display the asset with an icon
-    ImGui::PushID(assetPath.c_str());
-    ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(textureID)), ImVec2(64, 64));
-    ImGui::TextWrapped("%s", fs::path(assetPath).filename().string().c_str());
+        // Muestra el icono
+        ImGui::PushID(assetPath.c_str());
+        ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(texture->textID)), ImVec2(64, 64));
+        ImGui::TextWrapped("%s", fs::path(assetPath).filename().string().c_str());
 
-    // Handle double-click action
-    if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
-        OpenAsset(assetPath);
+        // Handle double-click action
+        if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
+            OpenAsset(assetPath);
+        }
+
+        ImGui::PopID();
     }
+    else {
+        // Si no se encuentra un icono específico, carga un icono predeterminado o muestra el nombre del archivo
+        ImGui::TextWrapped("%s", fs::path(assetPath).filename().string().c_str());
 
-    ImGui::PopID();
+        // Resto del código...
+    }
 }
+
+
 
 void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector<std::string>& currentPath) {
     const float iconSize = 80.0f;
