@@ -148,6 +148,8 @@ void ChildMesh::UnloadFromMemory()
 	{
 		applic->renderer3D->UnloadBuffer(id_uv, num_uvs * 3);
 		id_uv = 0;
+
+
 	}
 }
 
