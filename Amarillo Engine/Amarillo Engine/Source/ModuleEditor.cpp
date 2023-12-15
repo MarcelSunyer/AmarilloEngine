@@ -710,7 +710,7 @@ void ModuleEditor::OpenAsset(const std::string& assetPath) {
 
 void ModuleEditor::DrawAsset(const std::string& assetPath) {
     // Get file extension
-    std::string extension = fs::path(assetPath).extension().string();
+    std::string extension = std::filesystem::path(assetPath).extension().string();
 
     // Busca la extensión en el mapeo de iconos
     auto iconIt = iconMapping.find(extension);
@@ -728,7 +728,7 @@ void ModuleEditor::DrawAsset(const std::string& assetPath) {
         // Muestra el icono
         ImGui::PushID(assetPath.c_str());
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(loadedTextures[iconIt->second].textID)), ImVec2(64, 64));
-        ImGui::TextWrapped("%s", fs::path(assetPath).filename().string().c_str());
+        ImGui::TextWrapped("%s", std::filesystem::path(assetPath).filename().string().c_str());
 
         // Handle double-click action
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
@@ -739,7 +739,7 @@ void ModuleEditor::DrawAsset(const std::string& assetPath) {
     }
     else {
         // Si no se encuentra un icono específico, carga un icono predeterminado o muestra el nombre del archivo
-        ImGui::TextWrapped("%s", fs::path(assetPath).filename().string().c_str());
+        ImGui::TextWrapped("%s", std::filesystem::path(assetPath).filename().string().c_str());
 
         // Resto del código...
     }
@@ -749,7 +749,7 @@ void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector
     const float iconSize = 80.0f;
     const float spacing = 10.0f; // Espacio entre iconos
 
-    for (const auto& entry : fs::directory_iterator(folderPath)) {
+    for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
         if (entry.is_directory()) {
             // Draw folder title
             ImGui::Text("%s", entry.path().filename().string().c_str());
