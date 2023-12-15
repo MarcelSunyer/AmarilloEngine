@@ -243,7 +243,9 @@ void ModuleEditor::DrawEditor()
     {
         ImGui::Text("                                                   ");
         ImGui::SameLine();
-        if (ImGui::Button("Play") && (timerState == Timer_State::PAUSED || timerState == Timer_State::STOPPED))
+
+        // Utiliza ImGui::ImageButton para el botón Play
+        if (ImGui::ImageButton((void*)App->texture->LoadTexture("../Assets/Editor/play.dds")->textID, ImVec2(32, 32)) && (timerState == Timer_State::PAUSED || timerState == Timer_State::STOPPED))
         {
             timer.Start();
             timerState = Timer_State::RUNNING;
@@ -252,14 +254,16 @@ void ModuleEditor::DrawEditor()
         }
         ImGui::SameLine();
 
-        if (ImGui::Button("Pause") && timerState == Timer_State::RUNNING)
+        // Utiliza ImGui::ImageButton para el botón Pause
+        if (ImGui::ImageButton((void*)App->texture->LoadTexture("../Assets/Editor/pause.dds")->textID, ImVec2(32, 32)) && timerState == Timer_State::RUNNING)
         {
             timer.Pause();
             timerState = Timer_State::PAUSED;
         }
         ImGui::SameLine();
 
-        if (ImGui::Button("Stop") && (timerState == Timer_State::RUNNING || timerState == Timer_State::PAUSED))
+        // Utiliza ImGui::ImageButton para el botón Stop
+        if (ImGui::ImageButton((void*)App->texture->LoadTexture("../Assets/Editor/stop.dds")->textID, ImVec2(32, 32)) && (timerState == Timer_State::RUNNING || timerState == Timer_State::PAUSED))
         {
             timer.Stop();
             elapsed_time = 0;
@@ -268,6 +272,7 @@ void ModuleEditor::DrawEditor()
             LOG("Stop Timer: %u ", elapsed_time);
         }
         ImGui::SameLine();
+
         switch (timerState)
         {
         case STOPPED:
@@ -282,9 +287,10 @@ void ModuleEditor::DrawEditor()
         }
         ImGui::SameLine();
         ImGui::Text("Current Time: %u ", elapsed_time);
-        
+
     }
     ImGui::End();
+
 
     ShowAssetBrowser();
  
