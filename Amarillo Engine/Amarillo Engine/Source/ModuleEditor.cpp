@@ -81,7 +81,11 @@ void ModuleEditor::DrawEditor()
     ImGuizmo::BeginFrame();
     ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
 
+
     ImGuizmo::Enable(true);
+
+    //Tables & Columnes, row height
+    //ImGui::ShowDemoWindow();
 
     ImGui::Begin("Hierarchy");
 
