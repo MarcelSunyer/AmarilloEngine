@@ -97,12 +97,12 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 	}
 
-	if (App->input->GetMouseZ() > 0)
+	if (App->input->GetMouseZ() > 0 && App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 	{
 		newPos -= editor_camera->Camera_frustum.front * speed *3;
 	}
 
-	if (App->input->GetMouseZ() < 0)
+	if (App->input->GetMouseZ() < 0 && App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 	{
 		newPos += editor_camera->Camera_frustum.front * speed*3;
 	}
