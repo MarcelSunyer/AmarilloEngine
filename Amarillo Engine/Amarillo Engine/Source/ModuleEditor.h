@@ -64,7 +64,7 @@ public:
 
 	void OpenAsset(const std::string& assetPath);
 
-	void DrawAsset(const std::string& assetPath);
+	void DrawAsset(const std::string& assetPath, int column);
 
 	void DrawFolderContents(const std::string& folderPath, std::vector<std::string>& currentPath);
 

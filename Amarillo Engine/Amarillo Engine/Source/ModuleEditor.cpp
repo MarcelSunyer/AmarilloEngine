@@ -297,8 +297,6 @@ void ModuleEditor::DrawEditor()
 
 
     ShowAssetBrowser();
- 
-
     
     ImGui::BeginMainMenuBar();
     if (ImGui::BeginMenu("File"))
@@ -742,14 +740,13 @@ void ModuleEditor::OpenAsset(const std::string& assetPath) {
     }
 }
 
-void ModuleEditor::DrawAsset(const std::string& assetPath) {
+void ModuleEditor::DrawAsset(const std::string& assetPath, int column) {
     // Get file extension
     std::string extension = std::filesystem::path(assetPath).extension().string();
 
     // Busca la extensión en el mapeo de iconos
     auto iconIt = iconMapping.find(extension);
     if (iconIt != iconMapping.end()) {
-        
         // Comprueba si la textura ya está cargada
         auto textureIt = loadedTextures.find(iconIt->second);
         if (textureIt == loadedTextures.end() || !textureIt->second.loaded) {
@@ -757,12 +754,12 @@ void ModuleEditor::DrawAsset(const std::string& assetPath) {
             Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
             loadedTextures[iconIt->second] = { texture->textID, true };
         }
-       
 
         // Muestra el icono
+        ImGui::TextWrapped("%s", std::filesystem::path(assetPath).filename().string().c_str());
         ImGui::PushID(assetPath.c_str());
         ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(loadedTextures[iconIt->second].textID)), ImVec2(64, 64));
-        ImGui::TextWrapped("%s", std::filesystem::path(assetPath).filename().string().c_str());
+        
 
         // Handle double-click action
         if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
@@ -780,50 +777,60 @@ void ModuleEditor::DrawAsset(const std::string& assetPath) {
 }
 
 void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector<std::string>& currentPath) {
+    const int numColumns = 3;
     const float iconSize = 80.0f;
     const float spacing = 10.0f; // Espacio entre iconos
 
-    for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
-        if (entry.is_directory()) {
-            // Draw folder title
-            ImGui::Text("%s", entry.path().filename().string().c_str());
-            ImGui::Separator();
+    if (ImGui::BeginTable("table2", numColumns))
+    {
+        int column = 0;
 
-            // Busca la extensión en el mapeo de iconos
-            auto iconIt = iconMapping.find(".folder");
-            if (iconIt != iconMapping.end()) {
-                // Comprueba si la textura ya está cargada
-                auto textureIt = loadedTextures.find(iconIt->second);
-                if (textureIt == loadedTextures.end() || !textureIt->second.loaded) {
-                    // Si no está cargada, carga la textura y actualiza la información en el mapa
-                    Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
-                    loadedTextures[iconIt->second] = { texture->textID, true };
+        for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
+            ImGui::TableNextColumn();
+
+            if (entry.is_directory()) {
+                // Draw folder title
+                ImGui::Text("%s", entry.path().filename().string().c_str());
+                ImGui::Separator();
+
+                // Busca la extensión en el mapeo de iconos
+                auto iconIt = iconMapping.find(".folder");
+                if (iconIt != iconMapping.end()) {
+                    // Comprueba si la textura ya está cargada
+                    auto textureIt = loadedTextures.find(iconIt->second);
+                    if (textureIt == loadedTextures.end() || !textureIt->second.loaded) {
+                        // Si no está cargada, carga la textura y actualiza la información en el mapa
+                        Texture* texture = App->texture->LoadTextureEditor(iconIt->second.c_str());
+                        loadedTextures[iconIt->second] = { texture->textID, true };
+                    }
+
+                    // Muestra el icono para la carpeta
+                    ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(loadedTextures[iconIt->second].textID)), ImVec2(64, 64));
                 }
 
-                // Muestra el icono para la carpeta
-                ImGui::Image(reinterpret_cast<void*>(static_cast<uintptr_t>(loadedTextures[iconIt->second].textID)), ImVec2(64, 64));
+                // Check for folder click
+                if (ImGui::IsItemClicked()) {
+                    // If folder is clicked, enter into the folder
+                    currentPath.push_back(entry.path().filename().string());
+                }
+            }
+            else {
+                // DrawAsset with manual positioning in the table cell
+                DrawAsset(entry.path().string(), column);
             }
 
-            // Check for folder click
-            if (ImGui::IsItemClicked()) {
-                // If folder is clicked, enter into the folder
-                currentPath.push_back(entry.path().filename().string());
+            // Nueva línea después de cada elemento (puedes ajustar según sea necesario)
+            if ((column + 1) % numColumns == 0) {
+                ImGui::TableNextRow();
             }
-        }
-        else {
-            // DrawAsset with manual positioning
-            DrawAsset(entry.path().string());
+
+            column++;
         }
 
-        // Separación entre elementos
-        ImGui::Dummy(ImVec2(spacing, spacing));
-
-        // Nueva línea después de cada elemento (puedes ajustar según sea necesario)
-        if (ImGui::GetCursorPosX() > ImGui::GetWindowWidth() - (iconSize + spacing)) {
-            ImGui::NewLine();
-        }
+        ImGui::EndTable();
     }
 }
+
 
 void ModuleEditor::MarkTexturesAsUnloaded() {
     for (auto& texture : loadedTextures) {
