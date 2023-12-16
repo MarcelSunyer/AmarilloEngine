@@ -721,9 +721,12 @@ void ModuleEditor::OpenAsset(const std::string& assetPath) {
             LOG(("Texture opened: %s", assetPath.c_str()));
             if (GameObject_selected != nullptr)
             {
-                //GameObject_selected->texture->texture = App->texture->LoadTexture(assetPath);
-                ComponentTexture* tmp_Component = (ComponentTexture*)GameObject_selected->GetComponent(ComponentTypes::TEXTURE);
-                tmp_Component->SetTexture(App->texture->LoadTexture(assetPath));
+                if ((ComponentTexture*)GameObject_selected->GetComponent(ComponentTypes::TEXTURE) != nullptr)
+                {
+                    //GameObject_selected->texture->texture = App->texture->LoadTexture(assetPath);
+                    ComponentTexture* tmp_Component = (ComponentTexture*)GameObject_selected->GetComponent(ComponentTypes::TEXTURE);
+                    tmp_Component->SetTexture(App->texture->LoadTexture(assetPath));
+                }
             }
         }
         else if (strcmp(ext, ".ascene") == 0) {
