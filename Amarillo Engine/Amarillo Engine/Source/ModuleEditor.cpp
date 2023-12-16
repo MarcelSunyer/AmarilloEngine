@@ -707,9 +707,32 @@ void ModuleEditor::InitializeIconMapping() {
 }
 
 void ModuleEditor::OpenAsset(const std::string& assetPath) {
-    // Implement the action to open or use the selected asset
-    // For example, you could display a message or load the asset in your game/engine
-    LOG("Opening asset: %s\n", assetPath.c_str());
+    
+    const char* ext = strrchr(assetPath.c_str(), '.');
+
+    if (ext != NULL) {
+        if (strcmp(ext, ".fbx") == 0 || strcmp(ext, ".FBX") == 0 || strcmp(ext, ".dae") == 0 || strcmp(ext, ".DAE") == 0) {
+            // File extension FBX or DAE: Load Mesh
+            LOG(("Mesh opened: %s", assetPath.c_str()));
+
+            App->mesh->LoadMesh(assetPath.c_str());
+            App->renderer3D->BindBuffers();
+        }
+        else if (strcmp(ext, ".png") == 0 || strcmp(ext, ".tga") == 0 || strcmp(ext, ".dds") == 0) {
+            //Texture file, load texture to selected object
+            LOG(("Texture opened: %s", assetPath.c_str()));
+            if (GameObject_selected != nullptr)
+            {
+                GameObject_selected->texture->texture = App->texture->LoadTexture(assetPath);
+            }
+        }
+        else {
+            LOG(("Unsupported file type: %s", assetPath.c_str()));
+        }
+    }
+    else {
+        LOG(("Unable to determine file extension: %s", assetPath.c_str()));
+    }
 }
 
 void ModuleEditor::DrawAsset(const std::string& assetPath) {
