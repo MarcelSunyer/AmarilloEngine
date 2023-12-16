@@ -728,6 +728,11 @@ void ModuleEditor::OpenAsset(const std::string& assetPath) {
                 tmp_Component->SetTexture(App->texture->LoadTexture(assetPath));
             }
         }
+        else if (strcmp(ext, ".ascene") == 0) {
+            //Scene file, load scene (de momento solo carga la escena "Base_Layout.ascene")
+            App->scene->LoadScene(false);
+
+        }
         else {
             LOG(("Unsupported file type: %s", assetPath.c_str()));
         }
