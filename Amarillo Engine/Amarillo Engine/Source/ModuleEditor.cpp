@@ -780,7 +780,7 @@ void ModuleEditor::DrawAsset(const std::string& assetPath, int column) {
 }
 
 void ModuleEditor::DrawFolderContents(const std::string& folderPath, std::vector<std::string>& currentPath) {
-    const int numColumns = 3;
+    const int numColumns = 5;
     const float iconSize = 80.0f;
     const float spacing = 10.0f; // Espacio entre iconos
 
