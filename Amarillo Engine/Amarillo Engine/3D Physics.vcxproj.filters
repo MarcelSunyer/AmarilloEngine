@@ -510,6 +510,12 @@
     <ClInclude Include="External\Guid\uuid.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ResourcePrefabLoader.h">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourcePrefab.h">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -754,6 +760,12 @@
     </ClCompile>
     <ClCompile Include="Source\ResourceTextureLoader.cpp">
       <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourcePrefabLoader.cpp">
+      <Filter>Sources\ResourceManagment\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourcePrefab.cpp">
+      <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

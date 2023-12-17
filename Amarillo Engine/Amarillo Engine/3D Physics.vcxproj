@@ -222,6 +222,8 @@
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\ResourceManager.h" />
     <ClInclude Include="Source\ResourceMesh.h" />
+    <ClInclude Include="Source\ResourcePrefab.h" />
+    <ClInclude Include="Source\ResourcePrefabLoader.h" />
     <ClInclude Include="Source\ResourceTexture.h" />
     <ClInclude Include="Source\ResourceLoader.h" />
     <ClInclude Include="Source\ResourceMeshLoader.h" />
@@ -305,6 +307,8 @@
     <ClCompile Include="Source\Resource.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\ResourceMesh.cpp" />
+    <ClCompile Include="Source\ResourcePrefab.cpp" />
+    <ClCompile Include="Source\ResourcePrefabLoader.cpp" />
     <ClCompile Include="Source\ResourceTexture.cpp" />
     <ClCompile Include="Source\ResourceLoader.cpp" />
     <ClCompile Include="Source\ResourceMeshLoader.cpp" />
