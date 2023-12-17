@@ -11,6 +11,7 @@ enum ResourceType
 	RT_TEXTURE,
 	RT_MESH,
 	RT_SCENE,
+	RT_PREFAB,
 };
 
 class Resource
