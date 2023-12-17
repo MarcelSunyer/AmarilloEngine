@@ -71,6 +71,8 @@ public:
 	void MarkTexturesAsUnloaded();
 
 	void ShowAssetBrowser();
+
+	void MouseWindow();
 	
 	GameObject* GameObject_selected = nullptr;
 	GameObject* hoveredGameObj = nullptr;

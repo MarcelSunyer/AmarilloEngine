@@ -93,6 +93,20 @@ void ModuleEditor::DrawEditor()
 
     ImGui::End();
 
+
+    //No entiendo nada
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
+    {
+       
+        if (GameObject_selected)
+        {
+            MouseWindow();
+        }
+
+    }
+
+
+
     ImGui::Begin("Resources");
 
     std::map<ResourceType, std::vector<Resource*>> resources = App->resourceManager->GetResources();
@@ -627,10 +641,16 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
     {
         hoveredGameObj = currentObject;
-        if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+        if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left ))
         {
             GameObject_selected = currentObject;
         }
+
+        if(ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
+        {
+            MouseWindow();
+        }
+       
     }
 
     if (ImGui::IsWindowHovered())
@@ -641,7 +661,9 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
             {
                 GameObject_selected = nullptr;
             }
+           
         }
+       
     }
 
     if (ImGui::BeginDragDropTarget())
@@ -860,6 +882,18 @@ void ModuleEditor::ShowAssetBrowser() {
 
     DrawFolderContents(currentFolder, currentPath);
 
+    ImGui::End();
+}
+
+void ModuleEditor::MouseWindow()
+{
+    int mouseX, mouseY;
+    SDL_GetMouseState(&mouseX, &mouseY);
+    ImVec2 mousePos(static_cast<float>(mouseX), static_cast<float>(mouseY));
+
+    ImGui::SetNextWindowPos(mousePos);
+    ImGui::Begin("Mini Ventana", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
+    ImGui::Text("Contenido de la mini ventana");
     ImGui::End();
 }
 
