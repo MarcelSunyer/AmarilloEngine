@@ -303,11 +303,13 @@ void ModuleEditor::DrawEditor()
 
     //ShowAssetBrowser("../Assets/");
 
-#ifdef NDEBUG  // Release
-    ShowAssetBrowser("../Release/Library/");
-#else  // Debug
+#ifdef _DEBUG  // Debug
     ShowAssetBrowser("../Debug/Library/");
-#endif
+#else  // Release
+    ShowAssetBrowser("../Release/Library/");
+#endif // _DEBUG
+
+
     
     ImGui::BeginMainMenuBar();
     if (ImGui::BeginMenu("File"))
