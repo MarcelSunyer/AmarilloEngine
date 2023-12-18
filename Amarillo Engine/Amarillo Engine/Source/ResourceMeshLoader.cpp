@@ -85,6 +85,8 @@ void ResourceMeshLoader::AddNodeToBinaryStream(const aiScene* scene, aiNode* nod
 {
 	uint size = sizeof(uint[2]);
 
+	//Casa duplicada al exportar el motor y se va de memoria por eso me peta
+
 	for (unsigned int i = 0; i < node->mNumMeshes; ++i)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
@@ -194,6 +196,8 @@ void ResourceMeshLoader::GetMeshesFromBinaryStream(char* cursor, std::vector<Chi
 	memcpy(nodeRanges, cursor, bytes);
 	cursor += bytes;
 
+	
+
 	for (unsigned int i = 0; i < nodeRanges[0]; ++i)
 	{
 		ChildMesh* mesh = new ChildMesh();
@@ -228,6 +232,7 @@ void ResourceMeshLoader::GetMeshesFromBinaryStream(char* cursor, std::vector<Chi
 		mesh->SetUvs(uvs, uvsCount);
 
 		meshes.push_back(mesh);
+		
 	}
 
 	for (unsigned int i = 0; i < nodeRanges[1]; ++i)
