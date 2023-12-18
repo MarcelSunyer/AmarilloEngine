@@ -93,19 +93,10 @@ void ModuleEditor::DrawEditor()
 
     ImGui::End();
 
-
-    //No entiendo nada
-    if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
+    if (right_click == true)
     {
-       
-        if (GameObject_selected)
-        {
-            MouseWindow();
-        }
-
+        MouseWindow();
     }
-
-
 
     ImGui::Begin("Resources");
 
@@ -641,17 +632,21 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
     {
         hoveredGameObj = currentObject;
-        if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left ))
+        if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
         {
             GameObject_selected = currentObject;
         }
 
-        if(ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
+        if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
         {
-            MouseWindow();
+            right_click = true;
         }
-       
+        else
+        {
+            right_click = false;
+        }
     }
+    
 
     if (ImGui::IsWindowHovered())
     {
@@ -887,13 +882,18 @@ void ModuleEditor::ShowAssetBrowser() {
 
 void ModuleEditor::MouseWindow()
 {
-    int mouseX, mouseY;
-    SDL_GetMouseState(&mouseX, &mouseY);
-    ImVec2 mousePos(static_cast<float>(mouseX), static_cast<float>(mouseY));
+   
+    float x = App->input->GetMouseX();
+    float y = App->input->GetMouseY();
+    ImVec2 mouseOos = { x, y };
 
-    ImGui::SetNextWindowPos(mousePos);
-    ImGui::Begin("Mini Ventana", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
-    ImGui::Text("Contenido de la mini ventana");
+    ImGui::SetNextWindowPos(mouseOos);
+
+    ImGui::Begin("##Juan", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
+    if (ImGui::Button("Delete GameObject"))
+    {
+        GameObject_selected->Disable();;
+    }
     ImGui::End();
 }
 
