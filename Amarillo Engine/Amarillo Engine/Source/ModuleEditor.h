@@ -70,7 +70,7 @@ public:
 
 	void MarkTexturesAsUnloaded();
 
-	void ShowAssetBrowser();
+	void ShowAssetBrowser(const char* path);
 
 	void MouseWindow();
 	

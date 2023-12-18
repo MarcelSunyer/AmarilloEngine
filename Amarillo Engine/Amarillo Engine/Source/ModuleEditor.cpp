@@ -301,7 +301,13 @@ void ModuleEditor::DrawEditor()
     ImGui::End();
 
 
-    ShowAssetBrowser();
+    //ShowAssetBrowser("../Assets/");
+
+#ifdef NDEBUG  // Release
+    ShowAssetBrowser("../Release/Library/");
+#else  // Debug
+    ShowAssetBrowser("../Debug/Library/");
+#endif
     
     ImGui::BeginMainMenuBar();
     if (ImGui::BeginMenu("File"))
@@ -859,18 +865,26 @@ void ModuleEditor::MarkTexturesAsUnloaded() {
     }
 }
 
-void ModuleEditor::ShowAssetBrowser() {
-    // Asset Browser Window
-    ImGui::Begin("Asset Browser");
+void ModuleEditor::ShowAssetBrowser(const char* path) {
 
-    // Botón de retroceso
+    // Obtain name from path
+    std::filesystem::path filePath(path);
+    std::string folderName = App->file_system->GetFolderNameFromPath(filePath.parent_path().string().c_str());
+
+    std::string name = folderName.empty() ? "Browser" : folderName + " Browser";
+
+    // Asset Browser Window
+    ImGui::Begin(name.c_str());
+
+    // Back button
     if (ImGui::Button("Back") && !currentPath.empty()) {
-        // Retroceder en la carpeta anterior
+
         currentPath.pop_back();
     }
 
     // Draw assets in the current folder
-    std::string currentFolder = "../Assets/";
+    //std::string currentFolder = "../Assets/";
+    std::string currentFolder = path;
     for (const auto& folder : currentPath) {
         currentFolder = currentFolder + folder + "/";
     }
