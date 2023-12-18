@@ -27,7 +27,7 @@ void TextCpy(char* destination, const char* origen)
 
 std::string ToUpperCase(std::string str)
 {
-	for (uint i = 0; i < str.size(); i++)
+	for (uint i = 0; i < str.size(); ++i)
 	{
 		str[i] = toupper(str[i]);
 	}
@@ -37,7 +37,7 @@ std::string ToUpperCase(std::string str)
 
 std::string ToLowerCase(std::string str)
 {
-	for (uint i = 0; i < str.size(); i++)
+	for (uint i = 0; i < str.size(); ++i)
 	{
 		str[i] = tolower(str[i]);
 	}

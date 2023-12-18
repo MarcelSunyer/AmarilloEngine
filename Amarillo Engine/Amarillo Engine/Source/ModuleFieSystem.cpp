@@ -176,7 +176,7 @@ DecomposedFilePath FileSystem::DecomposeFilePath(std::string file_path)
 
 	// Path ---------------------
 
-	for (int i = 0; i <= last_bar_pos; i++)
+	for (int i = 0; i <= last_bar_pos; ++i)
 	{
 		ret.path += ret.file_path[i];
 	}
@@ -289,7 +289,7 @@ std::string FileSystem::GetFileExtension(const char* file_name)
 	std::string ret;
 
 	bool adding = false;
-	for (int i = 0; file_name[i] != '\0'; i++)
+	for (int i = 0; file_name[i] != '\0'; ++i)
 	{
 		if (file_name[i] == '.')
 		{
@@ -309,7 +309,7 @@ std::string FileSystem::GetFilenameWithoutExtension(const char* file_name)
 {
 	std::string ret;
 
-	for (int i = 0; file_name[i] != '\0'; i++)
+	for (int i = 0; file_name[i] != '\0'; ++i)
 	{
 		if (file_name[i] == '.')
 		{
@@ -326,7 +326,7 @@ std::string FileSystem::GetFileNameFromFilePath(const char* file_path)
 {
 	std::string ret;
 
-	for (int i = 0; file_path[i] != '\0'; i++)
+	for (int i = 0; file_path[i] != '\0'; ++i)
 	{
 		if (file_path[i] == '\\' || file_path[i] == '/')
 		{
@@ -345,7 +345,7 @@ std::string FileSystem::GetPathFromFilePath(const char* file_path)
 	std::string ret;
 
 	int last = 0;
-	for (int i = 0; file_path[i] != '\0'; i++)
+	for (int i = 0; file_path[i] != '\0'; ++i)
 	{
 		if (file_path[i] == '\\')
 		{
@@ -354,7 +354,7 @@ std::string FileSystem::GetPathFromFilePath(const char* file_path)
 		}
 	}
 
-	for (int i = 0; i < last && file_path[i] != '\0'; i++)
+	for (int i = 0; i < last && file_path[i] != '\0'; ++i)
 	{
 		ret += file_path[i];
 	}
@@ -795,7 +795,7 @@ void Changed(const std::filesystem::path& path)
 //Usefull fuctions
 std::string FileSystem::ToLowerCase(std::string str)
 {
-	for (uint i = 0; i < str.size(); i++)
+	for (uint i = 0; i < str.size(); ++i)
 	{
 		str[i] = tolower(str[i]);
 	}

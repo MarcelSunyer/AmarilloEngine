@@ -102,9 +102,9 @@ void ModuleEditor::DrawEditor()
 
     std::map<ResourceType, std::vector<Resource*>> resources = App->resourceManager->GetResources();
 
-    for (std::map<ResourceType, std::vector<Resource*>>::iterator it = resources.begin(); it != resources.end(); it++)
+    for (std::map<ResourceType, std::vector<Resource*>>::iterator it = resources.begin(); it != resources.end(); ++it)
     {
-        for (std::vector<Resource*>::iterator re = (*it).second.begin(); re != (*it).second.end(); re++)
+        for (std::vector<Resource*>::iterator re = (*it).second.begin(); re != (*it).second.end(); ++re)
         {
             std::string string = uuids::to_string<char>((*re)->GetUniqueId());
 
@@ -559,7 +559,7 @@ void ModuleEditor::InspectorWindow()
             ImGui::Separator();
             if (GameObject_selected != nullptr)
             {
-                for (uint m = 0; m < GameObject_selected->components.size(); m++)
+                for (uint m = 0; m < GameObject_selected->components.size(); ++m)
                 {
                     GameObject_selected->components[m]->OnEditor();
                 }
@@ -674,7 +674,7 @@ void ModuleEditor::DrawHierarchyLevel(GameObject* currentObject, int num)
     if (isNodeOpen)
     {
         if (!currentObject->children.empty()) {
-            for (unsigned int i = 0; i < currentObject->children.size(); i++)
+            for (unsigned int i = 0; i < currentObject->children.size(); ++i)
             {
                 DrawHierarchyLevel(currentObject->children[i], i);
             }
@@ -688,7 +688,7 @@ void ModuleEditor::DrawHierarchy()
 {
     std::vector<GameObject*> lista_games = App->scene->root_object->children;
 
-    for (uint i = 0; i < lista_games.size(); i++)
+    for (uint i = 0; i < lista_games.size(); ++i)
     {
         DrawHierarchyLevel(lista_games[i],i);
     }
