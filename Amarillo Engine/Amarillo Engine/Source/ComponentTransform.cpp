@@ -133,7 +133,7 @@ void ComponentTransform::RecalculateTransformHierarchy()
 		
 		torecalculate.erase(torecalculate.begin());
 
-		for (std::vector<GameObject*>::iterator dt = recalculate->owner->children.begin(); dt != recalculate->owner->children.end(); dt++)
+		for (std::vector<GameObject*>::iterator dt = recalculate->owner->children.begin(); dt != recalculate->owner->children.end(); ++dt)
 		{
 			torecalculate.push_back((*dt)->transform);
 		}

@@ -193,7 +193,7 @@ void ModuleResourceManager::LoadResourcesFromAssets()
 
 	std::vector<std::filesystem::path> files = App->file_system->GetFilesFromFolder(assetspath, true);
 
-	for (std::vector< std::filesystem::path>::iterator it = files.begin(); it != files.end(); it++)
+	for (std::vector< std::filesystem::path>::iterator it = files.begin(); it != files.end(); ++it)
 	{
 		if ((*it).extension() == ".meta")
 		{

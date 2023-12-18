@@ -28,7 +28,7 @@ JSON_Doc ModuleJSON::LoadJSON(const char* path)
 	JSON_Doc ret;
 
 	bool exists = false;
-	for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end(); it++)
+	for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end(); ++it)
 	{
 		if (App->file_system->TextCmp(path, (*it).GetPath().c_str()))
 		{
@@ -76,7 +76,7 @@ JSON_Doc ModuleJSON::CreateJSON(const char* path)
 	JSON_Doc ret;
 
 	bool exists = false;
-	for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end(); it++)
+	for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end(); ++it)
 	{
 		if (App->file_system->TextCmp(path, (*it).GetPath().c_str()))
 		{

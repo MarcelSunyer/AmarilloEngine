@@ -117,7 +117,7 @@ void ModuleScene::DeleteGameObject(GameObject* gameobject)
 
 		deletes->Disable();
 
-		for (std::vector<GameObject*>::iterator dt = deletes->children.begin(); dt != deletes->children.end(); dt++)
+		for (std::vector<GameObject*>::iterator dt = deletes->children.begin(); dt != deletes->children.end(); ++dt)
 		{
 			todelete.push_back(*dt);
 		}
@@ -141,7 +141,7 @@ GameObject* ModuleScene::LoadMeshAndTexture(std::string path_mesh, std::string p
 {
 	GameObject* gameObject = App->mesh->LoadMesh(path_mesh.c_str());
 
-	for (std::vector<GameObject*>::iterator it = gameObject->children.begin(); it != gameObject->children.end(); it++)
+	for (std::vector<GameObject*>::iterator it = gameObject->children.begin(); it != gameObject->children.end(); ++it)
 	{
 		App->texture->LoadTextureToGameObject((*it), path_tex);
 	}
@@ -202,7 +202,7 @@ void ModuleScene::ImGuizmoHandling()
 
 void ModuleScene::UpdateGameObjects()
 {
-	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); ++it)
 	{
 		GameObject* update = *it;
 		if (!update->active)
@@ -215,7 +215,7 @@ void ModuleScene::UpdateGameObjects()
 
 void ModuleScene::DebugDrawGameObjects()
 {
-	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); ++it)
 	{
 		GameObject* update = *it;
 		if (!update->active)
@@ -303,9 +303,9 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 	float closest = 0;
 	float furthest = 50;
 	
-	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); it++)
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); ++it)
 	{
-		for (uint m = 0; m < (*it)->components.size(); m++)
+		for (uint m = 0; m < (*it)->components.size(); ++m)
 		{
 			Component* component = (*it)->components[m];
 
@@ -335,12 +335,12 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 	std::vector<GameObject*> game_objects_sorted;
 
 	//Turn map to vector cause iterating vectors is easy :)
-	for (std::map<float, GameObject*>::iterator i = game_object_candidates.begin(); i != game_object_candidates.end(); i++)
+	for (std::map<float, GameObject*>::iterator i = game_object_candidates.begin(); i != game_object_candidates.end(); ++i)
 	{
 		game_objects_sorted.push_back(i->second);
 	}
 
-	for (uint i = 0; i < game_objects_sorted.size(); i++)
+	for (uint i = 0; i < game_objects_sorted.size(); ++i)
 	{
 		ComponentMesh* mesh_to_test = (ComponentMesh*)game_objects_sorted[i]->GetComponent(ComponentTypes::MESH);
 		ModuleMesh::Mesh* mesh = mesh_to_test->mesh_;

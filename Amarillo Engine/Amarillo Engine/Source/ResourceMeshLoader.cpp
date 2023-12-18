@@ -85,7 +85,7 @@ void ResourceMeshLoader::AddNodeToBinaryStream(const aiScene* scene, aiNode* nod
 {
 	uint size = sizeof(uint[2]);
 
-	for (unsigned int i = 0; i < node->mNumMeshes; i++)
+	for (unsigned int i = 0; i < node->mNumMeshes; ++i)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 
@@ -123,7 +123,7 @@ void ResourceMeshLoader::AddNodeToBinaryStream(const aiScene* scene, aiNode* nod
 	memcpy(cursor, nodeRanges, bytes);
 	cursor += bytes;
 
-	for (unsigned int i = 0; i < node->mNumMeshes; i++)
+	for (unsigned int i = 0; i < node->mNumMeshes; ++i)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 
@@ -175,7 +175,7 @@ void ResourceMeshLoader::AddNodeToBinaryStream(const aiScene* scene, aiNode* nod
 
 	stream.insert(stream.end(), data, data + size);
 
-	for (unsigned int i = 0; i < node->mNumChildren; i++)
+	for (unsigned int i = 0; i < node->mNumChildren; ++i)
 	{
 		aiNode* child = node->mChildren[i];
 
@@ -194,7 +194,7 @@ void ResourceMeshLoader::GetMeshesFromBinaryStream(char* cursor, std::vector<Chi
 	memcpy(nodeRanges, cursor, bytes);
 	cursor += bytes;
 
-	for (unsigned int i = 0; i < nodeRanges[0]; i++)
+	for (unsigned int i = 0; i < nodeRanges[0]; ++i)
 	{
 		ChildMesh* mesh = new ChildMesh();
 
@@ -230,7 +230,7 @@ void ResourceMeshLoader::GetMeshesFromBinaryStream(char* cursor, std::vector<Chi
 		meshes.push_back(mesh);
 	}
 
-	for (unsigned int i = 0; i < nodeRanges[1]; i++)
+	for (unsigned int i = 0; i < nodeRanges[1]; ++i)
 	{
 		GetMeshesFromBinaryStream(cursor, meshes);
 	}

@@ -30,7 +30,7 @@ void GameObject::Enable()
 		return;
 	}
 	active = true;
-	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); it++)
+	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); ++it)
 	{
 		Component* component_enable = *it;
 		component_enable->Enable();
@@ -46,7 +46,7 @@ void GameObject::Disable()
 	}
 	active = false;
 
-	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); it++)
+	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); ++it)
 	{
 		Component* component_enable = *it;
 		component_enable->Disable();
@@ -55,7 +55,7 @@ void GameObject::Disable()
 
 void GameObject::Update()
 {
-	for (std::vector<Component*>::iterator co = components.begin(); co != components.end(); co++)
+	for (std::vector<Component*>::iterator co = components.begin(); co != components.end(); ++co)
 	{
 		Component* component_update = *co;
 		component_update->Update();
@@ -108,7 +108,7 @@ bool GameObject::IsChildOf(GameObject* gameobject)
 	{
 		return false;
 	}
-	for (size_t i = 0; i < gameobject->children.size(); i++)
+	for (size_t i = 0; i < gameobject->children.size(); ++i)
 	{
 		if (IsChildOf(gameobject->children[i]))
 		{
@@ -120,7 +120,7 @@ bool GameObject::IsChildOf(GameObject* gameobject)
 
 void GameObject::DeleteChild(GameObject* child)
 {
-	for (int i = 0; i < children.size(); i++) {
+	for (int i = 0; i < children.size(); ++i) {
 		if (children[i] == child) {
 			children.erase(children.begin() + i);
 			child->parent = nullptr;
@@ -130,7 +130,7 @@ void GameObject::DeleteChild(GameObject* child)
 
 void GameObject::DebugDraw()
 {
-	for (std::vector<Component*>::iterator co = components.begin(); co != components.end(); co++)
+	for (std::vector<Component*>::iterator co = components.begin(); co != components.end(); ++co)
 	{
 		Component* component_update = *co;
 		component_update->DebugDraw();

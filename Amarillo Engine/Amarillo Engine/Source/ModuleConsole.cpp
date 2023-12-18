@@ -15,7 +15,7 @@ ModuleConsole::~ModuleConsole()
 void ModuleConsole::UpdateConsole()
 {
 
-    for (int i = 0; i < logs_array_size; i++)
+    for (int i = 0; i < logs_array_size; ++i)
     {
         ImGui::Text("%s", logs_array[i].logs.c_str());
         if (logs_array[i].rep > 1)

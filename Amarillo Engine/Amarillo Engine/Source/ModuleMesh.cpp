@@ -90,13 +90,13 @@ void ModuleMesh::DrawNormals() {
 
 void ModuleMesh::GetSceneInfo(aiNode* node, const aiScene* scene, const char* file_path, GameObject* gameObject)
 {
-	for (unsigned int i = 0; i < node->mNumMeshes; i++)
+	for (unsigned int i = 0; i < node->mNumMeshes; ++i)
 	{
 		ProcessMesh(scene->mMeshes[node->mMeshes[i]], node, scene, file_path, gameObject);
 
 	}
 
-	for (unsigned int i = 0; i < node->mNumChildren; i++)
+	for (unsigned int i = 0; i < node->mNumChildren; ++i)
 	{
 		GetSceneInfo(node->mChildren[i], scene, file_path, gameObject);
 	}
@@ -108,7 +108,7 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiSce
 
 	Mesh* myMesh = new Mesh();
 
-	for (unsigned int j = 0; j < mesh->mNumVertices; j++)
+	for (unsigned int j = 0; j < mesh->mNumVertices; ++j)
 	{
 		Vertex vertex;
 		float3 vector;
@@ -142,7 +142,7 @@ ModuleMesh::Mesh ModuleMesh::ProcessMesh(aiMesh* mesh, aiNode* node, const aiSce
 	{
 		myMesh->indices.resize(mesh->mNumFaces * 3);
 
-		for (uint y = 0; y < mesh->mNumFaces; y++)
+		for (uint y = 0; y < mesh->mNumFaces; ++y)
 		{
 			if (mesh->mFaces[y].mNumIndices != 3)
 			{

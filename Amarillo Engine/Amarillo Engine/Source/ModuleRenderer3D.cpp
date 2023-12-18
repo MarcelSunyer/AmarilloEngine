@@ -163,8 +163,8 @@ bool ModuleRenderer3D::Init()
 	//Profe
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	for (int i = 0; i < CHECKERS_WIDTH; i++) {
-		for (int j = 0; j < CHECKERS_HEIGHT; j++) {
+	for (int i = 0; i < CHECKERS_WIDTH; ++i) {
+		for (int j = 0; j < CHECKERS_HEIGHT; ++j) {
 			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
 			checkerImage[i][j][0] = (GLubyte)c;
 			checkerImage[i][j][1] = (GLubyte)c;
@@ -230,7 +230,7 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
-	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
+	for (int i = 0; i < App->mesh->ourMeshes.size(); ++i) {
 
 		glDeleteBuffers(1, &App->mesh->ourMeshes[i]->VBO);
 		glDeleteBuffers(1, &App->mesh->ourMeshes[i]->EBO);
@@ -279,7 +279,7 @@ void ModuleRenderer3D::DrawBoundingBox(float3* vertices, float3 color)
 	glBegin(GL_LINES);
 	glColor3fv(color.ptr());
 
-	for (size_t i = 0; i < (sizeof(indices) / sizeof(indices[0])); i++) {
+	for (size_t i = 0; i < (sizeof(indices) / sizeof(indices[0])); ++i) {
 
 		glVertex3fv(vertices[indices[i]].ptr());
 
@@ -349,7 +349,7 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 	
 	std::vector<GameObject*> gameObject_list = App->scene->GetGameObjects();
 
-	for (uint n = 0; n < gameObject_list.size(); n++)
+	for (uint n = 0; n < gameObject_list.size(); ++n)
 	{
 		GameObject* gameobject = gameObject_list[n];
 		
@@ -358,7 +358,7 @@ void ModuleRenderer3D::RenderFromCamera(Camera3D* camera, bool debug_draw_enable
 			continue;
 		}
 
-		for (uint m = 0; m < gameobject->components.size(); m++)
+		for (uint m = 0; m < gameobject->components.size(); ++m)
 		{
 			Component* component = gameobject->components[m];
 
@@ -610,7 +610,7 @@ void ModuleRenderer3D::UnloadBuffer(uint id, uint size)
 void ModuleRenderer3D::BindBuffers()
 {
 	//Todo: Hacer binnd de todos los meshes arreglar
-	for (int i = 0; i < App->mesh->ourMeshes.size(); i++) {
+	for (int i = 0; i < App->mesh->ourMeshes.size(); ++i) {
 
 		glGenBuffers(1, &App->mesh->ourMeshes[i]->VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, App->mesh->ourMeshes[i]->VBO);
