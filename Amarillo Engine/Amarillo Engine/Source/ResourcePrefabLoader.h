@@ -15,9 +15,5 @@ public:
 
 	bool CreateLibraryFromAsset(std::filesystem::path path, uuids::uuid uid) override;
 	Resource* LoadResourceFromLibrary(uuids::uuid guid) override;
-private:
-	void AddNodeToBinaryStream(const aiScene* scene, aiNode* node, std::vector<char>& stream);
-	void GetPrefabFromBinaryStream(char* cursor, std::vector<ChildMesh*>& meshes);
 };
-
 #endif

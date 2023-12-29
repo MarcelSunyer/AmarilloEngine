@@ -179,11 +179,11 @@ void ModuleResourceManager::CreateMetaForAsset(std::filesystem::path assetpath, 
 	std::filesystem::path metapath = assetpath;
 	metapath.replace_extension(assetpath.extension().string() + ".meta");
 
-	JSON_Doc meta = applic->json_module->CreateJSON(metapath.string().c_str());
+	JSON_Doc* meta = applic->json_module->CreateJSON();
 
-	meta.SetUid("uid", uid);
+	meta->SetUid("uid", uid);
 
-	meta.Save();
+	applic->json_module->SaveJson(meta, metapath.string().c_str());
 }
 
 void ModuleResourceManager::LoadResourcesFromAssets()
@@ -217,9 +217,9 @@ void ModuleResourceManager::LoadResourcesFromAssets()
 			continue;
 		}
 		
-		JSON_Doc meta = applic->json_module->LoadJSON(metapath.string().c_str());
+		JSON_Doc* meta = applic->json_module->LoadJSON(metapath.string().c_str());
 
-		uuids::uuid uid = meta.GetUid("uid");
+		uuids::uuid uid = meta->GetUid("uid");
 
 		if (uid.is_nil())
 		{

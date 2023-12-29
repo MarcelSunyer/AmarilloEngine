@@ -22,23 +22,23 @@ bool ModuleScene::Init()
 	GameObject* camera = CreateGameObject("Camera", nullptr);
 	camera->AddComponent(ComponentTypes::CAMERA);
 
-	//init loadedScene
-	JSON_Doc tmpDoc;
+	////init loadedScene
+	//JSON_Doc tmpDoc;
 
-	//tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
+	////tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
 
-	tmpDoc.SetNumber3("Editor Camera Pos", App->camera->editor_camera->GetPosition());
-	tmpDoc.SetNumber3("Editor Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
-	tmpDoc.SetNumber3("Editor Camera PosY (Up)", App->camera->editor_camera->GetYDir());
-	tmpDoc.SetNumber3("Editor Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
-	tmpDoc.Save();
+	//tmpDoc.SetNumber3("Editor Camera Pos", App->camera->editor_camera->GetPosition());
+	//tmpDoc.SetNumber3("Editor Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
+	//tmpDoc.SetNumber3("Editor Camera PosY (Up)", App->camera->editor_camera->GetYDir());
+	//tmpDoc.SetNumber3("Editor Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	//tmpDoc.Save();
 
-	tmpDoc.SetHierarchy("Hierarchy", game_objects);
-	
-	loadedScene = &tmpDoc;
-	loadedScene->Save();
+	//tmpDoc.SetHierarchy("Hierarchy", game_objects);
+	//
+	//loadedScene = &tmpDoc;
+	//loadedScene->Save();
 
-	tmpDoc.CleanUp();
+	//tmpDoc.CleanUp();
 
 	return true;
 }
@@ -235,64 +235,143 @@ bool ModuleScene::IsPointInsideAABB(const float3& point, const AABB& aabb)
 
 void ModuleScene::SaveScene()
 {
-	JSON_Doc tmpDoc;
+	JSON_Doc* json = App->json_module->CreateJSON();
+	SerializePrefab(root_object, json);
+	App->json_module->SaveJson(json, "C:/Users/Marcel/Desktop/Test.json");
 
-	tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "scene_backup", "ascene");
+	//JSON_Doc tmpDoc;
 
-	tmpDoc.SetNumber3("Editor Camera Pos", App->camera->editor_camera->GetPosition());
-	tmpDoc.SetNumber3("Editor Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
-	tmpDoc.SetNumber3("Editor Camera PosY (Up)", App->camera->editor_camera->GetYDir());
-	tmpDoc.SetNumber3("Editor Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
-	tmpDoc.Save();
+	//tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "scene_backup", "ascene");
 
-	tmpDoc.SetHierarchy("Hierarchy", game_objects);
+	//tmpDoc.SetNumber3("Editor Camera Pos", App->camera->editor_camera->GetPosition());
+	//tmpDoc.SetNumber3("Editor Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
+	//tmpDoc.SetNumber3("Editor Camera PosY (Up)", App->camera->editor_camera->GetYDir());
+	//tmpDoc.SetNumber3("Editor Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
+	//tmpDoc.Save();
 
-	//LOG("Camera saved position: %f , %f , %f", App->camera->editor_camera->GetPosition().x, App->camera->editor_camera->GetPosition().y, App->camera->editor_camera->GetPosition().z)
+	//tmpDoc.SetHierarchy("Hierarchy", game_objects);
 
-	playScene = &tmpDoc;
-	playScene->Save();
+	////LOG("Camera saved position: %f , %f , %f", App->camera->editor_camera->GetPosition().x, App->camera->editor_camera->GetPosition().y, App->camera->editor_camera->GetPosition().z)
 
-	LOG("Camera saved position: %f , %f , %f", playScene->GetNumber3("Editor Camera Pos").x, playScene->GetNumber3("Editor Camera Pos").y, playScene->GetNumber3("Editor Camera Pos").z)
+	//playScene = &tmpDoc;
+	//playScene->Save();
 
-	tmpDoc.CleanUp();
+	//LOG("Camera saved position: %f , %f , %f", playScene->GetNumber3("Editor Camera Pos").x, playScene->GetNumber3("Editor Camera Pos").y, playScene->GetNumber3("Editor Camera Pos").z)
+
+	//tmpDoc.CleanUp();
 }
 
 void ModuleScene::LoadScene(bool playScene)
 {
-	if (playScene)
+	//if (playScene)
+	//{
+	//	JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "scene_Backup" + ".ascene"));
+
+	//	//Load Editor Camera Position
+	//	App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
+	//	App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera PosY (Up)"));
+	//	App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera PosZ (Front)"));
+	//	LOG("Camera loaded position: %f , %f , %f", sceneToLoad->GetNumber3("Editor Camera Pos").x, sceneToLoad->GetNumber3("Editor Camera Pos").y, sceneToLoad->GetNumber3("Editor Camera Pos").z)
+
+	//	//ClearScene(); -> TODO
+
+	//	//game_objects = sceneToLoad->GetHierarchy("Hierarchy");
+	//	root_object = game_objects[0];
+
+	//	delete sceneToLoad;
+	//}
+	//else
+	//{
+	//	std::string asDir = "../Assets/Scenes/";
+	//	JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(asDir + "Base_Layout" + ".ascene"));
+
+	//	//Load Editor Camera Position
+	//	App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
+	//	App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera PosY (Up)"));
+	//	App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera PosZ (Front)"));
+	//	LOG("Camera loaded position: %f , %f , %f", sceneToLoad->GetNumber3("Editor Camera Pos").x, sceneToLoad->GetNumber3("Editor Camera Pos").y, sceneToLoad->GetNumber3("Editor Camera Pos").z)
+
+	//	//ClearScene(); -> TODO
+
+	//	//game_objects = sceneToLoad->GetHierarchy("Hierarchy");
+	//	root_object = game_objects[0];
+
+	//	delete sceneToLoad;
+	//}
+}
+
+void ModuleScene::SerializePrefab(GameObject* gameObject, JSON_Doc* json)
+{
+	std::map<GameObject*, int> allGameObjects;
+
+	std::vector<GameObject*> toCheck;
+	toCheck.push_back(gameObject);
+
+	int gameObjectIndex = 0;
+
+	while (!toCheck.empty())
 	{
-		JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(App->file_system->GetLibraryScenePath() + "scene_Backup" + ".ascene"));
+		GameObject* currentGameObject = (*toCheck.begin());
+		toCheck.erase(toCheck.begin());
 
-		//Load Editor Camera Position
-		App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
-		App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera PosY (Up)"));
-		App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera PosZ (Front)"));
-		LOG("Camera loaded position: %f , %f , %f", sceneToLoad->GetNumber3("Editor Camera Pos").x, sceneToLoad->GetNumber3("Editor Camera Pos").y, sceneToLoad->GetNumber3("Editor Camera Pos").z)
+		for (std::vector<GameObject*>::iterator it = currentGameObject->children.begin(); it != currentGameObject->children.end(); ++it)
+		{
+			toCheck.push_back((*it));
+		}
 
-		//ClearScene(); -> TODO
-
-		//game_objects = sceneToLoad->GetHierarchy("Hierarchy");
-		root_object = game_objects[0];
-
-		delete sceneToLoad;
+		allGameObjects.emplace(currentGameObject, ++gameObjectIndex);
 	}
-	else
+
+	json->SetNumber("GameObjectsCount", allGameObjects.size());
+
+	for(std::map<GameObject*, int>::iterator it = allGameObjects.begin(); it != allGameObjects.end(); ++it)
 	{
-		std::string asDir = "../Assets/Scenes/";
-		JSON_Doc* sceneToLoad = loadedScene->GetJSON((const std::string)(asDir + "Base_Layout" + ".ascene"));
+		GameObject* currentGameObject = (*it).first;
+		int currentGameObjectIndex = (*it).second;
 
-		//Load Editor Camera Position
-		App->camera->editor_camera->SetPosition(sceneToLoad->GetNumber3("Editor Camera Pos"));
-		App->camera->editor_camera->SetUp(sceneToLoad->GetNumber3("Editor Camera PosY (Up)"));
-		App->camera->editor_camera->SetFront(sceneToLoad->GetNumber3("Editor Camera PosZ (Front)"));
-		LOG("Camera loaded position: %f , %f , %f", sceneToLoad->GetNumber3("Editor Camera Pos").x, sceneToLoad->GetNumber3("Editor Camera Pos").y, sceneToLoad->GetNumber3("Editor Camera Pos").z)
+		int parentIndex = -1;
 
-		//ClearScene(); -> TODO
+		if (currentGameObject->GetParent() != nullptr)
+		{
+			std::map<GameObject*, int>::iterator parentIt = allGameObjects.find(currentGameObject->GetParent());
 
-		//game_objects = sceneToLoad->GetHierarchy("Hierarchy");
-		root_object = game_objects[0];
+			if (!(parentIt == allGameObjects.end()))
+			{
+				parentIndex = (*parentIt).second;
+			}
+		}
 
-		delete sceneToLoad;
+		json->MoveToRoot();
+		 
+		std::string curr_go_section_name = "GameObject_" + std::to_string(currentGameObjectIndex);
+		json->AddSection(curr_go_section_name);
+
+		if(json->MoveToSection(curr_go_section_name))
+		{
+			json->SetString("Name", currentGameObject->mName.c_str());
+			json->SetNumber("Index", currentGameObjectIndex);
+			json->SetNumber("ParentIndex", parentIndex);
+
+			json->SetArray("Components");
+
+			int componentIndex = 0;
+
+			for (std::vector<Component*>::iterator co = currentGameObject->components.begin(); co != currentGameObject->components.end(); ++co)
+			{
+				Component* component = (*co);
+
+				JSON_Doc comp_node = json->GetJsonNode();
+
+				comp_node.AddSectionToArray("Components");
+
+				if (comp_node.MoveToSectionFromArray("Components", componentIndex))
+				{
+					component->Serialize(&comp_node);
+				}
+
+				++componentIndex;
+			}
+		}
 	}
 }
 

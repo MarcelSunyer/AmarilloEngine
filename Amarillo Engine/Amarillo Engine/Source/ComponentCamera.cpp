@@ -49,6 +49,12 @@ void ComponentCamera::OnEditor()
 	}
 }
 
+void ComponentCamera::Serialize(JSON_Doc* json)
+{
+	json->SetString("Camera", "Camera");
+
+}
+
 void ComponentCamera::DebugDraw()
 {
 	float3 corners[8];

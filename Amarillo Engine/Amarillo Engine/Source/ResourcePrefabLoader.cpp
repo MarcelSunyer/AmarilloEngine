@@ -10,19 +10,23 @@ ResourcePrefabLoader::~ResourcePrefabLoader()
 
 bool ResourcePrefabLoader::CreateLibraryFromAsset(std::filesystem::path path, uuids::uuid uid)
 {
+
 	return false;
 }
 
 Resource* ResourcePrefabLoader::LoadResourceFromLibrary(uuids::uuid guid)
 {
-	return nullptr;
+	std::string libraryfolder = applic->file_system->GetLibraryPrefabPath();
+
+	std::filesystem::path newpath = std::filesystem::path(libraryfolder) / uuids::to_string<wchar_t>(guid);
+	newpath.replace_extension(".prefab");
+
+	std::string newpath_s = newpath.string();
+
+	JSON_Doc* prefab = applic->json_module->LoadJSON(newpath_s.c_str());
+
+	ResourcePrefab* ret = new ResourcePrefab(guid, prefab);
+
+	return ret;
 }
 
-void ResourcePrefabLoader::AddNodeToBinaryStream(const aiScene* scene, aiNode* node, std::vector<char>& stream)
-{
-}
-
-void ResourcePrefabLoader::GetPrefabFromBinaryStream(char* cursor, std::vector<ChildMesh*>& meshes)
-{
-
-}

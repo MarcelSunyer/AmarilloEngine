@@ -3,21 +3,20 @@
 
 #include "Resource.h"
 #include <string>
+#include "ModuleJSON.h"
 
 class GameObject;
 
 class ResourcePrefab : public Resource
 {
 public:
-	ResourcePrefab(uuids::uuid unique_id);
+	ResourcePrefab(uuids::uuid unique_id, JSON_Doc* json);
 	virtual ~ResourcePrefab();
 
 	void CleanUp();
 
-	void SetGameObject(GameObject* gameobject);
-	void Instantiate(GameObject* parent = nullptr);
-	void SerializeCustom(const char* path, const char* name, const char* extension);
-
+private:
+	JSON_Doc* prefab_json;
 };
 
 #endif //__RESOURCE_PREFAB_H__

@@ -30,14 +30,9 @@ class JSON_Doc
 public:
 	
 	JSON_Doc();
-	JSON_Doc(JSON_Value* value, JSON_Object* object, const char* path);
+	JSON_Doc(JSON_Value* value, JSON_Object* object);
 	JSON_Doc(const JSON_Doc& doc);
 	~JSON_Doc();
-
-	void InitializeJSON();
-
-	JSON_Doc* GetJSON(const std::string& route);
-	void DeleteJSON(const std::string& route);
 	
 	void SetString(const std::string& set, const char* str);
 	void SetBool(const std::string& set, bool bo);
@@ -71,11 +66,9 @@ public:
 	void AddSection(const std::string& set);
 
 	JSON_Doc GetJsonNode();
+	JSON_Value* GetValue();
 
 	void Clear();
-
-	std::string GetPath();
-	void Save();
 	void CleanUp();
 
 public:
@@ -105,7 +98,6 @@ private:
 	JSON_Value* value = nullptr;
 	JSON_Object* object = nullptr;
 	JSON_Object* root = nullptr;
-	std::string path;
 };
 
 class ModuleJSON : public Module
@@ -117,13 +109,10 @@ public:
 	bool Awake();
 	bool CleanUp();
 
-	JSON_Doc LoadJSON(const char* path);
-	JSON_Doc CreateJSON(const char* path, const char* name, const char* extension);
-	JSON_Doc CreateJSON(const char* path);
-	void UnloadJSON(JSON_Doc path);
-
-private:
-	std::list<JSON_Doc> jsons;
+	JSON_Doc* LoadJSON(const char* path);
+	JSON_Doc* CreateJSON();
+	void SaveJson(JSON_Doc* json, const char* path);
+	void UnloadJSON(JSON_Doc* path);
 };
 
 #endif //_JSONLOADER_H_

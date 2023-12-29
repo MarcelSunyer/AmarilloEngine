@@ -4,6 +4,7 @@
 
 
 class GameObject;
+class JSON_Doc;
 
 enum ComponentTypes
 {
@@ -32,6 +33,8 @@ public:
 	virtual void OnEditor() {};
 
 	virtual void DebugDraw() {};
+
+	virtual void Serialize(JSON_Doc* json) {};
 	
 
 public:

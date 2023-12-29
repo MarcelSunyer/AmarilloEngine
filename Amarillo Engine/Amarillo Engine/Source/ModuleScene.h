@@ -53,6 +53,8 @@ public:
 	void SaveScene();
 	void LoadScene(bool playScene);
 
+	void SerializePrefab(GameObject* gameObject, JSON_Doc* json);
+
 public:
 	std::vector<GameObject*> game_objects; 
 	GameObject* root_object = nullptr;

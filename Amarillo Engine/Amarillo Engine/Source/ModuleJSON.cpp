@@ -23,127 +23,54 @@ bool ModuleJSON::Awake()
 	return ret;
 }
 
-JSON_Doc ModuleJSON::LoadJSON(const char* path)
+JSON_Doc* ModuleJSON::LoadJSON(const char* path)
 {
-	JSON_Doc ret;
+	JSON_Value* user_data = json_parse_file(path);
+	JSON_Object* root_object = json_value_get_object(user_data);
 
-	bool exists = false;
-	for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end(); ++it)
+	if (user_data == nullptr || root_object == nullptr)
 	{
-		if (App->file_system->TextCmp(path, (*it).GetPath().c_str()))
-		{
-			ret = (*it);
-			exists = true;
-			break;
-		}
+		LOG("Error loading %s", path);
 	}
 
-	if (!exists)
-	{
-		JSON_Value* user_data = json_parse_file(path);
-		JSON_Object* root_object = json_value_get_object(user_data);
+	JSON_Doc* new_doc = new JSON_Doc(user_data, root_object);
 
-		if (user_data == nullptr || root_object == nullptr)
-		{
-			LOG("Error loading %s", path);
-		}
-		else
-		{
-			JSON_Doc new_doc = JSON_Doc(user_data, root_object, path);
-			jsons.push_back(new_doc);
-
-			ret = new_doc;
-		}
-	}
-
-	return ret;
+	return new_doc;
 }
 
-
-JSON_Doc ModuleJSON::CreateJSON(const char* path, const char* name, const char* extension)
+JSON_Doc* ModuleJSON::CreateJSON()
 {
-	JSON_Doc ret;
-
-	std::string filepath = std::string(path) + std::string(name) + std::string(".") + std::string(extension);
-
-	ret = CreateJSON(filepath.c_str());
-
-	return ret;
+	JSON_Value* root_value = json_value_init_object();
+	JSON_Object* root_object = json_value_get_object(root_value);
+	JSON_Doc* new_doc = new JSON_Doc(root_value, root_object);
+	return new_doc;
 }
 
-JSON_Doc ModuleJSON::CreateJSON(const char* path)
+void ModuleJSON::SaveJson(JSON_Doc* json, const char* path)
 {
-	JSON_Doc ret;
-
-	bool exists = false;
-	for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end(); ++it)
-	{
-		if (App->file_system->TextCmp(path, (*it).GetPath().c_str()))
-		{
-			exists = true;
-			break;
-		}
-	}
-
-	if (exists)
-	{
-		LOG("Error creating %s. There is already a file with this path/name", path);
-	}
-	else
-	{
-		JSON_Value* root_value = json_value_init_object();
-
-		if (root_value == nullptr)
-		{
-			LOG("Error creating %s. Wrong path?", path);
-		}
-		else
-		{
-			JSON_Object* root_object = json_value_get_object(root_value);
-
-			JSON_Doc new_doc = JSON_Doc(root_value, root_object, path);
-			jsons.push_back(new_doc);
-
-			new_doc.Save();
-
-			ret = new_doc;
-		}
-	}
-
-	return ret;
+	json_serialize_to_file_pretty(json->GetValue(), path);
 }
 
-void ModuleJSON::UnloadJSON(JSON_Doc son)
+void ModuleJSON::UnloadJSON(JSON_Doc* json)
 {
-	for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end(); ++it)
-	{
-		if (App->file_system->TextCmp(son.GetPath().c_str(), (*it).GetPath().c_str()))
-		{
-			(*it).CleanUp();
-			it = jsons.erase(it);
-			break;
-		}
-	}
+	json->CleanUp();
+	delete json;
 }
 
 bool ModuleJSON::CleanUp()
 {
 	LOG("Unloading JSON Module");
 
-	for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end();)
-	{
-		(*it).CleanUp();
-	}
+	//TODO: Pasar por todos los jsonms para ver si se han borrado correctamente
 
-	jsons.clear();
+	//for (std::list<JSON_Doc>::iterator it = jsons.begin(); it != jsons.end();)
+	//{
+	//	(*it).CleanUp();
+	//}
+
+	//jsons.clear();
 
 	return true;
-}
-
-void JSON_Doc::InitializeJSON()
-{
-	this->value = json_value_init_object();
-	this->object = json_value_get_object(this->value);
 }
 
 JSON_Doc::JSON_Doc()
@@ -152,19 +79,17 @@ JSON_Doc::JSON_Doc()
 	this->object = json_value_get_object(this->value);
 }
 
-JSON_Doc::JSON_Doc(JSON_Value* _value, JSON_Object* _object, const char* _path)
+JSON_Doc::JSON_Doc(JSON_Value* _value, JSON_Object* _object)
 {
 	value = _value;
 	object = _object;
 	root = _object;
-	path = _path;
 }
 
 JSON_Doc::JSON_Doc(const JSON_Doc& doc)
 {
 	value = doc.value;
 	object = doc.object;
-	path = doc.path;
 	root = object;
 }
 
@@ -476,6 +401,11 @@ JSON_Doc JSON_Doc::GetJsonNode()
 	return JSON_Doc(*this);
 }
 
+JSON_Value* JSON_Doc::GetValue()
+{
+	return value;
+}
+
 void JSON_Doc::Clear()
 {
 	json_value_free(value);
@@ -484,15 +414,10 @@ void JSON_Doc::Clear()
 	root = object;
 }
 
-std::string JSON_Doc::GetPath()
-{
-	return path;
-}
-
-void JSON_Doc::Save()
-{
-	json_serialize_to_file_pretty(value, path.c_str());
-}
+//void JSON_Doc::Save()
+//{
+//	json_serialize_to_file_pretty(value, path.c_str());
+//}
 
 void JSON_Doc::CleanUp()
 {
@@ -898,42 +823,6 @@ void JSON_Doc::SetComponent(JSON_Object* componentObject, const Component& compo
 
 	}
 
-}
-
-void JSON_Doc::DeleteJSON(const std::string& route)
-{
-	// Check if the file exists before attempting to delete
-	if (applic->file_system->FileExists(route.c_str()))
-	{
-		// Delete the file
-		applic->file_system->FileDelete(route.c_str());
-		LOG("Deleted File: %s", route);
-
-	}
-}
-
-JSON_Doc* JSON_Doc::GetJSON(const std::string& route) {
-
-	JSON_Doc* jsonFile = new JSON_Doc();
-
-	// Load the existing JSON file
-
-	jsonFile->value = json_parse_file(route.c_str());
-
-	// Error handling
-	if (!jsonFile->value) {
-
-		LOG("Error: Unable to load JSON file from %s", route.c_str());
-
-		delete jsonFile;
-
-		return nullptr;
-	}
-
-	// Get the JSON object from the root value
-	jsonFile->object = json_value_get_object(jsonFile->value);
-
-	return jsonFile;
 }
 
 void JSON_Doc::GetComponent(const JSON_Object* componentObject, Component& component) const {
