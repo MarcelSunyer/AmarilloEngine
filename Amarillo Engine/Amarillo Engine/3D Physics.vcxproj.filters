@@ -516,6 +516,9 @@
     <ClInclude Include="Source\ResourcePrefab.h">
       <Filter>Sources\ResourceManagment\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ModuleScripting.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -766,6 +769,9 @@
     </ClCompile>
     <ClCompile Include="Source\ResourcePrefab.cpp">
       <Filter>Sources\ResourceManagment\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleScripting.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

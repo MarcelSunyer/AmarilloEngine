@@ -19,6 +19,7 @@ class ModuleScene;
 class ModuleResourceManager;
 class ModuleJSON;
 class FileSystem;
+class ModuleScripting;
 
 class Application
 {
@@ -35,6 +36,7 @@ public:
 	ModuleResourceManager* resourceManager;
 	ModuleJSON* json_module;
 	FileSystem* file_system;
+	ModuleScripting* scripting_module;
 
 private:
 
