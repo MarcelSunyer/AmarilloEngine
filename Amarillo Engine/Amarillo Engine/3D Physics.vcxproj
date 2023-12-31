@@ -81,6 +81,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="External\AngelScript\sdk\add_on\scriptbuilder\scriptbuilder.h" />
+    <ClInclude Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring.h" />
     <ClInclude Include="External\AngelScript\sdk\angelscript\include\angelscript.h" />
     <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_array.h" />
     <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_atomic.h" />
@@ -271,6 +273,9 @@
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="External\AngelScript\sdk\add_on\scriptbuilder\scriptbuilder.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring_utils.cpp" />
     <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_atomic.cpp" />
     <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_builder.cpp" />
     <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_bytecode.cpp" />
