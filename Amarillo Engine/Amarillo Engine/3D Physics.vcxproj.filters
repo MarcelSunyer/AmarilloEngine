@@ -67,6 +67,24 @@
     <Filter Include="Sources\Main">
       <UniqueIdentifier>{e86c6448-8d5b-4a3c-b73e-f8d58ea13bb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Externals\AngelScript">
+      <UniqueIdentifier>{6c9a13c5-a4d9-4821-a906-86c6093d2eb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\AngelScript\sdk">
+      <UniqueIdentifier>{87a950d4-8c1b-4f4e-af7e-a08d84d9e33a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\AngelScript\sdk\angelscript">
+      <UniqueIdentifier>{d751095b-575a-4c09-89b3-95a15b300091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\AngelScript\sdk\angelscript\include">
+      <UniqueIdentifier>{2466a8a9-c07c-49b9-8ea4-1372f1127a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\AngelScript\sdk\angelscript\lib">
+      <UniqueIdentifier>{196be742-56b8-41a8-9b69-28119573ddfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\AngelScript\sdk\angelscript\source">
+      <UniqueIdentifier>{1e3e5da6-4b58-41db-80d2-fe868ec1edc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -519,6 +537,120 @@
     <ClInclude Include="Source\ModuleScripting.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_array.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_atomic.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_builder.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_bytecode.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_callfunc.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_compiler.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_config.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_configgroup.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_context.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_criticalsection.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_datatype.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_debug.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_gc.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_generic.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_map.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_memory.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_module.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_namespace.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_objecttype.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_outputbuffer.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_parser.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_property.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_restore.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptcode.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptengine.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptfunction.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptnode.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptobject.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_string.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_string_util.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_symboltable.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_texts.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_thread.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_tokendef.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_tokenizer.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_typeinfo.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_variablescope.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClInclude>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\include\angelscript.h">
+      <Filter>Externals\AngelScript\sdk\angelscript\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -773,6 +905,123 @@
     <ClCompile Include="Source\ModuleScripting.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_atomic.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_builder.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_bytecode.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm64.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_mips.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_ppc.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_ppc_64.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_sh4.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_gcc.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_mingw.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_msvc.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x86.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_xenon.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_compiler.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_configgroup.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_context.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_datatype.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_gc.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_generic.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_globalproperty.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_memory.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_module.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_objecttype.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_outputbuffer.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_parser.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_restore.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptcode.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptengine.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptfunction.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptnode.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptobject.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_string.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_string_util.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_thread.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_tokenizer.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_typeinfo.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_variablescope.cpp">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\include\Math\Matrix.inl">
@@ -820,6 +1069,33 @@
     <None Include="External\Assimp\libx86\assimp.exp">
       <Filter>Externals\Assimp</Filter>
     </None>
+    <None Include="External\AngelScript\sdk\angelscript\lib\angelscript64d.pdb">
+      <Filter>Externals\AngelScript\sdk\angelscript\lib</Filter>
+    </None>
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm_gcc.S">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </None>
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm_msvc.asm">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </None>
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm_vita.S">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </None>
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm_xcode.S">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </None>
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm64_gcc.S">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </None>
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm64_msvc.asm">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </None>
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm64_xcode.S">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </None>
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_msvc_asm.asm">
+      <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="External\Assimp\libx86\assimp.lib">
@@ -827,6 +1103,9 @@
     </Library>
     <Library Include="External\Assimp\libx86\zlibstatic.lib">
       <Filter>Externals\Assimp</Filter>
+    </Library>
+    <Library Include="External\AngelScript\sdk\angelscript\lib\angelscript64d.lib">
+      <Filter>Externals\AngelScript\sdk\angelscript\lib</Filter>
     </Library>
   </ItemGroup>
   <ItemGroup>

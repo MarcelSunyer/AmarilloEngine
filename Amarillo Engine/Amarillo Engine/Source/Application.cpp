@@ -35,7 +35,7 @@ Application::Application()
 	resourceManager = new ModuleResourceManager(this);
 	json_module = new ModuleJSON(this);
 	file_system = new FileSystem(this);
-	//scripting_module = new ModuleScripting(this);
+	scripting_module = new ModuleScripting(this);
 
 	// They will CleanUp() in reverse order
 
@@ -49,7 +49,7 @@ Application::Application()
 	AddModule(scene);
 	AddModule(json_module);
 	AddModule(file_system);
-	//AddModule(scripting_module);	//TODO: Idk if this go here or at the begining
+	AddModule(scripting_module);	//TODO: Idk if this go here or at the begining
 
 	// Renderer last!
 	AddModule(renderer3D);

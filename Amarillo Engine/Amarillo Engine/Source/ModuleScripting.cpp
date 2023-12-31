@@ -1,150 +1,150 @@
-//#include "ModuleScripting.h"
-//
-//ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(app, start_enabled)
-//{
-//
-//}
-//
-//ModuleScripting::~ModuleScripting()
-//{
-//}
-//
-//bool ModuleScripting::Init()
-//{
-//
-//	int r;
-//
-//	// Create the script engine
-//	asIScriptEngine* engine = asCreateScriptEngine();
-//	if (engine == 0)
-//	{
-//		cout << "Failed to create script engine." << endl;
-//		return -1;
-//	}
-//
-//	// The script compiler will write any compiler messages to the callback.
-//	engine->SetMessageCallback(asFUNCTION("MessageCallback"), 0, asCALL_CDECL);
-//
-//	// Configure the script engine with all the functions, 
-//	// and variables that the script should be able to use.
-//	ConfigureEngine(engine);
-//
-//	// Compile the script code
-//	r = CompileScript(engine);
-//	if (r < 0)
-//	{
-//		engine->Release();
-//		return -1;
-//	}
-//
-//	// Create a context that will execute the script.
-//	asIScriptContext* ctx = engine->CreateContext();
-//	if (ctx == 0)
-//	{
-//		cout << "Failed to create the context." << endl;
-//		engine->Release();
-//		return -1;
-//	}
-//
-//	// We don't want to allow the script to hang the application, e.g. with an
-//	// infinite loop, so we'll use the line callback function to set a timeout
-//	// that will abort the script after a certain time. Before executing the 
-//	// script the timeOut variable will be set to the time when the script must 
-//	// stop executing. 
-//	DWORD timeOut;
-//	r = ctx->SetLineCallback(asFUNCTION("LineCallback"), &timeOut, asCALL_CDECL);
-//	if (r < 0)
-//	{
-//		cout << "Failed to set the line callback function." << endl;
-//		ctx->Release();
-//		engine->Release();
-//		return -1;
-//	}
-//
-//	// Find the function for the function we want to execute.
-//	asIScriptFunction* func = engine->GetModule(0)->GetFunctionByDecl("float calc(float, float)");
-//	if (func == 0)
-//	{
-//		cout << "The function 'float calc(float, float)' was not found." << endl;
-//		ctx->Release();
-//		engine->Release();
-//		return -1;
-//	}
-//
-//	// Prepare the script context with the function we wish to execute. Prepare()
-//	// must be called on the context before each new script function that will be
-//	// executed. Note, that if you intend to execute the same function several 
-//	// times, it might be a good idea to store the function returned by 
-//	// GetFunctionByDecl(), so that this relatively slow call can be skipped.
-//	r = ctx->Prepare(func);
-//	if (r < 0)
-//	{
-//		cout << "Failed to prepare the context." << endl;
-//		ctx->Release();
-//		engine->Release();
-//		return -1;
-//	}
-//
-//	// Now we need to pass the parameters to the script function. 
-//	ctx->SetArgFloat(0, 3.14159265359f);
-//	ctx->SetArgFloat(1, 2.71828182846f);
-//
-//	// Set the timeout before executing the function. Give the function 1 sec
-//	// to return before we'll abort it.
-//	timeOut = timeGetTime() + 1000;
-//
-//	// Execute the function
-//	cout << "Executing the script." << endl;
-//	cout << "---" << endl;
-//	r = ctx->Execute();
-//	cout << "---" << endl;
-//	if (r != asEXECUTION_FINISHED)
-//	{
-//		// The execution didn't finish as we had planned. Determine why.
-//		if (r == asEXECUTION_ABORTED)
-//			cout << "The script was aborted before it could finish. Probably it timed out." << endl;
-//		else if (r == asEXECUTION_EXCEPTION)
-//		{
-//			cout << "The script ended with an exception." << endl;
-//
-//			// Write some information about the script exception
-//			asIScriptFunction* func = ctx->GetExceptionFunction();
-//			cout << "func: " << func->GetDeclaration() << endl;
-//			cout << "modl: " << func->GetModuleName() << endl;
-//			cout << "sect: " << func->GetScriptSectionName() << endl;
-//			cout << "line: " << ctx->GetExceptionLineNumber() << endl;
-//			cout << "desc: " << ctx->GetExceptionString() << endl;
-//		}
-//		else
-//			cout << "The script ended for some unforeseen reason (" << r << ")." << endl;
-//	}
-//	else
-//	{
-//		// Retrieve the return value from the context
-//		float returnValue = ctx->GetReturnFloat();
-//		cout << "The script function returned: " << returnValue << endl;
-//	}
-//
-//	// We must release the contexts when no longer using them
-//	ctx->Release();
-//
-//	// Shut down the engine
-//	engine->ShutDownAndRelease();
-//
-//	return true;
-//}
-//
-//update_status ModuleScripting::Update(float dt)
-//{
-//
-//	return UPDATE_CONTINUE;
-//}
-//
-//bool ModuleScripting::CleanUp()
-//{
-//	return true;
-//}
-//
+#include "ModuleScripting.h"
+
+ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(app, start_enabled)
+{
+
+}
+
+ModuleScripting::~ModuleScripting()
+{
+}
+
+bool ModuleScripting::Init()
+{
+
+	//int r;
+
+	//// Create the script engine
+	//asIScriptEngine* engine = asCreateScriptEngine();
+	//if (engine == 0)
+	//{
+	//	cout << "Failed to create script engine." << endl;
+	//	return -1;
+	//}
+
+	//// The script compiler will write any compiler messages to the callback.
+	//engine->SetMessageCallback(asFUNCTION("MessageCallback"), 0, asCALL_CDECL);
+
+	//// Configure the script engine with all the functions, 
+	//// and variables that the script should be able to use.
+	//ConfigureEngine(engine);
+
+	//// Compile the script code
+	//r = CompileScript(engine);
+	//if (r < 0)
+	//{
+	//	engine->Release();
+	//	return -1;
+	//}
+
+	//// Create a context that will execute the script.
+	//asIScriptContext* ctx = engine->CreateContext();
+	//if (ctx == 0)
+	//{
+	//	cout << "Failed to create the context." << endl;
+	//	engine->Release();
+	//	return -1;
+	//}
+
+	//// We don't want to allow the script to hang the application, e.g. with an
+	//// infinite loop, so we'll use the line callback function to set a timeout
+	//// that will abort the script after a certain time. Before executing the 
+	//// script the timeOut variable will be set to the time when the script must 
+	//// stop executing. 
+	//DWORD timeOut;
+	//r = ctx->SetLineCallback(asFUNCTION("LineCallback"), &timeOut, asCALL_CDECL);
+	//if (r < 0)
+	//{
+	//	cout << "Failed to set the line callback function." << endl;
+	//	ctx->Release();
+	//	engine->Release();
+	//	return -1;
+	//}
+
+	//// Find the function for the function we want to execute.
+	//asIScriptFunction* func = engine->GetModule(0)->GetFunctionByDecl("float calc(float, float)");
+	//if (func == 0)
+	//{
+	//	cout << "The function 'float calc(float, float)' was not found." << endl;
+	//	ctx->Release();
+	//	engine->Release();
+	//	return -1;
+	//}
+
+	//// Prepare the script context with the function we wish to execute. Prepare()
+	//// must be called on the context before each new script function that will be
+	//// executed. Note, that if you intend to execute the same function several 
+	//// times, it might be a good idea to store the function returned by 
+	//// GetFunctionByDecl(), so that this relatively slow call can be skipped.
+	//r = ctx->Prepare(func);
+	//if (r < 0)
+	//{
+	//	cout << "Failed to prepare the context." << endl;
+	//	ctx->Release();
+	//	engine->Release();
+	//	return -1;
+	//}
+
+	//// Now we need to pass the parameters to the script function. 
+	//ctx->SetArgFloat(0, 3.14159265359f);
+	//ctx->SetArgFloat(1, 2.71828182846f);
+
+	//// Set the timeout before executing the function. Give the function 1 sec
+	//// to return before we'll abort it.
+	//timeOut = timeGetTime() + 1000;
+
+	//// Execute the function
+	//cout << "Executing the script." << endl;
+	//cout << "---" << endl;
+	//r = ctx->Execute();
+	//cout << "---" << endl;
+	//if (r != asEXECUTION_FINISHED)
+	//{
+	//	// The execution didn't finish as we had planned. Determine why.
+	//	if (r == asEXECUTION_ABORTED)
+	//		cout << "The script was aborted before it could finish. Probably it timed out." << endl;
+	//	else if (r == asEXECUTION_EXCEPTION)
+	//	{
+	//		cout << "The script ended with an exception." << endl;
+
+	//		// Write some information about the script exception
+	//		asIScriptFunction* func = ctx->GetExceptionFunction();
+	//		cout << "func: " << func->GetDeclaration() << endl;
+	//		cout << "modl: " << func->GetModuleName() << endl;
+	//		cout << "sect: " << func->GetScriptSectionName() << endl;
+	//		cout << "line: " << ctx->GetExceptionLineNumber() << endl;
+	//		cout << "desc: " << ctx->GetExceptionString() << endl;
+	//	}
+	//	else
+	//		cout << "The script ended for some unforeseen reason (" << r << ")." << endl;
+	//}
+	//else
+	//{
+	//	// Retrieve the return value from the context
+	//	float returnValue = ctx->GetReturnFloat();
+	//	cout << "The script function returned: " << returnValue << endl;
+	//}
+
+	//// We must release the contexts when no longer using them
+	//ctx->Release();
+
+	//// Shut down the engine
+	//engine->ShutDownAndRelease();
+
+	return true;
+}
+
+update_status ModuleScripting::Update(float dt)
+{
+
+	return UPDATE_CONTINUE;
+}
+
+bool ModuleScripting::CleanUp()
+{
+	return true;
+}
+
 //void ModuleScripting::ConfigureEngine(asIScriptEngine* engine)
 //{
 //	int r;
