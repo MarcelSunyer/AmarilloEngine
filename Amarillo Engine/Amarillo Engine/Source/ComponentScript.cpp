@@ -185,7 +185,7 @@ void ComponentScript::OnEditor()
 							FileNode* node = *(FileNode**)payload->Data;
 							if (node != nullptr && node->type == FileDropType::PREFAB) {
 								std::string path = App->file_system->GetPathWithoutExtension(node->path + node->name);
-								path += "_meta.alien";
+								path += "_meta.amarillo";
 								u64 ID = App->resources->GetIDFromAmarilloPath(path.data());
 								if (ID != 0) {
 									ResourcePrefab* prefab_ = (ResourcePrefab*)App->resources->GetResourceWithID(ID);
@@ -434,8 +434,8 @@ void ComponentScript::Enable()			//TODO: Revisar
 {
 	if (need_engine && data_ptr != nullptr) {
 		try {
-			Amarillo* alien = (Amarillo*)data_ptr;
-			alien->OnEnable();
+			Amarillo* amarillo = (Amarillo*)data_ptr;
+			amarillo->OnEnable();
 		}
 		catch (...)
 		{
