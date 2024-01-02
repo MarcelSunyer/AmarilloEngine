@@ -5,8 +5,8 @@
 
 class ComponentTransform;
 class GameObject;
-enum class ComponentType;
 class Component;
+enum ComponentTypes;
 typedef unsigned int uint;
 
 class __declspec(dllexport) Amarillo {
@@ -43,26 +43,26 @@ public:
 
 	const char* ToString();
 
-	bool HasComponent(const ComponentType& component) const;
-	Component* GetComponent(const ComponentType& type);
-	const Component* GetComponent(const ComponentType& type) const;
+	bool HasComponent(const ComponentTypes component) const;
+	Component* GetComponent(const ComponentTypes type);
+	const Component* GetComponent(const ComponentTypes type) const;
 	void* GetComponentScript(const char* script_class_name);
 	const void* GetComponentScript(const char* script_class_name) const;
-	Component* GetComponentInParent(const ComponentType& type);
-	const Component* GetComponentInParent(const ComponentType& type) const;
+	Component* GetComponentInParent(const ComponentTypes type);
+	const Component* GetComponentInParent(const ComponentTypes type) const;
 	void* GetComponentScriptInParent(const char* script_class_name);
 	const void* GetComponentScriptInParent(const char* script_class_name) const;
-	Component* GetComponentInChildren(const ComponentType& type, bool recursive);
-	const Component* GetComponentInChildren(const ComponentType& type, bool recursive) const;
+	Component* GetComponentInChildren(const ComponentTypes type, bool recursive);
+	const Component* GetComponentInChildren(const ComponentTypes type, bool recursive) const;
 	// return the sie of the array of components found, pass a Component** nullptr with &. Remember to delete it with GameObject::FreeArrayMemory!!!
-	uint GetComponents(const ComponentType& type, Component*** comp_array);
-	const uint GetComponents(const ComponentType& type, Component*** comp_array) const;
+	uint GetComponents(const ComponentTypes type, Component*** comp_array);
+	const uint GetComponents(const ComponentTypes type, Component*** comp_array) const;
 	// return the sie of the array of components found, pass a Component** nullptr with &. Remember to delete it with GameObject::FreeArrayMemory!!!
-	uint GetComponentsInChildren(const ComponentType& type, Component*** comp_array, bool recursive);
-	const uint GetComponentsInChildren(const ComponentType& type, Component*** comp_array, bool recursive) const;
+	uint GetComponentsInChildren(const ComponentTypes type, Component*** comp_array, bool recursive);
+	const uint GetComponentsInChildren(const ComponentTypes type, Component*** comp_array, bool recursive) const;
 	// return the sie of the array of components found, pass a Component** nullptr with &. Remember to delete it with GameObject::FreeArrayMemory!!!
-	uint GetComponentsInParent(const ComponentType& type, Component*** comp_array);
-	const uint GetComponentsInParent(const ComponentType& type, Component*** comp_array) const;
+	uint GetComponentsInParent(const ComponentTypes type, Component*** comp_array);
+	const uint GetComponentsInParent(const ComponentTypes type, Component*** comp_array) const;
 	// return the sie of the array of components found, pass a Component** nullptr with &. Remember to delete it with GameObject::FreeArrayMemory!!!
 	uint GetComponentsScript(const char* script_class_name, void*** script_array);
 	const uint GetComponentsScript(const char* script_class_name, void*** script_array) const;

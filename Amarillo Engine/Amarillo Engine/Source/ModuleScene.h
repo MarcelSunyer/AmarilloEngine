@@ -22,6 +22,7 @@
 #include "ComponentScript.h"
 
 class JSON_Doc;
+class ComponentScript;
 
 class ModuleScene : public Module
 {
@@ -63,7 +64,7 @@ public:
 	GameObject* root_object = nullptr;
 
 	//Scripting
-	//ComponentScript* actual_script_loading = nullptr;
+	ComponentScript* actual_script_loading = nullptr;
 
 	JSON_Doc* loadedScene = nullptr;
 	JSON_Doc* playScene = nullptr;
