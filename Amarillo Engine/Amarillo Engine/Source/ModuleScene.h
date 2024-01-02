@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "../External/Guid/uuid.h"
+#include "ComponentScript.h"
 
 class JSON_Doc;
 
@@ -55,9 +56,14 @@ public:
 
 	void SerializePrefab(GameObject* gameObject, JSON_Doc* json);
 
+	GameObject* GetGameObjectByName(const std::string& targetName);
+
 public:
 	std::vector<GameObject*> game_objects; 
 	GameObject* root_object = nullptr;
+
+	//Scripting
+	//ComponentScript* actual_script_loading = nullptr;
 
 	JSON_Doc* loadedScene = nullptr;
 	JSON_Doc* playScene = nullptr;

@@ -13,6 +13,7 @@ enum ComponentTypes
 	MESH,
 	TEXTURE,
 	CAMERA,
+	SCRIPT,
 };
 
 class Component {
@@ -40,6 +41,7 @@ public:
 public:
 	ComponentTypes type;
 	bool active;
+	bool not_destroy = true;		//TODO: Adaptar el constructor para que asigne esto
 	GameObject* owner;
 };
 

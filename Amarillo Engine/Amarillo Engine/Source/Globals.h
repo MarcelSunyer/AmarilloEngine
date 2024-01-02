@@ -42,6 +42,12 @@ enum update_status
 #define VSYNC true
 #define TITLE "Amarillo Engine by Eric Luque & Marcel Sunyer"
 
+
+// Paths -----------
+#define SCRIPTS_DLL_OUTPUT "../AmarilloScripts/Output/"
+#define DLL_WORKING_PATH "Game/AmarilloScripts.dll"
+#define DLL_CREATION_PATH "../AmarilloScripts/Output/AmarilloScripts.dll"
+
 // Deletes a buffer
 #define RELEASE( x )		\
     {                       \

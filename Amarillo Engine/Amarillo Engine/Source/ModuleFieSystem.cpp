@@ -815,3 +815,14 @@ bool FileSystem::TextCmp(const char* text1, const char* text2)
 
 	return ret;
 }
+
+void FileSystem::NormalizePath(std::string& full_path) const
+{
+	for (std::string::iterator it = full_path.begin(); it != full_path.end(); ++it)
+	{
+		if (*it == '\\')
+			*it = '/';
+		else
+			*it = (*it);
+	}
+}

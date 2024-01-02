@@ -231,11 +231,13 @@
     <ClInclude Include="External\MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="External\Parson\parson.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\Amarillo.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentCamera.h" />
     <ClInclude Include="Source\ComponentMesh.h" />
+    <ClInclude Include="Source\ComponentScript.h" />
     <ClInclude Include="Source\ComponentTexture.h" />
     <ClInclude Include="Source\ComponentTransform.h" />
     <ClInclude Include="Source\Functions.h" />
@@ -251,6 +253,7 @@
     <ClInclude Include="Source\ModuleInput.h" />
     <ClInclude Include="Source\ModuleJSON.h" />
     <ClInclude Include="Source\ModuleMesh.h" />
+    <ClInclude Include="Source\ModuleObjects.h" />
     <ClInclude Include="Source\ModuleRenderer3D.h" />
     <ClInclude Include="Source\ModuleScene.h" />
     <ClInclude Include="Source\ModuleScripting.h" />
@@ -356,11 +359,13 @@
     <ClCompile Include="External\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="External\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="External\Parson\parson.c" />
+    <ClCompile Include="Source\Amarillo.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentCamera.cpp" />
     <ClCompile Include="Source\ComponentMesh.cpp" />
+    <ClCompile Include="Source\ComponentScript.cpp" />
     <ClCompile Include="Source\ComponentTexture.cpp" />
     <ClCompile Include="Source\ComponentTransform.cpp" />
     <ClCompile Include="Source\Functions.cpp" />
@@ -376,6 +381,7 @@
     <ClCompile Include="Source\ModuleInput.cpp" />
     <ClCompile Include="Source\ModuleJSON.cpp" />
     <ClCompile Include="Source\ModuleMesh.cpp" />
+    <ClCompile Include="Source\ModuleObjects.cpp" />
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
     <ClCompile Include="Source\ModuleScene.cpp" />
     <ClCompile Include="Source\ModuleScripting.cpp" />

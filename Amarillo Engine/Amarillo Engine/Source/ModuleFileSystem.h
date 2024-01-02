@@ -67,6 +67,8 @@ public:
 	std::string ToLowerCase(std::string str);
 	bool TextCmp(const char* text1, const char* text2);
 
+	void NormalizePath(std::string& full_path) const;
+
 	std::string GetAssetsPath();
 	std::string GetLibraryPath();
 	std::string GetLibraryMeshPath();

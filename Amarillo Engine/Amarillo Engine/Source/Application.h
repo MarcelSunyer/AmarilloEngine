@@ -38,6 +38,10 @@ public:
 	FileSystem* file_system;
 	ModuleScripting* scripting_module;
 
+
+	HINSTANCE scripts_dll = nullptr;
+	std::string dll;
+
 private:
 
 	Timer	ms_timer;
@@ -53,6 +57,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 	const char* GetBasePath();
+
+	void LoadDll();
 
 private:
 

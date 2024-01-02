@@ -14,6 +14,7 @@
 #include "ModuleScene.h"
 #include "../External/MathGeoLib/include/Math/float3.h"
 #include "ResourceManager.h"
+#include "ComponentScript.h"
 
 
 class Component;
@@ -55,6 +56,9 @@ public:
 	bool selected = false;
 	bool active = true;
 	bool deleteGameObject;
+
+	//TODO: Use tags vector for something
+	std::vector<std::string> tags;
 
 	std::vector<Component*> components;
 

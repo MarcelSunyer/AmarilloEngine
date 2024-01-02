@@ -1,0 +1,6 @@
+#ifndef MODULE_OBJECTS
+#define MODULE_OBJECTS
+
+
+
+#endif // MODULE_OBJECTS

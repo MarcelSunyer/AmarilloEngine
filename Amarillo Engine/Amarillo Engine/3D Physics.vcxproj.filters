@@ -651,6 +651,15 @@
     <ClInclude Include="External\AngelScript\sdk\angelscript\include\angelscript.h">
       <Filter>Externals\AngelScript\sdk\angelscript\include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ComponentScript.h">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Amarillo.h">
+      <Filter>Sources\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleObjects.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1021,6 +1030,15 @@
     </ClCompile>
     <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_variablescope.cpp">
       <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentScript.cpp">
+      <Filter>Sources\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amarillo.cpp">
+      <Filter>Sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleObjects.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
