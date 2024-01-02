@@ -14,7 +14,7 @@
 
 
 #ifdef AMARILLOSCRIPTS_EXPORTS
-#define AMARILLO_API __declspec(dllexport)
+#define AMARILLO_ENGINE_API __declspec(dllexport)
 #else
 #define AMARILLO_ENGINE_API __declspec(dllimport)
 #endif
