@@ -57,7 +57,7 @@ private:
 	AABB   bbox;
 };
 
-class ResourceMesh : public Resource
+class __declspec(dllexport) ResourceMesh : public Resource
 {
 public:
 	ResourceMesh(uuids::uuid unique_id);

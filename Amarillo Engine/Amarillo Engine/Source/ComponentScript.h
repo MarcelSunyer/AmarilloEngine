@@ -62,7 +62,7 @@ private:
 	float max_slider = 0;
 };
 
-class ComponentScript : public Component {
+class __declspec(dllexport) ComponentScript : public Component {
 	friend class Prefab;
 	friend class ModuleObjects;
 	friend class GameObject;

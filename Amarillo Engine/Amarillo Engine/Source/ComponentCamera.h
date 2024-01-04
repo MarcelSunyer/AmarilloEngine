@@ -5,7 +5,7 @@
 #include "ModuleWindow.h"
 #include "ModuleJSON.h"
 
-class ComponentCamera : public Component {
+class __declspec(dllexport) ComponentCamera : public Component {
 
 public:
 	ComponentCamera(GameObject* parent);

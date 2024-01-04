@@ -4,7 +4,7 @@
 #include "ModuleMesh.h"
 
 
-class ComponentMesh : public Component {
+class __declspec(dllexport) ComponentMesh : public Component {
 	//Properties
 public:
 

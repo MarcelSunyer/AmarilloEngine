@@ -9,7 +9,7 @@
 
 #include "..\External\ImGui/imgui_internal.h"
 
-class Camera3D
+class __declspec(dllexport) Camera3D
 {
 public:
 	Camera3D();

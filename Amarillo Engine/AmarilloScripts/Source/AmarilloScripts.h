@@ -9,7 +9,7 @@
 #include "../../Amarillo Engine/Source/ComponentMesh.h"
 #include "../../Amarillo Engine/Source/ComponentTexture.h"
 #include "../../Amarillo Engine/Source/ComponentTransform.h"
-//#include "../../Amarillo Engine/Source/ComponentScript.h"
+#include "../../Amarillo Engine/Source/ComponentScript.h"
 
 
 

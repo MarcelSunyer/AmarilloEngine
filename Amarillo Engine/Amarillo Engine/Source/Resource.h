@@ -14,7 +14,7 @@ enum ResourceType
 	RT_PREFAB,
 };
 
-class Resource
+class __declspec(dllexport) Resource
 {
 public:
 	Resource(uuids::uuid _unique_id, ResourceType type);

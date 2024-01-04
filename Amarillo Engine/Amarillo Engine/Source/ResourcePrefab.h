@@ -7,7 +7,7 @@
 
 class GameObject;
 
-class ResourcePrefab : public Resource
+class __declspec(dllexport) ResourcePrefab : public Resource
 {
 public:
 	ResourcePrefab(uuids::uuid unique_id, JSON_Doc* json);

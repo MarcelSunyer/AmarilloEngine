@@ -9,7 +9,7 @@
 #include "../External/MathGeoLib/include/Math/float2.h"
 #include "../External/MathGeoLib/include/Math/float3.h"
 
-class ResourceTexture : public Resource
+class __declspec(dllexport) ResourceTexture : public Resource
 {
 public:
 

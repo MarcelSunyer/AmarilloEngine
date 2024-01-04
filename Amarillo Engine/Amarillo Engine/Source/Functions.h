@@ -19,7 +19,7 @@ class ImVec4;
 // USEFULL FUNCTIONS //
 
 // Compares two char*, true if success
-bool TextCmp(const char* text1, const char* text2);
+__declspec(dllexport) bool TextCmp(const char* text1, const char* text2);
 
 // Copies a string to another
 void TextCpy(char* destination, const char* origen);

@@ -4,7 +4,7 @@
 #include "glmath.h"
 
 
-class ComponentTransform : public Component {
+class __declspec(dllexport) ComponentTransform : public Component {
 
 public:
 	void Enable() override;

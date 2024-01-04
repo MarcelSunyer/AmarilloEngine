@@ -19,7 +19,7 @@
 
 class Component;
 
-class GameObject
+class __declspec(dllexport) GameObject
 {
 public:
 	GameObject();

@@ -11,7 +11,7 @@
 #include "../External/Guid/uuid.h"
 
 
-class ModuleResourceManager : public Module
+class __declspec(dllexport) ModuleResourceManager : public Module
 {
 public:
 	ModuleResourceManager(Application* app, bool start_enabled = true);
