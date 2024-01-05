@@ -661,8 +661,62 @@ const uint GameObject::GetComponents(const ComponentTypes type, Component*** com
 	return found.size();
 }
 
+GameObject* GameObject::GetGameObjectByID(const std::string& id)
+{
+	GameObject* ret = nullptr;
+	if (id == this->UID) {
+		return this;
+	}
+	std::vector<GameObject*>::iterator item = children.begin();
+	for (; item != children.end(); ++item) {
+		if (*item != nullptr) {
+			ret = (*item)->GetGameObjectByID(id);
+			if (ret != nullptr)
+				break;
+		}
+	}
+	return ret;
+}
 
 const char* GameObject::GetTag() const
 {
 	return tag.c_str();
+}
+
+void GameObject::SearchToDelete()
+{
+	std::vector<GameObject*>::iterator item = children.begin();
+	while (item != children.end()) {
+
+		if ((*item)->deleteGameObject) {
+			delete* item;
+			*item = nullptr;
+			item = children.erase(item);
+		}
+		else {
+
+			std::vector<Component*>::iterator item_com = (*item)->components.begin();
+			while (item_com != (*item)->components.end())
+			{
+				if ((*item_com) != nullptr && (*item_com)->not_destroy != true)
+				{
+					delete* item_com;
+					*item_com = nullptr;
+					item_com = (*item)->components.erase(item_com);
+					
+				}
+				else
+				{
+					++item_com;
+				}
+			}
+			(*item)->SearchToDelete();
+			++item;
+		}
+	}
+}
+
+bool GameObject::HasChildren() const
+{
+	return !children.empty();
 }

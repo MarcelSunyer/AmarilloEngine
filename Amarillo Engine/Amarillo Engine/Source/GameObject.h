@@ -109,6 +109,12 @@ public:
 
 	const char* GetTag() const;
 
+	void SearchToDelete();
+
+	bool HasChildren() const;
+	
+	GameObject* GameObject::GetGameObjectByID(const std::string& id);
+
 
 	//No use, only reference
 	ComponentTransform* transform = nullptr;

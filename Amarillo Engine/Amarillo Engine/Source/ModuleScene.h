@@ -57,7 +57,7 @@ public:
 
 	void SerializePrefab(GameObject* gameObject, JSON_Doc* json);
 
-	GameObject* GetGameObjectByName(const std::string& targetName);
+	
 
 public:
 	std::vector<GameObject*> game_objects; 

@@ -47,6 +47,8 @@ enum update_status
 #define SCRIPTS_DLL_OUTPUT "../AmarilloScripts/Output/"
 #define DLL_WORKING_PATH "Game/AmarilloScripts.dll"
 #define DLL_CREATION_PATH "../AmarilloScripts/Output/AmarilloScripts.dll"
+#define FILE_TAGS "../Assets/Config/tags.amarilloTags"
+
 
 // Deletes a buffer
 #define RELEASE( x )		\

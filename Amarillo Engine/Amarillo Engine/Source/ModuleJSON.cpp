@@ -1097,3 +1097,191 @@ void JSON_Doc::SetGameObject(JSON_Object* gameObjectObject, const GameObject& ga
 	json_object_set_value(gameObjectObject, "Components", componentsValue);
 
 }
+
+JSON_Arraypack* JSON_Doc::GetArray(const std::string& name)
+{
+	JSON_Array* arr = nullptr;
+	while (arr == nullptr) { arr = json_object_dotget_array(object, name.data()); }
+	JSON_Value* value = nullptr;
+	while (value == nullptr) { value = json_array_get_value(arr, 0); }
+	JSON_Arraypack* array_pack = new JSON_Arraypack(arr, value);
+	arrays.push_back(array_pack);
+	return array_pack;
+}
+
+JSON_Arraypack::~JSON_Arraypack()
+{
+	if (!arrays.empty()) {
+		std::vector<JSON_Arraypack*>::iterator item = arrays.begin();
+		for (; item != arrays.end(); ++item) {
+			delete* item;
+		}
+		arrays.clear();
+	}
+}
+
+void JSON_Arraypack::SetNumber(const std::string& name, const double& number)
+{
+	json_object_dotset_number(json_value_get_object(value), name.data(), number);
+	json_array_append_value(arr, value);
+}
+
+double JSON_Arraypack::GetNumber(const std::string& name)
+{
+	return json_object_dotget_number(json_value_get_object(value), name.data());
+}
+
+void JSON_Arraypack::SetBoolean(const std::string& name, const bool& boolean)
+{
+	json_object_dotset_boolean(json_value_get_object(value), name.data(), boolean);
+}
+
+bool JSON_Arraypack::GetBoolean(const std::string& name)
+{
+	return json_object_dotget_boolean(json_value_get_object(value), name.data());
+}
+
+void JSON_Arraypack::SetColor(const std::string& name, const Color& color)
+{
+	JSON_Array* arr = json_object_dotget_array(json_value_get_object(value), name.data());
+	if (arr == nullptr) {
+		JSON_Value* new_val = json_value_init_array();
+		arr = json_value_get_array(new_val);
+		json_object_dotset_value(json_value_get_object(value), name.data(), new_val);
+	}
+	else {
+		json_array_clear(arr);
+	}
+	json_array_append_number(arr, color.r);
+	json_array_append_number(arr, color.g);
+	json_array_append_number(arr, color.b);
+	json_array_append_number(arr, color.a);
+}
+
+Color JSON_Arraypack::GetColor(const std::string& name)
+{
+	JSON_Array* arr = json_object_dotget_array(json_value_get_object(value), name.data());
+
+	Color color;
+	color.r = json_array_get_number(arr, 0);
+	color.g = json_array_get_number(arr, 1);
+	color.b = json_array_get_number(arr, 2);
+	color.a = json_array_get_number(arr, 3);
+
+	return color;
+}
+
+void JSON_Arraypack::SetFloat3(const std::string& name, const float3& numbers)
+{
+	JSON_Array* arr = json_object_dotget_array(json_value_get_object(value), name.data());
+	if (arr == nullptr) {
+		JSON_Value* new_val = json_value_init_array();
+		arr = json_value_get_array(new_val);
+		json_object_dotset_value(json_value_get_object(value), name.data(), new_val);
+	}
+	else {
+		json_array_clear(arr);
+	}
+	json_array_append_number(arr, numbers.x);
+	json_array_append_number(arr, numbers.y);
+	json_array_append_number(arr, numbers.z);
+}
+
+float3 JSON_Arraypack::GetFloat3(const std::string& name)
+{
+	JSON_Array* arr = json_object_dotget_array(json_value_get_object(value), name.data());
+
+	float3 numbers;
+	numbers.x = json_array_get_number(arr, 0);
+	numbers.y = json_array_get_number(arr, 1);
+	numbers.z = json_array_get_number(arr, 2);
+
+	return numbers;
+}
+
+void JSON_Arraypack::SetQuat(const std::string& name, const Quat& numbers)
+{
+	JSON_Array* arr = json_object_dotget_array(json_value_get_object(value), name.data());
+	if (arr == nullptr) {
+		JSON_Value* new_val = json_value_init_array();
+		arr = json_value_get_array(new_val);
+		json_object_dotset_value(json_value_get_object(value), name.data(), new_val);
+	}
+	else {
+		json_array_clear(arr);
+	}
+	json_array_append_number(arr, numbers.x);
+	json_array_append_number(arr, numbers.y);
+	json_array_append_number(arr, numbers.z);
+	json_array_append_number(arr, numbers.w);
+}
+
+Quat JSON_Arraypack::GetQuat(const std::string& name)
+{
+	JSON_Array* arr = json_object_dotget_array(json_value_get_object(value), name.data());
+
+	Quat quat;
+	quat.x = json_array_get_number(arr, 0);
+	quat.y = json_array_get_number(arr, 1);
+	quat.z = json_array_get_number(arr, 2);
+	quat.w = json_array_get_number(arr, 3);
+
+	return quat;
+}
+
+void JSON_Arraypack::SetAnotherNode()
+{
+	// I hope when destroying the core value of the file everything is deleted :) 
+	value = json_value_init_object();
+	json_array_append_value(arr, value);
+}
+
+bool JSON_Arraypack::GetAnotherNode()
+{
+	++index;
+	if (index < json_array_get_count(arr)) {
+		value = json_array_get_value(arr, index);
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void JSON_Arraypack::GetFirstNode()
+{
+	index = 0;
+	value = json_array_get_value(arr, index);
+}
+
+void JSON_Arraypack::GetNode(const uint& index)
+{
+	this->index = index;
+	value = json_array_get_value(arr, index);
+}
+
+uint JSON_Arraypack::GetArraySize()
+{
+	return json_array_get_count(arr);
+}
+
+void JSON_Arraypack::SetString(const std::string& name, const std::string& string_parameter)
+{
+	json_object_dotset_string(json_value_get_object(value), name.data(), string_parameter.data());
+}
+
+const char* JSON_Arraypack::GetString(const std::string& name)
+{
+	return json_object_dotget_string(json_value_get_object(value), name.data());
+}
+
+JSON_Arraypack* JSON_Arraypack::InitNewArray(const std::string& name)
+{
+	JSON_Value* val = json_value_init_array();
+	json_object_dotset_value(json_value_get_object(value), name.data(), val);
+
+	JSON_Arraypack* array_pack = new JSON_Arraypack(json_value_get_array(val), json_value_init_object());
+	arrays.push_back(array_pack);
+
+	return array_pack;
+}

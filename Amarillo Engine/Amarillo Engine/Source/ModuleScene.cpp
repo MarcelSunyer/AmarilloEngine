@@ -453,13 +453,3 @@ void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 	}
 }
 
-GameObject* ModuleScene::GetGameObjectByName(const std::string& targetName) {
-	for (size_t i = 0; i < game_objects.size(); ++i) {
-		GameObject* gameObject = game_objects[i];
-		if (gameObject->mName == targetName) {
-			return gameObject;  
-		}
-	}
-
-	return nullptr;
-}

@@ -20,6 +20,7 @@ class ModuleResourceManager;
 class ModuleJSON;
 class FileSystem;
 class ModuleScripting;
+class ModuleObjects;
 
 class Application
 {
@@ -37,6 +38,7 @@ public:
 	ModuleJSON* json_module;
 	FileSystem* file_system;
 	ModuleScripting* scripting_module;
+	ModuleObjects* objects;
 
 
 	HINSTANCE scripts_dll = nullptr;
