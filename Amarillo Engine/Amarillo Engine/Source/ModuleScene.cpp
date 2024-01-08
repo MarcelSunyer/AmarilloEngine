@@ -237,7 +237,8 @@ void ModuleScene::SaveScene()
 {
 	JSON_Doc* json = App->json_module->CreateJSON();
 	SerializePrefab(root_object, json);
-	App->json_module->SaveJson(json, "C:/Users/Marcel/Desktop/Test.json");
+
+	App->json_module->SaveJson(json,"../Assets/Scenes");
 
 	//JSON_Doc tmpDoc;
 
