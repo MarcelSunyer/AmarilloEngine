@@ -626,68 +626,67 @@ void ModuleObjects::CreateRoot()
 	base_game_object->UID = "0";
 }
 
-//TODO: Hacer el HotReload
 
-//void ModuleObjects::HotReload()
-//{
-//	JSON_Value* value = json_value_init_object();
-//	JSON_Object* json_object = json_value_get_object(value);
-//	json_serialize_to_file_pretty(value, "Library/ScriptsTEMP.alien");
-//
-//	if (value != nullptr && json_object != nullptr) {
-//		JSON_Arraypack* to_save = new JSON_Arraypack("Library/ScriptsTEMP.alien", json_object, value);
-//		to_save->StartSave();
-//		if (current_scripts.empty()) {
-//			to_save->SetBoolean("AreScripts", false);
-//		}
-//		else {
-//			to_save->SetBoolean("AreScripts", true);
-//			JSONArraypack* scripts = to_save->InitNewArray("Arr.Scripts");
-//			CreateJsonScript(base_game_object, scripts);
-//		}
-//		to_save->FinishSave();
-//		delete to_save;
-//	}
-//	current_scripts.clear();
-//	if (FreeLibrary(App->scripts_dll)) {
-//		LOG_ENGINE("Dll correctly unloaded");
-//		if (remove(DLL_WORKING_PATH) == 0) {
-//			LOG_ENGINE("Dll correctly removed");
-//			App->resources->ReloadScripts();
-//			// if this change is done without waiting, we cant move the file because the creating dll process hasn't finished
-//			// so I just wait until MoveFileA succed. 
-//			// If someone knows how to know when an extern process finishes with a file, tell me please contrasnya@gmail.com
-//			while (MoveFileA(DLL_CREATION_PATH, DLL_WORKING_PATH) == FALSE) {}
-//			LOG_ENGINE("New Dll correctly moved");
-//			App->scripts_dll = nullptr;
-//			App->scripts_dll = LoadLibrary(App->dll.data());
-//			if (App->scripts_dll != nullptr) {
-//				JSON_Value* value_load = json_parse_file("Library/ScriptsTEMP.alien");
-//				JSON_Object* json_object_load = json_value_get_object(value_load);
-//
-//				if (value_load != nullptr && json_object_load != nullptr) {
-//					JSON_Arraypack* to_load = new JSON_Arraypack("Library/ScriptsTEMP.alien", json_object_load, value_load);
-//					if (to_load->GetBoolean("AreScripts")) {
-//						JSONArraypack* scripts_to_load = to_load->GetArray("Arr.Scripts");
-//						ReAssignScripts(scripts_to_load);
-//						errors = false;
-//						if (Time::IsInGameState()) {
-//							auto item = current_scripts.begin();
-//							for (; item != current_scripts.end(); ++item) {
-//								if (*item != nullptr) {
-//									(*item)->Awake();
-//									(*item)->Start();
-//								}
-//							}
-//						}
-//					}
-//					remove("Library/ScriptsTEMP.alien");
-//					delete to_load;
-//				}
-//			}
-//		}
-//	}
-//}
+void ModuleObjects::HotReload()
+{
+	JSON_Value* value = json_value_init_object();
+	JSON_Object* json_object = json_value_get_object(value);
+	json_serialize_to_file_pretty(value, "../Library/ScriptsTEMP.amarillo");
+
+	if (value != nullptr && json_object != nullptr) {
+		JSON_Doc* to_save = new JSON_Doc(value, json_object);		//TODO: Falta asignarle una ruta donde guardarlo IDK como
+		to_save->StartSave();
+		if (current_scripts.empty()) {
+			to_save->SetBool("AreScripts", false);
+		}
+		else {
+			to_save->SetBool("AreScripts", true);
+			JSON_Arraypack* scripts = to_save->InitNewArray("Arr.Scripts");
+			//CreateJsonScript(base_game_object, scripts);	//TODO: Descomentar cuando esté creado
+		}
+		to_save->FinishSave();
+		delete to_save;
+	}
+	current_scripts.clear();
+	if (FreeLibrary(App->scripts_dll)) {
+		LOG("Dll correctly unloaded");
+		if (remove(DLL_WORKING_PATH) == 0) {
+			LOG("Dll correctly removed");
+			App->resourceManager->ReloadScripts();
+			// if this change is done without waiting, we cant move the file because the creating dll process hasn't finished
+			// so I just wait until MoveFileA succed. 
+			// If someone knows how to know when an extern process finishes with a file, tell me please contrasnya@gmail.com
+			while (MoveFileA(DLL_CREATION_PATH, DLL_WORKING_PATH) == FALSE) {}
+			LOG("New Dll correctly moved");
+			App->scripts_dll = nullptr;
+			App->scripts_dll = LoadLibrary(App->dll.data());
+			if (App->scripts_dll != nullptr) {
+				JSON_Value* value_load = json_parse_file("../Library/ScriptsTEMP.amarillo");
+				JSON_Object* json_object_load = json_value_get_object(value_load);
+
+				if (value_load != nullptr && json_object_load != nullptr) {
+					JSON_Doc* to_load = new JSON_Doc("Library/ScriptsTEMP.amarillo", json_object_load, value_load);
+					if (to_load->GetBool("AreScripts")) {
+						JSON_Arraypack* scripts_to_load = to_load->GetArray("Arr.Scripts");
+						//ReAssignScripts(scripts_to_load);	//TODO: Descomentar cuando esté creado
+						if (App->editor->timerState == Timer_State::RUNNING) {
+							auto item = current_scripts.begin();
+							for (; item != current_scripts.end(); ++item) {
+								if (*item != nullptr) {
+									(*item)->Awake();
+									(*item)->Start();
+								}
+							}
+						}
+					}
+					remove("../Library/ScriptsTEMP.amarillo");
+
+					delete to_load;
+				}
+			}
+		}
+	}
+}
 
 
 bool ModuleObjects::SortGameObjectToDraw(std::pair<float, GameObject*> first, std::pair<float, GameObject*> last)

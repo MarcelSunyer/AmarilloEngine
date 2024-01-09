@@ -44,9 +44,12 @@ public:
 	// Meta control
 	bool IsAssetMeta(const char* filepath, const char* metapath);
 	bool FileIsMeta(const char* filepath);
+	void ReloadScripts();
 
 private:
 	void AddLoader(ResourceLoader* loader);
+
+
 
 private:
 	std::vector<ResourceLoader*> loaders;

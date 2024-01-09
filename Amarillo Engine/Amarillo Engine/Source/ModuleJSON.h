@@ -33,6 +33,7 @@ public:
 	
 	JSON_Doc();
 	JSON_Doc(JSON_Value* value, JSON_Object* object);
+	JSON_Doc(std::string path, JSON_Object* object, JSON_Value* value);
 	JSON_Doc(const JSON_Doc& doc);
 	~JSON_Doc();
 	
@@ -92,6 +93,11 @@ public:
 
 	JSON_Arraypack* GetArray(const std::string& name);
 
+	void StartSave();
+	void FinishSave();
+
+	JSON_Arraypack* InitNewArray(const std::string& name);
+
 	//load scene
 	void GetComponent(const JSON_Object* componentObject, Component& component) const;
 	std::vector<GameObject*> GetHierarchy(const char* key) const;
@@ -99,9 +105,14 @@ public:
 	
 
 private:
+	std::string path;
+
 	JSON_Value* value = nullptr;
 	JSON_Object* object = nullptr;
 	JSON_Object* root = nullptr;
+
+	JSON_Value* save_value = nullptr;
+	JSON_Object* save_object = nullptr;
 
 	std::vector<JSON_Arraypack*> arrays;
 };

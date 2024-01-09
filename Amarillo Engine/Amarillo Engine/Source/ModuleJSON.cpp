@@ -86,6 +86,10 @@ JSON_Doc::JSON_Doc(JSON_Value* _value, JSON_Object* _object)
 	root = _object;
 }
 
+JSON_Doc::JSON_Doc(std::string path, JSON_Object* object, JSON_Value* value) : path(path), object(object), value(value)
+{
+}
+
 JSON_Doc::JSON_Doc(const JSON_Doc& doc)
 {
 	value = doc.value;
@@ -1279,6 +1283,31 @@ JSON_Arraypack* JSON_Arraypack::InitNewArray(const std::string& name)
 {
 	JSON_Value* val = json_value_init_array();
 	json_object_dotset_value(json_value_get_object(value), name.data(), val);
+
+	JSON_Arraypack* array_pack = new JSON_Arraypack(json_value_get_array(val), json_value_init_object());
+	arrays.push_back(array_pack);
+
+	return array_pack;
+}
+
+void JSON_Doc::StartSave()
+{
+	save_value = json_parse_file(path.data());
+	save_object = json_object(save_value);
+}
+
+void JSON_Doc::FinishSave()
+{
+	json_serialize_to_file_pretty(save_value, path.data());
+	json_value_free(save_value);
+	save_value = nullptr;
+	save_object = nullptr;
+}
+
+JSON_Arraypack* JSON_Doc::InitNewArray(const std::string& name)
+{
+	JSON_Value* val = json_value_init_array();
+	json_object_dotset_value(save_object, name.data(), val);
 
 	JSON_Arraypack* array_pack = new JSON_Arraypack(json_value_get_array(val), json_value_init_object());
 	arrays.push_back(array_pack);

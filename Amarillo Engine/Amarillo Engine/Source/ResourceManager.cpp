@@ -306,3 +306,8 @@ void ModuleResourceManager::AddLoader(ResourceLoader* loader)
 	loaders.push_back(loader);
 }
 
+void ModuleResourceManager::ReloadScripts()
+{
+	//TODO: Reload all the scripts 
+
+}
