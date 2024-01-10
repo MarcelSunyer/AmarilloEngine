@@ -644,23 +644,6 @@ uint GameObject::GetComponents(const ComponentTypes type, Component*** comp_arra
 	return found.size();
 }
 
-const uint GameObject::GetComponents(const ComponentTypes type, Component*** comp_array) const
-{
-	std::vector<Component*> found;
-	for (uint i = 0; i < components.size(); ++i) {
-		if (components[i] != nullptr && components[i]->type == (ComponentTypes)type) {
-			found.push_back(components[i]);
-		}
-	}
-	if (!found.empty()) {
-		(*comp_array) = new Component * [found.size()];
-		for (uint i = 0; i < found.size(); ++i) {
-			(*comp_array)[i] = found[i];
-		}
-	}
-	return found.size();
-}
-
 GameObject* GameObject::GetGameObjectByID(const std::string& id)
 {
 	GameObject* ret = nullptr;
@@ -719,4 +702,17 @@ void GameObject::SearchToDelete()
 bool GameObject::HasChildren() const
 {
 	return !children.empty();
+}
+
+void GameObject::RemoveComponent(Component* component)
+{
+	std::vector<Component*>::iterator item = components.begin();
+	for (; item != components.end(); ++item) {
+		if (*item != nullptr && *item == component) {
+			delete* item;
+			(*item) = nullptr;
+			components.erase(item);
+			break;
+		}
+	}
 }

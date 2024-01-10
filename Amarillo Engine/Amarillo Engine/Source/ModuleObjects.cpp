@@ -752,75 +752,75 @@ void ModuleObjects::CancelInvokes(Amarillo* amarillo)
 
 //TODO: Arreglar esto de abajo
 
-//void ModuleObjects::CreateJsonScript(GameObject* obj, JSONArraypack* to_save)
-//{
-//	if (obj->HasChildren()) {
-//		std::vector<GameObject*>::iterator item = obj->children.begin();
-//		for (; item != obj->children.end(); ++item) {
-//			if (*item != nullptr) {
-//				std::vector<ComponentScript*> scripts = (*item)->GetComponents<ComponentScript>();
-//				if (!scripts.empty()) {
-//					std::vector<ComponentScript*>::iterator script = scripts.begin();
-//					for (; script != scripts.end(); ++script) {
-//						if (*script != nullptr) {
-//							to_save->SetAnotherNode();
-//							to_save->SetString("GameObjectID", std::to_string((*item)->ID));
-//							to_save->SetString("ResourceScriptID", std::to_string((*script)->resourceID));
-//							to_save->SetString("DataName", (*script)->data_name);
-//							to_save->SetString("CompScriptID", std::to_string((*script)->ID));
-//							if ((*script)->inspector_variables.empty()) {
-//								to_save->SetBoolean("HasInspector", false);
-//							}
-//							else {
-//								to_save->SetBoolean("HasInspector", true);
-//								JSONArraypack* inspector = to_save->InitNewArray("Inspector");
-//								for (uint i = 0; i < (*script)->inspector_variables.size(); ++i) {
-//									inspector->SetAnotherNode();
-//									if ((*script)->inspector_variables[i].ptr == nullptr) {
-//										inspector->SetBoolean("IsNull", true);
-//										continue;
-//									}
-//									inspector->SetBoolean("IsNull", false);
-//									inspector->SetString("Name", (*script)->inspector_variables[i].variable_name);
-//									inspector->SetNumber("Type", (*script)->inspector_variables[i].variable_type);
-//									switch ((*script)->inspector_variables[i].variable_type)
-//									{
-//									case InspectorScriptData::DataType::INT: {
-//										inspector->SetNumber("int", (*(int*)((*script)->inspector_variables[i].ptr)));
-//										break; }
-//									case InspectorScriptData::DataType::FLOAT: {
-//										inspector->SetNumber("float", (*(float*)((*script)->inspector_variables[i].ptr)));
-//										break; }
-//									case InspectorScriptData::DataType::BOOL: {
-//										inspector->SetNumber("bool", (*(bool*)((*script)->inspector_variables[i].ptr)));
-//										break; }
-//									case InspectorScriptData::DataType::PREFAB: {
-//										Prefab* prefab = ((Prefab*)((*script)->inspector_variables[i].ptr));
-//										inspector->SetString("prefab", std::to_string(prefab->prefabID));
-//										break; }
-//									case InspectorScriptData::DataType::GAMEOBJECT: {
-//										GameObject** obj = ((GameObject**)((*script)->inspector_variables[i].obj));
-//										if (obj != nullptr && *obj != nullptr) {
-//											inspector->SetString("gameobject", std::to_string((*obj)->prefabID));
-//										}
-//										else {
-//											inspector->SetString("gameobject", "0");
-//										}
-//										break; }
-//									default:
-//										break;
-//									}
-//								}
-//							}
-//							(*item)->RemoveComponent(*script);	//Todo: RemoveComponent()
-//						}
-//					}
-//				}
-//				CreateJsonScript((*item), to_save);
-//			}
-//		}
-//	}
-//}
+void ModuleObjects::CreateJsonScript(GameObject* obj, JSON_Arraypack* to_save)
+{
+	if (obj->HasChildren()) {
+		std::vector<GameObject*>::iterator item = obj->children.begin();
+		for (; item != obj->children.end(); ++item) {
+			if (*item != nullptr) {
+				std::vector<ComponentScript*> scripts = (*item)->GetComponents<ComponentScript>();
+				if (!scripts.empty()) {
+					std::vector<ComponentScript*>::iterator script = scripts.begin();
+					for (; script != scripts.end(); ++script) {
+						if (*script != nullptr) {
+							to_save->SetAnotherNode();
+							to_save->SetString("GameObjectID", (*item)->UID);
+							to_save->SetString("ResourceScriptID", (*script)->resourceID.toString());
+							to_save->SetString("DataName", (*script)->data_name);
+							to_save->SetString("CompScriptID", (*script)->resourceID.toString());
+							if ((*script)->inspector_variables.empty()) {
+								to_save->SetBoolean("HasInspector", false);
+							}
+							else {
+								to_save->SetBoolean("HasInspector", true);
+								JSON_Arraypack* inspector = to_save->InitNewArray("Inspector");
+								for (uint i = 0; i < (*script)->inspector_variables.size(); ++i) {
+									inspector->SetAnotherNode();
+									if ((*script)->inspector_variables[i].ptr == nullptr) {
+										inspector->SetBoolean("IsNull", true);
+										continue;
+									}
+									inspector->SetBoolean("IsNull", false);
+									inspector->SetString("Name", (*script)->inspector_variables[i].variable_name);
+									inspector->SetNumber("Type", (*script)->inspector_variables[i].variable_type);
+									switch ((*script)->inspector_variables[i].variable_type)
+									{
+									case InspectorScriptData::DataType::INT: {
+										inspector->SetNumber("int", (*(int*)((*script)->inspector_variables[i].ptr)));
+										break; }
+									case InspectorScriptData::DataType::FLOAT: {
+										inspector->SetNumber("float", (*(float*)((*script)->inspector_variables[i].ptr)));
+										break; }
+									case InspectorScriptData::DataType::BOOL: {
+										inspector->SetNumber("bool", (*(bool*)((*script)->inspector_variables[i].ptr)));
+										break; }
+									/*case InspectorScriptData::DataType::PREFAB: {							//TODO: Arreglar cuando haya Prefab
+										Prefab* prefab = ((Prefab*)((*script)->inspector_variables[i].ptr));
+										inspector->SetString("prefab", std::to_string(prefab->prefabID));
+										break; }*/
+									case InspectorScriptData::DataType::GAMEOBJECT: {
+										GameObject** obj = ((GameObject**)((*script)->inspector_variables[i].obj));
+										if (obj != nullptr && *obj != nullptr) {
+											//inspector->SetString("gameobject", std::to_string((*obj)->prefabID));		//TODO: Arreglar cuando haya Prefab
+										}
+										else {
+											inspector->SetString("gameobject", "0");
+										}
+										break; }
+									default:
+										break;
+									}
+								}
+							}
+							(*item)->RemoveComponent(*script);
+						}
+					}
+				}
+				CreateJsonScript((*item), to_save);
+			}
+		}
+	}
+}
 //
 //void ModuleObjects::ReAssignScripts(JSONArraypack* to_load)
 //{

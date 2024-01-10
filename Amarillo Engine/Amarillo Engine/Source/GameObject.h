@@ -105,13 +105,30 @@ public:
 	void GetComponentsScriptChildren(const char* script_calss_name, std::vector<void*>* to_fill, bool recursive) const;
 
 	uint GetComponents(const ComponentTypes type, Component*** comp_array);
-	const uint GetComponents(const ComponentTypes type, Component*** comp_array) const;
+
+	// BASE
+	template<class Comp>
+	inline Comp* GetComponent();
+
+	template<class Comp>
+	inline std::vector<Comp*> GetComponents();
+
+
+	// CONST
+	template<class Comp>
+	inline const Comp* GetComponent() const;
+
+	template<class Comp>
+	inline const std::vector<Comp*> GetComponents() const;
+
 
 	const char* GetTag() const;
 
 	void SearchToDelete();
 
 	bool HasChildren() const;
+
+	void RemoveComponent(Component* component);
 	
 	GameObject* GameObject::GetGameObjectByID(const std::string& id);
 
@@ -129,5 +146,59 @@ public:
 	AABB aabb;
 	OBB obb;
 
+
+
 };
+
+
+template<class Comp>
+inline Comp* GameObject::GetComponent()
+{
+	for (uint i = 0; i < components.size(); ++i) {
+		Comp* component = dynamic_cast<Comp*>(components[i]);
+		if (component != nullptr) {
+			return component;
+		}
+	}
+	return nullptr;
+}
+
+template<class Comp>
+inline std::vector<Comp*> GameObject::GetComponents()
+{
+	std::vector<Comp*> comps;
+	for (uint i = 0; i < components.size(); ++i) {
+		Comp* component = dynamic_cast<Comp*>(components[i]);
+		if (component != nullptr) {
+			comps.push_back(component);
+		}
+	}
+	return comps;
+}
+
+template<class Comp>
+inline const Comp* GameObject::GetComponent() const
+{
+	for (uint i = 0; i < components.size(); ++i) {
+		Comp* component = dynamic_cast<Comp*>(components[i]);
+		if (component != nullptr) {
+			return component;
+		}
+	}
+	return nullptr;
+}
+
+template<class Comp>
+inline const std::vector<Comp*> GameObject::GetComponents() const
+{
+	std::vector<Comp*> comps;
+	for (uint i = 0; i < components.size(); ++i) {
+		Comp* component = dynamic_cast<Comp*>(components[i]);
+		if (component != nullptr) {
+			comps.push_back(component);
+		}
+	}
+	return comps;
+}
+
 #endif
