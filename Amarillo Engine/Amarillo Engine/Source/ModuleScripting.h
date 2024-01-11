@@ -1,8 +1,7 @@
 #ifndef MODULE_SCRIPTING
 #define MODULE_SCRIPTING
-#include "../External/AngelScript/sdk/angelscript/include/angelscript.h"
-#include <../../../Amarillo Engine/External/AngelScript/sdk/add_on/scriptbuilder/scriptbuilder.h>
-#include <../../../Amarillo Engine/External/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.h>
+
+
 
 #include <iostream> 
 #include <assert.h>  
@@ -26,8 +25,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void ConfigureEngine(asIScriptEngine* engine);
-	int CompileScript(asIScriptEngine* engine);
+	//void ConfigureEngine(asIScriptEngine* engine);
+	//int CompileScript(asIScriptEngine* engine);
 
 
 };
