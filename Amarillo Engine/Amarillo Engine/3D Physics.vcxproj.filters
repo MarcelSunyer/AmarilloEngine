@@ -519,8 +519,6 @@
     <ClInclude Include="Source\ModuleScripting.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="External\AngelScript\sdk\add_on\scriptbuilder\scriptbuilder.h" />
-    <ClInclude Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -775,9 +773,6 @@
     <ClCompile Include="Source\ModuleScripting.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="External\AngelScript\sdk\add_on\scriptbuilder\scriptbuilder.cpp" />
-    <ClCompile Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring.cpp" />
-    <ClCompile Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\include\Math\Matrix.inl">

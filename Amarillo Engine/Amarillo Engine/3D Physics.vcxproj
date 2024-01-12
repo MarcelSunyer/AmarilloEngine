@@ -81,8 +81,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="External\AngelScript\sdk\add_on\scriptbuilder\scriptbuilder.h" />
-    <ClInclude Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring.h" />
     <ClInclude Include="External\Assimp\include\ai_assert.h" />
     <ClInclude Include="External\Assimp\include\anim.h" />
     <ClInclude Include="External\Assimp\include\camera.h" />
@@ -235,9 +233,6 @@
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="External\AngelScript\sdk\add_on\scriptbuilder\scriptbuilder.cpp" />
-    <ClCompile Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring.cpp" />
-    <ClCompile Include="External\AngelScript\sdk\add_on\scriptstdstring\scriptstdstring_utils.cpp" />
     <ClCompile Include="External\ImGuizmo\GraphEditor.cpp" />
     <ClCompile Include="External\ImGuizmo\ImCurveEdit.cpp" />
     <ClCompile Include="External\ImGuizmo\ImGradient.cpp" />
