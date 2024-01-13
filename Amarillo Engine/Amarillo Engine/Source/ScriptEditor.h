@@ -38,7 +38,7 @@ private:
 
 	std::string scriptName;
 
-	std::string baseCode = "//Codigo generico de C++";
+	std::string baseCode = "//Codigo generico de C++\n#include <iostream>\nint main() { \n return 0;\n}";
 
 };
 
