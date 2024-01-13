@@ -68,6 +68,8 @@ bool ModuleEditor::Init()
 
     InitializeIconMapping();
 
+    scriptEditor.Init();
+
 	return true;
 }
 
@@ -242,9 +244,15 @@ void ModuleEditor::DrawEditor()
         }
         ImGui::End();
     }
-    if (ImGui::Begin("Consol"))
+    if (ImGui::Begin("Console"))
     {
        App->console->UpdateConsole();
+    }
+    ImGui::End();
+
+    if (ImGui::Begin("Script Editor"))
+    {
+        scriptEditor.Update();
     }
     ImGui::End();
 

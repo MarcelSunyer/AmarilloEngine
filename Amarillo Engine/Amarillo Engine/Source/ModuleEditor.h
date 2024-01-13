@@ -15,6 +15,7 @@
 #include <cstring>
 #include <filesystem>
 #include <unordered_map>
+#include "ScriptEditor.h"
 
 namespace fs = std::filesystem;
 
@@ -132,6 +133,8 @@ public:
 	std::unordered_map<std::string, bool> textureLoadedState;
 
 	bool right_click = false;
+
+	ScriptEditor scriptEditor;
 };
 
 #endif // MODULE_EDITOR
