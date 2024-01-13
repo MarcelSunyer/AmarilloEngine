@@ -272,6 +272,7 @@
     <ClInclude Include="Source\ResourceLoader.h" />
     <ClInclude Include="Source\ResourceMeshLoader.h" />
     <ClInclude Include="Source\ResourceTextureLoader.h" />
+    <ClInclude Include="Source\ScriptEditor.h" />
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -401,6 +402,7 @@
     <ClCompile Include="Source\ResourceLoader.cpp" />
     <ClCompile Include="Source\ResourceMeshLoader.cpp" />
     <ClCompile Include="Source\ResourceTextureLoader.cpp" />
+    <ClCompile Include="Source\ScriptEditor.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
