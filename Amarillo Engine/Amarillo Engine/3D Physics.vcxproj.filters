@@ -85,6 +85,9 @@
     <Filter Include="Externals\AngelScript\sdk\angelscript\source">
       <UniqueIdentifier>{1e3e5da6-4b58-41db-80d2-fe868ec1edc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Externals\ImGuiColorTextEditor">
+      <UniqueIdentifier>{90dd1f67-2c5e-4f11-b8e7-cd819ad131da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -660,6 +663,9 @@
     <ClInclude Include="Source\ModuleObjects.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="External\ImGuiColorTextEditor\TextEditor.h">
+      <Filter>Externals\ImGuiColorTextEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1039,6 +1045,9 @@
     </ClCompile>
     <ClCompile Include="Source\ModuleObjects.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="External\ImGuiColorTextEditor\TextEditor.cpp">
+      <Filter>Externals\ImGuiColorTextEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

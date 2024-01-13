@@ -153,6 +153,7 @@
     <ClInclude Include="External\Assimp\include\vector3.h" />
     <ClInclude Include="External\Assimp\include\version.h" />
     <ClInclude Include="External\Guid\uuid.h" />
+    <ClInclude Include="External\ImGuiColorTextEditor\TextEditor.h" />
     <ClInclude Include="External\ImGuizmo\GraphEditor.h" />
     <ClInclude Include="External\ImGuizmo\ImCurveEdit.h" />
     <ClInclude Include="External\ImGuizmo\ImGradient.h" />
@@ -313,6 +314,7 @@
     <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_tokenizer.cpp" />
     <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_typeinfo.cpp" />
     <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_variablescope.cpp" />
+    <ClCompile Include="External\ImGuiColorTextEditor\TextEditor.cpp" />
     <ClCompile Include="External\ImGuizmo\GraphEditor.cpp" />
     <ClCompile Include="External\ImGuizmo\ImCurveEdit.cpp" />
     <ClCompile Include="External\ImGuizmo\ImGradient.cpp" />
