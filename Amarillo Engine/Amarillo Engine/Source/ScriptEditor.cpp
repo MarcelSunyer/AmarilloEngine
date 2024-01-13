@@ -80,11 +80,34 @@ void ScriptEditor::CreateScriptTXT()
 	scriptName = "New Script";
 }
 
-bool ScriptEditor::SaveScriptTXT(std::string shaderText, std::string fileName)
+bool ScriptEditor::SaveScriptTXT(std::string scriptText, std::string fileName)
 {
-	return false;
+    std::string scriptsFolder = applic->file_system->GetAssetsPath();
+
+    std::string filePath = scriptsFolder + fileName + ".txt";
+
+    if (applic->file_system->FileSave(filePath.c_str(), scriptText.c_str(), scriptText.size()))
+    {
+        LOG("Script Saved Correct");
+        return true;
+    }
+
+    LOG("Error Saving Script");
+    return false;
 }
 
 void ScriptEditor::DeleteScriptTXT(std::string fileName)
 {
+    std::string scriptsFolder = applic->file_system->GetAssetsPath();
+
+    std::string filePath = scriptsFolder + fileName + ".txt";
+
+    if (applic->file_system->FileDelete(filePath.c_str()))
+    {
+        LOG("Script %s deleted correctly", fileName);
+    }
+    else
+    {
+        LOG("Error deleting %s script", fileName);
+    }
 }

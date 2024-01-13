@@ -2,10 +2,10 @@
 #define __SCRIPT_EDITOR__
 
 #include "../External/ImGuiColorTextEditor/TextEditor.h"
-
-
 #include "../External/ImGui/imgui.h"
 
+#include "Application.h"
+#include "ModuleFileSystem.h"
 
 #include <string>
 #include <filesystem>
