@@ -44,11 +44,10 @@ enum update_status
 
 
 // Paths -----------
-#define SCRIPTS_DLL_OUTPUT "../AmarilloScripts/Output/"
-#define DLL_WORKING_PATH "Game/AmarilloScripts.dll"
-#define DLL_CREATION_PATH "../AmarilloScripts/Output/AmarilloScripts.dll"
-#define FILE_TAGS "../Assets/Config/tags.amarilloTags"
-
+#define SCRIPTS_DLL_OUTPUT "../../AmarilloScripts/Output/"
+#define DLL_WORKING_PATH "../Game/AmarilloScripts.dll"
+#define DLL_CREATION_PATH "../../AmarilloScripts/Output/AmarilloScripts.dll"
+#define FILE_TAGS "../Assets/Config/tags.amarilloTags"			//TODO: Create Tags folder
 
 // Deletes a buffer
 #define RELEASE( x )		\
