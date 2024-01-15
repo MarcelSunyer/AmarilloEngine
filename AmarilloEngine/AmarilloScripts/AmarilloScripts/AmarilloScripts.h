@@ -4,15 +4,15 @@
 //TODO: Include all Components (done), Tools and Helpers (used tools/helpers only)
 
 
-//#include "../../AmarilloEngine/Source/GameObject.h"
+#include "../../AmarilloEngine/Source/GameObject.h"
 
-//#include "../../AmarilloEngine/Source/Component.h"
+#include "../../AmarilloEngine/Source/Component.h"
 //#include "../../AmarilloEngine/Source/ComponentMesh.h"
 //#include "../../AmarilloEngine/Source/ComponentTexture.h"
 //#include "../../AmarilloEngine/Source/ComponentTransform.h"
 //#include "../../AmarilloEngine/Source/ComponentScript.h"
 
-#include "../../AmarilloEngine/Source/ComponentCamera.h"
+//#include "../../AmarilloEngine/Source/ComponentCamera.h"
 
 //#include "../../AmarilloEngine/Source/ModuleEditor.h"
 #include "../../AmarilloEngine/Source/Globals.h"
