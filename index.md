@@ -30,8 +30,8 @@ The new 3D Game Engine under CITM development
 
 ## Developers
 
-- [Eric Luque Romero](https://github.com/ericlr1)
-- [Marcel Sunyer Caldú](https://github.com/MarcelSunyer)
+- [![Eric Luque Romero](https://img.shields.io/badge/GitHub-ericlr1-green?style=flat-square&logo=github)](https://github.com/ericlr1)
+- [![Marcel Sunyer Caldú](https://img.shields.io/badge/GitHub-MarcelSunyer-green?style=flat-square&logo=github)](https://github.com/MarcelSunyer)
 
 ## Screenshots & Videos
 
