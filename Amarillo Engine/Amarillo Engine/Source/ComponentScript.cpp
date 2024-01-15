@@ -78,177 +78,184 @@ void ComponentScript::SetComponent(Component* component)
 
 void ComponentScript::OnEditor()
 {
-	static bool en;
-	ImGui::PushID(this);
-	en = active;
-	if (ImGui::Checkbox("##CmpActive", &en)) {
-		// TODO: CNTRL Z SCRIPT
-		//ReturnZ::AddNewAction(ReturnZ::ReturnActions::CHANGE_COMPONENT, this);
-		active = en;
-		if (!active)
-			Disable();
-		else
-			Enable();
-	}
-
-	ImGui::PopID();
-	ImGui::SameLine();
-
-	if (ImGui::CollapsingHeader(data_name.data(), &not_destroy, ImGuiTreeNodeFlags_DefaultOpen))
+	LoadData("Move2", true);
+	if (ImGui::CollapsingHeader("Component Mesh"))
 	{
-		if (!inspector_variables.empty()) {
-			ImGui::Spacing();
-			for (uint i = 0; i < inspector_variables.size(); ++i) {
-				switch (inspector_variables[i].variable_type)
-				{
-				case InspectorScriptData::DataType::INT: {
-					switch (inspector_variables[i].show_as) {
-					case InspectorScriptData::ShowMode::INPUT_INT: {
-						ImGui::PushID(inspector_variables[i].ptr);
-						int* ptr = (int*)inspector_variables[i].ptr;
-						ImGui::InputInt(inspector_variables[i].variable_name.data(), ptr);
-						ImGui::PopID();
-						break; }
-					case InspectorScriptData::ShowMode::DRAGABLE_INT: {
-						ImGui::PushID(inspector_variables[i].ptr);
-						int* ptr = (int*)inspector_variables[i].ptr;
-						ImGui::DragInt(inspector_variables[i].variable_name.data(), ptr);
-						ImGui::PopID();
-						break; }
-					case InspectorScriptData::ShowMode::SLIDER_INT: {
-						ImGui::PushID(inspector_variables[i].ptr);
-						int* ptr = (int*)inspector_variables[i].ptr;
-						ImGui::SliderInt(inspector_variables[i].variable_name.data(), ptr, inspector_variables[i].min_slider, inspector_variables[i].max_slider);
-						ImGui::PopID();
-						break; }
-					default:
-						break;
-					}
-					break; }
-				case InspectorScriptData::DataType::FLOAT: {
-					switch (inspector_variables[i].show_as) {
-					case InspectorScriptData::ShowMode::INPUT_FLOAT: {
-						ImGui::PushID(inspector_variables[i].ptr);
-						float* ptr = (float*)inspector_variables[i].ptr;
-						ImGui::InputFloat(inspector_variables[i].variable_name.data(), ptr, 0.5F, 100);
-						ImGui::PopID();
-						break; }
-					case InspectorScriptData::ShowMode::DRAGABLE_FLOAT: {
-						ImGui::PushID(inspector_variables[i].ptr);
-						float* ptr = (float*)inspector_variables[i].ptr;
-						ImGui::DragFloat(inspector_variables[i].variable_name.data(), ptr, 0.5F);
-						ImGui::PopID();
-						break; }
-					case InspectorScriptData::ShowMode::SLIDER_FLOAT: {
-						ImGui::PushID(inspector_variables[i].ptr);
-						float* ptr = (float*)inspector_variables[i].ptr;
-						ImGui::SliderFloat(inspector_variables[i].variable_name.data(), ptr, inspector_variables[i].min_slider, inspector_variables[i].max_slider);
-						ImGui::PopID();
-						break; }
-					default:
-						break;
-					}
-					break; }
-				case InspectorScriptData::DataType::BOOL: {
-					switch (inspector_variables[i].show_as) {
-					case InspectorScriptData::ShowMode::CHECKBOX: {
-						ImGui::PushID(inspector_variables[i].ptr);
-						bool* ptr = (bool*)inspector_variables[i].ptr;
-						ImGui::Checkbox(inspector_variables[i].variable_name.data(), ptr);
-						ImGui::PopID();
-						break; }
-					default:
-						break;
-					}
-					break; }
-				/*case InspectorScriptData::DataType::PREFAB: {												//TODO: Revisar los PREFAB
-					ImGui::PushID(inspector_variables[i].ptr);
-					Prefab* ptr = (Prefab*)inspector_variables[i].ptr;
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, { 0.65F,0,0,1 });
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonHovered, { 0.8F,0,0,1 });
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonActive, { 0.95F,0,0,1 });
-					if (ImGui::Button("X")) {
-						ptr->prefab_name.clear();
-						ptr->prefabID = 0;
-					}
-					ImGui::PopStyleColor(3);
-					ImGui::SameLine(ImGui::GetCursorPosX() + 17);
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, { 0.16f, 0.29F, 0.5, 1 });
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonHovered, { 0.16f, 0.29F, 0.5, 1 });
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonActive, { 0.16f, 0.29F, 0.5, 1 });
 
-					ImGui::Button((ptr->prefab_name.empty()) ? "Prefab: NULL" : std::string("Prefab: " + std::string(ptr->prefab_name)).data(), { ImGui::GetWindowWidth() * 0.55F , 0 });
-					ImGui::PopStyleColor(3);
-					if (ImGui::BeginDragDropTarget()) {
-						const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(DROP_ID_PROJECT_NODE, ImGuiDragDropFlags_SourceNoDisableHover);
-						if (payload != nullptr && payload->IsDataType(DROP_ID_PROJECT_NODE)) {
-							FileNode* node = *(FileNode**)payload->Data;
-							if (node != nullptr && node->type == FileDropType::PREFAB) {
-								std::string path = App->file_system->GetPathWithoutExtension(node->path + node->name);
-								path += "_meta.amarillo";
-								u64 ID = App->resources->GetIDFromAmarilloPath(path.data());
-								if (ID != 0) {
-									ResourcePrefab* prefab_ = (ResourcePrefab*)App->resources->GetResourceWithID(ID);
-									if (prefab_ != nullptr) {
-										if (ptr->prefabID != 0) {
-											ResourcePrefab* last_prefab = (ResourcePrefab*)App->resources->GetResourceWithID(ptr->prefabID);
-											if (last_prefab != nullptr) {
-												last_prefab->prefab_references.remove(ptr);
-											}
-										}
-										ptr->prefabID = ID;
-										ptr->prefab_name = std::string(prefab_->GetName());
-										prefab_->prefab_references.push_back(ptr);
-									}
-								}
-							}
-						}
-						ImGui::EndDragDropTarget();
-					}
-					ImGui::PopID();
-					ImGui::SameLine();
-					ImGui::Text(inspector_variables[i].variable_name.data());
-					break; }*/
-				case InspectorScriptData::DataType::GAMEOBJECT: {
-					ImGui::PushID(inspector_variables[i].obj);
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, { 0.65F,0,0,1 });
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonHovered, { 0.8F,0,0,1 });
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonActive, { 0.95F,0,0,1 });
-					if (ImGui::Button("X")) {
-						if (inspector_variables[i].obj != nullptr) {
-							*inspector_variables[i].obj = nullptr;
-						}
-					}
-					ImGui::PopStyleColor(3);
-					ImGui::SameLine(ImGui::GetCursorPosX() + 17);
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, { 0.16f, 0.29F, 0.5, 1 });
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonHovered, { 0.16f, 0.29F, 0.5, 1 });
-					ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonActive, { 0.16f, 0.29F, 0.5, 1 });
-					ImGui::Button((inspector_variables[i].obj != nullptr && *inspector_variables[i].obj != nullptr) ? std::string("GameObject: " + std::string((*inspector_variables[i].obj)->mName)).data() : "GameObject: NULL", { ImGui::GetWindowWidth() * 0.55F , 0 });
-					ImGui::PopStyleColor(3);
-					/*if (ImGui::BeginDragDropTarget()) {
-						const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(DROP_ID_HIERARCHY_NODES, ImGuiDragDropFlags_SourceNoDisableHover);
-						if (payload != nullptr && payload->IsDataType(DROP_ID_HIERARCHY_NODES)) {
-							GameObject* obj = *(GameObject**)payload->Data;
-							if (obj != nullptr) {
-								*inspector_variables[i].obj = obj;
-							}
-						}
-						ImGui::EndDragDropTarget();
-					}*/
-					ImGui::PopID();
-					ImGui::SameLine();
-					ImGui::Text(inspector_variables[i].variable_name.data());
-					break; }
-				default:
-					break;
-				}
-			}
-		}
-		ImGui::Spacing();
-		ImGui::Separator();
-		ImGui::Spacing();
+
 	}
+
+	//static bool en;
+	//ImGui::PushID(this);
+	//en = active;
+	//if (ImGui::Checkbox("##CmpActive", &en)) {
+	//	// TODO: CNTRL Z SCRIPT
+	//	//ReturnZ::AddNewAction(ReturnZ::ReturnActions::CHANGE_COMPONENT, this);
+	//	active = en;
+	//	if (!active)
+	//		Disable();
+	//	else
+	//		Enable();
+	//}
+
+	//ImGui::PopID();
+	//ImGui::SameLine();
+
+	//if (ImGui::CollapsingHeader(data_name.data(), &not_destroy, ImGuiTreeNodeFlags_DefaultOpen))
+	//{
+	//	if (!inspector_variables.empty()) {
+	//		ImGui::Spacing();
+	//		for (uint i = 0; i < inspector_variables.size(); ++i) {
+	//			switch (inspector_variables[i].variable_type)
+	//			{
+	//			case InspectorScriptData::DataType::INT: {
+	//				switch (inspector_variables[i].show_as) {
+	//				case InspectorScriptData::ShowMode::INPUT_INT: {
+	//					ImGui::PushID(inspector_variables[i].ptr);
+	//					int* ptr = (int*)inspector_variables[i].ptr;
+	//					ImGui::InputInt(inspector_variables[i].variable_name.data(), ptr);
+	//					ImGui::PopID();
+	//					break; }
+	//				case InspectorScriptData::ShowMode::DRAGABLE_INT: {
+	//					ImGui::PushID(inspector_variables[i].ptr);
+	//					int* ptr = (int*)inspector_variables[i].ptr;
+	//					ImGui::DragInt(inspector_variables[i].variable_name.data(), ptr);
+	//					ImGui::PopID();
+	//					break; }
+	//				case InspectorScriptData::ShowMode::SLIDER_INT: {
+	//					ImGui::PushID(inspector_variables[i].ptr);
+	//					int* ptr = (int*)inspector_variables[i].ptr;
+	//					ImGui::SliderInt(inspector_variables[i].variable_name.data(), ptr, inspector_variables[i].min_slider, inspector_variables[i].max_slider);
+	//					ImGui::PopID();
+	//					break; }
+	//				default:
+	//					break;
+	//				}
+	//				break; }
+	//			case InspectorScriptData::DataType::FLOAT: {
+	//				switch (inspector_variables[i].show_as) {
+	//				case InspectorScriptData::ShowMode::INPUT_FLOAT: {
+	//					ImGui::PushID(inspector_variables[i].ptr);
+	//					float* ptr = (float*)inspector_variables[i].ptr;
+	//					ImGui::InputFloat(inspector_variables[i].variable_name.data(), ptr, 0.5F, 100);
+	//					ImGui::PopID();
+	//					break; }
+	//				case InspectorScriptData::ShowMode::DRAGABLE_FLOAT: {
+	//					ImGui::PushID(inspector_variables[i].ptr);
+	//					float* ptr = (float*)inspector_variables[i].ptr;
+	//					ImGui::DragFloat(inspector_variables[i].variable_name.data(), ptr, 0.5F);
+	//					ImGui::PopID();
+	//					break; }
+	//				case InspectorScriptData::ShowMode::SLIDER_FLOAT: {
+	//					ImGui::PushID(inspector_variables[i].ptr);
+	//					float* ptr = (float*)inspector_variables[i].ptr;
+	//					ImGui::SliderFloat(inspector_variables[i].variable_name.data(), ptr, inspector_variables[i].min_slider, inspector_variables[i].max_slider);
+	//					ImGui::PopID();
+	//					break; }
+	//				default:
+	//					break;
+	//				}
+	//				break; }
+	//			case InspectorScriptData::DataType::BOOL: {
+	//				switch (inspector_variables[i].show_as) {
+	//				case InspectorScriptData::ShowMode::CHECKBOX: {
+	//					ImGui::PushID(inspector_variables[i].ptr);
+	//					bool* ptr = (bool*)inspector_variables[i].ptr;
+	//					ImGui::Checkbox(inspector_variables[i].variable_name.data(), ptr);
+	//					ImGui::PopID();
+	//					break; }
+	//				default:
+	//					break;
+	//				}
+	//				break; }
+	//			/*case InspectorScriptData::DataType::PREFAB: {												//TODO: Revisar los PREFAB
+	//				ImGui::PushID(inspector_variables[i].ptr);
+	//				Prefab* ptr = (Prefab*)inspector_variables[i].ptr;
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, { 0.65F,0,0,1 });
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonHovered, { 0.8F,0,0,1 });
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonActive, { 0.95F,0,0,1 });
+	//				if (ImGui::Button("X")) {
+	//					ptr->prefab_name.clear();
+	//					ptr->prefabID = 0;
+	//				}
+	//				ImGui::PopStyleColor(3);
+	//				ImGui::SameLine(ImGui::GetCursorPosX() + 17);
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, { 0.16f, 0.29F, 0.5, 1 });
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonHovered, { 0.16f, 0.29F, 0.5, 1 });
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonActive, { 0.16f, 0.29F, 0.5, 1 });
+
+	//				ImGui::Button((ptr->prefab_name.empty()) ? "Prefab: NULL" : std::string("Prefab: " + std::string(ptr->prefab_name)).data(), { ImGui::GetWindowWidth() * 0.55F , 0 });
+	//				ImGui::PopStyleColor(3);
+	//				if (ImGui::BeginDragDropTarget()) {
+	//					const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(DROP_ID_PROJECT_NODE, ImGuiDragDropFlags_SourceNoDisableHover);
+	//					if (payload != nullptr && payload->IsDataType(DROP_ID_PROJECT_NODE)) {
+	//						FileNode* node = *(FileNode**)payload->Data;
+	//						if (node != nullptr && node->type == FileDropType::PREFAB) {
+	//							std::string path = App->file_system->GetPathWithoutExtension(node->path + node->name);
+	//							path += "_meta.amarillo";
+	//							u64 ID = App->resources->GetIDFromAmarilloPath(path.data());
+	//							if (ID != 0) {
+	//								ResourcePrefab* prefab_ = (ResourcePrefab*)App->resources->GetResourceWithID(ID);
+	//								if (prefab_ != nullptr) {
+	//									if (ptr->prefabID != 0) {
+	//										ResourcePrefab* last_prefab = (ResourcePrefab*)App->resources->GetResourceWithID(ptr->prefabID);
+	//										if (last_prefab != nullptr) {
+	//											last_prefab->prefab_references.remove(ptr);
+	//										}
+	//									}
+	//									ptr->prefabID = ID;
+	//									ptr->prefab_name = std::string(prefab_->GetName());
+	//									prefab_->prefab_references.push_back(ptr);
+	//								}
+	//							}
+	//						}
+	//					}
+	//					ImGui::EndDragDropTarget();
+	//				}
+	//				ImGui::PopID();
+	//				ImGui::SameLine();
+	//				ImGui::Text(inspector_variables[i].variable_name.data());
+	//				break; }*/
+	//			case InspectorScriptData::DataType::GAMEOBJECT: {
+	//				ImGui::PushID(inspector_variables[i].obj);
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, { 0.65F,0,0,1 });
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonHovered, { 0.8F,0,0,1 });
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonActive, { 0.95F,0,0,1 });
+	//				if (ImGui::Button("X")) {
+	//					if (inspector_variables[i].obj != nullptr) {
+	//						*inspector_variables[i].obj = nullptr;
+	//					}
+	//				}
+	//				ImGui::PopStyleColor(3);
+	//				ImGui::SameLine(ImGui::GetCursorPosX() + 17);
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, { 0.16f, 0.29F, 0.5, 1 });
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonHovered, { 0.16f, 0.29F, 0.5, 1 });
+	//				ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_ButtonActive, { 0.16f, 0.29F, 0.5, 1 });
+	//				ImGui::Button((inspector_variables[i].obj != nullptr && *inspector_variables[i].obj != nullptr) ? std::string("GameObject: " + std::string((*inspector_variables[i].obj)->mName)).data() : "GameObject: NULL", { ImGui::GetWindowWidth() * 0.55F , 0 });
+	//				ImGui::PopStyleColor(3);
+	//				/*if (ImGui::BeginDragDropTarget()) {
+	//					const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(DROP_ID_HIERARCHY_NODES, ImGuiDragDropFlags_SourceNoDisableHover);
+	//					if (payload != nullptr && payload->IsDataType(DROP_ID_HIERARCHY_NODES)) {
+	//						GameObject* obj = *(GameObject**)payload->Data;
+	//						if (obj != nullptr) {
+	//							*inspector_variables[i].obj = obj;
+	//						}
+	//					}
+	//					ImGui::EndDragDropTarget();
+	//				}*/
+	//				ImGui::PopID();
+	//				ImGui::SameLine();
+	//				ImGui::Text(inspector_variables[i].variable_name.data());
+	//				break; }
+	//			default:
+	//				break;
+	//			}
+	//		}
+	//	}
+	//	ImGui::Spacing();
+	//	ImGui::Separator();
+	//	ImGui::Spacing();
+	//}
 }
 
 //TODO
