@@ -21,6 +21,16 @@ class Component;
 
 class __declspec(dllexport) GameObject
 {
+	friend class Component;
+	friend class ComponentCamera;
+	friend class ComponentTransform;
+	friend class ComponentScript;
+	friend class ComponentMesh;
+	friend class ResourceMesh;
+	friend class ResourceTexture;
+	friend class ResourcePrefab;
+	friend class Resource;
+
 public:
 	GameObject();
 	GameObject(std::string name);
