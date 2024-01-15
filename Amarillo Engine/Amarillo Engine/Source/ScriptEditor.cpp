@@ -61,6 +61,14 @@ bool ScriptEditor::Update()
         DeleteScriptTXT(scriptName);
     }
 
+    ImGui::SameLine();
+
+    if (ImGui::Button("Reload DLL", ImVec2(120, 30)))
+    {
+        LOG("DLL Reloaded");
+        applic->LoadDll();
+    }
+
     ImGui::Separator();
 
     // Script Editor Rendering
@@ -68,6 +76,7 @@ bool ScriptEditor::Update()
 
     return ret;
 }
+
 
 
 void ScriptEditor::LoadScriptTXT(std::string filePath)
