@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Amarillo Engine", "3D Physics.vcxproj", "{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AmarilloScripts", "..\AmarilloScripts\AmarilloScripts.vcxproj", "{60FAD18E-9759-4262-9D9D-BD44BC6EF567}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AmarilloScripts", "..\AmarilloScripts\AmarilloScripts\AmarilloScripts.vcxproj", "{AE5601EA-D245-4C64-B9AA-FB338E035A5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,14 @@ Global
 		{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}.Release|Win32.Build.0 = Release|Win32
 		{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}.Release|x64.ActiveCfg = Release|Win32
 		{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}.Release|x64.Build.0 = Release|Win32
-		{60FAD18E-9759-4262-9D9D-BD44BC6EF567}.Debug|Win32.ActiveCfg = Debug|Win32
-		{60FAD18E-9759-4262-9D9D-BD44BC6EF567}.Debug|Win32.Build.0 = Debug|Win32
-		{60FAD18E-9759-4262-9D9D-BD44BC6EF567}.Debug|x64.ActiveCfg = Debug|x64
-		{60FAD18E-9759-4262-9D9D-BD44BC6EF567}.Debug|x64.Build.0 = Debug|x64
-		{60FAD18E-9759-4262-9D9D-BD44BC6EF567}.Release|Win32.ActiveCfg = Release|Win32
-		{60FAD18E-9759-4262-9D9D-BD44BC6EF567}.Release|Win32.Build.0 = Release|Win32
-		{60FAD18E-9759-4262-9D9D-BD44BC6EF567}.Release|x64.ActiveCfg = Release|x64
-		{60FAD18E-9759-4262-9D9D-BD44BC6EF567}.Release|x64.Build.0 = Release|x64
+		{AE5601EA-D245-4C64-B9AA-FB338E035A5F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AE5601EA-D245-4C64-B9AA-FB338E035A5F}.Debug|Win32.Build.0 = Debug|Win32
+		{AE5601EA-D245-4C64-B9AA-FB338E035A5F}.Debug|x64.ActiveCfg = Debug|x64
+		{AE5601EA-D245-4C64-B9AA-FB338E035A5F}.Debug|x64.Build.0 = Debug|x64
+		{AE5601EA-D245-4C64-B9AA-FB338E035A5F}.Release|Win32.ActiveCfg = Release|Win32
+		{AE5601EA-D245-4C64-B9AA-FB338E035A5F}.Release|Win32.Build.0 = Release|Win32
+		{AE5601EA-D245-4C64-B9AA-FB338E035A5F}.Release|x64.ActiveCfg = Release|x64
+		{AE5601EA-D245-4C64-B9AA-FB338E035A5F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -735,20 +735,6 @@ void GameObject::FreeArrayMemory(void*** array_)
 	delete[] * array_;
 }
 
-uint GameObject::FindGameObjectsWithTag(const char* tag_to_find, GameObject*** objects)
-{
-	std::vector<GameObject*> found;
-	applic->objects->GetRoot(true)->FindTags(tag_to_find, &found);
-
-	if (found.size() > 0) {
-		(*objects) = new GameObject * [found.size()];
-		for (uint i = 0; i < found.size(); ++i) {
-			(*objects)[i] = found[i];
-		}
-	}
-
-	return found.size();
-}
 
 void GameObject::FindTags(const char* tag_to_find, std::vector<GameObject*>* objects)
 {

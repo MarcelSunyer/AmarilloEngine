@@ -59,7 +59,6 @@ public:
 	GameObject* GetParent();
 
 	static void FreeArrayMemory(void*** array_);
-	static uint FindGameObjectsWithTag(const char* tag_to_find, GameObject*** objects);
 	void FindTags(const char* tag_to_find, std::vector<GameObject*>* objects);
 
 public:

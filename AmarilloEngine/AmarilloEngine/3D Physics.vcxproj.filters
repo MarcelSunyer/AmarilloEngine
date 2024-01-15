@@ -660,9 +660,6 @@
     <ClInclude Include="Source\Amarillo.h">
       <Filter>Sources\Main</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModuleObjects.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="External\ImGuiColorTextEditor\TextEditor.h">
       <Filter>Externals\ImGuiColorTextEditor</Filter>
     </ClInclude>
@@ -1045,9 +1042,6 @@
     </ClCompile>
     <ClCompile Include="Source\Amarillo.cpp">
       <Filter>Sources\Main</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ModuleObjects.cpp">
-      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="External\ImGuiColorTextEditor\TextEditor.cpp">
       <Filter>Externals\ImGuiColorTextEditor</Filter>

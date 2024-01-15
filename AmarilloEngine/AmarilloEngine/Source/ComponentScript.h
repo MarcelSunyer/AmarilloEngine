@@ -9,7 +9,6 @@
 #include "ResourcePrefab.h"
 #include "Amarillo.h"
 #include "ModuleScene.h"
-#include "ModuleObjects.h"
 
 #include "../External/Guid/uuid.h"
 
@@ -90,10 +89,6 @@ public:
 	//void SaveComponent(JSONArraypack* to_save);
 	//void LoadComponent(JSONArraypack* to_load);
 
-	void Clone(Component* clone);
-
-	void LoadData(const char* name, bool is_engine);
-
 	static std::string GetVariableName(const char* ptr_name);
 public:
 
@@ -106,8 +101,6 @@ public:
 	static void InspectorSliderFloat(float* ptr, const char* ptr_name, const float& min_value, const float& max_value);
 
 	static void InspectorBool(bool* ptr, const char* ptr_name);
-
-	static void InspectorPrefab(Prefab* ptr, const char* ptr_name);
 	
 	static void InspectorGameObject(GameObject** ptr, const char* ptr_name);
 

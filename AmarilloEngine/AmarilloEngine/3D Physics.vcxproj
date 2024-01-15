@@ -258,7 +258,6 @@
     <ClInclude Include="Source\ModuleInput.h" />
     <ClInclude Include="Source\ModuleJSON.h" />
     <ClInclude Include="Source\ModuleMesh.h" />
-    <ClInclude Include="Source\ModuleObjects.h" />
     <ClInclude Include="Source\ModuleRenderer3D.h" />
     <ClInclude Include="Source\ModuleScene.h" />
     <ClInclude Include="Source\ModuleScripting.h" />
@@ -388,7 +387,6 @@
     <ClCompile Include="Source\ModuleInput.cpp" />
     <ClCompile Include="Source\ModuleJSON.cpp" />
     <ClCompile Include="Source\ModuleMesh.cpp" />
-    <ClCompile Include="Source\ModuleObjects.cpp" />
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
     <ClCompile Include="Source\ModuleScene.cpp" />
     <ClCompile Include="Source\ModuleScripting.cpp" />

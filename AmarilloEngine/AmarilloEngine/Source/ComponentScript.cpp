@@ -386,47 +386,6 @@ void ComponentScript::OnStartPlay()
 //	}
 //}
 
-void ComponentScript::Clone(Component* clone)
-{
-	clone->active = active;
-	clone->not_destroy = not_destroy;
-	ComponentScript* script = (ComponentScript*)clone;
-	script->LoadData(data_name.data(), need_engine);
-	if (inspector_variables.size() == script->inspector_variables.size()) {
-		for (uint i = 0; i < inspector_variables.size(); ++i) {
-			if (script->inspector_variables[i].variable_type == inspector_variables[i].variable_type) {
-				switch (inspector_variables[i].variable_type) {
-				case InspectorScriptData::DataType::BOOL: {
-					bool variable = *(bool*)inspector_variables[i].ptr;
-					bool* script_var = (bool*)script->inspector_variables[i].ptr;
-					*script_var = variable;
-					break; }
-				case InspectorScriptData::DataType::INT: {
-					int variable = *(int*)inspector_variables[i].ptr;
-					int* script_var = (int*)script->inspector_variables[i].ptr;
-					*script_var = variable;
-					break; }
-				case InspectorScriptData::DataType::FLOAT: {
-					float variable = *(float*)inspector_variables[i].ptr;
-					float* script_var = (float*)script->inspector_variables[i].ptr;
-					*script_var = variable;
-					break; }
-				/*case InspectorScriptData::DataType::PREFAB: {					//TODO: Revisar PREFAB
-					Prefab variable = *(Prefab*)inspector_variables[i].ptr;
-					Prefab* script_var = (Prefab*)script->inspector_variables[i].ptr;
-					(*script_var).prefabID = variable.prefabID;
-					(*script_var).prefab_name = variable.prefab_name;
-					break; }*/
-				case InspectorScriptData::DataType::GAMEOBJECT: {
-					GameObject* obj = *inspector_variables[i].obj;
-					*script->inspector_variables[i].obj = obj;
-					break; }
-				}
-			}
-		}
-	}
-}
-
 void ComponentScript::Disable()			//TODO: Revisar 
 {
 	/*if (need_engine && data_ptr != nullptr) {
@@ -602,7 +561,8 @@ void ComponentScript::InspectorGameObject(GameObject** ptr, const char* ptr_name
 
 void ComponentScript::CreateScriptInstance()
 {
-	void* (*Creator)() = (void* (*)())GetProcAddress(applic->scripts_dll, std::string("Create" + script_name).data());
+
+	void* (*Creator)() = (void* (*)())GetProcAddress(applic->scripts_dll, std::string("CreateMove2").data());
 
 	if (Creator == nullptr)
 	{
@@ -621,43 +581,15 @@ void ComponentScript::CreateScriptInstance()
 		LOG("UNKNOWN ERROR IN SCRIPTS CONSTRUCTOR %s", script_name.c_str());
 		return;
 	}
+	
 	amarillo = (Amarillo*)data_ptr;
 
 	amarillo->Test();
+	
+	
 }
 
-void ComponentScript::LoadData(const char* name, bool is_engine)
-{
-	need_engine = is_engine;
-	void* (*Creator)() = (void* (*)())GetProcAddress(applic->scripts_dll, std::string("Create" + std::string(name)).data());
-	void* data_ptr = nullptr;
-	if (Creator != nullptr) {
-		data_name = std::string(name);
-		applic->objects->actual_script_loading = this;
-		try {
-			data_ptr = Creator();
-		}
-		catch (...)
-		{
-			try {
-				LOG("CODE ERROR IN THE CONSTRUCTOR OF THE SCRIPT: %s", name);
-			}
-			catch (...) {
-				LOG("UNKNOWN ERROR IN SCRIPTS CONSTRUCTOR");
-			}
-			return;
-		}
-		owner->AddComponent(this);
-		if (need_engine) {
-			Amarillo* amarillo = (Amarillo*)data_ptr;
-			applic->objects->current_scripts.push_back(amarillo);	
-			amarillo->game_object = owner;
-			amarillo->transform = (ComponentTransform*)owner->GetComponent(ComponentTypes::TRANSFORM);
-			amarillo->enabled = &active;
-			strcpy(amarillo->data_name, name);
-		}
-	}
-}
+
 
 std::string ComponentScript::GetVariableName(const char* ptr_name)
 {

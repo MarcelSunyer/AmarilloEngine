@@ -14,7 +14,7 @@
 #include "ModuleJSON.h"
 #include "ModuleFileSystem.h"
 #include "ModuleScripting.h"
-#include "ModuleObjects.h"
+
 
 extern Application* applic = nullptr;
 
@@ -37,7 +37,6 @@ Application::Application()
 	json_module = new ModuleJSON(this);
 	file_system = new FileSystem(this);
 	scripting_module = new ModuleScripting(this);
-	objects = new ModuleObjects(this);
 
 	// They will CleanUp() in reverse order
 
@@ -53,7 +52,6 @@ Application::Application()
 	AddModule(scene);
 	AddModule(json_module);
 	AddModule(file_system);
-	AddModule(objects);			//TODO: Idk
 	AddModule(scripting_module);	//TODO: Idk if this go here or at the begining
 
 	// Renderer last!
