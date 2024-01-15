@@ -821,82 +821,82 @@ void ModuleObjects::CreateJsonScript(GameObject* obj, JSON_Arraypack* to_save)
 		}
 	}
 }
-//
-//void ModuleObjects::ReAssignScripts(JSONArraypack* to_load)
-//{
-//	for (uint i = 0; i < to_load->GetArraySize(); ++i) {
-//		GameObject* obj = GetGameObjectByID(std::stoull(to_load->GetString("GameObjectID")));
-//		if (obj == nullptr) {
-//			to_load->GetAnotherNode();
-//			continue;
-//		}
-//		ResourceScript* r_script = (ResourceScript*)App->resources->GetResourceWithID(std::stoull(to_load->GetString("ResourceScriptID")));
-//		if (r_script == nullptr) {
-//			to_load->GetAnotherNode();
-//			continue;
-//		}
-//		std::string data_name = to_load->GetString("DataName");
-//		for (uint k = 0; k < r_script->data_structures.size(); ++k) {
-//			if (App->StringCmp(data_name.data(), r_script->data_structures[k].first.data())) {
-//				ComponentScript* script = new ComponentScript(obj);
-//				script->ID = std::stoull(to_load->GetString("CompScriptID"));
-//				script->resourceID = r_script->GetID();
-//				script->LoadData(data_name.data(), r_script->data_structures[k].second);
-//				if (to_load->GetBoolean("HasInspector")) {
-//					JSONArraypack* inspector = to_load->GetArray("Inspector");
-//					for (uint j = 0; j < inspector->GetArraySize(); ++j) {
-//						if (inspector->GetBoolean("IsNull")) {
-//							inspector->GetAnotherNode();
-//							continue;
-//						}
-//						std::vector<InspectorScriptData>::iterator item = script->inspector_variables.begin();
-//						std::string var_name = inspector->GetString("Name");
-//						InspectorScriptData::DataType type = (InspectorScriptData::DataType)(uint)inspector->GetNumber("Type");
-//						for (; item != script->inspector_variables.end(); ++item) {
-//							if (App->StringCmp((*item).variable_name.data(), var_name.data())) {
-//								if (type == (*item).variable_type) {
-//									switch (type) {
-//									case InspectorScriptData::DataType::INT: {
-//										*(int*)(*item).ptr = inspector->GetNumber("int");
-//										break; }
-//									case InspectorScriptData::DataType::FLOAT: {
-//										*(float*)(*item).ptr = inspector->GetNumber("float");
-//										break; }
-//									case InspectorScriptData::DataType::BOOL: {
-//										*(bool*)(*item).ptr = inspector->GetNumber("bool");
-//										break; }
-//									case InspectorScriptData::DataType::PREFAB: {
-//										u64 id = std::stoull(inspector->GetString("prefab"));
-//										if (id != 0) {
-//											ResourcePrefab* prefab = (ResourcePrefab*)App->resources->GetResourceWithID(id);
-//											if (prefab != nullptr) {
-//												Prefab* ins_prefab = (Prefab*)(*item).ptr;
-//												ins_prefab->prefabID = prefab->GetID();
-//												ins_prefab->prefab_name = std::string(prefab->GetName());
-//												prefab->prefab_references.push_back(ins_prefab);
-//											}
-//										}
-//										break; }
-//									case InspectorScriptData::DataType::GAMEOBJECT: {
-//										u64 id = std::stoull(inspector->GetString("gameobject"));
-//										if (id != 0) {
-//											*(*item).obj = GetGameObjectByID(id);
-//										}
-//										break; }
-//									default:
-//										break;
-//									}
-//								}
-//							}
-//						}
-//						inspector->GetAnotherNode();
-//					}
-//				}
-//			}
-//		}
-//		to_load->GetAnotherNode();
-//	}
-//}
+
+void ModuleObjects::ReAssignScripts(JSON_Arraypack* to_load)
+{
+	for (uint i = 0; i < to_load->GetArraySize(); ++i) {
+		GameObject* obj = GetGameObjectByID((to_load->GetString("GameObjectID")));
+		if (obj == nullptr) {
+			to_load->GetAnotherNode();
+			continue;
+		}
+		/*ResourceScript* r_script = (ResourceScript*)App->resources->GetResourceWithID(std::stoull(to_load->GetString("ResourceScriptID")));
+		if (r_script == nullptr) {
+			to_load->GetAnotherNode();
+			continue;
+		}
+		std::string data_name = to_load->GetString("DataName");
+		for (uint k = 0; k < r_script->data_structures.size(); ++k) {
+			if (TextCmp(data_name.data(), r_script->data_structures[k].first.data())) {
+				ComponentScript* script = new ComponentScript(obj);
+				script->resourceID.toString() = (to_load->GetString("CompScriptID"));
+				script->resourceID = r_script->GetID();
+				script->LoadData(data_name.data(), r_script->data_structures[k].second);
+				if (to_load->GetBoolean("HasInspector")) {
+					JSON_Arraypack* inspector = to_load->GetArray("Inspector");
+					for (uint j = 0; j < inspector->GetArraySize(); ++j) {
+						if (inspector->GetBoolean("IsNull")) {
+							inspector->GetAnotherNode();
+							continue;
+						}
+						std::vector<InspectorScriptData>::iterator item = script->inspector_variables.begin();
+						std::string var_name = inspector->GetString("Name");
+						InspectorScriptData::DataType type = (InspectorScriptData::DataType)(uint)inspector->GetNumber("Type");
+						for (; item != script->inspector_variables.end(); ++item) {
+							if (TextCmp((*item).variable_name.data(), var_name.data())) {
+								if (type == (*item).variable_type) {
+									switch (type) {
+									case InspectorScriptData::DataType::INT: {
+										*(int*)(*item).ptr = inspector->GetNumber("int");
+										break; }
+									case InspectorScriptData::DataType::FLOAT: {
+										*(float*)(*item).ptr = inspector->GetNumber("float");
+										break; }
+									case InspectorScriptData::DataType::BOOL: {
+										*(bool*)(*item).ptr = inspector->GetNumber("bool");
+										break; }
+									case InspectorScriptData::DataType::PREFAB: {
+										u64 id = std::stoull(inspector->GetString("prefab"));
+										if (id != 0) {
+											ResourcePrefab* prefab = (ResourcePrefab*)App->resources->GetResourceWithID(id);
+											if (prefab != nullptr) {
+												Prefab* ins_prefab = (Prefab*)(*item).ptr;
+												ins_prefab->prefabID = prefab->GetID();
+												ins_prefab->prefab_name = std::string(prefab->GetName());
+												prefab->prefab_references.push_back(ins_prefab);
+											}
+										}
+										break; }
+									case InspectorScriptData::DataType::GAMEOBJECT: {
+										std::string id = (inspector->GetString("gameobject"));
+										if (!TextCmp(id.c_str(), 0)) {
+											*(*item).obj = GetGameObjectByID(id);
+										}
+										break; }
+									default:
+										break;
+									}
+								}
+							}
+						}
+						inspector->GetAnotherNode();
+					}
+				}
+			}
+		}
+		to_load->GetAnotherNode();*/
+	}
+}
 
 
 GameObject* ModuleObjects::GetGameObjectByName(const std::string& targetName) {

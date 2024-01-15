@@ -1290,6 +1290,16 @@ JSON_Arraypack* JSON_Arraypack::InitNewArray(const std::string& name)
 	return array_pack;
 }
 
+JSON_Arraypack* JSON_Arraypack::GetArray(const std::string& name)
+{
+	JSON_Array* arr = json_object_dotget_array(json_value_get_object(value), name.data());
+	JSON_Value* value = json_array_get_value(arr, 0);
+	JSON_Arraypack* array_pack = new JSON_Arraypack(arr, value);
+	arrays.push_back(array_pack);
+
+	return array_pack;
+}
+
 void JSON_Doc::StartSave()
 {
 	save_value = json_parse_file(path.data());

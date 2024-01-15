@@ -152,7 +152,7 @@ public:
 
 	JSON_Arraypack* InitNewArray(const std::string& name);
 
-	//JSON_Arraypack* GetArray(const std::string& name);
+	JSON_Arraypack* GetArray(const std::string& name);
 
 
 private:
