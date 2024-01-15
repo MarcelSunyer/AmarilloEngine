@@ -376,6 +376,14 @@ void ModuleScene::SerializePrefab(GameObject* gameObject, JSON_Doc* json)
 	}
 }
 
+void ModuleScene::StartPlay()
+{
+	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); ++it)
+	{
+		(*it)->StartPlay();
+	}
+}
+
 void ModuleScene::TestGameObjectSelection(const LineSegment& ray)
 {
 	std::map<float, GameObject*> game_object_candidates;

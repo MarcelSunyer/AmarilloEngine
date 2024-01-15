@@ -5,7 +5,7 @@
 
 class GameObject;
 
-class __declspec(dllexport) ComponentTransform : public Component {
+class ComponentTransform : public Component {
 
 public:
 	void Enable() override;

@@ -267,6 +267,7 @@ void ModuleEditor::DrawEditor()
             timer.Start();
             timerState = Timer_State::RUNNING;
             App->scene->SaveScene();
+            App->scene->StartPlay();
             LOG("Start Timer %u ", elapsed_time);
         }
         ImGui::SameLine();
@@ -603,6 +604,14 @@ void ModuleEditor::InspectorWindow()
                         if (GameObject_selected->GetComponent(ComponentTypes::CAMERA) == nullptr)
                         {
                             GameObject_selected->AddComponent(ComponentTypes::CAMERA);
+                        }
+
+                    }
+                    if (ImGui::Selectable("ComponentScript"))
+                    {
+                        if (GameObject_selected->GetComponent(ComponentTypes::SCRIPT) == nullptr)
+                        {
+                            GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
                         }
 
                     }

@@ -56,15 +56,15 @@ const Component* Amarillo::GetComponent(const ComponentTypes type) const
 	return game_object->GetComponent(type);
 }
 
-void* Amarillo::GetComponentScript(const char* script_class_name)
-{
-	return game_object->GetComponentScript(script_class_name);
-}
-
-const void* Amarillo::GetComponentScript(const char* script_class_name) const
-{
-	return game_object->GetComponentScript(script_class_name);
-}
+//void* Amarillo::GetComponentScript(const char* script_class_name)
+//{
+//	return game_object->GetComponentScript(script_class_name);
+//}
+//
+//const void* Amarillo::GetComponentScript(const char* script_class_name) const
+//{
+//	return game_object->GetComponentScript(script_class_name);
+//}
 
 Component* Amarillo::GetComponentInParent(const ComponentTypes type)
 {
@@ -76,15 +76,15 @@ const Component* Amarillo::GetComponentInParent(const ComponentTypes type) const
 	return game_object->GetComponentInParent(type);
 }
 
-void* Amarillo::GetComponentScriptInParent(const char* script_class_name)
-{
-	return game_object->GetComponentScriptInParent(script_class_name);
-}
-
-const void* Amarillo::GetComponentScriptInParent(const char* script_class_name) const
-{
-	return game_object->GetComponentScriptInParent(script_class_name);
-}
+//void* Amarillo::GetComponentScriptInParent(const char* script_class_name)
+//{
+//	return game_object->GetComponentScriptInParent(script_class_name);
+//}
+//
+//const void* Amarillo::GetComponentScriptInParent(const char* script_class_name) const
+//{
+//	return game_object->GetComponentScriptInParent(script_class_name);
+//}
 
 Component* Amarillo::GetComponentInChildren(const ComponentTypes type, bool recursive)
 {
@@ -126,15 +126,15 @@ const uint Amarillo::GetComponentsInParent(const ComponentTypes type, Component*
 	return game_object->GetComponentsInParent(type, comp_array);
 }
 
-uint Amarillo::GetComponentsScript(const char* script_class_name, void*** script_array)
-{
-	return game_object->GetComponentsScript(script_class_name, script_array);
-}
-
-const uint Amarillo::GetComponentsScript(const char* script_class_name, void*** script_array) const
-{
-	return game_object->GetComponentsScript(script_class_name, script_array);
-}
+//uint Amarillo::GetComponentsScript(const char* script_class_name, void*** script_array)
+//{
+//	return game_object->GetComponentsScript(script_class_name, script_array);
+//}
+//
+//const uint Amarillo::GetComponentsScript(const char* script_class_name, void*** script_array) const
+//{
+//	return game_object->GetComponentsScript(script_class_name, script_array);
+//}
 
 uint Amarillo::GetComponentsScriptInChildren(const char* script_class_name, void*** script_array, bool recursive)
 {
@@ -145,16 +145,16 @@ const uint Amarillo::GetComponentsScriptInChildren(const char* script_class_name
 {
 	return game_object->GetComponentsScriptInChildren(script_class_name, script_array, recursive);
 }
-
-uint Amarillo::GetComponentsScriptInParent(const char* script_class_name, void*** script_array)
-{
-	return game_object->GetComponentsScriptInParent(script_class_name, script_array);
-}
-
-const uint Amarillo::GetComponentsScriptInParent(const char* script_class_name, void*** script_array) const
-{
-	return game_object->GetComponentsScriptInParent(script_class_name, script_array);
-}
+//
+//uint Amarillo::GetComponentsScriptInParent(const char* script_class_name, void*** script_array)
+//{
+//	return game_object->GetComponentsScriptInParent(script_class_name, script_array);
+//}
+//
+//const uint Amarillo::GetComponentsScriptInParent(const char* script_class_name, void*** script_array) const
+//{
+//	return game_object->GetComponentsScriptInParent(script_class_name, script_array);
+//}
 
 void Amarillo::Destroy(GameObject* obj)
 {

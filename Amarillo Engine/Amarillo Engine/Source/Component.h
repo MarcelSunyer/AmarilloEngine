@@ -36,6 +36,8 @@ public:
 	virtual void DebugDraw() {};
 
 	virtual void Serialize(JSON_Doc* json) {};
+
+	virtual void OnStartPlay() {};
 	
 
 public:
@@ -44,6 +46,4 @@ public:
 	bool not_destroy = true;		//TODO: Adaptar el constructor para que asigne esto
 	GameObject* owner;
 };
-
-
 #endif

@@ -38,3 +38,8 @@ void Move2::Update()
 
 }
 
+void Move2::Test()
+{
+	LOG("Juan");
+}
+

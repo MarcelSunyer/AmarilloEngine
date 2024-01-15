@@ -7,7 +7,7 @@ ComponentScript::ComponentScript(GameObject* attach) : Component(attach)
 
 ComponentScript::~ComponentScript()
 {
-	if (data_ptr != nullptr) {
+	/*if (data_ptr != nullptr) {
 		if (need_engine) {
 			Amarillo* amarillo = (Amarillo*)data_ptr;
 			std::list<Amarillo*>::iterator item = applic->objects->current_scripts.begin();
@@ -25,7 +25,7 @@ ComponentScript::~ComponentScript()
 			void (*Deleter)(void*) = (void (*)(void*))GetProcAddress(applic->scripts_dll, std::string("Destroy" + std::string(data_name)).data());
 			Deleter(data_ptr);
 		}
-	}
+	}*/
 }
 
 void ComponentScript::Reset()
@@ -78,11 +78,14 @@ void ComponentScript::SetComponent(Component* component)
 
 void ComponentScript::OnEditor()
 {
-	LoadData("Move2", true);
-	if (ImGui::CollapsingHeader("Component Mesh"))
+
+	if (ImGui::CollapsingHeader("Component Script"))
 	{
-
-
+		strcpy(newName, script_name.c_str());
+		if (ImGui::InputText("Script Name", &newName[0], sizeof(newName)))
+		{
+			script_name = newName;
+		}
 	}
 
 	//static bool en;
@@ -258,6 +261,12 @@ void ComponentScript::OnEditor()
 	//}
 }
 
+void ComponentScript::OnStartPlay()
+{
+	CreateScriptInstance();
+
+}
+
 //TODO
 //void ComponentScript::SaveComponent(JSONArraypack* to_save)
 //{
@@ -420,7 +429,7 @@ void ComponentScript::Clone(Component* clone)
 
 void ComponentScript::Disable()			//TODO: Revisar 
 {
-	if (need_engine && data_ptr != nullptr) {
+	/*if (need_engine && data_ptr != nullptr) {
 		try {
 			Amarillo* amarillo = (Amarillo*)data_ptr;
 			amarillo->OnDisable();
@@ -434,12 +443,12 @@ void ComponentScript::Disable()			//TODO: Revisar
 				LOG("UNKNOWN ERROR IN SCRIPTS ONDISABLE");
 			}
 		}
-	}
+	}*/
 }
 
 void ComponentScript::Enable()			//TODO: Revisar 
 {
-	if (need_engine && data_ptr != nullptr) {
+	/*if (need_engine && data_ptr != nullptr) {
 		try {
 			Amarillo* amarillo = (Amarillo*)data_ptr;
 			amarillo->OnEnable();
@@ -452,8 +461,8 @@ void ComponentScript::Enable()			//TODO: Revisar
 			catch (...) {
 				LOG("UNKNOWN ERROR IN SCRIPTS ONENABLE");
 			}
-		}
-	}
+		}*/
+	/*}*/
 }
 
 void ComponentScript::InspectorInputInt(int* ptr, const char* ptr_name)
@@ -591,10 +600,37 @@ void ComponentScript::InspectorGameObject(GameObject** ptr, const char* ptr_name
 	}
 }
 
+void ComponentScript::CreateScriptInstance()
+{
+	void* (*Creator)() = (void* (*)())GetProcAddress(applic->scripts_dll, std::string("Create" + script_name).data());
+
+	if (Creator == nullptr)
+	{
+		LOG("UNKNOWN ERROR IN SCRIPTS CONSTRUCTOR %s", script_name.c_str());
+		return;
+	}
+	
+	void* data_ptr = nullptr;
+
+	try 
+	{
+		data_ptr = Creator();
+	}
+	catch(...)
+	{
+		LOG("UNKNOWN ERROR IN SCRIPTS CONSTRUCTOR %s", script_name.c_str());
+		return;
+	}
+	amarillo = (Amarillo*)data_ptr;
+
+	amarillo->Test();
+}
+
 void ComponentScript::LoadData(const char* name, bool is_engine)
 {
 	need_engine = is_engine;
 	void* (*Creator)() = (void* (*)())GetProcAddress(applic->scripts_dll, std::string("Create" + std::string(name)).data());
+	void* data_ptr = nullptr;
 	if (Creator != nullptr) {
 		data_name = std::string(name);
 		applic->objects->actual_script_loading = this;

@@ -58,7 +58,7 @@ public:
 
 	void SerializePrefab(GameObject* gameObject, JSON_Doc* json);
 
-	
+	void StartPlay();
 
 public:
 	std::vector<GameObject*> game_objects; 

@@ -18,6 +18,8 @@
 
 //Forward declaration of Prefab class (TODO)
 
+#define MAX_NAME_CHARACTERS 32
+
 struct InspectorScriptData {
 	friend class ComponentScript;
 	enum DataType {
@@ -71,12 +73,14 @@ public:
 	ComponentScript(GameObject* attach);
 	virtual ~ComponentScript();
 
-private:
+public:
 
 	void Enable() override;
 	//void Update() override;	//TODO: No entiendo
 	void Disable() override;
 	void OnEditor() override;
+
+	void OnStartPlay() override;
 
 
 	void Reset();
@@ -109,13 +113,21 @@ public:
 
 private:
 
+	void CreateScriptInstance();
+
+private:
+
 	//TODO: Asign a valor to the uuid
 	uuids::uuid resourceID;
 
 	std::vector<InspectorScriptData> inspector_variables;
 	bool need_engine = false;
 	std::string data_name;
-	void* data_ptr = nullptr;
+
+	std::string script_name;
+	char newName[MAX_NAME_CHARACTERS];
+
+	Amarillo* amarillo = nullptr;
 };
 
 

@@ -47,12 +47,12 @@ public:
 	bool HasComponent(const ComponentTypes component) const;
 	Component* GetComponent(const ComponentTypes type);
 	const Component* GetComponent(const ComponentTypes type) const;
-	void* GetComponentScript(const char* script_class_name);
-	const void* GetComponentScript(const char* script_class_name) const;
+	//void* GetComponentScript(const char* script_class_name);/*
+	//const void* GetComponentScript(const char* script_class_name) const;
 	Component* GetComponentInParent(const ComponentTypes type);
 	const Component* GetComponentInParent(const ComponentTypes type) const;
-	void* GetComponentScriptInParent(const char* script_class_name);
-	const void* GetComponentScriptInParent(const char* script_class_name) const;
+	//void* GetComponentScriptInParent(const char* script_class_name);
+	//const void* GetComponentScriptInParent(const char* script_class_name) const;
 	Component* GetComponentInChildren(const ComponentTypes type, bool recursive);
 	const Component* GetComponentInChildren(const ComponentTypes type, bool recursive) const;
 	// return the sie of the array of components found, pass a Component** nullptr with &. Remember to delete it with GameObject::FreeArrayMemory!!!
@@ -65,14 +65,14 @@ public:
 	uint GetComponentsInParent(const ComponentTypes type, Component*** comp_array);
 	const uint GetComponentsInParent(const ComponentTypes type, Component*** comp_array) const;
 	// return the sie of the array of components found, pass a Component** nullptr with &. Remember to delete it with GameObject::FreeArrayMemory!!!
-	uint GetComponentsScript(const char* script_class_name, void*** script_array);
-	const uint GetComponentsScript(const char* script_class_name, void*** script_array) const;
+	//uint GetComponentsScript(const char* script_class_name, void*** script_array);
+	//const uint GetComponentsScript(const char* script_class_name, void*** script_array) const;
 	// return the sie of the array of components found, pass a ScriptClassToFind** nullptr with &. Remember to delete it with GameObject::FreeArrayMemory!!!
 	uint GetComponentsScriptInChildren(const char* script_class_name, void*** script_array, bool recursive);
 	const uint GetComponentsScriptInChildren(const char* script_class_name, void*** script_array, bool recursive) const;
 	// return the sie of the array of components found, pass a Component** nullptr with &. Remember to delete it with GameObject::FreeArrayMemory!!!
-	uint GetComponentsScriptInParent(const char* script_class_name, void*** script_array);
-	const uint GetComponentsScriptInParent(const char* script_class_name, void*** script_array) const;
+	//uint GetComponentsScriptInParent(const char* script_class_name, void*** script_array);
+	//const uint GetComponentsScriptInParent(const char* script_class_name, void*** script_array) const;
 
 	static void Destroy(GameObject* obj);
 	static void DestroyInstantly(GameObject* obj);
@@ -91,6 +91,8 @@ public:
 
 		DontDestroyOnLoad();
 	*/
+
+	virtual void Test() {};
 
 public:
 

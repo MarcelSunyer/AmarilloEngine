@@ -10,6 +10,8 @@
 #include "../../Amarillo Engine/Source/ComponentTexture.h"
 #include "../../Amarillo Engine/Source/ComponentTransform.h"
 #include "../../Amarillo Engine/Source/ComponentScript.h"
+#include "../../Amarillo Engine/External/Guid/uuid.h"
+#include <vector>
 
 #include "../../Amarillo Engine/Source/ModuleEditor.h"
 

@@ -17,6 +17,8 @@ public:
 	void Start();
 	void Update();
 
+	void Test() override;
+
 	int input_int_test = 0;
 	int drag_int_test = 1;
 	float input_float_test = 0.34F;

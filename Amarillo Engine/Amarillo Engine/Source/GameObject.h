@@ -48,6 +48,8 @@ public:
 	bool IsChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
 
+	void StartPlay();
+
 	void DebugDraw();
 
 	Component* AddComponent(ComponentTypes component);
@@ -80,8 +82,8 @@ public:
 	void UpdateCamera(Camera3D* camera);
 	static GameObject* GetGameObjectFromUID(const std::vector<GameObject*>& gameObjects, const std::string& UID);
 
-	void* GetComponentScript(const char* script_class_name);
-	const void* GetComponentScript(const char* script_class_name) const;
+	/*void* GetComponentScript(const char* script_class_name);
+	const void* GetComponentScript(const char* script_class_name) const;*/
 
 	Component* GetComponentInChildren(const ComponentTypes type, bool recursive);
 	const Component* GetComponentInChildren(const ComponentTypes type, bool recursive) const;
@@ -93,21 +95,21 @@ public:
 	uint GetComponentsInParent(const ComponentTypes type, Component*** comp_array);
 	const uint GetComponentsInParent(const ComponentTypes type, Component*** comp_array) const;
 
-	uint GetComponentsScript(const char* script_class_name, void*** comp_array);
+	/*uint GetComponentsScript(const char* script_class_name, void*** comp_array);
 
-	const uint GetComponentsScript(const char* script_class_name, void*** comp_array) const;
+	const uint GetComponentsScript(const char* script_class_name, void*** comp_array) const;*/
 
 	uint GetComponentsScriptInChildren(const char* script_class_name, void*** comp_array, bool recursive);
 
 	const uint GetComponentsScriptInChildren(const char* script_class_name, void*** comp_array, bool recursive) const;
 
-	uint GetComponentsScriptInParent(const char* script_class_name, void*** comp_array);
+	/*uint GetComponentsScriptInParent(const char* script_class_name, void*** comp_array);
 
 	const uint GetComponentsScriptInParent(const char* script_class_name, void*** comp_array) const;
 
 	void* GetComponentScriptInParent(const char* script_class_name);
 
-	const void* GetComponentScriptInParent(const char* script_class_name) const;
+	const void* GetComponentScriptInParent(const char* script_class_name) const;*/
 
 	Component* GetComponentInParent(const ComponentTypes type);
 
@@ -115,8 +117,8 @@ public:
 	
 	void GetComponentsChildren(const ComponentTypes type, std::vector<Component*>* to_fill, bool recursive);
 	void GetComponentsChildren(const ComponentTypes type, std::vector<Component*>* to_fill, bool recursive) const;
-	void GetComponentsScriptChildren(const char* script_calss_name, std::vector<void*>* to_fill, bool recursive);
-	void GetComponentsScriptChildren(const char* script_calss_name, std::vector<void*>* to_fill, bool recursive) const;
+	//void GetComponentsScriptChildren(const char* script_calss_name, std::vector<void*>* to_fill, bool recursive);
+	//void GetComponentsScriptChildren(const char* script_calss_name, std::vector<void*>* to_fill, bool recursive) const;
 
 	uint GetComponents(const ComponentTypes type, Component*** comp_array);
 
