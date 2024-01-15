@@ -11,6 +11,7 @@
 #include "ComponentCamera.h"
 #include <stack>
 #include <functional>
+#include "Functions.h"
 
 class ResourcePrefab;
 class ResourceScene;			//TODO
