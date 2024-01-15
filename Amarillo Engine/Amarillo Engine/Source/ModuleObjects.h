@@ -19,6 +19,7 @@ class ComponentScript;
 class ComponentCamera;
 class Amarillo;
 class JSON_Arraypack;
+class GameObject;
 
 struct InvokeInfo {
 	std::function<void()> function = nullptr;

@@ -1,5 +1,6 @@
-#ifndef AMARILLO
-#define AMARILLO
+//#ifndef AMARILLO
+//#define AMARILLO
+#pragma once
 
 #include <functional>
 
@@ -103,4 +104,4 @@ private:
 
 };
 
-#endif // AMARILLO
+//#endif // AMARILLO
