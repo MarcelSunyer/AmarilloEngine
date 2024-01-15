@@ -30,8 +30,9 @@ The new 3D Game Engine under CITM development
 
 ## Developers
 
-- [![Eric Luque Romero](https://img.shields.io/badge/GitHub-ericlr1-green?style=flat-square&logo=github)](https://github.com/ericlr1)
-- [![Marcel Sunyer Caldú](https://img.shields.io/badge/GitHub-MarcelSunyer-green?style=flat-square&logo=github)](https://github.com/MarcelSunyer)
+| Eric Luque Romero | Marcel Sunyer Caldú |
+| --- | --- |
+| <a href="https://github.com/ericlr1"><img src="https://avatars.githubusercontent.com/u/99949465" alt="Eric Luque" style="border-radius: 70%; width: 250px; height: 250px;"></a>  | <a href="https://github.com/MarcelSunyer"><img src="https://avatars.githubusercontent.com/u/45765502" alt="Marcel Sunyer" style="border-radius: 70%; width: 250px; height: 250px;"></a>
 
 ## Screenshots & Videos
 
@@ -39,7 +40,7 @@ The new 3D Game Engine under CITM development
 
 | Frustrum Culling | Gizmo Showcase |
 | --- | --- |
-| ![Frustrum Culling](https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/19a0a8bd-4bc0-47fd-975f-d5f423375183) | ![Gizmo Showcase](https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/1f93bb7c-9489-4a0f-9901-ca4ef5055e0c)
+| ![Frustrum Culling](https://via.placeholder.com/300) | ![Gizmo Showcase](https://via.placeholder.com/300)
 
 ## License
 
