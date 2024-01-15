@@ -42,7 +42,7 @@ void ComponentScript::OnEditor()
 
 	if (ImGui::CollapsingHeader("Component Script"))
 	{
-		strcpy(newName, script_name.c_str());
+		strcpy_s(newName, script_name.c_str());
 		if (ImGui::InputText("Script Name", &newName[0], sizeof(newName)))
 		{
 			script_name = newName;
@@ -150,7 +150,7 @@ void ComponentScript::CreateScriptInstance()
 	}
 	
 	amarillo = (Amarillo*)data_ptr;	
-	unsigned int juan = sizeof(Amarillo);
+	unsigned int juan = sizeof(GameObject);
 	amarillo->gameObject = owner;
 	amarillo->Update();
 }

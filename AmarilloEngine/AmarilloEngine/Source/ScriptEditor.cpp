@@ -28,7 +28,7 @@ bool ScriptEditor::Update()
     ImGui::SameLine();
 
     char nameBuffer[256];
-    strcpy(nameBuffer, scriptName.c_str());
+    strcpy_s(nameBuffer, scriptName.c_str());
 
     ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 1.0f, 0.0f, 0.2f)); // Yellow background
     if (ImGui::InputText("##FileName", nameBuffer, sizeof(nameBuffer)))
