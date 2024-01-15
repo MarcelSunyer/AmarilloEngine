@@ -98,6 +98,11 @@ void ComponentScript::Enable()			//TODO: Revisar
 
 void ComponentScript::Update()
 {
+	if (amarillo == nullptr)
+	{
+		return;
+	}
+	amarillo->Update();
 }
 
 
@@ -144,8 +149,8 @@ void ComponentScript::CreateScriptInstance()
 		return;
 	}
 	
-	amarillo = (Amarillo*)data_ptr;
-
-	amarillo->Test();
-	
+	amarillo = (Amarillo*)data_ptr;	
+	unsigned int juan = sizeof(Amarillo);
+	amarillo->gameObject = owner;
+	amarillo->Update();
 }

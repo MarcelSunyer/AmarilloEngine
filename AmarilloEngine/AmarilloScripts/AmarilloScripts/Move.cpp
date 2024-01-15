@@ -7,14 +7,12 @@ Move2::Move2() : Amarillo()
 
 void Move2::Update()
 {
-
-
-
+    std::string pedro = "oi";
+    unsigned int josete = sizeof(Amarillo);
+    gameObject->mName = pedro;
 }
 
-
-
-extern "C" __declspec(dllexport) Move2* CreateMove2() {
+AMARILLO_FACTORY Move2* CreateMove2() {
     Move2* move = new Move2();
     return move;
 }

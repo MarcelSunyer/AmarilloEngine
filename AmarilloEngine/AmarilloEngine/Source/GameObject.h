@@ -13,7 +13,7 @@
 class Camera3D;
 class Component;
 
-class __declspec(dllexport) GameObject
+class __declspec(dllexport)GameObject
 {
 	friend class Component;
 	friend class ComponentCamera;

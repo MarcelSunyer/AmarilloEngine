@@ -10,10 +10,10 @@
 class AMARILLO_ENGINE_API Move2 : Amarillo{
 public:
 	Move2();
-
+	
 	void Update() override;
 
 };
-extern "C" __declspec(dllexport) Move2* CreateMove2();
+AMARILLO_FACTORY Move2* CreateMove2();
 
 #endif // !_MOVE_H_
