@@ -32,9 +32,6 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Move.cpp">
       <Filter>Archivos de recursos</Filter>
     </ClCompile>

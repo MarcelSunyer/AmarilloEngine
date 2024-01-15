@@ -1,12 +1,11 @@
 #pragma once
 #include "Component.h"
-#include "glmath.h"
 #include "ModuleMesh.h"
 
+#include "../AmarilloEngine/External/MathGeoLib/include/Geometry/AABB.h"
+#include "../AmarilloEngine/External/MathGeoLib/include/Geometry/OBB.h"
 
 class ComponentMesh : public Component {
-	//Properties
-public:
 
 public:
 	ModuleMesh::Mesh* mesh_;
@@ -35,8 +34,4 @@ public:
 
 	void RenderBoundingBoxes();
 
-
-
-public:
-	
 };

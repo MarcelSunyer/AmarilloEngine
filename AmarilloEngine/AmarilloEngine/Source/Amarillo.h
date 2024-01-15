@@ -10,7 +10,7 @@ class GameObject;
 class __declspec(dllexport) Amarillo {
 public:
 
-	virtual bool Test() { return false; };
+	virtual void Update() {};
 
 	GameObject* gameObject = nullptr;
 };

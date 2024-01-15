@@ -27,6 +27,8 @@
 #define CHECKERS_WIDTH 64
 #define CHECKERS_HEIGHT 64
 
+class RenderTexture;
+
 class ModuleRenderer3D : public Module
 {
 public:

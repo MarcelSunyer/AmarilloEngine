@@ -2,6 +2,10 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "Color.h"
+#include "Application.h"
+#include "ModuleWindow.h"
+#include "ModuleJSON.h"
+#include "ModuleCamera3D.h"
 
 ComponentCamera::ComponentCamera(GameObject* parent) : Component(parent)
 {

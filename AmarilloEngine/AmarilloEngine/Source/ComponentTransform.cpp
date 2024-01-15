@@ -1,5 +1,6 @@
 #include "ComponentTransform.h"
 #include "GameObject.h"
+#include "Globals.h"
 
 #include "../External/ImGUI/imgui.h"
 

@@ -2,6 +2,10 @@
 #include "ComponentMesh.h"
 #include "GameObject.h"
 #include "../External/ImGUI/imgui.h"
+#include "ModuleMesh.h"
+#include "ComponentTransform.h"
+#include "Application.h"
+#include "ModuleRenderer3D.h"
 
 ComponentMesh::ComponentMesh(GameObject* parent) : Component(parent)
 {

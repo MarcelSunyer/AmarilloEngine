@@ -20,12 +20,14 @@
 #include "GameObject.h"
 #include "ModuleScene.h"
 
+
 #include <string>
 #include <list>
 
 class GameObject;
 class JSON_Arraypack;
 class JSON_Doc;
+
 
 class JSON_Doc
 {
@@ -87,9 +89,8 @@ public:
 	
 
 	//save Scene 
-	void SetHierarchy(const char* key, const std::vector<GameObject*>& gameObjects);	
 	void SetComponent(JSON_Object* componentObject, const Component& component);
-	void SetGameObject(JSON_Object* gameObjectObject, const GameObject& gameObject);
+	
 
 	JSON_Arraypack* GetArray(const std::string& name);
 
@@ -99,10 +100,7 @@ public:
 	JSON_Arraypack* InitNewArray(const std::string& name);
 
 	//load scene
-	void GetComponent(const JSON_Object* componentObject, Component& component) const;
-	std::vector<GameObject*> GetHierarchy(const char* key) const;
-	void GetGameObject(const std::vector<GameObject*>& gameObjects, const JSON_Object* gameObjectObject, GameObject& gameObject) const;
-	
+	void GetComponent(const JSON_Object* componentObject, Component& component) const;	
 
 private:
 	std::string path;

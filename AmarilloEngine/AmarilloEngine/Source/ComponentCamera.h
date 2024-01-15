@@ -1,11 +1,12 @@
 #pragma once
 #include "Component.h"
-#include "ModuleCamera3D.h"
-#include "Application.h"
-#include "ModuleWindow.h"
-#include "ModuleJSON.h"
 
-class __declspec(dllexport)ComponentCamera : public Component {
+
+class JSON_Doc;
+class Camera3D;
+class GameObject;
+
+class ComponentCamera : public Component {
 
 public:
 	ComponentCamera(GameObject* parent);

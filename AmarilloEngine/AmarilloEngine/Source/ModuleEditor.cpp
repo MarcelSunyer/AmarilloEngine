@@ -7,6 +7,9 @@
 #include "ModuleConsole.h"
 #include "Globals.h"
 #include "ModuleScene.h"
+#include "GameObject.h"
+
+#include "../External/ImGuizmo/ImGuizmo.h"
 
 #include "..\External\ImGui\imgui.h"
 #include "..\External\ImGui/backends/imgui_impl_opengl3.h"

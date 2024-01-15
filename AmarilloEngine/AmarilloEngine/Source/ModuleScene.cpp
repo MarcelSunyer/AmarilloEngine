@@ -2,6 +2,7 @@
 #include "../External/ImGuizmo/ImGuizmo.h"
 #include "CFF_Mesh.h"
 #include "ModuleJSON.h"
+#include "ModuleCamera3D.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

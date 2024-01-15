@@ -10,6 +10,8 @@
 #include "ModuleScene.h"
 #include "../External/MathGeoLib/include/Math/float3.h"
 #include "GameObject.h"
+#include "../External/Assimp/include/cimport.h"
+#include "../External/Assimp/include/scene.h"
 #pragma comment (lib, "External/Assimp/libx86/assimp.lib")
 
 ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start_enabled)

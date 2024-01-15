@@ -10,7 +10,6 @@
 #include "Primitive.h"
 #include <iostream>
 #include <string> 
-#include "GameObject.h"
 #include "../External/ImGuizmo/ImGuizmo.h"
 #include <cstring>
 #include <filesystem>
@@ -18,6 +17,8 @@
 #include "ScriptEditor.h"
 
 namespace fs = std::filesystem;
+
+class GameObject;
 
 enum Timer_State {
 	STOPPED,
@@ -56,8 +57,6 @@ public:
 
 
 	void OnClick(float pos_x, float pos_y);
-
-
 
 	std::string loadFile(const char* filename);
 
@@ -126,7 +125,7 @@ public:
 	std::unordered_map<std::string, std::string> iconMapping;
 
 	struct TextureInfo_E {
-		GLuint textID;
+		uint textID;
 		bool loaded;
 	};
 	std::unordered_map<std::string, TextureInfo_E> loadedTextures;

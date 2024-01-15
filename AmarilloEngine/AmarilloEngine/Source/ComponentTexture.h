@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "glmath.h"
-#include "Globals.h"
+
 #include <string>
 
 struct Texture;

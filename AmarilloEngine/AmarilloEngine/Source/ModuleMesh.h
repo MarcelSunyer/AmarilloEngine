@@ -2,19 +2,18 @@
 #define MODULE_MESH
 
 #include "Module.h"
-#include "Globals.h"
-#include "glmath.h"
 #include "../External/MathGeoLib/include/Math/float3x3.h"
-#include "../External/MathGeoLib/include/MathGeoLib.h"
-
-#include "../External/Assimp/include/cimport.h"
-#include "../External/Assimp/include/scene.h"
+#include "../External/MathGeoLib/include/Math/float3.h"
+#include "../External/MathGeoLib/include/Math/float2.h"
 #include <vector>
 
 #include "../External/Glew/include/glew.h"
 
 class GameObject;
 struct Texture;
+struct aiScene;
+struct aiMesh;
+struct aiNode;
 
 class ModuleMesh : public Module
 {

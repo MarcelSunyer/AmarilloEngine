@@ -1,7 +1,9 @@
 #pragma once
 #include "Component.h"
-#include "../External/MathGeoLib/include/MathGeoLib.h"
-#include "glmath.h"
+#include "../External/MathGeoLib/include/Math/float3.h"
+#include "../External/MathGeoLib/include/Math/float4.h"
+#include "../External/MathGeoLib/include/Math/float4x4.h"
+#include "../External/MathGeoLib/include/Math/Quat.h"
 
 class GameObject;
 
