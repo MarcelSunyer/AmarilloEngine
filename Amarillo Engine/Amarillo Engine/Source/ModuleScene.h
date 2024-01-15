@@ -23,6 +23,7 @@
 
 class JSON_Doc;
 class ComponentScript;
+class GameObject;
 
 class ModuleScene : public Module
 {

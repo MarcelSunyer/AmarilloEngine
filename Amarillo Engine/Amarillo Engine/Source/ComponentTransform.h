@@ -3,6 +3,7 @@
 #include "../External/MathGeoLib/include/MathGeoLib.h"
 #include "glmath.h"
 
+class GameObject;
 
 class __declspec(dllexport) ComponentTransform : public Component {
 

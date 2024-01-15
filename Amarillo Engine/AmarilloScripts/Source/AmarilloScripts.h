@@ -11,14 +11,15 @@
 #include "../../Amarillo Engine/Source/ComponentTransform.h"
 #include "../../Amarillo Engine/Source/ComponentScript.h"
 
+#include "../../Amarillo Engine/Source/ModuleEditor.h"
+
 
 
 #ifdef AMARILLOSCRIPTS_EXPORTS
 #define AMARILLO_ENGINE_API __declspec(dllexport)
 #else
-#define AMARILLO_ENGINE_API __declspec(dllimport)
+#define AMARILLO_ENGINE_API __declspec(dllexport)
 #endif
-
 // define it next to the CreateClass/StructFunct to be able to use the class/struct
 #define AMARILLO_FACTORY extern "C" AMARILLO_ENGINE_API
 
