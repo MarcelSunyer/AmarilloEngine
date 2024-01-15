@@ -8,7 +8,7 @@ Amarillo::Amarillo()
 
 Amarillo::~Amarillo()
 {
-	//App->objects->CancelInvokes(this);	//TODO: Descomentar esto cuando hayas añadido ModuleObjects
+	applic->objects->CancelInvokes(this);
 }
 
 bool Amarillo::IsScriptEnabled() const
@@ -174,19 +174,19 @@ bool Amarillo::CompareTag(const char* tag_to_compare) const
 void Amarillo::Invoke(std::function<void()> void_no_params_function, float seconds)
 {
 	if (void_no_params_function != nullptr) {
-		//App->objects->AddInvoke(void_no_params_function, seconds, this);	//TODO: Descomentar esto cuando hayas añadido ModuleObjects
+		applic->objects->AddInvoke(void_no_params_function, seconds, this);	
 	}
 }
 
 void Amarillo::CancelInvoke()
 {
-	//App->objects->CancelInvokes(this);	//TODO: Descomentar esto cuando hayas añadido ModuleObjects
+	applic->objects->CancelInvokes(this);	
 }
 
 void Amarillo::InvokeRepeating(std::function<void()> void_no_params_function, float seconds_to_first_invoke, float seconds_between_each_call)
 {
 	if (void_no_params_function != nullptr) {
-		//App->objects->AddInvokeRepeating(void_no_params_function, seconds_to_first_invoke, seconds_between_each_call, this);	//TODO: Descomentar esto cuando hayas añadido ModuleObjects
+		applic->objects->AddInvokeRepeating(void_no_params_function, seconds_to_first_invoke, seconds_between_each_call, this);
 	}
 }
 

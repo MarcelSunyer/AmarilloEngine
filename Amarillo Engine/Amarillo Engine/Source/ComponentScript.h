@@ -9,6 +9,7 @@
 #include "ResourcePrefab.h"
 #include "Amarillo.h"
 #include "ModuleScene.h"
+#include "ModuleObjects.h"
 
 #include "../External/Guid/uuid.h"
 

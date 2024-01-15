@@ -10,13 +10,13 @@ ComponentScript::~ComponentScript()
 	if (data_ptr != nullptr) {
 		if (need_engine) {
 			Amarillo* amarillo = (Amarillo*)data_ptr;
-			/*std::list<Amarillo*>::iterator item = App->objects->current_scripts.begin();		//TODO: Descomentar esto cuando esté creado el ModuleObjects
-			for (; item != App->objects->current_scripts.end(); ++item) {
+			std::list<Amarillo*>::iterator item = applic->objects->current_scripts.begin();
+			for (; item != applic->objects->current_scripts.end(); ++item) {
 				if (*item != nullptr && *item == amarillo) {
-					App->objects->current_scripts.erase(item);
+					applic->objects->current_scripts.erase(item);
 					break;
 				}
-			}*/
+			}
 			if (amarillo != nullptr) {
 				delete amarillo;
 			}
@@ -590,7 +590,7 @@ void ComponentScript::LoadData(const char* name, bool is_engine)
 	void* (*Creator)() = (void* (*)())GetProcAddress(applic->scripts_dll, std::string("Create" + std::string(name)).data());
 	if (Creator != nullptr) {
 		data_name = std::string(name);
-		//App->objects->actual_script_loading = this;				//TODO: Descomentar esto cuando esté creado el ModuleObjects
+		applic->objects->actual_script_loading = this;
 		try {
 			data_ptr = Creator();
 		}
@@ -607,7 +607,7 @@ void ComponentScript::LoadData(const char* name, bool is_engine)
 		owner->AddComponent(this);
 		if (need_engine) {
 			Amarillo* amarillo = (Amarillo*)data_ptr;
-			//App->objects->current_scripts.push_back(amarillo);	//TODO: Descomentar esto cuando esté creado el ModuleObjects
+			applic->objects->current_scripts.push_back(amarillo);	
 			amarillo->game_object = owner;
 			amarillo->transform = (ComponentTransform*)owner->GetComponent(ComponentTypes::TRANSFORM);
 			amarillo->enabled = &active;

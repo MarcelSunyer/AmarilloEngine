@@ -15,7 +15,9 @@
 class ResourcePrefab;
 class ResourceScene;			//TODO
 class ComponentScript;
+class ComponentCamera;
 class Amarillo;
+class JSON_Arraypack;
 
 struct InvokeInfo {
 	std::function<void()> function = nullptr;

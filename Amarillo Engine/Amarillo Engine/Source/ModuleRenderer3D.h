@@ -19,9 +19,6 @@
 #include "../External/Devil/include/ilut.h"
 
 
-//todo: REMOVE this before 1st delivery!!
-#include "glmath.h"
-
 
 
 #define MAX_LIGHTS 8
