@@ -6,7 +6,7 @@
 #include "AmarilloScripts.h"
 #include "../../AmarilloEngine/Source/Globals.h"
 
-
+class ComponentCamera;
 class AMARILLO_ENGINE_API Move2 : Amarillo{
 public:
 	Move2();
