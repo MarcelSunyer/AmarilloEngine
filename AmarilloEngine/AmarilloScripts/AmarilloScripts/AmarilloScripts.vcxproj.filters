@@ -27,12 +27,18 @@
     <ClInclude Include="AmarilloScripts.h">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
+    <ClInclude Include="Tank.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Move.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank.cpp">
       <Filter>Archivos de recursos</Filter>
     </ClCompile>
   </ItemGroup>
