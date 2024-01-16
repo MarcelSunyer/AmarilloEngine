@@ -1,5 +1,4 @@
 #include "StaticInput.h"
-#include "Application.h"
 #include "ModuleInput.h"
 
 bool Input::GetKeyDown(const SDL_Scancode& code)

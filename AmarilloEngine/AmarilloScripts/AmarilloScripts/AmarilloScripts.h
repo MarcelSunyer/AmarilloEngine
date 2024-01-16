@@ -18,8 +18,6 @@
 #include "../../AmarilloEngine/External/MathGeoLib/include/Math/float4.h"
 #include "../../AmarilloEngine/External/MathGeoLib/include/Math/float4x4.h"
 #include "../../AmarilloEngine/External/MathGeoLib/include/Math/Quat.h"
-#include "../../AmarilloEngine/Source/StaticInput.h"
-#include "../../AmarilloEngine/Source/Globals.h"
 
 
 
