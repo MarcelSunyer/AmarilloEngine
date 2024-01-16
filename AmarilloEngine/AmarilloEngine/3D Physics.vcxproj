@@ -41,7 +41,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\Marcel\Documents\GitHub\Game_Engine\Game_Engine\AmarilloEngine\AmarilloEngine\Debug\AmarilloScripts;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\AmarilloEngine\Debug\AmarilloScripts;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
