@@ -17,6 +17,15 @@ The new 3D Game Engine under CITM development
 - Camera component, mouse pick & frustum culling
 - Resource Management
 
+## Scripting Capabilities
+
+Our scripting system is built on the foundation of C++, providing a familiar and robust language for game developers. You can create, modify, and manage scripts effortlessly, thanks to the seamless integration of the ImGuiTextEditor. This user-friendly interface makes coding a breeze and facilitates a smooth development experience.
+
+#### Dynamic Link Library (DLL) Compilation
+
+The scripts you create are compiled into dynamic link libraries (.dll), enabling efficient execution and runtime flexibility. This compilation process ensures that your scripts seamlessly integrate with the game engine, allowing for real-time updates and changes without the need for a full application restart.
+
+
 ## Controls
 
 - While Right clicking, “WASD” fps-like movement and free look around must be enabled
@@ -42,7 +51,9 @@ The new 3D Game Engine under CITM development
 |----------|----------|
 | <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/19a0a8bd-4bc0-47fd-975f-d5f423375183"> | <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/1f93bb7c-9489-4a0f-9901-ca4ef5055e0c"> |
 
-## License
+| Scripting System |
+|----------|
+| <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/ec2e3b2c-8ab1-4274-b08a-caf7bcb17cee"> |
 
 This project is licensed under an unmodified MIT license. Check [LICENSE](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) for further details.
 
