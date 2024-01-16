@@ -14,8 +14,6 @@
 #include "../../AmarilloEngine/Source/ComponentScript.h"
 #include "../../AmarilloEngine/Source/ComponentCamera.h"
 
-#include "../../AmarilloEngine/External/MathGeoLib/include/Math/float3.h"
-
 #ifdef AMARILLOSCRIPTS_EXPORTS
 #define AMARILLO_ENGINE_API __declspec(dllexport)
 #else
