@@ -14,6 +14,18 @@
 #include "../../AmarilloEngine/Source/ComponentScript.h"
 #include "../../AmarilloEngine/Source/ComponentCamera.h"
 
+#include "../../AmarilloEngine/External/MathGeoLib/include/Math/float3.h"
+#include "../../AmarilloEngine/External/MathGeoLib/include/Math/float4.h"
+#include "../../AmarilloEngine/External/MathGeoLib/include/Math/float4x4.h"
+#include "../../AmarilloEngine/External/MathGeoLib/include/Math/Quat.h"
+
+
+#ifdef _DEBUG
+#pragma comment (lib, "../../AmarilloEngine/External/MathGeoLib/libx86/MGLDebug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#else
+#pragma comment (lib, "../../AmarilloEngine/External/MathGeoLib/libx86/MGLRelease/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#endif // _DEBUG
+
 #ifdef AMARILLOSCRIPTS_EXPORTS
 #define AMARILLO_ENGINE_API __declspec(dllexport)
 #else

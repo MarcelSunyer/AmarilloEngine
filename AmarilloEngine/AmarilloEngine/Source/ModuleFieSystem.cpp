@@ -519,7 +519,7 @@ bool FileSystem::FolderDelete(const char* folderpath)
 bool FileSystem::FileSave(const char* path, const char* file_content, const char* name, const char* extension, int size)
 {
 	bool ret = false;
-
+	/*
 	std::string file = path;
 	file += name;
 	file += ".";
@@ -541,7 +541,7 @@ bool FileSystem::FileSave(const char* path, const char* file_content, const char
 	if (new_file)
 	{
 		fclose(new_file);
-	}
+	}*/
 
 	return ret;
 }

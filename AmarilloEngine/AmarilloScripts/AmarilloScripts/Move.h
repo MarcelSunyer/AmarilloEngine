@@ -5,6 +5,8 @@
 #include "../../AmarilloEngine/Source/Amarillo.h"
 #include "AmarilloScripts.h"
 
+
+
 class AMARILLO_ENGINE_API Move2 : Amarillo{
 public:
 	Move2();
