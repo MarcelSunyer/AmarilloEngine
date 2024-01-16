@@ -8,7 +8,7 @@ Move2::Move2() : Amarillo()
 
 void Move2::Start()
 {
-
+	gameObject->transform->SetLocalRotationEuler({ 0,0,90 });
 }
 
 void Move2::Update()
@@ -69,8 +69,9 @@ void Move2::Rotation()
 	{
 		angle -= turning_velocity;
 		gameObject->transform->SetLocalRotation(Quat::FromEulerXYZ(0, angle * DEGTORAD, 0));
-	}
+	}	
 }
+
 
 float Move2::Clamp(const float& value, const float& min, const float& max)
 {
