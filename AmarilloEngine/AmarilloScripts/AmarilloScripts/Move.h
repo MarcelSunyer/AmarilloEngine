@@ -11,6 +11,8 @@ class AMARILLO_ENGINE_API Move2 : Amarillo{
 public:
 	Move2();
 	
+	void Start() override;
+
 	void Update() override;
 
 public: 

@@ -10,6 +10,8 @@ class ComponentTransform;
 extern "C" __declspec(dllexport) class Amarillo {
 public:
 
+	virtual void Start() {};
+
 	virtual void Update() {};
 
 	GameObject* gameObject = nullptr;

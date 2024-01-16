@@ -15,22 +15,22 @@ public:
 	void Disable() override;
 	void OnEditor() override;
 
-	void inline SetWorldPosition(float3 position);
-	void inline SetWorldRotation(Quat rotation);
-	void inline SetWorldScale(float3 scale);
-	void inline SetWorldRotationEuler(float3 rotation);
+	void SetWorldPosition(float3 position);
+	void SetWorldRotation(Quat rotation);
+	void SetWorldScale(float3 scale);
+	void SetWorldRotationEuler(float3 rotation);
 	
 
-	void inline SetLocalPosition(float3 position);
-	void inline SetLocalRotation(Quat rotation);
-	void inline SetLocalScale(float3 scale);
-	void inline SetLocalRotationEuler(float3 rotation);
+	void SetLocalPosition(float3 position);
+	void SetLocalRotation(Quat rotation);
+	void SetLocalScale(float3 scale);
+	void SetLocalRotationEuler(float3 rotation);
 
 
-	float3 inline GetPosition() const { return this->world_position; };
-	Quat inline GetRotation() const { return this->world_rotation; };
-	float3 inline GetScale() const { return this->world_scale; };
-	float4x4 inline GetTransformMatrix() const { return this->world_matrix; };
+	float3 GetPosition() const { return this->world_position; };
+	Quat GetRotation() const { return this->world_rotation; };
+	float3 GetScale() const { return this->world_scale; };
+	float4x4 GetTransformMatrix() const { return this->world_matrix; };
 
 	float3 GetScale( );
 

@@ -145,7 +145,6 @@ void GameObject::StartPlay()
 		Component* component_update = *co;
 		component_update->OnStartPlay();
 	}
-
 }
 
 void GameObject::DebugDraw()

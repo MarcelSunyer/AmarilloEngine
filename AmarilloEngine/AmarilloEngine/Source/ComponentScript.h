@@ -20,6 +20,7 @@ public:
 public:
 
 	void Enable() override;
+	void Start() override;
 	void Update() override;
 	void Disable() override;
 	void OnEditor() override;

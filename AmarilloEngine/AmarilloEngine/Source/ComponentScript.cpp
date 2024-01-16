@@ -96,6 +96,11 @@ void ComponentScript::Enable()			//TODO: Revisar
 	/*}*/
 }
 
+void ComponentScript::Start()
+{
+	amarillo->Start();
+}
+
 void ComponentScript::Update()
 {
 	if (amarillo == nullptr)

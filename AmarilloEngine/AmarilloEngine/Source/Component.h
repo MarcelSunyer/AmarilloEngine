@@ -29,6 +29,7 @@ public:
 	Component(GameObject* parent) : active(true), owner(parent), type(ComponentTypes::NONE) {};
 
 	virtual void Enable() {};
+	virtual void Start() {};
 	virtual void Update() {};
 	virtual void Disable() {};
 	virtual void OnEditor() {};
