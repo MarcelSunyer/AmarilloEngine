@@ -20,6 +20,7 @@
 #include "../../AmarilloEngine/External/MathGeoLib/include/Math/Quat.h"
 
 
+
 #ifdef _DEBUG
 #pragma comment (lib, "../../AmarilloEngine/External/MathGeoLib/libx86/MGLDebug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #else
