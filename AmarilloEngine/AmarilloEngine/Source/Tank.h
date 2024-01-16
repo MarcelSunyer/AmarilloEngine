@@ -44,7 +44,7 @@ public:
 	float recoil = 0.0f;
 	float recoil_velocity = 6.0f;
 	float3 recoil_direction = { 0,0,0 };
-	float turning_velocity = 30.0f;
+	float turning_velocity = 3.0f;
 
 private:
 
