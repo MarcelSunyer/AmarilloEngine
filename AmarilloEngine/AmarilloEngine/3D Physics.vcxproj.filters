@@ -88,6 +88,9 @@
     <Filter Include="Externals\ImGuiColorTextEditor">
       <UniqueIdentifier>{90dd1f67-2c5e-4f11-b8e7-cd819ad131da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\CarpetaScripts">
+      <UniqueIdentifier>{66df214b-057a-4ed5-8d36-ccea011fac7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -666,6 +669,9 @@
     <ClInclude Include="Source\ScriptEditor.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Source\StaticInput.h">
+      <Filter>Sources\CarpetaScripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1048,6 +1054,9 @@
     </ClCompile>
     <ClCompile Include="Source\ScriptEditor.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StaticInput.cpp">
+      <Filter>Sources\CarpetaScripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
