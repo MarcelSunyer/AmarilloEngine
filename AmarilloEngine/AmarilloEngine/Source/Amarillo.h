@@ -1,18 +1,17 @@
-//#ifndef AMARILLO
-//#define AMARILLO
 #pragma once
+
 
 #include <functional>
 
+
 class GameObject;
+class ComponentTransform;
 
-
-class __declspec(dllexport) Amarillo {
+extern "C" __declspec(dllexport) class Amarillo {
 public:
 
 	virtual void Update() {};
 
-	GameObject* gameObject = nullptr;
+	GameObject* gameObject;
+	ComponentTransform* transform = nullptr;
 };
-
-//#endif // AMARILLO

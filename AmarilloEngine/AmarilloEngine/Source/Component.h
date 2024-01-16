@@ -16,7 +16,7 @@ enum ComponentTypes
 	SCRIPT,
 };
 
-class __declspec(dllexport)Component {
+extern "C" __declspec(dllexport) class Component {
 public:
 	Component()
 	{

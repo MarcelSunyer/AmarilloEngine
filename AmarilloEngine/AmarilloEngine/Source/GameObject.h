@@ -6,25 +6,17 @@
 #include "Component.h"
 #include "ComponentTexture.h"
 
+
 #include "../External/MathGeoLib/include/Math/float3.h"
 #include "../External/MathGeoLib/include/Geometry/AABB.h"
 #include "../External/MathGeoLib/include/Geometry/OBB.h"
 
 class Camera3D;
-class Component;
+class ComponentMesh;
+class ComponentTransform;
 
-class __declspec(dllexport)GameObject
+extern "C" __declspec(dllexport) class GameObject
 {
-	friend class Component;
-	friend class ComponentCamera;
-	friend class ComponentTransform;
-	friend class ComponentScript;
-	friend class ComponentMesh;
-	friend class ResourceMesh;
-	friend class ResourceTexture;
-	friend class ResourcePrefab;
-	friend class Resource;
-
 public:
 	GameObject();
 	GameObject(std::string name);
@@ -50,9 +42,6 @@ public:
 	Component* GetComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);
 	GameObject* GetParent();
-
-	static void FreeArrayMemory(void*** array_);
-	void FindTags(const char* tag_to_find, std::vector<GameObject*>* objects);
 
 public:
 	std::string mName;

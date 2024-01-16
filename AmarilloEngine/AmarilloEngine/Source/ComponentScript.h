@@ -12,7 +12,7 @@ class GameObject;
 
 #define MAX_NAME_CHARACTERS 32
 
-class ComponentScript : public Component {
+extern "C" __declspec(dllexport) class ComponentScript : public Component {
 public:
 	ComponentScript(GameObject* attach);
 	~ComponentScript();
@@ -39,7 +39,7 @@ private:
 
 	void CreateScriptInstance();
 
-private:
+public:
 
 	bool need_engine = false;
 	std::string data_name;
