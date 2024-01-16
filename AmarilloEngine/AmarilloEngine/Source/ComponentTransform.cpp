@@ -35,7 +35,7 @@ void ComponentTransform::Update() {
 
 }
 
-inline void ComponentTransform::SetWorldPosition(float3 position)
+void ComponentTransform::SetWorldPosition(float3 position)
 {
 	float3 parentWorldPosition = float3::zero;
 	if (owner->parent != nullptr)
@@ -46,7 +46,7 @@ inline void ComponentTransform::SetWorldPosition(float3 position)
 	SetLocalPosition(newLocalPostion);
 }
 
-inline void ComponentTransform::SetWorldRotation(Quat rotation)
+void ComponentTransform::SetWorldRotation(Quat rotation)
 {
 	Quat parentWorldRotation = Quat::identity;
 	if (owner->parent != nullptr)
@@ -61,7 +61,7 @@ inline void ComponentTransform::SetWorldRotation(Quat rotation)
 
 }
 
-inline void ComponentTransform::SetWorldScale(float3 scale)
+void ComponentTransform::SetWorldScale(float3 scale)
 {
 	float3 parentWorldScale = float3::one;
 	if (owner->parent != nullptr)
@@ -73,21 +73,21 @@ inline void ComponentTransform::SetWorldScale(float3 scale)
 
 }
 
-inline void ComponentTransform::SetWorldRotationEuler(float3 rotation)
+void ComponentTransform::SetWorldRotationEuler(float3 rotation)
 {
 	Quat quaternion = Quat::FromEulerXYZ(rotation.x, rotation.y, rotation.z);
 
 	SetWorldRotation(quaternion);
 }
 
-inline void ComponentTransform::SetLocalPosition(float3 position)
+void ComponentTransform::SetLocalPosition(float3 position)
 {
 	this->local_position = position;
 	UpdateLocalMatrix();
 	RecalculateTransformHierarchy();
 }
 
-inline void ComponentTransform::SetLocalRotation(Quat rotation)
+void ComponentTransform::SetLocalRotation(Quat rotation)
 {
 	this->local_rotation = rotation;
 	this->local_rotation_euler = local_rotation.ToEulerXYZ();
@@ -95,13 +95,14 @@ inline void ComponentTransform::SetLocalRotation(Quat rotation)
 	RecalculateTransformHierarchy();
 }
 
-inline void ComponentTransform::SetLocalScale(float3 scale)
+void ComponentTransform::SetLocalScale(float3 scale)
 {
 	this->local_scale = scale;
 	UpdateLocalMatrix();
 	RecalculateTransformHierarchy();
 }
-inline void ComponentTransform::SetLocalRotationEuler(float3 rotation)
+
+void ComponentTransform::SetLocalRotationEuler(float3 rotation)
 {
 	local_rotation_euler = rotation;
 	local_rotation = Quat::FromEulerXYZ(rotation.x, rotation.y, rotation.z);

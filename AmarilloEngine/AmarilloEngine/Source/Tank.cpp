@@ -88,7 +88,7 @@ void Tank::Movement() {
 
 void Tank::Rotation()
 {
-	/*if (applic->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (applic->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		angle += turning_velocity;
 		wheels_transform->SetLocalRotation(Quat::FromEulerXYZ(0, angle * DEGTORAD, 0));
@@ -98,7 +98,7 @@ void Tank::Rotation()
 	{
 		angle -= turning_velocity;
 		wheels_transform->SetLocalRotation(Quat::FromEulerXYZ(0, angle * DEGTORAD, 0));
-	}*/
+	}
 
 	float2 mouse = { (float)applic->input->GetMouseX(), (float)applic->input->GetMouseY() };
 	float3 rotation = turret_transform->GetRotation().ToEulerXYZ();
@@ -179,5 +179,5 @@ void Tank::Rotation()
 		}
 	}
 
-	//turret_transform->SetLocalRotation(Quat::FromEulerXYZ(rotation.x * DEGTORAD, rotation.y * DEGTORAD, rotation.z * DEGTORAD));
+	turret_transform->SetLocalRotation(Quat::FromEulerXYZ(rotation.x * DEGTORAD, rotation.y * DEGTORAD, rotation.z * DEGTORAD));
 }

@@ -5,7 +5,6 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "Functions.h"
-#include "Globals.h"
 #include "ModuleWindow.h"
 
 #include "../External/MathGeoLib/include/Math/float3.h"
@@ -41,7 +40,7 @@ public:
 
 	float velocity = 0.0f;
 	float friction_force = 0.05f;
-	float acceleration = 4.0f;
+	float acceleration = 2.0f;
 	float recoil = 0.0f;
 	float recoil_velocity = 6.0f;
 	float3 recoil_direction = { 0,0,0 };
