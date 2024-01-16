@@ -54,47 +54,60 @@ void Tank::Movement() {
 
 	if (applic->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 		velocity += acceleration;
+		game_object->transform->SetLocalPosition({ game_object->transform->local_position.x, 0, (float)(game_object->transform->local_position.z + 0.2) });
 		LOG("Mov. W")
 	}
 	if (applic->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		velocity -= acceleration;
+		game_object->transform->SetLocalPosition({ game_object->transform->local_position.x, 0,(float)(game_object->transform->local_position.z - 0.2) });
 		LOG("Mov. S")
 	}
 
-	velocity = Clamp(velocity, max_velocity_backward, max_velocity_forward);
-
-	if (recoil > 0) {
-		recoil -= friction_force;
-		if (recoil <= 0) {
-			recoil = 0;
-		}
+	if (applic->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		velocity += acceleration;
+		game_object->transform->SetLocalPosition({ (float)(game_object->transform->local_position.x + 0.2), 0, game_object->transform->local_position.z });
+		LOG("Mov. W")
+	}
+	if (applic->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		velocity -= acceleration;
+		game_object->transform->SetLocalPosition({ (float)(game_object->transform->local_position.x - 0.2), 0, game_object->transform->local_position.z });
+		LOG("Mov. S")
 	}
 
-	game_object->transform->SetLocalPosition(game_object->transform->GetPosition() + wheels_transform->GetForwardVector() * velocity - recoil_direction * recoil);
+	//velocity = Clamp(velocity, max_velocity_backward, max_velocity_forward);
 
-	if (velocity > 0) {
-		velocity -= friction_force;
-		if (velocity < 0) {
-			velocity = 0;
-		}
-	}
-	else if (velocity < 0) {
-		velocity += friction_force;
-		if (velocity > 0) {
-			velocity = 0;
-		}
-	}
+	//if (recoil > 0) {
+	//	recoil -= friction_force;
+	//	if (recoil <= 0) {
+	//		recoil = 0;
+	//	}
+	//}
+
+	//game_object->transform->SetLocalPosition(game_object->transform->GetPosition() + wheels_transform->GetForwardVector() * velocity);
+
+	//if (velocity > 0) {
+	//	velocity -= friction_force;
+	//	if (velocity < 0) {
+	//		velocity = 0;
+	//	}
+	//}
+	//else if (velocity < 0) {
+	//	velocity += friction_force;
+	//	if (velocity > 0) {
+	//		velocity = 0;
+	//	}
+	//}
 }
 
 void Tank::Rotation()
 {
-	if (applic->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (applic->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
 	{
 		angle += turning_velocity;
 		wheels_transform->SetLocalRotation(Quat::FromEulerXYZ(0, angle * DEGTORAD, 0));
 	}
 
-	if (applic->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (applic->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
 	{
 		angle -= turning_velocity;
 		wheels_transform->SetLocalRotation(Quat::FromEulerXYZ(0, angle * DEGTORAD, 0));

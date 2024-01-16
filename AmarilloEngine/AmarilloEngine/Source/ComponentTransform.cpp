@@ -188,10 +188,10 @@ void ComponentTransform::OnEditor() {
 
 float3 ComponentTransform::GetForwardVector() const
 {
-	float3 forward_local = world_rotation * float3::unitZ;
+	float3 forward_local = local_rotation * float3::unitZ;
 
 	
-	float3 forward_world = world_matrix.TransformPos(forward_local);
+	float3 forward_world = local_rotation.Transform(forward_local);
 
 	return forward_world;
 }
