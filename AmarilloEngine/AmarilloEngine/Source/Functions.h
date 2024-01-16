@@ -37,5 +37,7 @@ std::string IntToHexa(int value);
 
 std::string GetUIDRandomHexadecimal();
 
+float Clamp(const float& value, const float& min, const float& max);
+
 
 #endif //__FUNCTIONS_H__

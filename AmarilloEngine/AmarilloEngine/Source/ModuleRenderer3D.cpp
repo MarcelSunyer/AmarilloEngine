@@ -138,7 +138,7 @@ bool ModuleRenderer3D::Init()
 		lights[1].SetPos(-5.0f, -5.0f, -5.0f);
 		lights[1].Init();
 
-		
+
 		
 		
 		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -185,7 +185,14 @@ bool ModuleRenderer3D::Init()
 	App->scene->LoadMeshAndTexture("../Assets/Models/Skybox.fbx", "../Assets/Textures/skybox.png")->mName = "Skybox";
 	//App->scene->LoadMeshAndTexture("../Assets/Models/BakerHouse.fbx", "../Assets/Textures/Baker_house.png")->mName = "Baker House";
 	App->mesh->LoadMesh("../Assets/Street_Environment/Test.fbx")->mName = "Street_Environment";
-	App->scene->LoadMeshAndTexture("../Assets/Models/Tanque.fbx", "../Assets/Textures/TT_checker_2048x2048_UV_GRID_Base_color.png");
+
+	//Script FUYM
+	App->scene->LoadMeshAndTexture("../Assets/Models/Tank.fbx", "../Assets/Textures/green.png")->mName = "Tank";
+	App->scene->CreateGameObject("Lower_Tank", GameObject::FindWithName("Tank"));
+	GameObject::FindWithName("TankTracksLeft")->SetParent(GameObject::FindWithName("Lower_Tank"));
+	GameObject::FindWithName("TankTracksRight")->SetParent(GameObject::FindWithName("Lower_Tank"));
+	GameObject::FindWithName("TankChassis")->SetParent(GameObject::FindWithName("Lower_Tank"));
+
 
 	SDL_MaximizeWindow(App->window->window);
 	BindBuffers();
@@ -197,7 +204,6 @@ bool ModuleRenderer3D::Init()
 
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-
 	return UPDATE_CONTINUE;
 }
 

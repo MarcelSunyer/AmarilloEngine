@@ -41,11 +41,16 @@ bool ModuleScene::Init()
 
 	//tmpDoc.CleanUp();
 
+	
+
 	return true;
 }
 
 update_status ModuleScene::Update(float dt)
 {
+	tank->Update();
+
+
 	if (App->input->GetKey(SDL_SCANCODE_W) && !ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
 		gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 	else if (App->input->GetKey(SDL_SCANCODE_E) && !ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))

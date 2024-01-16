@@ -41,6 +41,7 @@ public:
 	void AddComponent(Component* component);
 	Component* GetComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);
+	static GameObject* FindWithName(const char* name);
 	GameObject* GetParent();
 
 public:

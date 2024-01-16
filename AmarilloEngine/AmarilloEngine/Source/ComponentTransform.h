@@ -15,6 +15,8 @@ public:
 	void Disable() override;
 	void OnEditor() override;
 
+	float3 GetForwardVector() const;
+
 	void inline SetWorldPosition(float3 position);
 	void inline SetWorldRotation(Quat rotation);
 	void inline SetWorldScale(float3 scale);

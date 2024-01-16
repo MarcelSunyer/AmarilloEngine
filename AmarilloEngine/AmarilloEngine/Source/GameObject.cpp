@@ -208,6 +208,20 @@ GameObject* GameObject::AddChildren(GameObject* children)
 	return children;
 }
 
+GameObject* GameObject::FindWithName(const char* name)
+{
+	for (GameObject* gameObject : applic->scene->game_objects)
+	{
+		if (gameObject->mName == name)
+		{
+			return gameObject;
+		}
+	}
+
+	return nullptr;
+}
+
+
 Component* GameObject::GetComponent(ComponentTypes type)
 {
 	std::vector<Component*>::iterator item = components.begin();

@@ -73,6 +73,10 @@ bool ModuleEditor::Init()
 
     scriptEditor.Init();
 
+    //Script FUYM
+
+    App->scene->tank->Start(GameObject::FindWithName("Tank"));
+
 	return true;
 }
 

@@ -10,6 +10,7 @@
 #include "ModuleInput.h"
 #include "ModuleEditor.h"
 #include "ModuleJSON.h"
+#include "Tank.h"
 #include "../External/ImGuizmo/ImGuizmo.h"
 #include "../External/MathGeoLib/include/Geometry/LineSegment.h"
 #include "../External/MathGeoLib/include/Geometry/Triangle.h"
@@ -24,6 +25,7 @@
 class JSON_Doc;
 class ComponentScript;
 class GameObject;
+class Tank;
 
 class ModuleScene : public Module
 {
@@ -74,6 +76,7 @@ public:
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 	ImGuizmo::MODE guizmoMode = ImGuizmo::MODE::WORLD;
 
+	Tank* tank = new Tank();;
 };
 
 #endif //MODULE_SCENE

@@ -44,6 +44,13 @@ std::string ToLowerCase(std::string str)
 
 	return str;
 }
+
+float Clamp(const float& value, const float& min, const float& max)
+{
+	return (value > max) ? max : ((value < min) ? min : value);
+}
+
+
 /*
 int GetRandomValue(int range_1, int range_2)
 {

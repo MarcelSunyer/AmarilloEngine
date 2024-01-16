@@ -88,6 +88,9 @@
     <Filter Include="Externals\ImGuiColorTextEditor">
       <UniqueIdentifier>{90dd1f67-2c5e-4f11-b8e7-cd819ad131da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Tools\Scripts">
+      <UniqueIdentifier>{7fb2c3ce-f646-4e5f-8670-780c6ac5822d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -666,6 +669,9 @@
     <ClInclude Include="Source\ScriptEditor.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tank.h">
+      <Filter>Sources\Tools\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1048,6 +1054,9 @@
     </ClCompile>
     <ClCompile Include="Source\ScriptEditor.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tank.cpp">
+      <Filter>Sources\Tools\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
