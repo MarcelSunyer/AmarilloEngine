@@ -150,9 +150,6 @@ void ComponentScript::CreateScriptInstance()
 	}
 	
 	amarillo = (Amarillo*)data_ptr;	
-	unsigned int juan = sizeof(GameObject);
-	unsigned int josete = sizeof(GameObject);
 	amarillo->gameObject = owner;
 	amarillo->Update();
-	unsigned int juanete = sizeof(GameObject);
 }

@@ -9,8 +9,8 @@ Move2::Move2() : Amarillo()
 void Move2::Update()
 {
     std::string pedro = "oi";
-    unsigned int josete = sizeof(GameObject);
-    gameObject->mName = josete;
+
+    gameObject->mName = pedro;
 }
 
 AMARILLO_FACTORY Move2* CreateMove2() {

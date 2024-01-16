@@ -13,5 +13,4 @@ public:
 	virtual void Update() {};
 
 	GameObject* gameObject;
-	ComponentTransform* transform = nullptr;
 };

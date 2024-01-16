@@ -2,8 +2,8 @@
 #include "Component.h"
 #include "ModuleMesh.h"
 
-#include "../AmarilloEngine/External/MathGeoLib/include/Geometry/AABB.h"
-#include "../AmarilloEngine/External/MathGeoLib/include/Geometry/OBB.h"
+#include "../External/MathGeoLib/include/Geometry/AABB.h"
+#include "../External/MathGeoLib/include/Geometry/OBB.h"
 
 class ComponentMesh : public Component {
 
