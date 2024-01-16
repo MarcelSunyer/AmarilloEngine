@@ -28,11 +28,6 @@ The new 3D Game Engine under CITM development
 - Ctrl. L Load base scene
 - Pressing "w", "e" or "r" toggles Gizmo mode
 
-### Tank Controls
-- W/A/S/D: Tank movment across the city
-- Q/E: Rotate the tank
-- Mouse: Rotate the turret of the tank
-
 ## Developers
 
 | Eric Luque Romero | Marcel Sunyer Caldú |
