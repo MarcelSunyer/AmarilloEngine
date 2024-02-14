@@ -16,4 +16,5 @@ public:
 
 	GameObject* gameObject = nullptr;
 	ComponentTransform* transform;
+
 };
