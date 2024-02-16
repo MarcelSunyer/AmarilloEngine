@@ -316,7 +316,7 @@ void ModuleEditor::DrawEditor()
     //ShowAssetBrowser("../Assets/");
 
 #ifdef _DEBUG  // Debug
-    ShowAssetBrowser("../Debug/Library/");
+    ShowAssetBrowser("../Debug/Assets/");
 #else  // Release
     ShowAssetBrowser("../Release/Library/");
 #endif // _DEBUG
