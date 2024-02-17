@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Output</OutDir>
-    <LibraryPath>C:\Users\Marcel\Documents\GitHub\Game_Engine\Game_Engine\AmarilloEngine\AmarilloEngine\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\Marcelsc1\Documents\GitHub\AmarilloEngine\AmarilloEngine\AmarilloScripts\AmarilloScripts\Debug;C:\Users\Marcel\Documents\GitHub\Game_Engine\Game_Engine\AmarilloEngine\AmarilloEngine\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\Output</OutDir>
@@ -95,7 +95,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalDependencies>AmarilloEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Marcel\Documents\GitHub\Game_Engine\Game_Engine\AmarilloEngine\AmarilloScripts\Output;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Output;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
