@@ -7,7 +7,7 @@
 //#include "../../AmarilloEngine/Source/ModuleEditor.h"
 //#include "../../AmarilloEngine/Source/ComponentMesh.h"
 
-//#include "../../AmarilloEngine/Source/GameObject.h"
+#include "../../AmarilloEngine/Source/GameObject.h"
 #include "../../AmarilloEngine/Source/Component.h"
 #include "../../AmarilloEngine/Source/ComponentTexture.h"
 #include "../../AmarilloEngine/Source/ComponentTransform.h"

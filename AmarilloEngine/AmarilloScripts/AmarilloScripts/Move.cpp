@@ -14,7 +14,7 @@ void Move2::Start()
 void Move2::Update()
 {
     //El scripting funciona pero se caga encima con las librerias
-    //gameObject->transform->SetLocalPosition({ 6,9,8 });
+    gameObject->transform->SetLocalPosition({ 6,9,8 });
 }
 
 

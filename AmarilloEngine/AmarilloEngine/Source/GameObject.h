@@ -6,8 +6,6 @@
 #include "Component.h"
 #include "ComponentTexture.h"
 
-
-#include "../External/MathGeoLib/include/Math/float3.h"
 #include "../External/MathGeoLib/include/Geometry/AABB.h"
 #include "../External/MathGeoLib/include/Geometry/OBB.h"
 
