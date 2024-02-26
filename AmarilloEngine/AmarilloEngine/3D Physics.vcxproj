@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
+    <RootNamespace>SDLGame</RootNamespace>
+    <ProjectName>Amarillo Engine</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>C:\Users\Marcel\Documents\GitHub\Game_Engine\Game_Engine\AmarilloEngine\AmarilloEngine\Debug\AmarilloScripts;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>..\AmarilloScripts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <ConformanceMode>false</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>..\AmarilloScripts\Output;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="External\AngelScript\sdk\angelscript\include\angelscript.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_array.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_atomic.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_builder.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_bytecode.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_callfunc.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_compiler.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_config.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_configgroup.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_context.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_criticalsection.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_datatype.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_debug.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_gc.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_generic.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_map.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_memory.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_module.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_namespace.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_objecttype.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_outputbuffer.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_parser.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_property.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_restore.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptcode.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptengine.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptfunction.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptnode.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_scriptobject.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_string.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_string_util.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_symboltable.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_texts.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_thread.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_tokendef.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_tokenizer.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_typeinfo.h" />
+    <ClInclude Include="External\AngelScript\sdk\angelscript\source\as_variablescope.h" />
+    <ClInclude Include="External\Assimp\include\ai_assert.h" />
+    <ClInclude Include="External\Assimp\include\anim.h" />
+    <ClInclude Include="External\Assimp\include\camera.h" />
+    <ClInclude Include="External\Assimp\include\cexport.h" />
+    <ClInclude Include="External\Assimp\include\cfileio.h" />
+    <ClInclude Include="External\Assimp\include\cimport.h" />
+    <ClInclude Include="External\Assimp\include\color4.h" />
+    <ClInclude Include="External\Assimp\include\config.h" />
+    <ClInclude Include="External\Assimp\include\DefaultLogger.hpp" />
+    <ClInclude Include="External\Assimp\include\defs.h" />
+    <ClInclude Include="External\Assimp\include\Exporter.hpp" />
+    <ClInclude Include="External\Assimp\include\Importer.hpp" />
+    <ClInclude Include="External\Assimp\include\importerdesc.h" />
+    <ClInclude Include="External\Assimp\include\IOStream.hpp" />
+    <ClInclude Include="External\Assimp\include\IOSystem.hpp" />
+    <ClInclude Include="External\Assimp\include\light.h" />
+    <ClInclude Include="External\Assimp\include\Logger.hpp" />
+    <ClInclude Include="External\Assimp\include\LogStream.hpp" />
+    <ClInclude Include="External\Assimp\include\material.h" />
+    <ClInclude Include="External\Assimp\include\matrix3x3.h" />
+    <ClInclude Include="External\Assimp\include\matrix4x4.h" />
+    <ClInclude Include="External\Assimp\include\mesh.h" />
+    <ClInclude Include="External\Assimp\include\metadata.h" />
+    <ClInclude Include="External\Assimp\include\NullLogger.hpp" />
+    <ClInclude Include="External\Assimp\include\postprocess.h" />
+    <ClInclude Include="External\Assimp\include\ProgressHandler.hpp" />
+    <ClInclude Include="External\Assimp\include\quaternion.h" />
+    <ClInclude Include="External\Assimp\include\scene.h" />
+    <ClInclude Include="External\Assimp\include\texture.h" />
+    <ClInclude Include="External\Assimp\include\types.h" />
+    <ClInclude Include="External\Assimp\include\vector2.h" />
+    <ClInclude Include="External\Assimp\include\vector3.h" />
+    <ClInclude Include="External\Assimp\include\version.h" />
+    <ClInclude Include="External\Guid\uuid.h" />
+    <ClInclude Include="External\ImGuiColorTextEditor\TextEditor.h" />
+    <ClInclude Include="External\ImGuizmo\GraphEditor.h" />
+    <ClInclude Include="External\ImGuizmo\ImCurveEdit.h" />
+    <ClInclude Include="External\ImGuizmo\ImGradient.h" />
+    <ClInclude Include="External\ImGuizmo\ImGuizmo.h" />
+    <ClInclude Include="External\ImGuizmo\ImSequencer.h" />
+    <ClInclude Include="External\ImGuizmo\ImZoomSlider.h" />
+    <ClInclude Include="External\ImGui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="External\ImGui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="External\ImGui\backends\imgui_impl_sdl2.h" />
+    <ClInclude Include="External\ImGui\backends\imgui_impl_sdlrenderer2.h" />
+    <ClInclude Include="External\ImGui\imconfig.h" />
+    <ClInclude Include="External\ImGui\imgui.h" />
+    <ClInclude Include="External\ImGui\imgui_internal.h" />
+    <ClInclude Include="External\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="External\ImGui\imstb_textedit.h" />
+    <ClInclude Include="External\ImGui\imstb_truetype.h" />
+    <ClInclude Include="External\MathGeoLib\include\Algorithm\Random\LCG.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\AABB.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\AABB2D.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Capsule.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Circle.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Cone.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Cylinder.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Frustum.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\GeometryAll.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\GeomType.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\HitInfo.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\KDTree.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Line.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\LineSegment.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\OBB.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\PBVolume.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Plane.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Polygon.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Polyhedron.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\QuadTree.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Ray.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Sphere.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\Triangle.h" />
+    <ClInclude Include="External\MathGeoLib\include\Geometry\TriangleMesh.h" />
+    <ClInclude Include="External\MathGeoLib\include\MathBuildConfig.h" />
+    <ClInclude Include="External\MathGeoLib\include\MathGeoLib.h" />
+    <ClInclude Include="External\MathGeoLib\include\MathGeoLibFwd.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\assume.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\BitOps.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\Complex.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\CoordinateAxisConvention.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\FixedPoint.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float2.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float3.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float3x3.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float3x4.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float4.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float4x4.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float4x4_neon.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float4x4_sse.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float4_neon.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\float4_sse.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\FloatCmp.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\MathAll.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\MathConstants.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\MathFunc.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\MathLog.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\MathNamespace.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\MathTypes.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\MatrixProxy.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\myassert.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\Polynomial.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\Quat.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\quat_simd.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\Rect.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\Reinterpret.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\SSEMath.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\sse_mathfun.h" />
+    <ClInclude Include="External\MathGeoLib\include\Math\TransformOps.h" />
+    <ClInclude Include="External\MathGeoLib\include\Time\Clock.h" />
+    <ClInclude Include="External\Parson\parson.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\Amarillo.h" />
+    <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\Color.h" />
+    <ClInclude Include="Source\Component.h" />
+    <ClInclude Include="Source\ComponentCamera.h" />
+    <ClInclude Include="Source\ComponentMesh.h" />
+    <ClInclude Include="Source\ComponentScript.h" />
+    <ClInclude Include="Source\ComponentTexture.h" />
+    <ClInclude Include="Source\ComponentTransform.h" />
+    <ClInclude Include="Source\Functions.h" />
+    <ClInclude Include="Source\glmath.h" />
+    <ClInclude Include="Source\Globals.h" />
+    <ClInclude Include="Source\Light.h" />
+    <ClInclude Include="Source\Module.h" />
+    <ClInclude Include="Source\ModuleCamera3D.h" />
+    <ClInclude Include="Source\ModuleConsole.h" />
+    <ClInclude Include="Source\ModuleEditor.h" />
+    <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\ModuleFileSystem.h" />
+    <ClInclude Include="Source\ModuleInput.h" />
+    <ClInclude Include="Source\ModuleJSON.h" />
+    <ClInclude Include="Source\ModuleMesh.h" />
+    <ClInclude Include="Source\ModuleRenderer3D.h" />
+    <ClInclude Include="Source\ModuleScene.h" />
+    <ClInclude Include="Source\ModuleScripting.h" />
+    <ClInclude Include="Source\ModuleTexture.h" />
+    <ClInclude Include="Source\ModuleWindow.h" />
+    <ClInclude Include="Source\Primitive.h" />
+    <ClInclude Include="Source\Random.h" />
+    <ClInclude Include="Source\RenderTexture.h" />
+    <ClInclude Include="Source\Resource.h" />
+    <ClInclude Include="Source\ResourceManager.h" />
+    <ClInclude Include="Source\ResourceMesh.h" />
+    <ClInclude Include="Source\ResourcePrefab.h" />
+    <ClInclude Include="Source\ResourcePrefabLoader.h" />
+    <ClInclude Include="Source\ResourceTexture.h" />
+    <ClInclude Include="Source\ResourceLoader.h" />
+    <ClInclude Include="Source\ResourceMeshLoader.h" />
+    <ClInclude Include="Source\ResourceTextureLoader.h" />
+    <ClInclude Include="Source\ScriptEditor.h" />
+    <ClInclude Include="Source\StaticInput.h" />
+    <ClInclude Include="Source\Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_atomic.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_builder.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_bytecode.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm64.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_mips.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_ppc.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_ppc_64.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_sh4.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_gcc.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_mingw.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_msvc.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x86.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_callfunc_xenon.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_compiler.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_configgroup.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_context.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_datatype.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_gc.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_generic.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_globalproperty.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_memory.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_module.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_objecttype.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_outputbuffer.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_parser.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_restore.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptcode.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptengine.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptfunction.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptnode.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_scriptobject.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_string.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_string_util.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_thread.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_tokenizer.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_typeinfo.cpp" />
+    <ClCompile Include="External\AngelScript\sdk\angelscript\source\as_variablescope.cpp" />
+    <ClCompile Include="External\ImGuiColorTextEditor\TextEditor.cpp" />
+    <ClCompile Include="External\ImGuizmo\GraphEditor.cpp" />
+    <ClCompile Include="External\ImGuizmo\ImCurveEdit.cpp" />
+    <ClCompile Include="External\ImGuizmo\ImGradient.cpp" />
+    <ClCompile Include="External\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="External\ImGuizmo\ImSequencer.cpp" />
+    <ClCompile Include="External\ImGui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="External\ImGui\backends\imgui_impl_sdl2.cpp" />
+    <ClCompile Include="External\ImGui\backends\imgui_impl_sdlrenderer2.cpp" />
+    <ClCompile Include="External\ImGui\imgui.cpp" />
+    <ClCompile Include="External\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="External\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="External\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="External\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Algorithm\Random\LCG.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\AABB.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Capsule.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Circle.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Cone.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Cylinder.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Frustum.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Line.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\LineSegment.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\OBB.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Plane.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Polygon.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Polyhedron.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Ray.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Sphere.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\Triangle.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Geometry\TriangleMesh.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\BitOps.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\float2.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\float3.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\float3x3.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\float3x4.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\float4.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\float4x4.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\MathFunc.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\MathLog.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\MathOps.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\Polynomial.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\Quat.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\SSEMath.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Math\TransformOps.cpp" />
+    <ClCompile Include="External\MathGeoLib\include\Time\Clock.cpp" />
+    <ClCompile Include="External\Parson\parson.c" />
+    <ClCompile Include="Source\Amarillo.cpp" />
+    <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\Color.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\ComponentCamera.cpp" />
+    <ClCompile Include="Source\ComponentMesh.cpp" />
+    <ClCompile Include="Source\ComponentScript.cpp" />
+    <ClCompile Include="Source\ComponentTexture.cpp" />
+    <ClCompile Include="Source\ComponentTransform.cpp" />
+    <ClCompile Include="Source\Functions.cpp" />
+    <ClCompile Include="Source\glmath.cpp" />
+    <ClCompile Include="Source\Light.cpp" />
+    <ClCompile Include="Source\log.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\ModuleCamera3D.cpp" />
+    <ClCompile Include="Source\ModuleConsole.cpp" />
+    <ClCompile Include="Source\ModuleEditor.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\ModuleFieSystem.cpp" />
+    <ClCompile Include="Source\ModuleInput.cpp" />
+    <ClCompile Include="Source\ModuleJSON.cpp" />
+    <ClCompile Include="Source\ModuleMesh.cpp" />
+    <ClCompile Include="Source\ModuleRenderer3D.cpp" />
+    <ClCompile Include="Source\ModuleScene.cpp" />
+    <ClCompile Include="Source\ModuleScripting.cpp" />
+    <ClCompile Include="Source\ModuleTexture.cpp" />
+    <ClCompile Include="Source\ModuleWindow.cpp" />
+    <ClCompile Include="Source\Primitive.cpp" />
+    <ClCompile Include="Source\Random.cpp" />
+    <ClCompile Include="Source\RenderTexture.cpp" />
+    <ClCompile Include="Source\Resource.cpp" />
+    <ClCompile Include="Source\ResourceManager.cpp" />
+    <ClCompile Include="Source\ResourceMesh.cpp" />
+    <ClCompile Include="Source\ResourcePrefab.cpp" />
+    <ClCompile Include="Source\ResourcePrefabLoader.cpp" />
+    <ClCompile Include="Source\ResourceTexture.cpp" />
+    <ClCompile Include="Source\ResourceLoader.cpp" />
+    <ClCompile Include="Source\ResourceMeshLoader.cpp" />
+    <ClCompile Include="Source\ResourceTextureLoader.cpp" />
+    <ClCompile Include="Source\ScriptEditor.cpp" />
+    <ClCompile Include="Source\StaticInput.cpp" />
+    <ClCompile Include="Source\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="External\AngelScript\sdk\angelscript\lib\angelscript64d.pdb" />
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm64_gcc.S" />
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm64_msvc.asm" />
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm64_xcode.S" />
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm_gcc.S" />
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm_msvc.asm" />
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm_vita.S" />
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_arm_xcode.S" />
+    <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_msvc_asm.asm" />
+    <None Include="External\Assimp\include\.editorconfig" />
+    <None Include="External\Assimp\include\color4.inl" />
+    <None Include="External\Assimp\include\material.inl" />
+    <None Include="External\Assimp\include\matrix3x3.inl" />
+    <None Include="External\Assimp\include\matrix4x4.inl" />
+    <None Include="External\Assimp\include\quaternion.inl" />
+    <None Include="External\Assimp\include\vector2.inl" />
+    <None Include="External\Assimp\include\vector3.inl" />
+    <None Include="External\Assimp\libx86\assimp.exp" />
+    <None Include="External\MathGeoLib\include\Geometry\KDTree.inl" />
+    <None Include="External\MathGeoLib\include\Geometry\QuadTree.inl" />
+    <None Include="External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
+    <None Include="External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
+    <None Include="External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
+    <None Include="External\MathGeoLib\include\Math\Matrix.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="External\AngelScript\sdk\angelscript\lib\angelscript64d.lib" />
+    <Library Include="External\Assimp\libx86\assimp.lib" />
+    <Library Include="External\Assimp\libx86\zlibstatic.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
