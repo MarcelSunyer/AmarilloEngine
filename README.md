@@ -1,7 +1,7 @@
 # Amarillo Engine
 
 The new 3D Game Engine under CITM development
-<img src="(https://github.com/MarcelSunyer/AmarilloEngine/blob/main/AmarilloEngine/AmarilloEngine/External/Amarillo%20Logo%20Circulo.png)">
+<img src="https://github.com/MarcelSunyer/AmarilloEngine/blob/main/AmarilloEngine/AmarilloEngine/External/Amarillo%20Logo%20Circulo.png">
 ## Key Features
 
 - Model Import + Drag & Drop
