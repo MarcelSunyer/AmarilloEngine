@@ -8,7 +8,7 @@
 #ifndef __MONO_OBJECT_FORWARD_H__
 #define __MONO_OBJECT_FORWARD_H__
 
-#include <mono/utils/mono-publib.h>
+#include "../utils/mono-publib.h"
 
 typedef struct _MonoClass MonoClass;
 typedef struct _MonoImage MonoImage;

@@ -1,35 +1,86 @@
-#ifndef MODULE_SCRIPTING
-#define MODULE_SCRIPTING
-#include "../External/AngelScript/sdk/angelscript/include/angelscript.h"
-#include "../External/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.h"
-#include "../External/AngelScript/sdk/add_on/scriptbuilder/scriptbuilder.h"
-
-#include <iostream> 
-#include <assert.h>  
-#include <string.h>  
-
-#include <conio.h>   
-#include <windows.h> 
-
+#pragma once
 #include "Module.h"
 
-using namespace std;
+#include "../External/mono/utils/mono-publib.h"
+#include "../External/MathGeoLib/include/Math/float3.h"
+
+#include "../External/mono/metadata/object-forward.h"
+#include "../External/mono/metadata/object.h"
+#include "../External/mono/metadata/blob.h"
+#include "../External/mono/metadata/threads.h"
+#include <vector>
+
+typedef struct _MonoDomain MonoDomain;
+typedef struct _MonoAssembly MonoAssembly;
+typedef struct _MonoClassField MonoClassField;
+
+class GameObject;
+class CScript;
+
+#define USER_SCRIPTS_NAMESPACE ""
+#define YMIR_SCRIPTS_NAMESPACE "YmirEngine"
+
+union FieldValue
+{
+	int iValue;
+	float fValue;
+	bool bValue;
+	char strValue[50];
+	GameObject* goValue;
+};
+struct SerializedField
+{
+	SerializedField();
+	SerializedField(MonoClassField* _field, MonoObject* _object, CScript* parent);
+
+	MonoClassField* field;
+	MonoTypeEnum type = MonoTypeEnum::MONO_TYPE_END;
+	FieldValue fiValue;
+	CScript* parentSC;
+	std::string displayName;
+	uint goUID;
+};
 
 class ModuleScripting : public Module
 {
 public:
 	ModuleScripting(Application* app, bool start_enabled = true);
-
-	~ModuleScripting();
+	virtual ~ModuleScripting();
 
 	bool Init() override;
-	update_status Update(float dt);
-	bool CleanUp();
+	void OnGUI();
+	bool CleanUp() override;
 
-	void ConfigureEngine(asIScriptEngine* engine);
-	int CompileScript(asIScriptEngine* engine);
+	static Quat UnboxQuat(MonoObject* _obj);
+	void DebugAllFields(const char* className, std::vector<SerializedField>& _data, MonoObject* obj, CScript* script, const char* namespace_name);
+	static float3 UnboxVector(MonoObject* _obj);
 
+	static void LoadFieldData(SerializedField& _field, MonoObject* _object);
+	static void DebugAllMethods(const char* nsName, const char* className, std::vector<std::string>& _data);
+
+
+	void CreateAssetsScript(const char* localPath);
+	void AddScriptToSLN(const char* scriptLocalPath);
+	void RemoveScriptFromSLN(const char* scriptLocalPath);
+
+	GameObject* GameObject_From_CSGO(MonoObject* goObj);
+
+	MonoObject* QuatToCS(Quat& inVec) const;
+	MonoObject* Float3ToCS(float3& inVec) const;
+	MonoObject* GoToCSGO(GameObject* inGo) const;
+
+	void ReCompileCS();
+
+private:
+	void InitMono();
+
+public:
+	MonoDomain* domain;
+	MonoDomain* jitDomain;
+	MonoAssembly* assembly;
+	MonoImage* image;
+	MonoThread* domainThread;
+
+	std::vector<MonoClass*> userScripts;
 
 };
-
-#endif //MODULE_SCRIPTING

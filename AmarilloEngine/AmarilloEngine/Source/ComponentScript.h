@@ -1,20 +1,13 @@
 #pragma once
 
 #include "Component.h"
-#include "Functions.h"
 
 #include<vector>
 #include<string>
 
-#include "ComponentTransform.h"
-
 #include "../External/mono/metadata/object-forward.h"
 #include "ModuleScripting.h"
-#include "../External/mono/metadata/class.h"
 
-class GameObject;
-
-#define MAX_NAME_CHARACTERS 32
 
 class CScript : public Component {
 public:
@@ -26,7 +19,7 @@ public:
 
 	void ReloadComponent();
 
-	void OnRecursiveUIDChange(std::map<uint, GameObject*> gameObjects);
+	//void OnRecursiveUIDChange(std::map<uint, GameObject*> gameObjects);
 
 	void OnEditor() override;
 

@@ -38,10 +38,6 @@ Application::Application()
 	file_system = new FileSystem(this);
 	scripting_module = new ModuleScripting(this);
 
-	// They will CleanUp() in reverse order
-
-	LoadDll();
-
 	// Main Modules
 
 	AddModule(window);
@@ -70,7 +66,7 @@ Application::~Application()
 	}
 	list_modules.clear();
 
-	FreeLibrary(scripts_dll);
+
 }
 
 bool Application::Init()
@@ -155,18 +151,3 @@ const char* Application::GetBasePath()
 	return SDL_GetBasePath();
 }
 
-void Application::LoadDll()
-{
-	static char curr_dir[MAX_PATH];
-	GetCurrentDirectoryA(MAX_PATH, curr_dir);
-	dll = std::string(curr_dir + std::string("/") + DLL_WORKING_PATH);
-	file_system->NormalizePath(dll);
-
-	if (file_system->FileExists(DLL_CREATION_PATH)) {
-		remove(DLL_WORKING_PATH);
-		while (MoveFileA(DLL_CREATION_PATH, DLL_WORKING_PATH) == FALSE) {}
-	}
-
-
-	scripts_dll = LoadLibrary(dll.data());
-}

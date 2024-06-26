@@ -9,11 +9,12 @@
 #include "ComponentTransform.h"
 
 //#include "DEJsonSupport.h"		//TODO: IDK si necesitaremos esto
-#include "../External/mono/metadata/class.h"
-#include "../External/mono/metadata/object.h"
-#include "../External/mono/metadata/debug-helpers.h"
+#include  "../External/mono/metadata/class.h"
+#include  "../External/mono/metadata/object.h"
+#include  "../External/mono/metadata/debug-helpers.h"
 
 #include "../External/mmgr/mmgr.h"
+#include "ModuleScripting.h"
 
 CScript* CScript::runningScript = nullptr;
 CScript::CScript(GameObject* _gm, const char* scriptName) : Component(_gm), noGCobject(0), updateMethod(nullptr)
@@ -33,14 +34,14 @@ CScript::~CScript()
 	mono_gchandle_free(noGCobject);
 
 	for (unsigned int i = 0; i < fields.size(); i++)
-	{
+	{/*
 		if (fields[i].type == MonoTypeEnum::MONO_TYPE_CLASS && fields[i].fiValue.goValue != nullptr && fields[i].fiValue.goValue->csReferences.size() != 0)
 		{
 			std::vector<SerializedField*>::iterator ptr = std::find(fields[i].fiValue.goValue->csReferences.begin(), fields[i].fiValue.goValue->csReferences.end(), &fields[i]);
 			if (ptr != fields[i].fiValue.goValue->csReferences.end())
 				fields[i].fiValue.goValue->csReferences.erase(ptr);
 
-		}
+		}*/
 	}
 
 	methods.clear();
@@ -51,8 +52,8 @@ CScript::~CScript()
 
 void CScript::Update()
 {
-	/*if (TimeManager::gameTimer.GetState() == TimerState::STOPPED || TimeManager::gameTimer.GetState() == TimerState::PAUSED || updateMethod == nullptr)
-		return;*/
+	//if (TimeManager::gameTimer.GetState() == TimerState::STOPPED || TimeManager::gameTimer.GetState() == TimerState::PAUSED || updateMethod == nullptr)
+	//	return;
 
 	CScript::runningScript = this; // I really think this is the peak of stupid code, but hey, it works, slow as hell but works.
 
@@ -79,27 +80,27 @@ void CScript::ReloadComponent() {
 
 }
 
-void CScript::OnRecursiveUIDChange(std::map<uint, GameObject*> gameObjects)
-{
-	for (size_t i = 0; i < fields.size(); i++)
-	{
-		if (fields[i].type == MonoTypeEnum::MONO_TYPE_CLASS && strcmp(mono_type_get_name(mono_field_get_type(fields[i].field)), "YmirEngine.GameObject") == 0)
-		{
-			std::map<uint, GameObject*>::iterator gameObjectIt = gameObjects.find(fields[i].goUID);
-
-			if (gameObjectIt != gameObjects.end())
-			{
-				if (External->scene->referenceMap.size() > 0)
-					External->scene->referenceMap.erase(gameObjectIt->first);
-
-				External->scene->AddToReferenceMap((uint)gameObjectIt->second->UID, &fields[i]);
-
-				fields[i].fiValue.goValue = gameObjectIt->second;
-				fields[i].goUID = (uint)gameObjectIt->second->UID;
-			}
-		}
-	}
-}
+//void CScript::OnRecursiveUIDChange(std::map<uint, GameObject*> gameObjects)
+//{
+//	for (size_t i = 0; i < fields.size(); i++)
+//	{
+//		if (fields[i].type == MonoTypeEnum::MONO_TYPE_CLASS && strcmp(mono_type_get_name(mono_field_get_type(fields[i].field)), "YmirEngine.GameObject") == 0)
+//		{
+//			std::map<uint, GameObject*>::iterator gameObjectIt = gameObjects.find(fields[i].goUID);
+//
+//			if (gameObjectIt != gameObjects.end())
+//			{
+//				if (External->scene->referenceMap.size() > 0)
+//					External->scene->referenceMap.erase(gameObjectIt->first);
+//
+//				External->scene->AddToReferenceMap((uint)gameObjectIt->second->UID, &fields[i]);
+//
+//				fields[i].fiValue.goValue = gameObjectIt->second;
+//				fields[i].goUID = (uint)gameObjectIt->second->UID;
+//			}
+//		}
+//	}
+//}
 
 void CScript::OnEditor()
 {
@@ -107,10 +108,12 @@ void CScript::OnEditor()
 
 	bool exists = true;
 
-	ImGui::Checkbox(("##" + std::to_string(UID)).c_str(), &active);
+	std::string label = "##" + owner->UID;
+	ImGui::Checkbox(label.c_str(), &active);
+
 	ImGui::SameLine();
 
-	if (ImGui::CollapsingHeader(("Script##" + std::to_string(UID)).c_str(), &exists, flags))
+	if (ImGui::CollapsingHeader((std::string("Script##") + owner->UID).c_str(), &exists, flags))
 	{
 		ImGui::Text("Script name: %s", name.c_str());
 		if (!active) { ImGui::BeginDisabled(); }
@@ -132,7 +135,7 @@ void CScript::OnEditor()
 		if (!active) { ImGui::EndDisabled(); }
 	}
 
-	if (!exists) { mOwner->RemoveComponent(this); }
+	/*if (!exists) { mOwner->RemoveComponent(this); }*/
 }
 
 //
@@ -261,7 +264,7 @@ void CScript::DropField(SerializedField& field, const char* dropType)
 			break;
 		}
 
-		ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), (field.fiValue.goValue != nullptr) ? field.fiValue.goValue->name.c_str() : "this");
+		ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), (field.fiValue.goValue != nullptr) ? field.fiValue.goValue->mName.c_str() : "this");
 
 		//Hardcodeado para que asigne el GO del objeto del script a todos los campos
 
@@ -294,12 +297,12 @@ void CScript::DropField(SerializedField& field, const char* dropType)
 		mono_field_get_value(mono_gchandle_get_target(noGCobject), field.field, &str);
 
 		char* value = mono_string_to_utf8(str);
-		strcpy(field.fiValue.strValue, value);
+		strcpy_s(field.fiValue.strValue, value);
 		mono_free(value);
 
 		if (ImGui::InputText(field.displayName.c_str(), &field.fiValue.strValue[0], 50))
 		{
-			str = mono_string_new(External->moduleMono->domain, field.fiValue.strValue);
+			str = mono_string_new(applic->scripting_module->domain, field.fiValue.strValue);
 			mono_field_set_value(mono_gchandle_get_target(noGCobject), field.field, str);
 			//mono_free(str);
 		}
@@ -321,7 +324,7 @@ void CScript::LoadScriptData(const char* scriptName)
 	fields.clear();
 
 
-	MonoClass* klass = mono_class_from_name(External->moduleMono->image, USER_SCRIPTS_NAMESPACE, scriptName);
+	MonoClass* klass = mono_class_from_name(applic->scripting_module->image, USER_SCRIPTS_NAMESPACE, scriptName);
 
 	if (klass == nullptr)
 	{
@@ -330,9 +333,9 @@ void CScript::LoadScriptData(const char* scriptName)
 		return;
 	}
 
-	External->moduleMono->DebugAllMethods(USER_SCRIPTS_NAMESPACE, scriptName, methods);
+	applic->scripting_module->DebugAllMethods(USER_SCRIPTS_NAMESPACE, scriptName, methods);
 
-	noGCobject = mono_gchandle_new(mono_object_new(External->moduleMono->domain, klass), false);
+	noGCobject = mono_gchandle_new(mono_object_new(applic->scripting_module->domain, klass), false);
 	mono_runtime_object_init(mono_gchandle_get_target(noGCobject));
 
 	MonoClass* goClass = mono_object_get_class(mono_gchandle_get_target(noGCobject));
@@ -345,12 +348,12 @@ void CScript::LoadScriptData(const char* scriptName)
 
 	MonoClass* baseClass = mono_class_get_parent(klass);
 	if (baseClass != nullptr)
-		External->moduleMono->DebugAllFields(mono_class_get_name(baseClass), fields, mono_gchandle_get_target(noGCobject), this, mono_class_get_namespace(baseClass));
+		applic->scripting_module->DebugAllFields(mono_class_get_name(baseClass), fields, mono_gchandle_get_target(noGCobject), this, mono_class_get_namespace(baseClass));
 
-	External->moduleMono->DebugAllFields(scriptName, fields, mono_gchandle_get_target(noGCobject), this, mono_class_get_namespace(goClass));
+	applic->scripting_module->DebugAllFields(scriptName, fields, mono_gchandle_get_target(noGCobject), this, mono_class_get_namespace(goClass));
 }
 
 void CScript::SetField(MonoClassField* field, GameObject* value)
 {
-	mono_field_set_value(mono_gchandle_get_target(noGCobject), field, External->moduleMono->GoToCSGO(value));
+	mono_field_set_value(mono_gchandle_get_target(noGCobject), field, applic->scripting_module->GoToCSGO(value));
 }

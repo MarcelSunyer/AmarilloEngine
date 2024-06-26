@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -304,6 +304,7 @@
     <ClInclude Include="Source\ModuleScripting.h" />
     <ClInclude Include="Source\ModuleTexture.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
+    <ClInclude Include="Source\PhysfsEncapsule.h" />
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\RenderTexture.h" />
@@ -433,6 +434,7 @@
     <ClCompile Include="Source\ModuleScripting.cpp" />
     <ClCompile Include="Source\ModuleTexture.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
+    <ClCompile Include="Source\PhysfsEncapsule.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\RenderTexture.cpp" />

@@ -5,8 +5,8 @@
 #ifndef _MONONET_METADATA_ASSEMBLY_H_ 
 #define _MONONET_METADATA_ASSEMBLY_H_
 
-#include <mono/utils/mono-error.h>
-#include <mono/metadata/image.h>
+#include "../utils/mono-error.h"
+#include "../metadata/image.h"
 
 MONO_BEGIN_DECLS
 

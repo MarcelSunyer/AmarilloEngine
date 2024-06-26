@@ -5,10 +5,10 @@
 #ifndef _MONO_CLI_OBJECT_H_
 #define _MONO_CLI_OBJECT_H_
 
-#include <mono/utils/mono-forward.h>
-#include <mono/metadata/object-forward.h>
-#include <mono/metadata/class.h>
-#include <mono/utils/mono-error.h>
+#include "../utils/mono-forward.h"
+#include "../metadata/object-forward.h"
+#include "../metadata/class.h"
+#include "../utils/mono-error.h"
 
 MONO_BEGIN_DECLS
 

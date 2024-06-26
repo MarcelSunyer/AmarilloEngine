@@ -11,11 +11,11 @@
 #ifndef _MONO_METADATA_APPDOMAIN_H_
 #define _MONO_METADATA_APPDOMAIN_H_
 
-#include <mono/utils/mono-publib.h>
-
-#include <mono/utils/mono-forward.h>
-#include <mono/metadata/object.h>
-#include <mono/metadata/reflection.h>
+#include "../utils/mono-publib.h"
+		 
+#include "../utils/mono-forward.h"
+#include "../metadata/object.h"
+#include "../metadata/reflection.h"
 
 MONO_BEGIN_DECLS
 

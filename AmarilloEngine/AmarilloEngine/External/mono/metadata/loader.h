@@ -5,10 +5,10 @@
 #ifndef _MONO_METADATA_LOADER_H_
 #define _MONO_METADATA_LOADER_H_ 1
 
-#include <mono/utils/mono-forward.h>
-#include <mono/metadata/metadata.h>
-#include <mono/metadata/image.h>
-#include <mono/utils/mono-error.h>
+#include "../utils/mono-forward.h"
+#include "../metadata/metadata.h"
+#include "../metadata/image.h"
+#include "../utils/mono-error.h"
 
 MONO_BEGIN_DECLS
 

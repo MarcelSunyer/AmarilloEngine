@@ -1,251 +1,496 @@
+#include "Globals.h"
+#include "Application.h"
 #include "ModuleScripting.h"
+#include "ModuleRenderer3D.h"
 
-ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(app, start_enabled)
+#include "../External/mono/jit/jit.h"
+#include "../External/mono/metadata/assembly.h"
+#include "../External/mono/metadata/environment.h"
+#include "../External/mono/metadata/mono-config.h"
+#include "../External/mono/metadata/object.h"
+#include "../External/mono/metadata/debug-helpers.h"
+#include "../External/mono/metadata/class.h"
+#include "../External/mono/metadata/threads.h"
+
+#include "GameObject.h"
+#include "ComponentScript.h"
+//#include "CS_Bindings.h"
+//#include "CS_Input_Bindings.h"
+
+#include "PhysfsEncapsule.h"
+#include "ModuleEditor.h"
+
+#include <iostream>
+#include <fstream>  
+#include <filesystem>
+
+#include "../External/PugiXML/pugixml.hpp"
+//#include "IM_FileSystem.h"
+//#include "ImGui/imgui.h"
+//#include "WI_TextEditor.h"
+//#include "MO_Editor.h"
+
+#include "../External/ImGui/imgui.h"
+
+#pragma comment( lib, "../External/mono/libx86/mono-2.0-boehm.lib" )
+#pragma comment( lib, "../External/mono/libx86/mono-2.0-sgen.lib" )
+
+#include "../External/mmgr/mmgr.h"
+#include "../External/MathGeoLib/include/Math/Quat.h"
+
+ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(app, start_enabled), domain(nullptr), domainThread(nullptr), assembly(nullptr), image(nullptr), jitDomain(nullptr)
 {
+	CMDCompileCS();
 
+	//mono_jit_set_aot_mode(MonoAotMode::MONO_AOT_MODE_HYBRID);
+	mono_set_dirs("mono-runtime/lib", "mono-runtime/etc");
+	mono_config_parse(NULL);
+	jitDomain = mono_jit_init("myapp");
+//
+//	mono_add_internal_call("YmirEngine.Debug::Log", CSLog);
+//	mono_add_internal_call("YmirEngine.YmirComponent::get_gameObject", CS_Component_Get_GO);
+//	mono_add_internal_call("YmirEngine.InternalCalls::CreateGameObject", CSCreateGameObject);
+//	mono_add_internal_call("YmirEngine.InternalCalls::GetGameObjectByName", FindObjectWithName);
+//	mono_add_internal_call("YmirEngine.GameObject::get_Name", Get_GO_Name);
+//
+//
+//	mono_add_internal_call("YmirEngine.InternalCalls::Destroy", Destroy);
+//	mono_add_internal_call("YmirEngine.InternalCalls::AddMeshToGameObject", AddMeshToGameObject);
+//
+//	mono_add_internal_call("YmirEngine.InternalCalls::CreateBullet", CreateBullet);	//TODO: Descomentar cuando esté el CreateBullet()
+//
+//#pragma region Transform
+//	mono_add_internal_call("YmirEngine.GameObject::GetForward", GetForward);
+//	mono_add_internal_call("YmirEngine.GameObject::GetRight", GetRight);
+//
+//	mono_add_internal_call("YmirEngine.Transform::get_localPosition", SendPosition);
+//	mono_add_internal_call("YmirEngine.Transform::get_globalPosition", SendGlobalPosition);
+//	mono_add_internal_call("YmirEngine.Transform::set_localPosition", RecievePosition);
+//	mono_add_internal_call("YmirEngine.Transform::get_localRotation", SendRotation);
+//	mono_add_internal_call("YmirEngine.Transform::get_globalRotation", SendGlobalRotation);
+//	mono_add_internal_call("YmirEngine.Transform::set_localRotation", RecieveRotation);
+//
+//	mono_add_internal_call("YmirEngine.Transform::get_localScale", SendScale);
+//	mono_add_internal_call("YmirEngine.Transform::get_globalScale", SendGlobalScale);
+//	mono_add_internal_call("YmirEngine.Transform::set_localScale", RecieveScale);
+//#pragma endregion
+//
+//	mono_add_internal_call("YmirEngine.GameObject::set_Tag", SetTag);
+//	mono_add_internal_call("YmirEngine.GameObject::get_Tag", GetTag);
+//
+//
+//
+//
+//#pragma region GamePad
+//
+//	mono_add_internal_call("YmirEngine.Input::GetLeftAxisY", GetLeftAxisY);
+//	mono_add_internal_call("YmirEngine.Input::GetLeftAxisX", GetLeftAxisX);
+//	mono_add_internal_call("YmirEngine.Input::GetRightAxisY", GetRightAxisY);
+//	mono_add_internal_call("YmirEngine.Input::GetRightAxisX", GetRightAxisX);
+//	mono_add_internal_call("YmirEngine.Input::GetGamepadLeftTrigger", GetGamepadLeftTrigger);
+//	mono_add_internal_call("YmirEngine.Input::GetGamepadRightTrigger", GetGamepadRightTrigger);
+//	mono_add_internal_call("YmirEngine.Input::GetKey", GetKey);
+//	mono_add_internal_call("YmirEngine.Input::IsGamepadButtonAPressedCS", IsGamepadButtonAPressedCS);
+//	mono_add_internal_call("YmirEngine.Input::IsGamepadButtonBPressedCS", IsGamepadButtonBPressedCS);
+//	mono_add_internal_call("YmirEngine.Input::GetMouseClick", GetMouseClick);
+//	mono_add_internal_call("YmirEngine.Input::GetMouseX", MouseX);
+//	mono_add_internal_call("YmirEngine.Input::GetMouseY", MouseY);
+//	mono_add_internal_call("YmirEngine.Input::GameControllerRumbleCS", GameControllerRumbleCS);
+//
+//#pragma endregion
+//
+//	mono_add_internal_call("YmirEngine.Time::get_deltaTime", GetDT);
+
+	InitMono();
 }
 
 ModuleScripting::~ModuleScripting()
-{
-}
+{}
 
+// -----------------------------------------------------------------
 bool ModuleScripting::Init()
 {
+	LOG("Setting up the camera");
+	bool ret = true;
 
-	//int r;
-
-	//// Create the script engine
-	//asIScriptEngine* engine = asCreateScriptEngine();
-	//if (engine == 0)
-	//{
-	//	cout << "Failed to create script engine." << endl;
-	//	return -1;
-	//}
-
-	//// The script compiler will write any compiler messages to the callback.
-	//engine->SetMessageCallback(asFUNCTION("MessageCallback"), 0, asCALL_CDECL);
-
-	//// Configure the script engine with all the functions, 
-	//// and variables that the script should be able to use.
-	//ConfigureEngine(engine);
-
-	//// Compile the script code
-	//r = CompileScript(engine);
-	//if (r < 0)
-	//{
-	//	engine->Release();
-	//	return -1;
-	//}
-
-	//// Create a context that will execute the script.
-	//asIScriptContext* ctx = engine->CreateContext();
-	//if (ctx == 0)
-	//{
-	//	cout << "Failed to create the context." << endl;
-	//	engine->Release();
-	//	return -1;
-	//}
-
-	//// We don't want to allow the script to hang the application, e.g. with an
-	//// infinite loop, so we'll use the line callback function to set a timeout
-	//// that will abort the script after a certain time. Before executing the 
-	//// script the timeOut variable will be set to the time when the script must 
-	//// stop executing. 
-	//DWORD timeOut;
-	//r = ctx->SetLineCallback(asFUNCTION("LineCallback"), &timeOut, asCALL_CDECL);
-	//if (r < 0)
-	//{
-	//	cout << "Failed to set the line callback function." << endl;
-	//	ctx->Release();
-	//	engine->Release();
-	//	return -1;
-	//}
-
-	//// Find the function for the function we want to execute.
-	//asIScriptFunction* func = engine->GetModule(0)->GetFunctionByDecl("float calc(float, float)");
-	//if (func == 0)
-	//{
-	//	cout << "The function 'float calc(float, float)' was not found." << endl;
-	//	ctx->Release();
-	//	engine->Release();
-	//	return -1;
-	//}
-
-	//// Prepare the script context with the function we wish to execute. Prepare()
-	//// must be called on the context before each new script function that will be
-	//// executed. Note, that if you intend to execute the same function several 
-	//// times, it might be a good idea to store the function returned by 
-	//// GetFunctionByDecl(), so that this relatively slow call can be skipped.
-	//r = ctx->Prepare(func);
-	//if (r < 0)
-	//{
-	//	cout << "Failed to prepare the context." << endl;
-	//	ctx->Release();
-	//	engine->Release();
-	//	return -1;
-	//}
-
-	//// Now we need to pass the parameters to the script function. 
-	//ctx->SetArgFloat(0, 3.14159265359f);
-	//ctx->SetArgFloat(1, 2.71828182846f);
-
-	//// Set the timeout before executing the function. Give the function 1 sec
-	//// to return before we'll abort it.
-	//timeOut = timeGetTime() + 1000;
-
-	//// Execute the function
-	//cout << "Executing the script." << endl;
-	//cout << "---" << endl;
-	//r = ctx->Execute();
-	//cout << "---" << endl;
-	//if (r != asEXECUTION_FINISHED)
-	//{
-	//	// The execution didn't finish as we had planned. Determine why.
-	//	if (r == asEXECUTION_ABORTED)
-	//		cout << "The script was aborted before it could finish. Probably it timed out." << endl;
-	//	else if (r == asEXECUTION_EXCEPTION)
-	//	{
-	//		cout << "The script ended with an exception." << endl;
-
-	//		// Write some information about the script exception
-	//		asIScriptFunction* func = ctx->GetExceptionFunction();
-	//		cout << "func: " << func->GetDeclaration() << endl;
-	//		cout << "modl: " << func->GetModuleName() << endl;
-	//		cout << "sect: " << func->GetScriptSectionName() << endl;
-	//		cout << "line: " << ctx->GetExceptionLineNumber() << endl;
-	//		cout << "desc: " << ctx->GetExceptionString() << endl;
-	//	}
-	//	else
-	//		cout << "The script ended for some unforeseen reason (" << r << ")." << endl;
-	//}
-	//else
-	//{
-	//	// Retrieve the return value from the context
-	//	float returnValue = ctx->GetReturnFloat();
-	//	cout << "The script function returned: " << returnValue << endl;
-	//}
-
-	//// We must release the contexts when no longer using them
-	//ctx->Release();
-
-	//// Shut down the engine
-	//engine->ShutDownAndRelease();
-
-	return true;
+	return ret;
 }
 
-update_status ModuleScripting::Update(float dt)
-{
-
-	return UPDATE_CONTINUE;
-}
-
+// -----------------------------------------------------------------
 bool ModuleScripting::CleanUp()
 {
+	LOG("Cleaning mono domain");
+
+	//mono_domain_unload(domain);
+	mono_jit_cleanup(jitDomain); //Mono cleanup
+
 	return true;
 }
 
-//void ModuleScripting::ConfigureEngine(asIScriptEngine* engine)
-//{
-//	int r;
-//
-//	// Register the script string type
-//	// Look at the implementation for this function for more information  
-//	// on how to register a custom string type, and other object types.
-//	RegisterStdString(engine);
-//
-//	if (!strstr(asGetLibraryOptions(), "AS_MAX_PORTABILITY"))
-//	{
-//		// Register the functions that the scripts will be allowed to use.
-//		// Note how the return code is validated with an assert(). This helps
-//		// us discover where a problem occurs, and doesn't pollute the code
-//		// with a lot of if's. If an error occurs in release mode it will
-//		// be caught when a script is being built, so it is not necessary
-//		// to do the verification here as well.
-//		r = engine->RegisterGlobalFunction("void Print(string &in)", asFUNCTION("PrintString"), asCALL_CDECL); assert(r >= 0);
-//		r = engine->RegisterGlobalFunction("uint GetSystemTime()", asFUNCTION(timeGetTime), asCALL_STDCALL); assert(r >= 0);
-//	}
-//	else
-//	{
-//		// Notice how the registration is almost identical to the above. 
-//		r = engine->RegisterGlobalFunction("void Print(string &in)", asFUNCTION("PrintString_Generic"), asCALL_GENERIC); assert(r >= 0);
-//		r = engine->RegisterGlobalFunction("uint GetSystemTime()", asFUNCTION("timeGetTime_Generic"), asCALL_GENERIC); assert(r >= 0);
-//	}
-//
-//
-//	// It is possible to register the functions, properties, and types in 
-//	// configuration groups as well. When compiling the scripts it then
-//	// be defined which configuration groups should be available for that
-//	// script. If necessary a configuration group can also be removed from
-//	// the engine, so that the engine configuration could be changed 
-//	// without having to recompile all the scripts.
-//}
-//
-//int ModuleScripting::CompileScript(asIScriptEngine* engine)
-//{
-//	int r;
-//
-//	// We will load the script from a file on the disk.
-//	FILE* f = fopen("script.as", "rb");
-//	if (f == 0)
-//	{
-//		cout << "Failed to open the script file 'script.as'." << endl;
-//		return -1;
-//	}
-//
-//	// Determine the size of the file	
-//	fseek(f, 0, SEEK_END);
-//	int len = ftell(f);
-//	fseek(f, 0, SEEK_SET);
-//
-//	// On Win32 it is possible to do the following instead
-//	// int len = _filelength(_fileno(f));
-//
-//	// Read the entire file
-//	string script;
-//	script.resize(len);
-//	size_t c = fread(&script[0], len, 1, f);
-//	fclose(f);
-//
-//	if (c == 0)
-//	{
-//		cout << "Failed to load script file." << endl;
-//		return -1;
-//	}
-//
-//	// Add the script sections that will be compiled into executable code.
-//	// If we want to combine more than one file into the same script, then 
-//	// we can call AddScriptSection() several times for the same module and
-//	// the script engine will treat them all as if they were one. The script
-//	// section name, will allow us to localize any errors in the script code.
-//	asIScriptModule* mod = engine->GetModule(0, asGM_ALWAYS_CREATE);
-//	r = mod->AddScriptSection("script", &script[0], len);
-//	if (r < 0)
-//	{
-//		cout << "AddScriptSection() failed" << endl;
-//		return -1;
-//	}
-//
-//	// Compile the script. If there are any compiler messages they will
-//	// be written to the message stream that we set right after creating the 
-//	// script engine. If there are no errors, and no warnings, nothing will
-//	// be written to the stream.
-//	r = mod->Build();
-//	if (r < 0)
-//	{
-//		cout << "Build() failed" << endl;
-//		return -1;
-//	}
-//
-//	// The engine doesn't keep a copy of the script sections after Build() has
-//	// returned. So if the script needs to be recompiled, then all the script
-//	// sections must be added again.
-//
-//	// If we want to have several scripts executing at different times but 
-//	// that have no direct relation with each other, then we can compile them
-//	// into separate script modules. Each module use their own namespace and 
-//	// scope, so function names, and global variables will not conflict with
-//	// each other.
-//
-//	return 0;
-//}
+void ModuleScripting::OnGUI()
+{
+	if (ImGui::CollapsingHeader("Mono Settings", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::Text("Compile tool: "); ImGui::SameLine(); ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "MSBuild portable version");
+
+	}
+}
+
+void ModuleScripting::ReCompileCS()
+{
+	/*if (TimeManager::gameTimer.GetState() == TimerState::RUNNING)
+		return;*/
+
+	//App->scene->SaveScene("Library/Scenes/tmp.des");	//El Miquel lo tiene q marca la ruta de salida
+
+	//App->scene->CleanScene();		//TODO: No tenemos estas funciones
+	//App->renderer3D->ClearAllRenderData();
+
+	mono_domain_unload(domain);
+	mono_thread_cleanup();
+
+	while (mono_domain_is_unloading(domain) == true)
+	{
+
+	}
+
+	CMDCompileCS();
+	InitMono();
+
+	//TODO: No hay nada de esto creado en Ymir
+	//App->scene->LoadScene("Library/Scenes/tmp.des");	//El Miquel lo tiene q marca la ruta de salida
+
+	//App->scene->LoadScene();
+	//App->fileSystem->DeleteAssetFile("Library/Scenes/tmp.des"); //TODO: Esta función no existe
+
+
+
+	//App->editor->scriptEditor->LoadScriptTXT(("Assets/Scripts/" + External->editor->scriptEditor->txtName + ".cs").c_str());
+
+	/*for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
+
+		if ((*it) != nullptr) {
+
+
+			CScript* script = (CScript*)(*it)->GetComponent(ComponentType::SCRIPT);
+			if (script != nullptr) script->ReloadComponent();
+
+		}
+
+
+	}*/
+}
+
+//ASK: Is this the worst idea ever? TOO SLOW
+float3 ModuleScripting::UnboxVector(MonoObject* _obj)
+{
+	float3 ret;
+
+	MonoClass* klass = mono_object_get_class(_obj);
+	mono_field_get_value(_obj, mono_class_get_field_from_name(klass, "x"), &ret.x);
+	mono_field_get_value(_obj, mono_class_get_field_from_name(klass, "y"), &ret.y);
+	mono_field_get_value(_obj, mono_class_get_field_from_name(klass, "z"), &ret.z);
+	return static_cast<float3>(ret);
+}
+//ASK: Is this the worst idea ever? TOO SLOW
+Quat ModuleScripting::UnboxQuat(MonoObject* _obj)
+{
+	Quat ret;
+
+	MonoClass* klass = mono_object_get_class(_obj);
+	mono_field_get_value(_obj, mono_class_get_field_from_name(klass, "x"), &ret.x);
+	mono_field_get_value(_obj, mono_class_get_field_from_name(klass, "y"), &ret.y);
+	mono_field_get_value(_obj, mono_class_get_field_from_name(klass, "z"), &ret.z);
+	mono_field_get_value(_obj, mono_class_get_field_from_name(klass, "w"), &ret.w);
+	return ret;
+}
+void ModuleScripting::DebugAllFields(const char* className, std::vector<SerializedField>& _data, MonoObject* obj, CScript* script, const char* nameSpace)
+{
+	void* iter = NULL;
+	MonoClassField* field;
+	MonoClass* klass = mono_class_from_name(mono_assembly_get_image(applic->scripting_module->assembly), nameSpace, className);
+	while (field = mono_class_get_fields(klass, &iter))
+	{
+		if (mono_field_get_flags(field) != 1) //TODO: Hardcoded private = 1, public = 6, static = 22, wtf does this mean?
+		{
+			SerializedField pushField = SerializedField(field, obj, script);
+			//uint32_t test = mono_field_get_flags(field);
+
+			_data.push_back(pushField);
+			//LOG(LogType::L_NORMAL, mono_field_full_name(method2));
+		}
+	}
+}
+
+void ModuleScripting::DebugAllMethods(const char* nsName, const char* className, std::vector<std::string>& _data)
+{
+	void* iter = NULL;
+	MonoMethod* method2;
+	MonoClass* klass = mono_class_from_name(mono_assembly_get_image(applic->scripting_module->assembly), nsName, className);
+	while (method2 = mono_class_get_methods(klass, &iter))
+	{
+		_data.push_back(mono_method_full_name(method2, 1));
+		//LOG(LogType::L_NORMAL, mono_method_full_name(method2, 1));
+	}
+}
+
+
+
+MonoObject* ModuleScripting::GoToCSGO(GameObject* inGo) const
+{
+
+	if (inGo == nullptr) {
+		LOG("[WARNING] GoTOCSGO inGo doesn't exist");
+		return nullptr;
+	}
+	MonoClass* goClass = mono_class_from_name(image, YMIR_SCRIPTS_NAMESPACE, "GameObject");
+	uintptr_t goPtr = reinterpret_cast<uintptr_t>(inGo);
+
+	void* args[3];
+	args[0] = &inGo->mName;
+	args[1] = &goPtr;
+
+	uintptr_t transPTR = reinterpret_cast<uintptr_t>(inGo->transform);
+	args[2] = &transPTR;
+
+	MonoMethodDesc* constructorDesc = mono_method_desc_new("YmirEngine.GameObject:.ctor(string,uintptr,uintptr)", true);
+	MonoMethod* method = mono_method_desc_search_in_class(constructorDesc, goClass);
+	MonoObject* goObj = mono_object_new(domain, goClass);
+	mono_runtime_invoke(method, goObj, args, NULL);
+
+	mono_method_desc_free(constructorDesc);
+
+	return goObj;
+}
+
+MonoObject* ModuleScripting::Float3ToCS(float3& inVec) const
+{
+
+	MonoClass* vecClass = mono_class_from_name(image, YMIR_SCRIPTS_NAMESPACE, "Vector3");
+
+	MonoObject* vecObject = mono_object_new(domain, vecClass);
+	const char* name = mono_class_get_name(mono_object_get_class(vecObject));
+
+	void* args[3];
+	args[0] = &inVec.x;
+	args[1] = &inVec.y;
+	args[2] = &inVec.z;
+
+	MonoMethodDesc* constDesc = mono_method_desc_new("YmirEngine.Vector3:.ctor(single,single,single)", true);
+	MonoMethod* method = mono_method_desc_search_in_class(constDesc, vecClass);
+
+	mono_runtime_invoke(method, vecObject, args, NULL);
+
+	mono_method_desc_free(constDesc);
+	return vecObject;
+}
+
+void ModuleScripting::LoadFieldData(SerializedField& _field, MonoObject* _object)
+{
+	switch (_field.type)
+	{
+	case MonoTypeEnum::MONO_TYPE_BOOLEAN:
+		mono_field_get_value(_object, _field.field, &_field.fiValue.bValue);
+		break;
+
+	case MonoTypeEnum::MONO_TYPE_I4:
+		mono_field_get_value(_object, _field.field, &_field.fiValue.iValue);
+		break;
+
+	case MonoTypeEnum::MONO_TYPE_CLASS:
+		_field.fiValue.goValue = nullptr;
+		break;
+
+	case MonoTypeEnum::MONO_TYPE_R4:
+		mono_field_get_value(_object, _field.field, &_field.fiValue.fValue);
+		break;
+
+	case MonoTypeEnum::MONO_TYPE_STRING:
+		mono_field_get_value(_object, _field.field, &_field.fiValue.strValue);
+		break;
+
+	default:
+		mono_field_get_value(_object, _field.field, &_field.fiValue.iValue);
+		break;
+	}
+}
+
+MonoObject* ModuleScripting::QuatToCS(Quat& inVec) const
+{
+
+	MonoClass* quadClass = mono_class_from_name(image, YMIR_SCRIPTS_NAMESPACE, "Quaternion");
+	MonoObject* quatObject = mono_object_new(domain, quadClass);
+
+	void* args[4];
+	args[0] = &inVec.x;
+	args[1] = &inVec.y;
+	args[2] = &inVec.z;
+	args[3] = &inVec.w;
+
+	MonoMethodDesc* constDesc = mono_method_desc_new("YmirEngine.Quaternion:.ctor(single,single,single,single)", true);
+	MonoMethod* method = mono_method_desc_search_in_class(constDesc, quadClass);
+
+	mono_runtime_invoke(method, quatObject, args, NULL);
+
+	mono_method_desc_free(constDesc);
+	return quatObject;
+}
+
+GameObject* ModuleScripting::GameObject_From_CSGO(MonoObject* goObj)
+{
+	if (goObj == nullptr)
+		return nullptr;
+	uintptr_t ptr = 0;
+	MonoClass* goClass = mono_class_from_name(image, YMIR_SCRIPTS_NAMESPACE, "GameObject");
+
+	mono_field_get_value(goObj, mono_class_get_field_from_name(goClass, "pointer"), &ptr);
+
+	return reinterpret_cast<GameObject*>(ptr);
+}
+
+SerializedField::SerializedField() : field(nullptr), parentSC(nullptr)
+{
+	fiValue.iValue = 0;
+}
+
+SerializedField::SerializedField(MonoClassField* _field, MonoObject* _object, CScript* parent) : field(_field)
+{
+	type = static_cast<MonoTypeEnum>(mono_type_get_type(mono_field_get_type(field)));
+	fiValue.iValue = 0;
+	parentSC = parent;
+
+	displayName += "##";
+	displayName += mono_field_get_name(_field);
+
+	ModuleScripting::LoadFieldData(*this, _object);
+}
+
+void ModuleScripting::CreateAssetsScript(const char* localPath)
+{
+	std::string unnormalizedPath("Assets/");
+	unnormalizedPath += localPath;
+	unnormalizedPath = PhysfsEncapsule::UnNormalizePath(unnormalizedPath.c_str());
+
+	std::ofstream outfile(unnormalizedPath.c_str());
+
+	std::string className("Assets/");
+	className += localPath;
+	className = className.substr(className.find_last_of("/") + 1);
+	className = className.substr(0, className.find_last_of("."));
+
+	outfile << "using System;" << std::endl << "using YmirEngine;" << std::endl << std::endl << "public class " << className.c_str() << " : YmirComponent" << std::endl << "{" << std::endl <<
+		"	public void Update()" << std::endl << "	{" << std::endl << std::endl << "	}" << std::endl << std::endl << "}";
+
+	outfile.close();
+
+	AddScriptToSLN(unnormalizedPath.c_str());
+	ReCompileCS();
+}
+
+void ModuleScripting::AddScriptToSLN(const char* scriptLocalPath)
+{
+	//TODO: El Miquel usa XML, no entiendo como
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("Assembly-CSharp.csproj");
+
+	if (result.status == pugi::xml_parse_status::status_file_not_found)
+		assert(false, "XML File not loaded");
+
+	std::string path; // Should be like ../Assets/Scripts/Hola.cs
+	path += scriptLocalPath;
+	std::string name = path.substr(path.find_last_of("\\"));
+
+	pugi::xml_node whereToAdd = doc.child("Project");
+	for (pugi::xml_node panel = whereToAdd.first_child(); panel != nullptr; panel = panel.next_sibling())
+	{
+		if (strcmp(panel.name(), "ItemGroup") == 0 && strcmp(panel.first_child().name(), "Compile") == 0)
+		{
+			panel = panel.append_child();
+			panel.set_name("Compile");
+			pugi::xml_attribute att = panel.append_attribute("Include");
+			att.set_value(path.c_str());
+
+			break;
+		}
+	}
+
+	doc.save_file("Assembly-CSharp.csproj");
+}
+
+void ModuleScripting::RemoveScriptFromSLN(const char* scriptLocalPath)
+{
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("Assembly-CSharp.csproj");
+
+	if (result.status == pugi::xml_parse_status::status_file_not_found)
+		assert(false, "XML File not loaded");
+
+	std::string path; // Should be like ../Assets/Scripts/Hola.cs
+
+	pugi::xml_node whereToRemove = doc.child("Project");
+	for (pugi::xml_node panel = whereToRemove.first_child(); panel != nullptr; panel = panel.next_sibling())
+	{
+		if (strcmp(panel.name(), "ItemGroup") == 0 && strcmp(panel.first_child().name(), "Compile") == 0)
+		{
+			for (pugi::xml_node toRemove = panel.first_child(); toRemove != nullptr; toRemove = toRemove.next_sibling())
+			{
+				path = PhysfsEncapsule::NormalizePath(toRemove.attribute("Include").as_string());
+
+				if (strcmp(path.c_str(), scriptLocalPath) == 0)
+				{
+					panel.remove_child(toRemove);
+					break;
+				}
+			}
+		}
+	}
+
+	doc.save_file("Assembly-CSharp.csproj");
+}
+
+
+void ModuleScripting::InitMono()
+{
+	//mono_set_dirs("mono-runtime/lib", "mono-runtime/etc");
+	//mono_config_parse(NULL);
+
+	domain = mono_domain_create_appdomain("D1", NULL);
+	mono_domain_set(domain, 0);
+	domainThread = mono_thread_attach(domain);
+
+	//mono_thread_attach(domain);
+
+	MonoImageOpenStatus sts;
+	assembly = mono_assembly_open("ScriptsAssembly-Output/Assembly-CSharp.dll", &sts);
+	//assembly = mono_domain_assembly_open(domain, "CSSolution/Assembly-CSharp/Build/Assembly-CSharp.dll");
+	if (!assembly)
+		LOG("ERROR");
+
+	image = mono_assembly_get_image(assembly);
+
+
+
+	const MonoTableInfo* table_info = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
+	int rows = mono_table_info_get_rows(table_info);
+
+	MonoClass* _class = nullptr;
+
+	userScripts.clear();
+	for (int i = 1; i < rows; i++)
+	{
+		uint32_t cols[MONO_TYPEDEF_SIZE];
+		mono_metadata_decode_row(table_info, i, cols, MONO_TYPEDEF_SIZE);
+		const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
+		if (name[0] != '<')
+		{
+			const char* name_space = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
+			_class = mono_class_from_name(image, name_space, name);
+
+			if (_class != nullptr && strcmp(mono_class_get_namespace(_class), YMIR_SCRIPTS_NAMESPACE) != 0 && !mono_class_is_enum(_class))
+			{
+				userScripts.push_back(_class);
+				LOG("%s", mono_class_get_name(_class));
+			}
+		}
+	}
+}

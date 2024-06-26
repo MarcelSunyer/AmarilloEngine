@@ -2,6 +2,8 @@
 #define _RANDOM_H_
 #include "Globals.h"
 
+
+
 struct Random {
 public:
 	Random() {};
