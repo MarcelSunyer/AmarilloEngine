@@ -52,8 +52,9 @@ CScript::~CScript()
 
 void CScript::Update()
 {
-	//if (TimeManager::gameTimer.GetState() == TimerState::STOPPED || TimeManager::gameTimer.GetState() == TimerState::PAUSED || updateMethod == nullptr)
-	//	return;
+	if (applic->editor->timerState == Timer_State::STOPPED || applic->editor->timerState == Timer_State::PAUSED || updateMethod == nullptr)
+		return;
+
 
 	CScript::runningScript = this; // I really think this is the peak of stupid code, but hey, it works, slow as hell but works.
 

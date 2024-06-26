@@ -112,21 +112,26 @@ void ClearVecPtr(std::vector<T*>& x)
 
 }
 //Scripting fuction: Va a buscar un proyecto .sln y lo compila -> El proyecto Assembly-CSharp.sln
-static void CMDCompileCS() 
+static void CMDCompileCS()
 {
-    SHELLEXECUTEINFO execInfo{};
-    execInfo.cbSize = sizeof(SHELLEXECUTEINFO);
-    execInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
-    execInfo.hwnd = NULL;
-    execInfo.lpVerb = "open"; // Explicitly set the verb to "open"
-    execInfo.lpFile = "cmd.exe";
-    execInfo.lpParameters = "/C cd mono-runtime\\MSBuild & msbuild ..\\..\\Assembly-CSharp.sln /p:Configuration=Release";
-    execInfo.lpDirectory = NULL;
-    execInfo.nShow = SW_SHOW; /*SW_SHOW or SW_HIDE*/
-    execInfo.hInstApp = NULL;
+#pragma region ShellExecute
+	SHELLEXECUTEINFO execInfo = { 0 };
+	execInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+	execInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+	execInfo.hwnd = NULL;
+	execInfo.lpVerb = NULL;
+	execInfo.lpFile = "cmd";
+	//ShExecInfo.lpParameters = "/K dotnet build Assembly-CSharp.sln --configuration Release";
+	execInfo.lpParameters = "/C cd mono-runtime/MSBuild & msbuild ../../Assembly-CSharp.sln /p:Configuration=Release"; //Should include msbuild to the editor folder to make sure this will work? /p:Configuration=Release
+	execInfo.lpDirectory = NULL;
+	execInfo.nShow = SW_SHOW; /*SW_SHOW  SW_HIDE*/
+	execInfo.hInstApp = NULL;
+	ShellExecuteEx(&execInfo);
 
-    if (execInfo.hProcess != NULL) {
-        WaitForSingleObject(execInfo.hProcess, INFINITE);
-        CloseHandle(execInfo.hProcess);
-    }
+	if (execInfo.hProcess != NULL) {
+		WaitForSingleObject(execInfo.hProcess, INFINITE);
+		CloseHandle(execInfo.hProcess);
+	}
+
+#pragma endregion
 }
