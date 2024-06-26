@@ -32,8 +32,8 @@
 
 #include "../External/ImGui/imgui.h"
 
-#pragma comment( lib, "../External/mono/libx86/mono-2.0-boehm.lib" )
-#pragma comment( lib, "../External/mono/libx86/mono-2.0-sgen.lib" )
+#pragma comment( lib, "External/mono/libx86/mono-2.0-boehm.lib" )
+#pragma comment( lib, "External/mono/libx86/mono-2.0-sgen.lib" )
 
 #include "../External/mmgr/mmgr.h"
 #include "../External/MathGeoLib/include/Math/Quat.h"

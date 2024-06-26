@@ -9,7 +9,7 @@
 
 
 #include "../External/PhysFS/include/physfs.h"
-#pragma comment (lib, "Source/External/PhysFS/libx86/physfs.lib")
+#pragma comment (lib, "External/PhysFS/libx86/physfs.lib")
 
 namespace PhysfsEncapsule {
 

@@ -660,6 +660,46 @@
     <ClInclude Include="External\ImGuiColorTextEditor\TextEditor.h">
       <Filter>Externals\ImGuiColorTextEditor</Filter>
     </ClInclude>
+    <ClInclude Include="External\mmgr\mmgr.h" />
+    <ClInclude Include="External\mmgr\nommgr.h" />
+    <ClInclude Include="External\mono\jit\jit.h" />
+    <ClInclude Include="External\mono\metadata\appdomain.h" />
+    <ClInclude Include="External\mono\metadata\assembly.h" />
+    <ClInclude Include="External\mono\metadata\attrdefs.h" />
+    <ClInclude Include="External\mono\metadata\blob.h" />
+    <ClInclude Include="External\mono\metadata\class.h" />
+    <ClInclude Include="External\mono\metadata\debug-helpers.h" />
+    <ClInclude Include="External\mono\metadata\debug-mono-symfile.h" />
+    <ClInclude Include="External\mono\metadata\environment.h" />
+    <ClInclude Include="External\mono\metadata\exception.h" />
+    <ClInclude Include="External\mono\metadata\image.h" />
+    <ClInclude Include="External\mono\metadata\loader.h" />
+    <ClInclude Include="External\mono\metadata\metadata.h" />
+    <ClInclude Include="External\mono\metadata\mono-config.h" />
+    <ClInclude Include="External\mono\metadata\mono-debug.h" />
+    <ClInclude Include="External\mono\metadata\mono-gc.h" />
+    <ClInclude Include="External\mono\metadata\object-forward.h" />
+    <ClInclude Include="External\mono\metadata\object.h" />
+    <ClInclude Include="External\mono\metadata\opcodes.h" />
+    <ClInclude Include="External\mono\metadata\profiler-events.h" />
+    <ClInclude Include="External\mono\metadata\profiler.h" />
+    <ClInclude Include="External\mono\metadata\reflection.h" />
+    <ClInclude Include="External\mono\metadata\row-indexes.h" />
+    <ClInclude Include="External\mono\metadata\sgen-bridge.h" />
+    <ClInclude Include="External\mono\metadata\threads.h" />
+    <ClInclude Include="External\mono\metadata\tokentype.h" />
+    <ClInclude Include="External\mono\metadata\verify.h" />
+    <ClInclude Include="External\mono\utils\mono-counters.h" />
+    <ClInclude Include="External\mono\utils\mono-dl-fallback.h" />
+    <ClInclude Include="External\mono\utils\mono-error.h" />
+    <ClInclude Include="External\mono\utils\mono-forward.h" />
+    <ClInclude Include="External\mono\utils\mono-jemalloc.h" />
+    <ClInclude Include="External\mono\utils\mono-logger.h" />
+    <ClInclude Include="External\mono\utils\mono-publib.h" />
+    <ClInclude Include="External\PhysFS\include\physfs.h" />
+    <ClInclude Include="External\PugiXML\pugiconfig.hpp" />
+    <ClInclude Include="External\PugiXML\pugixml.hpp" />
+    <ClInclude Include="Source\PhysfsEncapsule.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -1037,6 +1077,9 @@
     <ClCompile Include="External\ImGuiColorTextEditor\TextEditor.cpp">
       <Filter>Externals\ImGuiColorTextEditor</Filter>
     </ClCompile>
+    <ClCompile Include="External\mmgr\mmgr.cpp" />
+    <ClCompile Include="External\PugiXML\pugixml.cpp" />
+    <ClCompile Include="Source\PhysfsEncapsule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\include\Math\Matrix.inl">
@@ -1111,6 +1154,7 @@
     <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_msvc_asm.asm">
       <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
     </None>
+    <None Include="External\mono\cil\opcode.def" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="External\Assimp\libx86\assimp.lib">
@@ -1122,10 +1166,18 @@
     <Library Include="External\AngelScript\sdk\angelscript\lib\angelscript64d.lib">
       <Filter>Externals\AngelScript\sdk\angelscript\lib</Filter>
     </Library>
+    <Library Include="External\mono\libx86\libmono-static-boehm.lib" />
+    <Library Include="External\mono\libx86\libmono-static-sgen.lib" />
+    <Library Include="External\mono\libx86\mono-2.0-boehm.lib" />
+    <Library Include="External\mono\libx86\mono-2.0-sgen.lib" />
+    <Library Include="External\mono\libx86\MonoPosixHelper.lib" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
       <Filter>Sources\Tools</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="External\mmgr\readme.txt" />
   </ItemGroup>
 </Project>
