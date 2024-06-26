@@ -1,53 +1,51 @@
-#ifndef COMPONENT_SCRIPT	
-#define COMPONENT_SCRIPT
+#pragma once
 
 #include "Component.h"
 #include "Functions.h"
 
+#include<vector>
+#include<string>
+
 #include "ComponentTransform.h"
 
 #include "../External/mono/metadata/object-forward.h"
+#include "ModuleScripting.h"
+#include "../External/mono/metadata/class.h"
 
 class GameObject;
 
 #define MAX_NAME_CHARACTERS 32
 
-class ComponentScript : public Component {
-public:
-	ComponentScript(GameObject* attach);
-	~ComponentScript();
-
+class CScript : public Component {
 public:
 
-	void Enable() override;
-	void Start() override;
+	CScript(GameObject* _gm, const char* scriptName);
+	virtual ~CScript();
+
 	void Update() override;
-	void Disable() override;
+
+	void ReloadComponent();
+
+	void OnRecursiveUIDChange(std::map<uint, GameObject*> gameObjects);
+
 	void OnEditor() override;
 
-	void OnStartPlay() override;
+	//void SaveData(JSON_Object* nObj);
+	//void LoadData(DEConfig& nObj);
 
+	void SetField(MonoClassField* field, GameObject* value);
+	void DropField(SerializedField& fieldName, const char* dropType);
 
-	void Reset();
-
-	//TODO: Adapt this to the FileSystem code
-	//void SaveComponent(JSONArraypack* to_save);
-	//void LoadComponent(JSONArraypack* to_load);
-
-public:
-
-private:
-
-	void CreateScriptInstance();
+	void LoadScriptData(const char*);
 
 public:
 
-	bool need_engine = false;
-	std::string data_name;
+	std::vector<std::string> methods;
+	std::vector<SerializedField> fields;
 
-	std::string script_name;
-	char newName[MAX_NAME_CHARACTERS];
+	MonoMethod* updateMethod;
+	uint32_t noGCobject;
+	std::string name;
+
+	static CScript* runningScript;
 };
-
-
-#endif // COMPONENT_SCRIPT

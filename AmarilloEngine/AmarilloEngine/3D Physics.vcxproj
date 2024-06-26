@@ -237,7 +237,46 @@
     <ClInclude Include="External\MathGeoLib\include\Math\sse_mathfun.h" />
     <ClInclude Include="External\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="External\MathGeoLib\include\Time\Clock.h" />
+    <ClInclude Include="External\mmgr\mmgr.h" />
+    <ClInclude Include="External\mmgr\nommgr.h" />
+    <ClInclude Include="External\mono\jit\jit.h" />
+    <ClInclude Include="External\mono\metadata\appdomain.h" />
+    <ClInclude Include="External\mono\metadata\assembly.h" />
+    <ClInclude Include="External\mono\metadata\attrdefs.h" />
+    <ClInclude Include="External\mono\metadata\blob.h" />
+    <ClInclude Include="External\mono\metadata\class.h" />
+    <ClInclude Include="External\mono\metadata\debug-helpers.h" />
+    <ClInclude Include="External\mono\metadata\debug-mono-symfile.h" />
+    <ClInclude Include="External\mono\metadata\environment.h" />
+    <ClInclude Include="External\mono\metadata\exception.h" />
+    <ClInclude Include="External\mono\metadata\image.h" />
+    <ClInclude Include="External\mono\metadata\loader.h" />
+    <ClInclude Include="External\mono\metadata\metadata.h" />
+    <ClInclude Include="External\mono\metadata\mono-config.h" />
+    <ClInclude Include="External\mono\metadata\mono-debug.h" />
+    <ClInclude Include="External\mono\metadata\mono-gc.h" />
+    <ClInclude Include="External\mono\metadata\object-forward.h" />
+    <ClInclude Include="External\mono\metadata\object.h" />
+    <ClInclude Include="External\mono\metadata\opcodes.h" />
+    <ClInclude Include="External\mono\metadata\profiler-events.h" />
+    <ClInclude Include="External\mono\metadata\profiler.h" />
+    <ClInclude Include="External\mono\metadata\reflection.h" />
+    <ClInclude Include="External\mono\metadata\row-indexes.h" />
+    <ClInclude Include="External\mono\metadata\sgen-bridge.h" />
+    <ClInclude Include="External\mono\metadata\threads.h" />
+    <ClInclude Include="External\mono\metadata\tokentype.h" />
+    <ClInclude Include="External\mono\metadata\verify.h" />
+    <ClInclude Include="External\mono\utils\mono-counters.h" />
+    <ClInclude Include="External\mono\utils\mono-dl-fallback.h" />
+    <ClInclude Include="External\mono\utils\mono-error.h" />
+    <ClInclude Include="External\mono\utils\mono-forward.h" />
+    <ClInclude Include="External\mono\utils\mono-jemalloc.h" />
+    <ClInclude Include="External\mono\utils\mono-logger.h" />
+    <ClInclude Include="External\mono\utils\mono-publib.h" />
     <ClInclude Include="External\Parson\parson.h" />
+    <ClInclude Include="External\PhysFS\include\physfs.h" />
+    <ClInclude Include="External\PugiXML\pugiconfig.hpp" />
+    <ClInclude Include="External\PugiXML\pugixml.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Color.h" />
@@ -365,7 +404,9 @@
     <ClCompile Include="External\MathGeoLib\include\Math\SSEMath.cpp" />
     <ClCompile Include="External\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="External\MathGeoLib\include\Time\Clock.cpp" />
+    <ClCompile Include="External\mmgr\mmgr.cpp" />
     <ClCompile Include="External\Parson\parson.c" />
+    <ClCompile Include="External\PugiXML\pugixml.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
@@ -431,14 +472,23 @@
     <None Include="External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
     <None Include="External\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
     <None Include="External\MathGeoLib\include\Math\Matrix.inl" />
+    <None Include="External\mono\cil\opcode.def" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="External\AngelScript\sdk\angelscript\lib\angelscript64d.lib" />
     <Library Include="External\Assimp\libx86\assimp.lib" />
     <Library Include="External\Assimp\libx86\zlibstatic.lib" />
+    <Library Include="External\mono\libx86\libmono-static-boehm.lib" />
+    <Library Include="External\mono\libx86\libmono-static-sgen.lib" />
+    <Library Include="External\mono\libx86\mono-2.0-boehm.lib" />
+    <Library Include="External\mono\libx86\mono-2.0-sgen.lib" />
+    <Library Include="External\mono\libx86\MonoPosixHelper.lib" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="External\mmgr\readme.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
