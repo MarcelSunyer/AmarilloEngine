@@ -12,7 +12,7 @@ class GameObject;
 
 #define MAX_NAME_CHARACTERS 32
 
-extern "C" __declspec(dllexport) class ComponentScript : public Component {
+class ComponentScript : public Component {
 public:
 	ComponentScript(GameObject* attach);
 	~ComponentScript();

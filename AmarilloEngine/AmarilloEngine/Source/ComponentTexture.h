@@ -6,7 +6,7 @@
 struct Texture;
 
 
-extern "C" __declspec(dllexport) class ComponentTexture : public Component {
+class ComponentTexture : public Component {
 
 
 public:

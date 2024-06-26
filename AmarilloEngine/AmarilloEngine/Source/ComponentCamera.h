@@ -6,7 +6,7 @@ class JSON_Doc;
 class Camera3D;
 class GameObject;
 
-extern "C" __declspec(dllexport) class ComponentCamera : public Component {
+class ComponentCamera : public Component {
 
 public:
 	ComponentCamera(GameObject* parent);

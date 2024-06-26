@@ -13,7 +13,7 @@ class Camera3D;
 class ComponentMesh;
 class ComponentTransform;
 
-extern "C" __declspec(dllexport) class GameObject
+class GameObject
 {
 public:
 	GameObject();
