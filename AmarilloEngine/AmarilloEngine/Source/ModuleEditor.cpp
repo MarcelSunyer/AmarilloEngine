@@ -71,8 +71,6 @@ bool ModuleEditor::Init()
 
     InitializeIconMapping();
 
-    scriptEditor.Init();
-
 	return true;
 }
 
@@ -255,7 +253,6 @@ void ModuleEditor::DrawEditor()
 
     if (ImGui::Begin("Script Editor"))
     {
-        scriptEditor.Update();
     }
     ImGui::End();
 

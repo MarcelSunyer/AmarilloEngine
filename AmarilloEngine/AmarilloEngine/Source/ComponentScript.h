@@ -5,7 +5,7 @@
 #include "Functions.h"
 
 #include "ComponentTransform.h"
-#include "Amarillo.h"
+
 
 
 class GameObject;
@@ -47,8 +47,6 @@ public:
 
 	std::string script_name;
 	char newName[MAX_NAME_CHARACTERS];
-
-	Amarillo* amarillo = nullptr;
 };
 
 

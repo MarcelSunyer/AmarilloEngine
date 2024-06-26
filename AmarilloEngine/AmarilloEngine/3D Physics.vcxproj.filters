@@ -88,9 +88,6 @@
     <Filter Include="Externals\ImGuiColorTextEditor">
       <UniqueIdentifier>{90dd1f67-2c5e-4f11-b8e7-cd819ad131da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\CarpetaScripts">
-      <UniqueIdentifier>{66df214b-057a-4ed5-8d36-ccea011fac7e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -660,17 +657,8 @@
     <ClInclude Include="Source\ComponentScript.h">
       <Filter>Sources\GameObject\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Amarillo.h">
-      <Filter>Sources\Main</Filter>
-    </ClInclude>
     <ClInclude Include="External\ImGuiColorTextEditor\TextEditor.h">
       <Filter>Externals\ImGuiColorTextEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ScriptEditor.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\StaticInput.h">
-      <Filter>Sources\CarpetaScripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1046,17 +1034,8 @@
     <ClCompile Include="Source\ComponentScript.cpp">
       <Filter>Sources\GameObject\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Amarillo.cpp">
-      <Filter>Sources\Main</Filter>
-    </ClCompile>
     <ClCompile Include="External\ImGuiColorTextEditor\TextEditor.cpp">
       <Filter>Externals\ImGuiColorTextEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ScriptEditor.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\StaticInput.cpp">
-      <Filter>Sources\CarpetaScripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

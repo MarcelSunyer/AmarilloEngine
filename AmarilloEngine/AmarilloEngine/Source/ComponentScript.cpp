@@ -98,16 +98,12 @@ void ComponentScript::Enable()			//TODO: Revisar
 
 void ComponentScript::Start()
 {
-	amarillo->Start();
+
 }
 
 void ComponentScript::Update()
 {
-	if (amarillo == nullptr)
-	{
-		return;
-	}
-	amarillo->Update();
+
 }
 
 
@@ -153,8 +149,4 @@ void ComponentScript::CreateScriptInstance()
 		LOG("UNKNOWN ERROR IN SCRIPTS CONSTRUCTOR %s", script_name.c_str());
 		return;
 	}
-	
-	amarillo = (Amarillo*)data_ptr;	
-	amarillo->gameObject = owner;
-	amarillo->Update();
 }

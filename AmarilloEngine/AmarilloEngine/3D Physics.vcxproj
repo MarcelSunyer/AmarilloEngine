@@ -238,7 +238,6 @@
     <ClInclude Include="External\MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="External\Parson\parson.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Source\Amarillo.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
@@ -277,8 +276,6 @@
     <ClInclude Include="Source\ResourceLoader.h" />
     <ClInclude Include="Source\ResourceMeshLoader.h" />
     <ClInclude Include="Source\ResourceTextureLoader.h" />
-    <ClInclude Include="Source\ScriptEditor.h" />
-    <ClInclude Include="Source\StaticInput.h" />
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -368,7 +365,6 @@
     <ClCompile Include="External\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="External\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="External\Parson\parson.c" />
-    <ClCompile Include="Source\Amarillo.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Component.cpp" />
@@ -407,8 +403,6 @@
     <ClCompile Include="Source\ResourceLoader.cpp" />
     <ClCompile Include="Source\ResourceMeshLoader.cpp" />
     <ClCompile Include="Source\ResourceTextureLoader.cpp" />
-    <ClCompile Include="Source\ScriptEditor.cpp" />
-    <ClCompile Include="Source\StaticInput.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
