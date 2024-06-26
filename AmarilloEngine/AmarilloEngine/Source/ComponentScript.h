@@ -6,7 +6,7 @@
 
 #include "ComponentTransform.h"
 
-#include "../AmarilloEngine/External/mono/metadata/object-forward.h"
+#include "../External/mono/metadata/object-forward.h"
 
 class GameObject;
 
