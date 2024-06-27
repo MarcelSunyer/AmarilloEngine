@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using YmirEngine;
+using AmarilloEngine;
 
-namespace YmirEngine
+namespace AmarilloEngine
 {
-    public class Transform : YmirComponent
+    public class Transform : AmarilloComponent
     {
         public Transform()
         {

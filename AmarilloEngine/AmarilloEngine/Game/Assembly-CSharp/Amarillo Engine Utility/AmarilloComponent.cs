@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using AmarilloEngine;
 
-namespace YmirEngine
+namespace AmarilloEngine
 {
     public enum ComponentType
     {
@@ -16,7 +17,7 @@ namespace YmirEngine
         AUDIO_SOURCE,
         AUDIO_LISTENER
     }
-    public class YmirComponent
+    public class AmarilloComponent
     {       
 
         public UIntPtr pointer;
@@ -26,7 +27,7 @@ namespace YmirEngine
         };
 
 
-        public YmirComponent()
+        public AmarilloComponent()
         {
             this.type = ComponentType.SCRIPT;
         }

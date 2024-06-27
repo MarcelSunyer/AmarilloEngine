@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace YmirEngine
+namespace AmarilloEngine
 {
     public sealed class GameObject
     {
@@ -15,12 +15,12 @@ namespace YmirEngine
             name = "Empty";
             pointer = UIntPtr.Zero;
         }
-        public GameObject(string _name, UIntPtr ptr, UIntPtr transPTR)
+        public GameObject(string _name, UIntPtr ptr)
         {
             name = _name;
             pointer = ptr;
             transform = new Transform();
-            transform.pointer = transPTR;
+
 
         }
 

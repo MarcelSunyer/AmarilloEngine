@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace YmirEngine
+namespace AmarilloEngine
 {
     class InternalCalls
     {
@@ -388,7 +388,7 @@ namespace YmirEngine
     }
 }
 
-public enum YmirKeyCode //This is a mirror from the SDL scancode enum to allow C# to C++ compatibility
+public enum AmarilloKeyCode //This is a mirror from the SDL scancode enum to allow C# to C++ compatibility
 {
     SDL_SCANCODE_UNKNOWN = 0,
     A = 4,

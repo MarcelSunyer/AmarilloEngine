@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 using System.Collections;
 
-namespace YmirEngine
+namespace AmarilloEngine
 {
 
     [StructLayout(LayoutKind.Sequential)]

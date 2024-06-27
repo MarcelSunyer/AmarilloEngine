@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace YmirEngine
+namespace AmarilloEngine
 {
     public class Time
     {
@@ -13,12 +13,6 @@ namespace YmirEngine
             [MethodImplAttribute(MethodImplOptions.InternalCall)]
             get;
         }
-
-
-
-
-
-
 
     }
 }

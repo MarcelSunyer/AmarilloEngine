@@ -42,18 +42,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assembly-CSharp\Ymir Engine Utility\Transform.cs" />
-    <Compile Include="Assembly-CSharp\Ymir Engine Utility\YmirComponent.cs" />
-    <Compile Include="Assembly-CSharp\Ymir Engine Utility\GameObject.cs" />
-    <Compile Include="Assembly-CSharp\Ymir Engine Utility\InternalCalls.cs" />
-    <Compile Include="Assembly-CSharp\Ymir Engine Utility\Quaternion.cs" />
-    <Compile Include="Assembly-CSharp\Ymir Engine Utility\Time.cs" />
-    <Compile Include="Assembly-CSharp\Ymir Engine Utility\Vector3.cs" />
-    <Compile Include="Assets\Scripts\BH_Bullet.cs" />
-    <Compile Include="Assets\Scripts\BH_Plane.cs" />
-    <Compile Include="Assets\Scripts\Core.cs" />
-    <Compile Include="Assets\Scripts\main.cs" />
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assembly-CSharp\Amarillo Engine Utility\GameObject.cs" />
+    <Compile Include="Assembly-CSharp\Amarillo Engine Utility\InternalCalls.cs" />
+    <Compile Include="Assembly-CSharp\Amarillo Engine Utility\Quaternion.cs" />
+    <Compile Include="Assembly-CSharp\Amarillo Engine Utility\Time.cs" />
+    <Compile Include="Assembly-CSharp\Amarillo Engine Utility\Transform.cs" />
+    <Compile Include="Assembly-CSharp\Amarillo Engine Utility\Vector3.cs" />
+    <Compile Include="Assembly-CSharp\Amarillo Engine Utility\AmarilloComponent.cs" />
+    <Compile Include="Assets\BH_Bullet.cs" />
+    <Compile Include="Assets\BH_Plane.cs" />
+    <Compile Include="Assets\Core.cs" />
+    <Compile Include="Assets\main.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
