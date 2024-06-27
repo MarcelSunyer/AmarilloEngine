@@ -46,60 +46,51 @@ ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(
 	mono_set_dirs("mono-runtime/lib", "mono-runtime/etc");
 	mono_config_parse(NULL);
 	jitDomain = mono_jit_init("myapp");
-//
-//	mono_add_internal_call("YmirEngine.Debug::Log", CSLog);
-//	mono_add_internal_call("YmirEngine.YmirComponent::get_gameObject", CS_Component_Get_GO);
-//	mono_add_internal_call("YmirEngine.InternalCalls::CreateGameObject", CSCreateGameObject);
-//	mono_add_internal_call("YmirEngine.InternalCalls::GetGameObjectByName", FindObjectWithName);
-//	mono_add_internal_call("YmirEngine.GameObject::get_Name", Get_GO_Name);
-//
-//
-//	mono_add_internal_call("YmirEngine.InternalCalls::Destroy", Destroy);
-//	mono_add_internal_call("YmirEngine.InternalCalls::AddMeshToGameObject", AddMeshToGameObject);
-//
-//	mono_add_internal_call("YmirEngine.InternalCalls::CreateBullet", CreateBullet);	//TODO: Descomentar cuando esté el CreateBullet()
-//
-//#pragma region Transform
-//	mono_add_internal_call("YmirEngine.GameObject::GetForward", GetForward);
-//	mono_add_internal_call("YmirEngine.GameObject::GetRight", GetRight);
-//
-//	mono_add_internal_call("YmirEngine.Transform::get_localPosition", SendPosition);
-//	mono_add_internal_call("YmirEngine.Transform::get_globalPosition", SendGlobalPosition);
-//	mono_add_internal_call("YmirEngine.Transform::set_localPosition", RecievePosition);
-//	mono_add_internal_call("YmirEngine.Transform::get_localRotation", SendRotation);
-//	mono_add_internal_call("YmirEngine.Transform::get_globalRotation", SendGlobalRotation);
-//	mono_add_internal_call("YmirEngine.Transform::set_localRotation", RecieveRotation);
-//
-//	mono_add_internal_call("YmirEngine.Transform::get_localScale", SendScale);
-//	mono_add_internal_call("YmirEngine.Transform::get_globalScale", SendGlobalScale);
-//	mono_add_internal_call("YmirEngine.Transform::set_localScale", RecieveScale);
-//#pragma endregion
-//
-//	mono_add_internal_call("YmirEngine.GameObject::set_Tag", SetTag);
-//	mono_add_internal_call("YmirEngine.GameObject::get_Tag", GetTag);
-//
-//
-//
-//
-//#pragma region GamePad
-//
-//	mono_add_internal_call("YmirEngine.Input::GetLeftAxisY", GetLeftAxisY);
-//	mono_add_internal_call("YmirEngine.Input::GetLeftAxisX", GetLeftAxisX);
-//	mono_add_internal_call("YmirEngine.Input::GetRightAxisY", GetRightAxisY);
-//	mono_add_internal_call("YmirEngine.Input::GetRightAxisX", GetRightAxisX);
-//	mono_add_internal_call("YmirEngine.Input::GetGamepadLeftTrigger", GetGamepadLeftTrigger);
-//	mono_add_internal_call("YmirEngine.Input::GetGamepadRightTrigger", GetGamepadRightTrigger);
-//	mono_add_internal_call("YmirEngine.Input::GetKey", GetKey);
-//	mono_add_internal_call("YmirEngine.Input::IsGamepadButtonAPressedCS", IsGamepadButtonAPressedCS);
-//	mono_add_internal_call("YmirEngine.Input::IsGamepadButtonBPressedCS", IsGamepadButtonBPressedCS);
-//	mono_add_internal_call("YmirEngine.Input::GetMouseClick", GetMouseClick);
-//	mono_add_internal_call("YmirEngine.Input::GetMouseX", MouseX);
-//	mono_add_internal_call("YmirEngine.Input::GetMouseY", MouseY);
-//	mono_add_internal_call("YmirEngine.Input::GameControllerRumbleCS", GameControllerRumbleCS);
-//
-//#pragma endregion
-//
-//	mono_add_internal_call("YmirEngine.Time::get_deltaTime", GetDT);
+
+	mono_add_internal_call("AmarilloEngine.Debug::Log", CSLog);
+	mono_add_internal_call("AmarilloEngine.YmirComponent::get_gameObject", CS_Component_Get_GO);
+	mono_add_internal_call("AmarilloEngine.InternalCalls::CreateGameObject", CSCreateGameObject);
+	mono_add_internal_call("AmarilloEngine.InternalCalls::GetGameObjectByName", FindObjectWithName);
+	mono_add_internal_call("AmarilloEngine.GameObject::get_Name", Get_GO_Name);
+							
+	mono_add_internal_call("AmarilloEngine.InternalCalls::Destroy", Destroy);
+	mono_add_internal_call("AmarilloEngine.InternalCalls::AddMeshToGameObject", AddMeshToGameObject);
+							
+	mono_add_internal_call("AmarilloEngine.InternalCalls::CreateBullet", CreateBullet);	//TODO: Descomentar cuando esté el CreateBullet()
+							
+	mono_add_internal_call("AmarilloEngine.GameObject::GetForward", GetForward);
+	mono_add_internal_call("AmarilloEngine.GameObject::GetRight", GetRight);
+							
+	mono_add_internal_call("AmarilloEngine.Transform::get_localPosition", SendPosition);
+	mono_add_internal_call("AmarilloEngine.Transform::get_globalPosition", SendGlobalPosition);
+	mono_add_internal_call("AmarilloEngine.Transform::set_localPosition", RecievePosition);
+	mono_add_internal_call("AmarilloEngine.Transform::get_localRotation", SendRotation);
+	mono_add_internal_call("AmarilloEngine.Transform::get_globalRotation", SendGlobalRotation);
+	mono_add_internal_call("AmarilloEngine.Transform::set_localRotation", RecieveRotation);
+							
+	mono_add_internal_call("AmarilloEngine.Transform::get_localScale", SendScale);
+	mono_add_internal_call("AmarilloEngine.Transform::get_globalScale", SendGlobalScale);
+	mono_add_internal_call("AmarilloEngine.Transform::set_localScale", RecieveScale);
+#pragma endregion			
+	mono_add_internal_call("AmarilloEngine.GameObject::set_Tag", SetTag);
+	mono_add_internal_call("AmarilloEngine.GameObject::get_Tag", GetTag);
+							
+#pragma region GamePad		
+	mono_add_internal_call("AmarilloEngine.Input::GetLeftAxisY", GetLeftAxisY);
+	mono_add_internal_call("AmarilloEngine.Input::GetLeftAxisX", GetLeftAxisX);
+	mono_add_internal_call("AmarilloEngine.Input::GetRightAxisY", GetRightAxisY);
+	mono_add_internal_call("AmarilloEngine.Input::GetRightAxisX", GetRightAxisX);
+	mono_add_internal_call("AmarilloEngine.Input::GetGamepadLeftTrigger", GetGamepadLeftTrigger);
+	mono_add_internal_call("AmarilloEngine.Input::GetGamepadRightTrigger", GetGamepadRightTrigger);
+	mono_add_internal_call("AmarilloEngine.Input::GetKey", GetKey);
+	mono_add_internal_call("AmarilloEngine.Input::IsGamepadButtonAPressedCS", IsGamepadButtonAPressedCS);
+	mono_add_internal_call("AmarilloEngine.Input::IsGamepadButtonBPressedCS", IsGamepadButtonBPressedCS);
+	mono_add_internal_call("AmarilloEngine.Input::GetMouseClick", GetMouseClick);
+	mono_add_internal_call("AmarilloEngine.Input::GetMouseX", MouseX);
+	mono_add_internal_call("AmarilloEngine.Input::GetMouseY", MouseY);
+	mono_add_internal_call("AmarilloEngine.Input::GameControllerRumbleCS", GameControllerRumbleCS);
+							
+	mono_add_internal_call("AmarilloEngine.Time::get_deltaTime", GetDT);
 
 	InitMono();
 }

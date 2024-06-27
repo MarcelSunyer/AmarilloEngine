@@ -313,9 +313,9 @@ void ModuleEditor::DrawEditor()
     //ShowAssetBrowser("../Assets/");
 
 #ifdef _DEBUG  // Debug
-    ShowAssetBrowser("../Debug/Assets/");
+    ShowAssetBrowser("../Game/Assets/");
 #else  // Release
-    ShowAssetBrowser("../Release/Library/");
+    ShowAssetBrowser("../Game/Assets/");
 #endif // _DEBUG
 
 
