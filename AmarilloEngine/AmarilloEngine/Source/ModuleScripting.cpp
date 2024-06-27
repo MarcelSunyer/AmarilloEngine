@@ -14,8 +14,8 @@
 
 #include "GameObject.h"
 #include "ComponentScript.h"
-//#include "CS_Bindings.h"
-//#include "CS_Input_Bindings.h"
+#include "CS_Bindings.h"
+#include "CS_Input_Bindings.h"
 
 #include "PhysfsEncapsule.h"
 #include "ModuleEditor.h"
@@ -48,13 +48,12 @@ ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(
 	jitDomain = mono_jit_init("myapp");
 
 	mono_add_internal_call("AmarilloEngine.Debug::Log", CSLog);
-	mono_add_internal_call("AmarilloEngine.YmirComponent::get_gameObject", CS_Component_Get_GO);
+	mono_add_internal_call("AmarilloEngine.AmarilloComponent::get_gameObject", CS_Component_Get_GO);
 	mono_add_internal_call("AmarilloEngine.InternalCalls::CreateGameObject", CSCreateGameObject);
-	mono_add_internal_call("AmarilloEngine.InternalCalls::GetGameObjectByName", FindObjectWithName);
+
 	mono_add_internal_call("AmarilloEngine.GameObject::get_Name", Get_GO_Name);
 							
 	mono_add_internal_call("AmarilloEngine.InternalCalls::Destroy", Destroy);
-	mono_add_internal_call("AmarilloEngine.InternalCalls::AddMeshToGameObject", AddMeshToGameObject);
 							
 	mono_add_internal_call("AmarilloEngine.InternalCalls::CreateBullet", CreateBullet);	//TODO: Descomentar cuando esté el CreateBullet()
 							
@@ -70,25 +69,12 @@ ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(
 							
 	mono_add_internal_call("AmarilloEngine.Transform::get_localScale", SendScale);
 	mono_add_internal_call("AmarilloEngine.Transform::get_globalScale", SendGlobalScale);
-	mono_add_internal_call("AmarilloEngine.Transform::set_localScale", RecieveScale);
-#pragma endregion			
-	mono_add_internal_call("AmarilloEngine.GameObject::set_Tag", SetTag);
-	mono_add_internal_call("AmarilloEngine.GameObject::get_Tag", GetTag);
 							
 #pragma region GamePad		
-	mono_add_internal_call("AmarilloEngine.Input::GetLeftAxisY", GetLeftAxisY);
-	mono_add_internal_call("AmarilloEngine.Input::GetLeftAxisX", GetLeftAxisX);
-	mono_add_internal_call("AmarilloEngine.Input::GetRightAxisY", GetRightAxisY);
-	mono_add_internal_call("AmarilloEngine.Input::GetRightAxisX", GetRightAxisX);
-	mono_add_internal_call("AmarilloEngine.Input::GetGamepadLeftTrigger", GetGamepadLeftTrigger);
-	mono_add_internal_call("AmarilloEngine.Input::GetGamepadRightTrigger", GetGamepadRightTrigger);
 	mono_add_internal_call("AmarilloEngine.Input::GetKey", GetKey);
-	mono_add_internal_call("AmarilloEngine.Input::IsGamepadButtonAPressedCS", IsGamepadButtonAPressedCS);
-	mono_add_internal_call("AmarilloEngine.Input::IsGamepadButtonBPressedCS", IsGamepadButtonBPressedCS);
 	mono_add_internal_call("AmarilloEngine.Input::GetMouseClick", GetMouseClick);
 	mono_add_internal_call("AmarilloEngine.Input::GetMouseX", MouseX);
 	mono_add_internal_call("AmarilloEngine.Input::GetMouseY", MouseY);
-	mono_add_internal_call("AmarilloEngine.Input::GameControllerRumbleCS", GameControllerRumbleCS);
 							
 	mono_add_internal_call("AmarilloEngine.Time::get_deltaTime", GetDT);
 
@@ -148,8 +134,7 @@ void ModuleScripting::ReCompileCS()
 	CMDCompileCS();
 	InitMono();
 
-	//TODO: No hay nada de esto creado en Ymir
-	//App->scene->LoadScene("Library/Scenes/tmp.des");	//El Miquel lo tiene q marca la ruta de salida
+	
 
 	//App->scene->LoadScene();
 	//App->fileSystem->DeleteAssetFile("Library/Scenes/tmp.des"); //TODO: Esta función no existe
@@ -234,7 +219,7 @@ MonoObject* ModuleScripting::GoToCSGO(GameObject* inGo) const
 		LOG("[WARNING] GoTOCSGO inGo doesn't exist");
 		return nullptr;
 	}
-	MonoClass* goClass = mono_class_from_name(image, YMIR_SCRIPTS_NAMESPACE, "GameObject");
+	MonoClass* goClass = mono_class_from_name(image, AMARILLO_SCRIPTS_NAMESPACE, "GameObject");
 	uintptr_t goPtr = reinterpret_cast<uintptr_t>(inGo);
 
 	void* args[3];
@@ -244,7 +229,7 @@ MonoObject* ModuleScripting::GoToCSGO(GameObject* inGo) const
 	uintptr_t transPTR = reinterpret_cast<uintptr_t>(inGo->transform);
 	args[2] = &transPTR;
 
-	MonoMethodDesc* constructorDesc = mono_method_desc_new("YmirEngine.GameObject:.ctor(string,uintptr,uintptr)", true);
+	MonoMethodDesc* constructorDesc = mono_method_desc_new("AmarilloEngine.GameObject:.ctor(string,uintptr,uintptr)", true);
 	MonoMethod* method = mono_method_desc_search_in_class(constructorDesc, goClass);
 	MonoObject* goObj = mono_object_new(domain, goClass);
 	mono_runtime_invoke(method, goObj, args, NULL);
@@ -257,7 +242,7 @@ MonoObject* ModuleScripting::GoToCSGO(GameObject* inGo) const
 MonoObject* ModuleScripting::Float3ToCS(float3& inVec) const
 {
 
-	MonoClass* vecClass = mono_class_from_name(image, YMIR_SCRIPTS_NAMESPACE, "Vector3");
+	MonoClass* vecClass = mono_class_from_name(image, AMARILLO_SCRIPTS_NAMESPACE, "Vector3");
 
 	MonoObject* vecObject = mono_object_new(domain, vecClass);
 	const char* name = mono_class_get_name(mono_object_get_class(vecObject));
@@ -267,7 +252,7 @@ MonoObject* ModuleScripting::Float3ToCS(float3& inVec) const
 	args[1] = &inVec.y;
 	args[2] = &inVec.z;
 
-	MonoMethodDesc* constDesc = mono_method_desc_new("YmirEngine.Vector3:.ctor(single,single,single)", true);
+	MonoMethodDesc* constDesc = mono_method_desc_new("AmarilloEngine.Vector3:.ctor(single,single,single)", true);
 	MonoMethod* method = mono_method_desc_search_in_class(constDesc, vecClass);
 
 	mono_runtime_invoke(method, vecObject, args, NULL);
@@ -309,7 +294,7 @@ void ModuleScripting::LoadFieldData(SerializedField& _field, MonoObject* _object
 MonoObject* ModuleScripting::QuatToCS(Quat& inVec) const
 {
 
-	MonoClass* quadClass = mono_class_from_name(image, YMIR_SCRIPTS_NAMESPACE, "Quaternion");
+	MonoClass* quadClass = mono_class_from_name(image, AMARILLO_SCRIPTS_NAMESPACE, "Quaternion");
 	MonoObject* quatObject = mono_object_new(domain, quadClass);
 
 	void* args[4];
@@ -318,7 +303,7 @@ MonoObject* ModuleScripting::QuatToCS(Quat& inVec) const
 	args[2] = &inVec.z;
 	args[3] = &inVec.w;
 
-	MonoMethodDesc* constDesc = mono_method_desc_new("YmirEngine.Quaternion:.ctor(single,single,single,single)", true);
+	MonoMethodDesc* constDesc = mono_method_desc_new("AmarilloEngine.Quaternion:.ctor(single,single,single,single)", true);
 	MonoMethod* method = mono_method_desc_search_in_class(constDesc, quadClass);
 
 	mono_runtime_invoke(method, quatObject, args, NULL);
@@ -332,7 +317,7 @@ GameObject* ModuleScripting::GameObject_From_CSGO(MonoObject* goObj)
 	if (goObj == nullptr)
 		return nullptr;
 	uintptr_t ptr = 0;
-	MonoClass* goClass = mono_class_from_name(image, YMIR_SCRIPTS_NAMESPACE, "GameObject");
+	MonoClass* goClass = mono_class_from_name(image, AMARILLO_SCRIPTS_NAMESPACE, "GameObject");
 
 	mono_field_get_value(goObj, mono_class_get_field_from_name(goClass, "pointer"), &ptr);
 
@@ -369,7 +354,7 @@ void ModuleScripting::CreateAssetsScript(const char* localPath)
 	className = className.substr(className.find_last_of("/") + 1);
 	className = className.substr(0, className.find_last_of("."));
 
-	outfile << "using System;" << std::endl << "using YmirEngine;" << std::endl << std::endl << "public class " << className.c_str() << " : YmirComponent" << std::endl << "{" << std::endl <<
+	outfile << "using System;" << std::endl << "using AmarilloEngine;" << std::endl << std::endl << "public class " << className.c_str() << " : AmarilloComponent" << std::endl << "{" << std::endl <<
 		"	public void Update()" << std::endl << "	{" << std::endl << std::endl << "	}" << std::endl << std::endl << "}";
 
 	outfile.close();
@@ -477,7 +462,7 @@ void ModuleScripting::InitMono()
 			const char* name_space = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
 			_class = mono_class_from_name(image, name_space, name);
 
-			if (_class != nullptr && strcmp(mono_class_get_namespace(_class), YMIR_SCRIPTS_NAMESPACE) != 0 && !mono_class_is_enum(_class))
+			if (_class != nullptr && strcmp(mono_class_get_namespace(_class), AMARILLO_SCRIPTS_NAMESPACE) != 0 && !mono_class_is_enum(_class))
 			{
 				userScripts.push_back(_class);
 				LOG("%s", mono_class_get_name(_class));

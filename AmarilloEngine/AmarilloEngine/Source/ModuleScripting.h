@@ -18,7 +18,7 @@ class GameObject;
 class CScript;
 
 #define USER_SCRIPTS_NAMESPACE ""
-#define YMIR_SCRIPTS_NAMESPACE "YmirEngine"
+#define AMARILLO_SCRIPTS_NAMESPACE "AmarilloEngine"
 
 union FieldValue
 {

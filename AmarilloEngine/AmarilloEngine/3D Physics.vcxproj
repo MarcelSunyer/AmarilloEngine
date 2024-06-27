@@ -61,7 +61,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <AdditionalDependencies>$(CoreLibraryDependencies);mono-2.0-sgen.lib;mono-2.0-boehm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>../AmarilloEngine\External\mono\libx86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\AmarilloEngine\External\mono\libx86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -286,6 +286,8 @@
     <ClInclude Include="Source\ComponentScript.h" />
     <ClInclude Include="Source\ComponentTexture.h" />
     <ClInclude Include="Source\ComponentTransform.h" />
+    <ClInclude Include="Source\CS_Bindings.h" />
+    <ClInclude Include="Source\CS_Input_Bindings.h" />
     <ClInclude Include="Source\Functions.h" />
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
@@ -482,15 +484,9 @@
     <Library Include="External\Assimp\libx86\zlibstatic.lib" />
     <Library Include="External\mono\libx86\libmono-static-boehm.lib" />
     <Library Include="External\mono\libx86\libmono-static-sgen.lib" />
-    <Library Include="External\mono\libx86\mono-2.0-boehm.lib" />
-    <Library Include="External\mono\libx86\mono-2.0-sgen.lib" />
-    <Library Include="External\mono\libx86\MonoPosixHelper.lib" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="External\mmgr\readme.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

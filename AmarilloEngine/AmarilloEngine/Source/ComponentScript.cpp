@@ -20,9 +20,7 @@ CScript* CScript::runningScript = nullptr;
 CScript::CScript(GameObject* _gm, const char* scriptName) : Component(_gm), noGCobject(0), updateMethod(nullptr)
 {
 	name = scriptName;
-	//strcpy(name, scriptName);
-
-	/*External->moduleMono->DebugAllMethods(YMIR_SCRIPTS_NAMESPACE, "GameObject", methods);*/
+	
 	LoadScriptData(name.c_str());
 }
 
@@ -34,8 +32,8 @@ CScript::~CScript()
 	mono_gchandle_free(noGCobject);
 
 	for (unsigned int i = 0; i < fields.size(); i++)
-	{/*
-		if (fields[i].type == MonoTypeEnum::MONO_TYPE_CLASS && fields[i].fiValue.goValue != nullptr && fields[i].fiValue.goValue->csReferences.size() != 0)
+	{
+		/*if (fields[i].type == MonoTypeEnum::MONO_TYPE_CLASS && fields[i].fiValue.goValue != nullptr && fields[i].fiValue.goValue->csReferences.size() != 0)
 		{
 			std::vector<SerializedField*>::iterator ptr = std::find(fields[i].fiValue.goValue->csReferences.begin(), fields[i].fiValue.goValue->csReferences.end(), &fields[i]);
 			if (ptr != fields[i].fiValue.goValue->csReferences.end())
@@ -81,27 +79,6 @@ void CScript::ReloadComponent() {
 
 }
 
-//void CScript::OnRecursiveUIDChange(std::map<uint, GameObject*> gameObjects)
-//{
-//	for (size_t i = 0; i < fields.size(); i++)
-//	{
-//		if (fields[i].type == MonoTypeEnum::MONO_TYPE_CLASS && strcmp(mono_type_get_name(mono_field_get_type(fields[i].field)), "YmirEngine.GameObject") == 0)
-//		{
-//			std::map<uint, GameObject*>::iterator gameObjectIt = gameObjects.find(fields[i].goUID);
-//
-//			if (gameObjectIt != gameObjects.end())
-//			{
-//				if (External->scene->referenceMap.size() > 0)
-//					External->scene->referenceMap.erase(gameObjectIt->first);
-//
-//				External->scene->AddToReferenceMap((uint)gameObjectIt->second->UID, &fields[i]);
-//
-//				fields[i].fiValue.goValue = gameObjectIt->second;
-//				fields[i].goUID = (uint)gameObjectIt->second->UID;
-//			}
-//		}
-//	}
-//}
 
 void CScript::OnEditor()
 {
@@ -139,101 +116,6 @@ void CScript::OnEditor()
 	/*if (!exists) { mOwner->RemoveComponent(this); }*/
 }
 
-//
-//void CScript::SaveData(JSON_Object* nObj)
-//{
-//	Component::SaveData(nObj);
-//	DEJson::WriteString(nObj, "ScriptName", name.c_str());
-//
-//	for (int i = 0; i < fields.size(); i++)
-//	{
-//		switch (fields[i].type)
-//		{
-//		case MonoTypeEnum::MONO_TYPE_BOOLEAN:
-//			mono_field_get_value(mono_gchandle_get_target(noGCobject), fields[i].field, &fields[i].fiValue.bValue);
-//			DEJson::WriteBool(nObj, mono_field_get_name(fields[i].field), fields[i].fiValue.bValue);
-//			break;
-//
-//		case MonoTypeEnum::MONO_TYPE_I4:
-//			mono_field_get_value(mono_gchandle_get_target(noGCobject), fields[i].field, &fields[i].fiValue.iValue);
-//			DEJson::WriteInt(nObj, mono_field_get_name(fields[i].field), fields[i].fiValue.iValue);
-//			break;
-//
-//		case MonoTypeEnum::MONO_TYPE_CLASS:
-//			if (fields[i].fiValue.goValue != nullptr)
-//				DEJson::WriteInt(nObj, mono_field_get_name(fields[i].field), fields[i].fiValue.goValue->UID);
-//			break;
-//
-//		case MonoTypeEnum::MONO_TYPE_R4:
-//			mono_field_get_value(mono_gchandle_get_target(noGCobject), fields[i].field, &fields[i].fiValue.fValue);
-//			DEJson::WriteFloat(nObj, mono_field_get_name(fields[i].field), fields[i].fiValue.fValue);
-//			break;
-//
-//		case MonoTypeEnum::MONO_TYPE_STRING:
-//			DEJson::WriteString(nObj, mono_field_get_name(fields[i].field), fields[i].fiValue.strValue);
-//			break;
-//
-//		default:
-//			DEJson::WriteInt(nObj, mono_field_get_name(fields[i].field), fields[i].fiValue.iValue);
-//			break;
-//		}
-//	}
-//}
-//void CScript::LoadData(DEConfig& nObj)
-//{
-//	Component::LoadData(nObj);
-//
-//	SerializedField* _field = nullptr;
-//	for (int i = 0; i < fields.size(); i++) //TODO IMPORTANT ASK: There must be a better way to do this... too much use of switches with this stuff, look at MONOMANAGER
-//	{
-//		_field = &fields[i];
-//
-//		switch (_field->type)
-//		{
-//		case MonoTypeEnum::MONO_TYPE_BOOLEAN:
-//			_field->fiValue.bValue = nObj.ReadBool(mono_field_get_name(_field->field));
-//			mono_field_set_value(mono_gchandle_get_target(noGCobject), _field->field, &_field->fiValue.bValue);
-//			break;
-//
-//		case MonoTypeEnum::MONO_TYPE_I4:
-//			_field->fiValue.iValue = nObj.ReadInt(mono_field_get_name(_field->field));
-//			mono_field_set_value(mono_gchandle_get_target(noGCobject), _field->field, &_field->fiValue.iValue);
-//			break;
-//
-//		case MonoTypeEnum::MONO_TYPE_CLASS:
-//		{
-//			if (strcmp(mono_type_get_name(mono_field_get_type(_field->field)), "YmirEngine.GameObject") == 0)
-//				EngineExternal->moduleScene->referenceMap.emplace(nObj.ReadInt(mono_field_get_name(_field->field)), _field);
-//
-//			break;
-//		}
-//		case MonoTypeEnum::MONO_TYPE_R4:
-//			_field->fiValue.fValue = nObj.ReadFloat(mono_field_get_name(_field->field));
-//			mono_field_set_value(mono_gchandle_get_target(noGCobject), _field->field, &_field->fiValue.fValue);
-//			break;
-//
-//		case MonoTypeEnum::MONO_TYPE_STRING:
-//		{
-//			const char* ret = nObj.ReadString(mono_field_get_name(_field->field));
-//
-//			if (ret == NULL)
-//				ret = "\0";
-//
-//			strcpy(&_field->fiValue.strValue[0], ret);
-//
-//			MonoString* str = mono_string_new(EngineExternal->moduleMono->domain, _field->fiValue.strValue);
-//			mono_field_set_value(mono_gchandle_get_target(noGCobject), _field->field, str);
-//			break;
-//		}
-//
-//		default:
-//			_field->fiValue.iValue = nObj.ReadInt(mono_field_get_name(_field->field));
-//			mono_field_set_value(mono_gchandle_get_target(noGCobject), _field->field, &_field->fiValue.iValue);
-//			break;
-//		}
-//	}
-//}
-
 void CScript::DropField(SerializedField& field, const char* dropType)
 {
 
@@ -259,7 +141,7 @@ void CScript::DropField(SerializedField& field, const char* dropType)
 
 	case MonoTypeEnum::MONO_TYPE_CLASS:
 
-		if (strcmp(mono_type_get_name(mono_field_get_type(field.field)), "YmirEngine.GameObject") != 0)
+		if (strcmp(mono_type_get_name(mono_field_get_type(field.field)), "AmarilloEngine.GameObject") != 0)
 		{
 			ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "The class %s can't be serialized yet", mono_type_get_name(mono_field_get_type(field.field)));
 			break;

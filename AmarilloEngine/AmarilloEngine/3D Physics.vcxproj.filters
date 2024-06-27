@@ -25,12 +25,6 @@
     <Filter Include="Externals\MathGeoLib\Geometry">
       <UniqueIdentifier>{4147b4a8-944d-4709-9472-487fe3a4158e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Externals\MathGeoLib\Algorithm">
-      <UniqueIdentifier>{3a6129ff-2ac3-43a8-a55f-13646d6fe513}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Externals\MathGeoLib\Algorithm\Random">
-      <UniqueIdentifier>{fab3c220-35ca-45b8-a0e0-fc6bbd2bf19d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Externals\MathGeoLib\Math">
       <UniqueIdentifier>{17dd7ecd-6265-4912-beb0-af8c9268cf20}</UniqueIdentifier>
     </Filter>
@@ -88,6 +82,36 @@
     <Filter Include="Externals\ImGuiColorTextEditor">
       <UniqueIdentifier>{90dd1f67-2c5e-4f11-b8e7-cd819ad131da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Externals\mmgr">
+      <UniqueIdentifier>{e28ff396-79dd-469a-bf0d-c9ba2fd5d93b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\mono">
+      <UniqueIdentifier>{8fb8f46c-2cde-42ed-b937-7d76957711d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\mono\jit">
+      <UniqueIdentifier>{35421252-a534-4d74-86ec-307486fc5766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\mono\metadata">
+      <UniqueIdentifier>{60114bab-3f0a-482a-a166-e8fa7db73171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\MathGeoLib\Geometry\Algorithm">
+      <UniqueIdentifier>{3a6129ff-2ac3-43a8-a55f-13646d6fe513}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\MathGeoLib\Geometry\Algorithm\Random">
+      <UniqueIdentifier>{fab3c220-35ca-45b8-a0e0-fc6bbd2bf19d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\PhysFS">
+      <UniqueIdentifier>{b98deaae-6209-47c6-983d-137e3df40b4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\PugiXML">
+      <UniqueIdentifier>{18be9bb5-af08-4f28-8bb5-98378b4342d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Bindings">
+      <UniqueIdentifier>{7e2196bc-f6cc-4418-9583-98b1a7fdb2ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Externals\mono\libx86">
+      <UniqueIdentifier>{45f3b16b-cd90-4214-acae-e23f879ec685}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Module.h">
@@ -125,15 +149,6 @@
     </ClInclude>
     <ClInclude Include="Source\glmath.h">
       <Filter>Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="External\MathGeoLib\include\MathBuildConfig.h">
-      <Filter>Externals\MathGeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="External\MathGeoLib\include\MathGeoLib.h">
-      <Filter>Externals\MathGeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="External\MathGeoLib\include\MathGeoLibFwd.h">
-      <Filter>Externals\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="External\MathGeoLib\include\Time\Clock.h">
       <Filter>Externals\MathGeoLib\Time</Filter>
@@ -304,7 +319,7 @@
       <Filter>Externals\MathGeoLib\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="External\MathGeoLib\include\Algorithm\Random\LCG.h">
-      <Filter>Externals\MathGeoLib\Algorithm\Random</Filter>
+      <Filter>Externals\MathGeoLib\Geometry\Algorithm\Random</Filter>
     </ClInclude>
     <ClInclude Include="External\ImGui\imconfig.h">
       <Filter>Externals\ImGui</Filter>
@@ -660,46 +675,141 @@
     <ClInclude Include="External\ImGuiColorTextEditor\TextEditor.h">
       <Filter>Externals\ImGuiColorTextEditor</Filter>
     </ClInclude>
-    <ClInclude Include="External\mmgr\mmgr.h" />
-    <ClInclude Include="External\mmgr\nommgr.h" />
-    <ClInclude Include="External\mono\jit\jit.h" />
-    <ClInclude Include="External\mono\metadata\appdomain.h" />
-    <ClInclude Include="External\mono\metadata\assembly.h" />
-    <ClInclude Include="External\mono\metadata\attrdefs.h" />
-    <ClInclude Include="External\mono\metadata\blob.h" />
-    <ClInclude Include="External\mono\metadata\class.h" />
-    <ClInclude Include="External\mono\metadata\debug-helpers.h" />
-    <ClInclude Include="External\mono\metadata\debug-mono-symfile.h" />
-    <ClInclude Include="External\mono\metadata\environment.h" />
-    <ClInclude Include="External\mono\metadata\exception.h" />
-    <ClInclude Include="External\mono\metadata\image.h" />
-    <ClInclude Include="External\mono\metadata\loader.h" />
-    <ClInclude Include="External\mono\metadata\metadata.h" />
-    <ClInclude Include="External\mono\metadata\mono-config.h" />
-    <ClInclude Include="External\mono\metadata\mono-debug.h" />
-    <ClInclude Include="External\mono\metadata\mono-gc.h" />
-    <ClInclude Include="External\mono\metadata\object-forward.h" />
-    <ClInclude Include="External\mono\metadata\object.h" />
-    <ClInclude Include="External\mono\metadata\opcodes.h" />
-    <ClInclude Include="External\mono\metadata\profiler-events.h" />
-    <ClInclude Include="External\mono\metadata\profiler.h" />
-    <ClInclude Include="External\mono\metadata\reflection.h" />
-    <ClInclude Include="External\mono\metadata\row-indexes.h" />
-    <ClInclude Include="External\mono\metadata\sgen-bridge.h" />
-    <ClInclude Include="External\mono\metadata\threads.h" />
-    <ClInclude Include="External\mono\metadata\tokentype.h" />
-    <ClInclude Include="External\mono\metadata\verify.h" />
-    <ClInclude Include="External\mono\utils\mono-counters.h" />
-    <ClInclude Include="External\mono\utils\mono-dl-fallback.h" />
-    <ClInclude Include="External\mono\utils\mono-error.h" />
-    <ClInclude Include="External\mono\utils\mono-forward.h" />
-    <ClInclude Include="External\mono\utils\mono-jemalloc.h" />
-    <ClInclude Include="External\mono\utils\mono-logger.h" />
-    <ClInclude Include="External\mono\utils\mono-publib.h" />
-    <ClInclude Include="External\PhysFS\include\physfs.h" />
-    <ClInclude Include="External\PugiXML\pugiconfig.hpp" />
-    <ClInclude Include="External\PugiXML\pugixml.hpp" />
-    <ClInclude Include="Source\PhysfsEncapsule.h" />
+    <ClInclude Include="External\mmgr\nommgr.h">
+      <Filter>Externals\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\jit\jit.h">
+      <Filter>Externals\mono\jit</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\appdomain.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\assembly.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\attrdefs.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\blob.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\class.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\debug-helpers.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\debug-mono-symfile.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\environment.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\exception.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\image.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\mono-config.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\utils\mono-counters.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\mono-debug.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\utils\mono-dl-fallback.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\utils\mono-error.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\utils\mono-forward.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\mono-gc.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\utils\mono-jemalloc.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\utils\mono-logger.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\MathGeoLib\include\MathBuildConfig.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\MathGeoLib\include\MathGeoLib.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\MathGeoLib\include\MathGeoLibFwd.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\reflection.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\row-indexes.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\sgen-bridge.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\threads.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\tokentype.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\verify.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\utils\mono-publib.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\PhysFS\include\physfs.h">
+      <Filter>Externals\PhysFS</Filter>
+    </ClInclude>
+    <ClInclude Include="External\PugiXML\pugixml.hpp">
+      <Filter>Externals\PugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhysfsEncapsule.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="External\PugiXML\pugiconfig.hpp">
+      <Filter>Externals\PugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\loader.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\metadata.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mmgr\mmgr.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\object.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\object-forward.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\opcodes.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\profiler.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mono\metadata\profiler-events.h">
+      <Filter>Externals\mono\metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CS_Bindings.h">
+      <Filter>Sources\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CS_Input_Bindings.h">
+      <Filter>Sources\Bindings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleCamera3D.cpp">
@@ -832,7 +942,7 @@
       <Filter>Externals\MathGeoLib\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="External\MathGeoLib\include\Algorithm\Random\LCG.cpp">
-      <Filter>Externals\MathGeoLib\Algorithm\Random</Filter>
+      <Filter>Externals\MathGeoLib\Geometry\Algorithm\Random</Filter>
     </ClCompile>
     <ClCompile Include="External\ImGui\imgui.cpp">
       <Filter>Externals\ImGui</Filter>
@@ -1077,9 +1187,15 @@
     <ClCompile Include="External\ImGuiColorTextEditor\TextEditor.cpp">
       <Filter>Externals\ImGuiColorTextEditor</Filter>
     </ClCompile>
-    <ClCompile Include="External\mmgr\mmgr.cpp" />
-    <ClCompile Include="External\PugiXML\pugixml.cpp" />
-    <ClCompile Include="Source\PhysfsEncapsule.cpp" />
+    <ClCompile Include="External\PugiXML\pugixml.cpp">
+      <Filter>Externals\PugiXML</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhysfsEncapsule.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="External\mmgr\mmgr.cpp">
+      <Filter>Externals\mmgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\include\Math\Matrix.inl">
@@ -1154,7 +1270,9 @@
     <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_msvc_asm.asm">
       <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
     </None>
-    <None Include="External\mono\cil\opcode.def" />
+    <None Include="External\mono\cil\opcode.def">
+      <Filter>Externals\mono\metadata</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="External\Assimp\libx86\assimp.lib">
@@ -1166,18 +1284,16 @@
     <Library Include="External\AngelScript\sdk\angelscript\lib\angelscript64d.lib">
       <Filter>Externals\AngelScript\sdk\angelscript\lib</Filter>
     </Library>
-    <Library Include="External\mono\libx86\libmono-static-boehm.lib" />
-    <Library Include="External\mono\libx86\libmono-static-sgen.lib" />
-    <Library Include="External\mono\libx86\mono-2.0-boehm.lib" />
-    <Library Include="External\mono\libx86\mono-2.0-sgen.lib" />
-    <Library Include="External\mono\libx86\MonoPosixHelper.lib" />
+    <Library Include="External\mono\libx86\libmono-static-boehm.lib">
+      <Filter>Externals\mono\libx86</Filter>
+    </Library>
+    <Library Include="External\mono\libx86\libmono-static-sgen.lib">
+      <Filter>Externals\mono\libx86</Filter>
+    </Library>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
       <Filter>Sources\Tools</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="External\mmgr\readme.txt" />
   </ItemGroup>
 </Project>
