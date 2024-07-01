@@ -10,33 +10,33 @@ public class BH_Plane : AmarilloComponent
     public void Update()
     {
        
-        if (InternalCalls.GetKey(AmarilloKeyCode.W) == KeyState.KEY_REPEAT && cSpeed < 0.18f)
+        if (Input.GetKey(AmarilloKeyCode.W) == KeyState.KEY_REPEAT && cSpeed < 0.18f)
             cSpeed += speedIncrement * Time.deltaTime;
 
-        if ((InternalCalls.GetKey(AmarilloKeyCode.S) == KeyState.KEY_REPEAT || InternalCalls.GetKey(AmarilloKeyCode.W) == KeyState.KEY_IDLE) && cSpeed > 0.05f)
+        if ((Input.GetKey(AmarilloKeyCode.S) == KeyState.KEY_REPEAT || Input.GetKey(AmarilloKeyCode.W) == KeyState.KEY_IDLE) && cSpeed > 0.05f)
         {
             cSpeed -= speedIncrement * Time.deltaTime;
             if(cSpeed < 0.05f)
                 cSpeed = 0.05f;
         }
 
-        if (InternalCalls.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
+        if (Input.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
             thisReference.transform.localRotation = Quaternion.RotateAroundAxis(Vector3.up, 0.4f * Time.deltaTime) * thisReference.transform.localRotation;
 
-        if (InternalCalls.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
+        if (Input.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
             thisReference.transform.localRotation = Quaternion.RotateAroundAxis(Vector3.up, -0.4f * Time.deltaTime) * thisReference.transform.localRotation;
 
-        if (InternalCalls.GetMouseX() > 0)
-            thisReference.transform.localRotation = thisReference.transform.localRotation * Quaternion.RotateAroundAxis(Vector3.forward, InternalCalls.GetMouseX() * 0.1f * Time.deltaTime);
+        if (Input.GetMouseX() > 0)
+            thisReference.transform.localRotation = thisReference.transform.localRotation * Quaternion.RotateAroundAxis(Vector3.forward, Input.GetMouseX() * 0.1f * Time.deltaTime);
 
-        if (InternalCalls.GetMouseX() < 0)
-            thisReference.transform.localRotation = thisReference.transform.localRotation * Quaternion.RotateAroundAxis(Vector3.forward, InternalCalls.GetMouseX() * 0.1f * Time.deltaTime);
+        if (Input.GetMouseX() < 0)
+            thisReference.transform.localRotation = thisReference.transform.localRotation * Quaternion.RotateAroundAxis(Vector3.forward, Input.GetMouseX() * 0.1f * Time.deltaTime);
 
-        if (InternalCalls.GetMouseY() > 0)
-            thisReference.transform.localRotation = thisReference.transform.localRotation * Quaternion.RotateAroundAxis(Vector3.right, -InternalCalls.GetMouseY() * 0.1f * Time.deltaTime);
+        if (Input.GetMouseY() > 0)
+            thisReference.transform.localRotation = thisReference.transform.localRotation * Quaternion.RotateAroundAxis(Vector3.right, -Input.GetMouseY() * 0.1f * Time.deltaTime);
 
-        if (InternalCalls.GetMouseY() < 0)
-            thisReference.transform.localRotation = thisReference.transform.localRotation * Quaternion.RotateAroundAxis(Vector3.right, -InternalCalls.GetMouseY() * 0.1f * Time.deltaTime);
+        if (Input.GetMouseY() < 0)
+            thisReference.transform.localRotation = thisReference.transform.localRotation * Quaternion.RotateAroundAxis(Vector3.right, -Input.GetMouseY() * 0.1f * Time.deltaTime);
 
         thisReference.transform.localPosition += thisReference.GetForward() * cSpeed;
     }

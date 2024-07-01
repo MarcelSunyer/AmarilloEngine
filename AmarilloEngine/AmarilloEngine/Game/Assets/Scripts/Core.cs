@@ -9,9 +9,36 @@ using AmarilloEngine;
 public class Core : AmarilloComponent
 {
     public static Core instance;
-   
+    
+
+    enum STATE : int
+    {
+        NONE = -1,
+        IDLE,
+        MOVE,
+        DASH,
+        SHOOT
+    }
+    enum INPUT : int
+    {
+        IN_IDLE,
+        IN_MOVE,
+        IN_DASH,
+        IN_DASH_END,
+        IN_SHOOTING,
+        IN_SHOOTING_END,
+        IN_SHOOT,
+        IN_SHOOT_END,
+        IN_SEC_SHOOT,
+        IN_DEAD
+    }
     // Movment
     public float movementSpeed = 20f;
+    private double angle = 0.0f;
+    
+    //Controller Variables
+
+    Vector3 gamepadInput;
 
     public GameObject reference = null;
 	public GameObject turret = null;
@@ -43,30 +70,26 @@ public class Core : AmarilloComponent
         }
        
  
-        if (InternalCalls.GetKey(AmarilloKeyCode.W) == KeyState.KEY_REPEAT)
+        if (Input.GetKey(AmarilloKeyCode.W) == KeyState.KEY_REPEAT)
             gameObject.transform.localPosition += gameObject.GetForward() * movementSpeed * Time.deltaTime;
-
-        if (InternalCalls.GetKey(AmarilloKeyCode.S) == KeyState.KEY_REPEAT)
+        if (Input.GetKey(AmarilloKeyCode.S) == KeyState.KEY_REPEAT)
             gameObject.transform.localPosition += gameObject.GetForward() * -movementSpeed * Time.deltaTime;
 
-
-        if (InternalCalls.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
+        if (Input.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
             gameObject.transform.localPosition += gameObject.GetRight() * -movementSpeed * Time.deltaTime;
-
-        if (InternalCalls.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
+        if (Input.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
             gameObject.transform.localPosition += gameObject.GetRight() * movementSpeed * Time.deltaTime;
-
         //if (Input.GetKey(YmirKeyCode.A) == KeyState.KEY_REPEAT)
         //    reference.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, rotationSpeed * Time.deltaTime);
         //if (Input.GetKey(YmirKeyCode.D) == KeyState.KEY_REPEAT)
         //    reference.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, -rotationSpeed * Time.deltaTime);
 
         //Destroy current GameObject - It works
-        if (InternalCalls.GetKey(AmarilloKeyCode.X) == KeyState.KEY_REPEAT)
+        if (Input.GetKey(AmarilloKeyCode.X) == KeyState.KEY_REPEAT)
             InternalCalls.Destroy(gameObject);
 
         //Create a GameObject - Not working
-        if (InternalCalls.GetKey(AmarilloKeyCode.C) == KeyState.KEY_DOWN)
+        if (Input.GetKey(AmarilloKeyCode.C) == KeyState.KEY_DOWN)
         {
             InternalCalls.CreateGameObject("Cube", Vector3.up);
             Debug.Log("Create 'Cube' GameObject");
@@ -77,7 +100,49 @@ public class Core : AmarilloComponent
         //    turret.localRotation = Quaternion.RotateAroundAxis(Vector3.up, -Input.GetMouseX() * mouseSens * Time.deltaTime) * turret.localRotation;
 
         ////if (Input.GetMouseY() != 0 && turret != null)
-        ////    turret.localRotation = turret.localRotation * Quaternion.RotateAroundAxis(Vector3.right, -Input.GetMouseY() * Time.deltaTime);  
+        ////    turret.localRotation = turret.localRotation * Quaternion.RotateAroundAxis(Vector3.right, -Input.GetMouseY() * Time.deltaTime);
+
+        if (Input.GetKey(AmarilloKeyCode.E) == KeyState.KEY_DOWN)
+        {
+            Debug.Log("Shoot!");
+            Debug.Log("[ERROR]" + gameObject.transform.localPosition.x);
+            Debug.Log("[ERROR]" + gameObject.transform.localPosition.z);
+            Vector3 pos = new Vector3(gameObject.transform.localPosition.x, 0, gameObject.transform.localPosition.z);
+            Vector3 rot = new Vector3(0, 1, 0);
+            Vector3 scale = new Vector3(1, 1, 1);
+            InternalCalls.CreateBullet(pos, rot, scale);
+        }
+
+
+        float x = Input.GetLeftAxisX();
+        float y = Input.GetLeftAxisY();
+
+       
+
+
+        gamepadInput = new Vector3(x, y, 0f);
+
+        Debug.Log("[WARNING] InputX " + gamepadInput.x);
+        Debug.Log("[WARNING] InputY " + gamepadInput.y);
+
+
+        if (gamepadInput.x > 0)
+        {
+            gameObject.transform.localPosition += gameObject.GetRight() * movementSpeed * Time.deltaTime;
+        }
+        if (gamepadInput.x < 0)
+        {
+            gameObject.transform.localPosition += gameObject.GetRight() * -movementSpeed * Time.deltaTime;
+        }
+        if (gamepadInput.y > 0)
+        {
+            gameObject.transform.localPosition += gameObject.GetForward() * -movementSpeed * Time.deltaTime;
+        }
+        if (gamepadInput.y < 0)
+        {
+            gameObject.transform.localPosition += gameObject.GetForward() * movementSpeed * Time.deltaTime;
+        }
+
 
         Debug.Log("[WARNING] PosicionX " + gameObject.transform.localPosition.x);
         Debug.Log("[WARNING] PosicionY " + gameObject.transform.localPosition.y);
@@ -197,7 +262,28 @@ public class Core : AmarilloComponent
         //}
     }
 
-  
+   
+    private void RotatePlayer()
+    {
+        //Calculate player rotation
+        Vector3 aX = new Vector3(gamepadInput.x, 0, -gamepadInput.y - 1);
+        Vector3 aY = new Vector3(0, 0, 1);
+        aX = Vector3.Normalize(aX);
+
+        if (aX.x >= 0)
+        {
+            angle = Math.Acos(Vector3.Dot(aX, aY) - 1);
+        }
+        else if (aX.x < 0)
+        {
+            angle = -Math.Acos(Vector3.Dot(aX, aY) - 1);
+        }
+
+        //Convert angle from world view to orthogonal view
+        angle += 0.785398f; //Rotate 45 degrees to the right
+
+        gameObject.transform.localRotation = Quaternion.RotateAroundAxis(Vector3.up, (float)-angle);
+    }
 }
 
 

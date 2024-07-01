@@ -157,7 +157,7 @@ MonoString* Get_GO_Name(MonoObject* go)
 		applic->scripting_module->GameObject_From_CSGO(go)->mName.c_str());
 }
 
-MonoObject* SendPosition(MonoObject* obj) //Allows to send float3 as "objects" in C#, should find a [wa]y to move Vector3 as class
+MonoObject* SendPosition(MonoObject* obj) //Allows to send float3 as "objects" in C#, should find a way to move Vector3 as class
 {
 	//return mono_value_box(External->moduleMono->domain, vecClass, External->moduleMono->Float3ToCS(C_Script::runningScript->GetGO()->transform->position)); //Use this method to send "object" types
 	return Amarillo_Box_Vector(obj, "POSITION", false); //Use this method to send class types
