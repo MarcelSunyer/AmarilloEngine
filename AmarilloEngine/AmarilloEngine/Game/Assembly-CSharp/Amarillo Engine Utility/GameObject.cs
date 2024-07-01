@@ -9,20 +9,20 @@ namespace AmarilloEngine
         public string name;
         public UIntPtr pointer;
         public Transform transform;
-        
         public GameObject()
         {
             name = "Empty";
             pointer = UIntPtr.Zero;
         }
-        public GameObject(string _name, UIntPtr ptr)
+        public GameObject(string _name, UIntPtr ptr, UIntPtr transPTR)
         {
             name = _name;
             pointer = ptr;
             transform = new Transform();
-
+            transform.pointer = transPTR;
 
         }
+
 
         public extern string Name
         {

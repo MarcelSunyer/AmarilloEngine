@@ -34,7 +34,6 @@ public class Core : AmarilloComponent
     }
     // Movment
     public float movementSpeed = 20f;
-    private double angle = 0.0f;
     
     //Controller Variables
 
@@ -58,7 +57,7 @@ public class Core : AmarilloComponent
         //Hardcoceado para que sea una especie de "Awake()"
         if (start)
         {
-         
+            reference = gameObject;
 
         }
 
@@ -149,141 +148,6 @@ public class Core : AmarilloComponent
         Debug.Log("[WARNING] PosicionZ " + gameObject.transform.localPosition.z);
         return;
 	}
-
-    private void GameMovement()
-    {
-        //Debug.Log("[WARNING] PosicionX: " + x + "PosicionY: " + y);
-
-        //if (x < 0)
-        //{
-        //    gameObject.transform.localPosition += reference.GetRight() * -movementSpeed * Time.deltaTime;
-        //}
-        //else if (x > 0)
-        //{
-        //    gameObject.transform.localPosition += reference.GetRight() * movementSpeed * Time.deltaTime;
-        //}
-
-
-
-        //gameObject.transform.localPosition.x += 20f * x * Time.deltaTime; ;
-        //gameObject.transform.localPosition.y += 20f * y * Time.deltaTime; ;
-
-
-        //gamepadInput = new Vector3(x, y, 0f);
-
-        //if (y > 0)
-        //{
-        //    gameObject.transform.localPosition += new Vector3(0,0,1) * movementSpeed * Time.deltaTime;
-        //}
-
-        //if (IsMoving())
-        //    inputList.Add(INPUT.IN_MOVE);
-        //else if (currentState == STATE.MOVE && !IsMoving())
-        //    inputList.Add(INPUT.IN_IDLE);
-
-        //if (Input.GetGamepadRightTrigger() > 0)
-        //    inputList.Add(INPUT.IN_SHOOT);
-
-        //while (inputList.Count > 0)
-        //{
-        //    INPUT input = inputList[0];
-        //    switch (currentState)
-        //    {
-        //        case STATE.NONE:
-                    
-        //            break;
-
-        //        case STATE.IDLE:
-        //            switch (input)
-        //            {
-        //                case INPUT.IN_MOVE:
-        //                    currentState = STATE.MOVE;
-                            
-        //                    Move();
-        //                    break;
-
-        //                case INPUT.IN_DASH:
-        //                    currentState = STATE.DASH;
-        //                    Dash();
-        //                    break;
-
-        //                case INPUT.IN_SHOOTING:
-        //                    currentState = STATE.SHOOT;
-        //                    Shoot();
-        //                    break;
-
-        //            }
-        //            break;
-        //        case STATE.MOVE:
-        //            switch (input)
-        //            {
-        //                case INPUT.IN_IDLE:
-        //                    currentState = STATE.IDLE;
-        //                    break;
-
-        //                case INPUT.IN_DASH:
-        //                    currentState = STATE.DASH;
-        //                    Dash();
-        //                    break;
-
-        //                case INPUT.IN_SHOOTING:
-        //                    currentState = STATE.SHOOT;
-        //                    Shoot();
-        //                    break;
-
-        //                case INPUT.IN_DEAD:
-        //                    break;
-        //            }
-        //            break;
-        //        case STATE.SHOOT:
-        //            switch (input)
-        //            {
-        //                case INPUT.IN_SHOOT_END:
-        //                    currentState = STATE.SHOOT;
-        //                    Shoot();
-        //                    break;
-
-        //                case INPUT.IN_DEAD:
-        //                    break;
-        //            }
-        //            break;
-
-        //        case STATE.DASH:
-        //            switch (input)
-        //            {
-        //                case INPUT.IN_DASH_END:
-        //                    currentState = STATE.IDLE;
-        //                    break;
-        //            }
-        //            break;
-        //    }
-        //    inputList.RemoveAt(0);
-
-        //}
-    }
-
-   
-    private void RotatePlayer()
-    {
-        //Calculate player rotation
-        Vector3 aX = new Vector3(gamepadInput.x, 0, -gamepadInput.y - 1);
-        Vector3 aY = new Vector3(0, 0, 1);
-        aX = Vector3.Normalize(aX);
-
-        if (aX.x >= 0)
-        {
-            angle = Math.Acos(Vector3.Dot(aX, aY) - 1);
-        }
-        else if (aX.x < 0)
-        {
-            angle = -Math.Acos(Vector3.Dot(aX, aY) - 1);
-        }
-
-        //Convert angle from world view to orthogonal view
-        angle += 0.785398f; //Rotate 45 degrees to the right
-
-        gameObject.transform.localRotation = Quaternion.RotateAroundAxis(Vector3.up, (float)-angle);
-    }
 }
 
 

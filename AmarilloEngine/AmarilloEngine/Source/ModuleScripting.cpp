@@ -201,11 +201,8 @@ void ModuleScripting::DebugAllMethods(const char* nsName, const char* className,
 	}
 }
 
-
-
 MonoObject* ModuleScripting::GoToCSGO(GameObject* inGo) const
 {
-
 	if (inGo == nullptr) {
 		LOG("[WARNING] GoTOCSGO inGo doesn't exist");
 		return nullptr;
