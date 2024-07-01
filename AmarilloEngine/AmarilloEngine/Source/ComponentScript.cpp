@@ -56,22 +56,30 @@ void CScript::Update()
 
 	CScript::runningScript = this;
 
-	MonoObject* exec = nullptr;
+	MonoObject* exception = nullptr;
 
-	mono_runtime_invoke(updateMethod, mono_gchandle_get_target(noGCobject), NULL, &exec);  //Peta al hacer PLAY en el motor
+	// Invoke the managed method
+	mono_runtime_invoke(updateMethod, mono_gchandle_get_target(noGCobject), nullptr, &exception);
 
-	if (exec != nullptr)
+	// Check for exceptions thrown by the managed method
+	if (exception != nullptr)
 	{
-		if (strcmp(mono_class_get_name(mono_object_get_class(exec)), "NullReferenceException") == 0)
+		MonoClass* exceptionClass = mono_object_get_class(exception);
+		const char* exceptionClassName = mono_class_get_name(exceptionClass);
+
+		if (strcmp(exceptionClassName, "NullReferenceException") == 0)
 		{
 			LOG("[WARNING] Null reference exception detected");
 		}
 		else
 		{
-			LOG("[ERROR] Something went wrong");
+			char* exceptionMessage = mono_string_to_utf8(mono_object_to_string(exception, nullptr));
+			LOG("[ERROR] Exception occurred: %s", exceptionMessage);
+			mono_free(exceptionMessage);
 		}
 	}
 }
+	
 
 void CScript::ReloadComponent() {
 

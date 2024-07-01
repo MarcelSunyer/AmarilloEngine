@@ -37,8 +37,6 @@ public class Core : AmarilloComponent
     
     //Controller Variables
 
-    Vector3 gamepadInput;
-
     public GameObject reference = null;
 	public GameObject turret = null;
 	public GameObject shootPoint = null;
@@ -104,48 +102,13 @@ public class Core : AmarilloComponent
         if (Input.GetKey(AmarilloKeyCode.E) == KeyState.KEY_DOWN)
         {
             Debug.Log("Shoot!");
-            Debug.Log("[ERROR]" + gameObject.transform.localPosition.x);
-            Debug.Log("[ERROR]" + gameObject.transform.localPosition.z);
-            Vector3 pos = new Vector3(gameObject.transform.localPosition.x, 0, gameObject.transform.localPosition.z);
-            Vector3 rot = new Vector3(0, 1, 0);
-            Vector3 scale = new Vector3(1, 1, 1);
-            InternalCalls.CreateBullet(pos, rot, scale);
+            //Debug.Log("[ERROR]" + gameObject.transform.localPosition.x);
+            //Debug.Log("[ERROR]" + gameObject.transform.localPosition.z);
+            //Vector3 pos = new Vector3(gameObject.transform.localPosition.x, 0, gameObject.transform.localPosition.z);
+            //Vector3 rot = new Vector3(0, 1, 0);
+            //Vector3 scale = new Vector3(1, 1, 1);
+            //InternalCalls.CreateBullet(pos, rot, scale);
         }
-
-
-        float x = Input.GetLeftAxisX();
-        float y = Input.GetLeftAxisY();
-
-       
-
-
-        gamepadInput = new Vector3(x, y, 0f);
-
-        Debug.Log("[WARNING] InputX " + gamepadInput.x);
-        Debug.Log("[WARNING] InputY " + gamepadInput.y);
-
-
-        if (gamepadInput.x > 0)
-        {
-            gameObject.transform.localPosition += gameObject.GetRight() * movementSpeed * Time.deltaTime;
-        }
-        if (gamepadInput.x < 0)
-        {
-            gameObject.transform.localPosition += gameObject.GetRight() * -movementSpeed * Time.deltaTime;
-        }
-        if (gamepadInput.y > 0)
-        {
-            gameObject.transform.localPosition += gameObject.GetForward() * -movementSpeed * Time.deltaTime;
-        }
-        if (gamepadInput.y < 0)
-        {
-            gameObject.transform.localPosition += gameObject.GetForward() * movementSpeed * Time.deltaTime;
-        }
-
-
-        Debug.Log("[WARNING] PosicionX " + gameObject.transform.localPosition.x);
-        Debug.Log("[WARNING] PosicionY " + gameObject.transform.localPosition.y);
-        Debug.Log("[WARNING] PosicionZ " + gameObject.transform.localPosition.z);
         return;
 	}
 }
