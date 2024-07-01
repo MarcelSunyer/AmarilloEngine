@@ -78,6 +78,8 @@ ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(
 							
 	mono_add_internal_call("AmarilloEngine.Time::get_deltaTime", GetDT);
 
+
+
 	InitMono();
 }
 

@@ -23,23 +23,7 @@ bool ModuleScene::Init()
 	GameObject* camera = CreateGameObject("Camera", nullptr);
 	camera->AddComponent(ComponentTypes::CAMERA);
 
-	////init loadedScene
-	//JSON_Doc tmpDoc;
 
-	////tmpDoc = App->json_module->CreateJSON(App->file_system->GetLibraryScenePath().c_str(), "Scene", "ascene");
-
-	//tmpDoc.SetNumber3("Editor Camera Pos", App->camera->editor_camera->GetPosition());
-	//tmpDoc.SetNumber3("Editor Camera PosX (Rigth)", App->camera->editor_camera->GetXDir());
-	//tmpDoc.SetNumber3("Editor Camera PosY (Up)", App->camera->editor_camera->GetYDir());
-	//tmpDoc.SetNumber3("Editor Camera PosZ (Front)", App->camera->editor_camera->GetZDir());
-	//tmpDoc.Save();
-
-	//tmpDoc.SetHierarchy("Hierarchy", game_objects);
-	//
-	//loadedScene = &tmpDoc;
-	//loadedScene->Save();
-
-	//tmpDoc.CleanUp();
 
 	return true;
 }
@@ -88,6 +72,7 @@ bool ModuleScene::CleanUp()
 
 GameObject* ModuleScene::CreateGameObject(std::string name,GameObject* parent)
 {
+
 	GameObject* newObject = new GameObject(name);
 
 	if (parent == nullptr)

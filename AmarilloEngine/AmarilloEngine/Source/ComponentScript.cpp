@@ -51,17 +51,18 @@ CScript::~CScript()
 void CScript::Update()
 {
 	if (applic->editor->timerState == Timer_State::STOPPED || applic->editor->timerState == Timer_State::PAUSED || updateMethod == nullptr)
+	{
 		return;
+	}
 
 
 	CScript::runningScript = this;
 
+	// Realiza la invocación del método gestionado
 	MonoObject* exception = nullptr;
-
-	// Invoke the managed method
 	mono_runtime_invoke(updateMethod, mono_gchandle_get_target(noGCobject), nullptr, &exception);
 
-	// Check for exceptions thrown by the managed method
+	// Verifica si se lanzó alguna excepción
 	if (exception != nullptr)
 	{
 		MonoClass* exceptionClass = mono_object_get_class(exception);

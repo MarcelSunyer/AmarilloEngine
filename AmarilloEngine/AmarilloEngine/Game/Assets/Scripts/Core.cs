@@ -10,31 +10,10 @@ public class Core : AmarilloComponent
 {
     public static Core instance;
     
-
-    enum STATE : int
-    {
-        NONE = -1,
-        IDLE,
-        MOVE,
-        DASH,
-        SHOOT
-    }
-    enum INPUT : int
-    {
-        IN_IDLE,
-        IN_MOVE,
-        IN_DASH,
-        IN_DASH_END,
-        IN_SHOOTING,
-        IN_SHOOTING_END,
-        IN_SHOOT,
-        IN_SHOOT_END,
-        IN_SEC_SHOOT,
-        IN_DEAD
-    }
     // Movment
     public float movementSpeed = 20f;
-    
+    public float rotation = 20f;
+
     //Controller Variables
 
     public GameObject reference = null;
@@ -48,9 +27,11 @@ public class Core : AmarilloComponent
 	public string testString = "Juan";
     public bool start = true;
 
-    public Vector3 testOtherClass; //Should find a way to tell if the class is a gameobject or not
+    Vector3 position = new Vector3(1f, 0f, 0f); // Ejemplo de posición inicial (1, 0, 0)
+    Vector3 rotationAngles = new Vector3(0f, 90f, 0f); // Ángulos de rotación (0 grados en X, 90 grados en Y, 0 grados en Z)
+    float rotationAmount = 5f;
 
-	public void Update(/*int x*/)
+    public void Update()
 	{        
         //Hardcoceado para que sea una especie de "Awake()"
         if (start)
@@ -59,56 +40,27 @@ public class Core : AmarilloComponent
 
         }
 
-
 		if (this.reference == null)
         {
             Debug.Log("[ERROR] Reference on Core.cs was 'null'");
             return;
         }
-       
- 
+
+        //Los controles esan alreves pq me dava pereza arreglar el rotate de la camara jiji
         if (Input.GetKey(AmarilloKeyCode.W) == KeyState.KEY_REPEAT)
-            gameObject.transform.localPosition += gameObject.GetForward() * movementSpeed * Time.deltaTime;
+            gameObject.transform.localPosition += new Vector3(0, 0, 1) / 2;
         if (Input.GetKey(AmarilloKeyCode.S) == KeyState.KEY_REPEAT)
-            gameObject.transform.localPosition += gameObject.GetForward() * -movementSpeed * Time.deltaTime;
+            gameObject.transform.localPosition += new Vector3(0, 0, -1) / 2;
 
         if (Input.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
-            gameObject.transform.localPosition += gameObject.GetRight() * -movementSpeed * Time.deltaTime;
+        {
+            gameObject.transform.localPosition += Vector3.RotateVector(position, rotationAngles, rotationAmount) ;
+        }
         if (Input.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
-            gameObject.transform.localPosition += gameObject.GetRight() * movementSpeed * Time.deltaTime;
-        //if (Input.GetKey(YmirKeyCode.A) == KeyState.KEY_REPEAT)
-        //    reference.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, rotationSpeed * Time.deltaTime);
-        //if (Input.GetKey(YmirKeyCode.D) == KeyState.KEY_REPEAT)
-        //    reference.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, -rotationSpeed * Time.deltaTime);
-
-        //Destroy current GameObject - It works
-        if (Input.GetKey(AmarilloKeyCode.X) == KeyState.KEY_REPEAT)
-            InternalCalls.Destroy(gameObject);
-
-        //Create a GameObject - Not working
-        if (Input.GetKey(AmarilloKeyCode.C) == KeyState.KEY_DOWN)
         {
-            InternalCalls.CreateGameObject("Cube", Vector3.up);
-            Debug.Log("Create 'Cube' GameObject");
+             //gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, -1 * Time.deltaTime);
         }
 
-
-        //if (Input.GetMouseX() != 0 && turret != null)
-        //    turret.localRotation = Quaternion.RotateAroundAxis(Vector3.up, -Input.GetMouseX() * mouseSens * Time.deltaTime) * turret.localRotation;
-
-        ////if (Input.GetMouseY() != 0 && turret != null)
-        ////    turret.localRotation = turret.localRotation * Quaternion.RotateAroundAxis(Vector3.right, -Input.GetMouseY() * Time.deltaTime);
-
-        if (Input.GetKey(AmarilloKeyCode.E) == KeyState.KEY_DOWN)
-        {
-            Debug.Log("Shoot!");
-            //Debug.Log("[ERROR]" + gameObject.transform.localPosition.x);
-            //Debug.Log("[ERROR]" + gameObject.transform.localPosition.z);
-            //Vector3 pos = new Vector3(gameObject.transform.localPosition.x, 0, gameObject.transform.localPosition.z);
-            //Vector3 rot = new Vector3(0, 1, 0);
-            //Vector3 scale = new Vector3(1, 1, 1);
-            //InternalCalls.CreateBullet(pos, rot, scale);
-        }
         return;
 	}
 }

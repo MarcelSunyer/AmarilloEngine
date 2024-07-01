@@ -41,7 +41,7 @@ void ComponentTransform::SetWorldPosition(float3 position)
 	float3 parentWorldPosition = float3::zero;
 	if (owner->parent != nullptr)
 	{
-		parentWorldPosition = owner->parent->transform->world_position;
+		parentWorldPosition = owner->parent->transform->local_position;
 	}
 	float3 newLocalPostion = position - parentWorldPosition;
 	SetLocalPosition(newLocalPostion);
@@ -68,7 +68,7 @@ void ComponentTransform::SetWorldScale(float3 scale)
 	float3 parentWorldScale = float3::one;
 	if (owner->parent != nullptr)
 	{
-		parentWorldScale = owner->parent->transform->world_scale;
+		parentWorldScale = owner->parent->transform->local_position;
 	}
 	float3 newLocalScale = scale - parentWorldScale;
 	SetLocalScale(newLocalScale);
