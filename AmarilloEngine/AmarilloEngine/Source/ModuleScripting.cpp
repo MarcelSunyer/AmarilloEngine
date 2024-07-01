@@ -115,8 +115,8 @@ void ModuleScripting::OnGUI()
 
 void ModuleScripting::ReCompileCS()
 {
-	/*if (TimeManager::gameTimer.GetState() == TimerState::RUNNING)
-		return;*/
+	if (applic->editor->timerState == Timer_State::RUNNING)
+		return;
 
 	//App->scene->SaveScene("Library/Scenes/tmp.des");	//El Miquel lo tiene q marca la ruta de salida
 
@@ -134,27 +134,18 @@ void ModuleScripting::ReCompileCS()
 	CMDCompileCS();
 	InitMono();
 
-	
-
-	//App->scene->LoadScene();
-	//App->fileSystem->DeleteAssetFile("Library/Scenes/tmp.des"); //TODO: Esta función no existe
-
-
-
-	//App->editor->scriptEditor->LoadScriptTXT(("Assets/Scripts/" + External->editor->scriptEditor->txtName + ".cs").c_str());
-
-	/*for (auto it = App->scene->gameObjects.begin(); it != App->scene->gameObjects.end(); ++it) {
+	for (auto it = App->scene->game_objects.begin(); it != App->scene->game_objects.end(); ++it) {
 
 		if ((*it) != nullptr) {
 
 
-			CScript* script = (CScript*)(*it)->GetComponent(ComponentType::SCRIPT);
+			CScript* script = (CScript*)(*it)->GetComponent(ComponentTypes::SCRIPT);
 			if (script != nullptr) script->ReloadComponent();
 
 		}
 
 
-	}*/
+	}
 }
 
 //ASK: Is this the worst idea ever? TOO SLOW

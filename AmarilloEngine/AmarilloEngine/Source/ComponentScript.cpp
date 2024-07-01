@@ -54,7 +54,7 @@ void CScript::Update()
 		return;
 
 
-	CScript::runningScript = this; // I really think this is the peak of stupid code, but hey, it works, slow as hell but works.
+	CScript::runningScript = this;
 
 	MonoObject* exec = nullptr;
 
@@ -76,7 +76,6 @@ void CScript::Update()
 void CScript::ReloadComponent() {
 
 	LoadScriptData(name.c_str());
-
 }
 
 
@@ -205,18 +204,19 @@ void CScript::LoadScriptData(const char* scriptName)
 {
 	methods.clear();
 	fields.clear();
+	std::string script_add = scriptName;
+	std::string script_update = "../Game/Assets/Scripts/" + script_add;
 
-
-	MonoClass* klass = mono_class_from_name(applic->scripting_module->image, USER_SCRIPTS_NAMESPACE, scriptName);
+	MonoClass* klass = mono_class_from_name(applic->scripting_module->image, USER_SCRIPTS_NAMESPACE, script_update.c_str());
 
 	if (klass == nullptr)
 	{
-		LOG("Script %s was deleted and can't be loaded", scriptName);
+		LOG("Script %s was deleted and can't be loaded", script_update);
 		name = "Missing script reference";
 		return;
 	}
 
-	applic->scripting_module->DebugAllMethods(USER_SCRIPTS_NAMESPACE, scriptName, methods);
+	applic->scripting_module->DebugAllMethods(USER_SCRIPTS_NAMESPACE, script_update.c_str(), methods);
 
 	noGCobject = mono_gchandle_new(mono_object_new(applic->scripting_module->domain, klass), false);
 	mono_runtime_object_init(mono_gchandle_get_target(noGCobject));
@@ -233,7 +233,7 @@ void CScript::LoadScriptData(const char* scriptName)
 	if (baseClass != nullptr)
 		applic->scripting_module->DebugAllFields(mono_class_get_name(baseClass), fields, mono_gchandle_get_target(noGCobject), this, mono_class_get_namespace(baseClass));
 
-	applic->scripting_module->DebugAllFields(scriptName, fields, mono_gchandle_get_target(noGCobject), this, mono_class_get_namespace(goClass));
+	applic->scripting_module->DebugAllFields(script_update.c_str(), fields, mono_gchandle_get_target(noGCobject), this, mono_class_get_namespace(goClass));
 }
 
 void CScript::SetField(MonoClassField* field, GameObject* value)

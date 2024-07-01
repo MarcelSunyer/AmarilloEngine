@@ -131,6 +131,8 @@ public:
 	std::unordered_map<std::string, bool> textureLoadedState;
 
 	bool right_click = false;
+
+	std::string script_name;
 };
 
 #endif // MODULE_EDITOR

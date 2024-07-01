@@ -253,6 +253,7 @@ void ModuleEditor::DrawEditor()
 
     if (ImGui::Begin("Script Editor"))
     {
+
     }
     ImGui::End();
 
@@ -559,20 +560,20 @@ void ModuleEditor::InspectorWindow()
 
         if (GameObject_selected != nullptr)
         {
-            ImGui::Checkbox("Active",&GameObject_selected->active);
+            ImGui::Checkbox("Active", &GameObject_selected->active);
             ImGui::SameLine;
             strcpy_s(newName, GameObject_selected->mName.c_str());
             if (ImGui::InputText("##test_1", &newName[0], sizeof(newName)))
             {
-                    GameObject_selected->mName = newName;
+                GameObject_selected->mName = newName;
             }
-           
+
             if (ImGui::Button("Delete")) {
 
                 App->scene->DeleteGameObject(GameObject_selected);
 
             }
-           
+
             ImGui::Separator();
             if (GameObject_selected != nullptr)
             {
@@ -581,51 +582,68 @@ void ModuleEditor::InspectorWindow()
                     GameObject_selected->components[m]->OnEditor();
                 }
             }
-          
-            ImGui::Dummy(ImVec2(0,15));
+
+            ImGui::Dummy(ImVec2(0, 15));
             ImGui::Text("     ");
             ImGui::SameLine();
             // Inicia el combo
-            if (ImGui::BeginCombo("##test_2","AddComponent"))
+            if (ImGui::Button("Add Component", ImVec2(110, 30)))
             {
-                showAddComponent = true;
-                if (showAddComponent)
-                {//Pregunta profe
-                    if (ImGui::Selectable("ComponentTexture"))
-                    {
-                        if (GameObject_selected->GetComponent(ComponentTypes::TEXTURE) == nullptr)
-                        {
-                            GameObject_selected->AddComponent(ComponentTypes::TEXTURE);
-                        }
+                ImGui::OpenPopup("AddComponents");
+                ImGui::SameLine();
+            }
 
-                    }
-                    if (ImGui::Selectable("ComponentCamera"))
-                    {
-                        if (GameObject_selected->GetComponent(ComponentTypes::CAMERA) == nullptr)
-                        {
-                            GameObject_selected->AddComponent(ComponentTypes::CAMERA);
-                        }
+            if (ImGui::BeginPopup("AddComponents"))
+            {
+                ImGui::SeparatorText("Components");
 
-                    }
-                    if (ImGui::Selectable("ComponentScript"))
+                if (ImGui::MenuItem("ComponentTexture"))
+                {
+                    if (GameObject_selected->GetComponent(ComponentTypes::TEXTURE) == nullptr)
                     {
-                        if (GameObject_selected->GetComponent(ComponentTypes::SCRIPT) == nullptr)
-                        {
-                            GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
-                        }
-
+                        GameObject_selected->AddComponent(ComponentTypes::TEXTURE);
                     }
+
+                }
+                if (ImGui::MenuItem("ComponentCamera"))
+                {
+                    if (GameObject_selected->GetComponent(ComponentTypes::CAMERA) == nullptr)
+                    {
+                        GameObject_selected->AddComponent(ComponentTypes::CAMERA);
+                    }
+
+                }
+                if (ImGui::BeginMenu("Script"))
+                {
+                    if (ImGui::MenuItem("Core"))
+                    {
+                        script_name = "Core";
+                        GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
+                    }
+                    if (ImGui::MenuItem("BH_Plane"))
+                    {
+                        script_name = "BH_Plane";
+                        GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
+                    }
+                    if (ImGui::MenuItem("BH_Bullet"))
+                    {
+                        script_name = "BH_Bullet";
+                        GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
+                    }
+                    if (ImGui::MenuItem("PlayerMovement"))
+                    {
+                        script_name = "PlayerMovement";
+                        GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
+                    }
+                    ImGui::EndMenu();
                 }
                 // Finaliza el combo
-                ImGui::EndCombo();
-            }
+                ImGui::EndPopup();
+            }            
         }
-
         ImGui::End();
+
     }
-
-
-
 }
 
 
@@ -745,6 +763,8 @@ void ModuleEditor::InitializeIconMapping() {
     iconMapping[".meta"] = "../Assets/Editor/files.dds";
     iconMapping[".folder"] = "../Assets/Editor/folder.dds";
     iconMapping[".prefab"] = "../Assets/Editor/prefab.dds";
+
+
 }
 
 void ModuleEditor::OpenAsset(const std::string& assetPath) {

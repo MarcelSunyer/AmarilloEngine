@@ -183,7 +183,7 @@ Component* GameObject::AddComponent(ComponentTypes type)
 		ret = new ComponentCamera(this);
 		break;
 	case(ComponentTypes::SCRIPT):
-		ret = new CScript(this, "none");
+		ret = new CScript(this, applic->editor->script_name.c_str());
 		break;
 	default:
 		throw std::runtime_error("Component type not found");
