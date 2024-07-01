@@ -22,12 +22,8 @@ namespace AmarilloEngine
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         public static extern GameObject GetGameObjectByName(string name);
 
-    }
-    public class Input
-    {
-        //Keyboard and mouse
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern KeyState  GetKey(object keyPressed);
+        public static extern KeyState GetKey(object keyPressed);
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         public static extern KeyState GetMouseClick(object keyPressed);
@@ -37,39 +33,6 @@ namespace AmarilloEngine
 
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
         public static extern int GetMouseY();
-
-        //Gamepad
-
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern float GetLeftAxisX();
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern float GetLeftAxisY();
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern float GetRightAxisX();
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern float GetRightAxisY();
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern float GetGamepadLeftTrigger();
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern float GetGamepadRightTrigger();
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern bool IsGamepadButtonAPressedCS();
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern bool IsGamepadButtonBPressedCS();
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        public static extern void GameControllerRumbleCS(int minrumble, int maxrumble, int time);
-
-
-
     }
 
     public partial class Debug
