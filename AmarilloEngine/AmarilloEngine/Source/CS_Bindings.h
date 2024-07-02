@@ -210,12 +210,12 @@ void RecieveRotation(MonoObject* obj, MonoObject* secObj) //Allows to send float
 		return;
 
 	Quat omgItWorks = applic->scripting_module->UnboxQuat(secObj);
-	GameObject* workGO = applic->scripting_module->GameObject_From_CSGO(obj); //TODO IMPORTANT: First parameter is the object reference, use that to find UID
+	GameObject* workGO = applic->scripting_module->GameObject_From_CSGO(obj);
+	ComponentTransform* transform = (ComponentTransform*)workGO->GetComponent(ComponentTypes::TRANSFORM);
 
-	if (workGO->transform)
+	if (transform)
 	{
-		//workGO->mTransform->SetPosition(workGO->mTransform->translation, omgItWorks, workGO->mTransform->localScale);
-		//workGO->mTransform->updateTransform = true; //TODO: No tenemos la variable esta "updateTransform"
+		transform->SetLocalRotation(omgItWorks);
 	}
 }
 
