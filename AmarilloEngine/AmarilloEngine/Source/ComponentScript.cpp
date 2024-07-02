@@ -55,30 +55,35 @@ void CScript::Update()
 		return;
 	}
 
-
 	CScript::runningScript = this;
 
 	// Realiza la invocación del método gestionado
 	MonoObject* exception = nullptr;
-	mono_runtime_invoke(updateMethod, mono_gchandle_get_target(noGCobject), nullptr, &exception);
+	mono_runtime_invoke(updateMethod, mono_gchandle_get_target(noGCobject), NULL, &exception);
 
-	// Verifica si se lanzó alguna excepción
 	if (exception != nullptr)
 	{
-		MonoClass* exceptionClass = mono_object_get_class(exception);
-		const char* exceptionClassName = mono_class_get_name(exceptionClass);
-
-		if (strcmp(exceptionClassName, "NullReferenceException") == 0)
-		{
-			LOG("[WARNING] Null reference exception detected");
-		}
-		else
-		{
-			char* exceptionMessage = mono_string_to_utf8(mono_object_to_string(exception, nullptr));
-			LOG("[ERROR] Exception occurred: %s", exceptionMessage);
-			mono_free(exceptionMessage);
-		}
+		mono_print_unhandled_exception(exception);
+		LOG("[ERROR] Exception detected at Script %s: '%s'", name.c_str(), mono_class_get_name(mono_object_get_class(exception)));
 	}
+
+	//// Verifica si se lanzó alguna excepción
+	//if (exception != nullptr)
+	//{
+	//	MonoClass* exceptionClass = mono_object_get_class(exception);
+	//	const char* exceptionClassName = mono_class_get_name(exceptionClass);
+
+	//	if (strcmp(exceptionClassName, "NullReferenceException") == 0)
+	//	{
+	//		LOG("[WARNING] Null reference exception detected");
+	//	}
+	//	else
+	//	{
+	//		char* exceptionMessage = mono_string_to_utf8(mono_object_to_string(exception, nullptr));
+	//		LOG("[ERROR] Exception occurred: %s", exceptionMessage);
+	//		mono_free(exceptionMessage);
+	//	}
+	//}
 }
 	
 
