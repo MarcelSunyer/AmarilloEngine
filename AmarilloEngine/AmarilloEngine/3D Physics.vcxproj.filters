@@ -85,15 +85,6 @@
     <Filter Include="Externals\mmgr">
       <UniqueIdentifier>{e28ff396-79dd-469a-bf0d-c9ba2fd5d93b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Externals\mono">
-      <UniqueIdentifier>{8fb8f46c-2cde-42ed-b937-7d76957711d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Externals\mono\jit">
-      <UniqueIdentifier>{35421252-a534-4d74-86ec-307486fc5766}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Externals\mono\metadata">
-      <UniqueIdentifier>{60114bab-3f0a-482a-a166-e8fa7db73171}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Externals\MathGeoLib\Geometry\Algorithm">
       <UniqueIdentifier>{3a6129ff-2ac3-43a8-a55f-13646d6fe513}</UniqueIdentifier>
     </Filter>
@@ -108,9 +99,6 @@
     </Filter>
     <Filter Include="Sources\Bindings">
       <UniqueIdentifier>{7e2196bc-f6cc-4418-9583-98b1a7fdb2ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Externals\mono\libx86">
-      <UniqueIdentifier>{45f3b16b-cd90-4214-acae-e23f879ec685}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -678,96 +666,6 @@
     <ClInclude Include="External\mmgr\nommgr.h">
       <Filter>Externals\mmgr</Filter>
     </ClInclude>
-    <ClInclude Include="External\mono\jit\jit.h">
-      <Filter>Externals\mono\jit</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\appdomain.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\assembly.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\attrdefs.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\blob.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\class.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\debug-helpers.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\debug-mono-symfile.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\environment.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\exception.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\image.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\mono-config.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\utils\mono-counters.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\mono-debug.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\utils\mono-dl-fallback.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\utils\mono-error.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\utils\mono-forward.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\mono-gc.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\utils\mono-jemalloc.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\utils\mono-logger.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\MathGeoLib\include\MathBuildConfig.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\MathGeoLib\include\MathGeoLib.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\MathGeoLib\include\MathGeoLibFwd.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\reflection.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\row-indexes.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\sgen-bridge.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\threads.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\tokentype.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\verify.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\utils\mono-publib.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
     <ClInclude Include="External\PhysFS\include\physfs.h">
       <Filter>Externals\PhysFS</Filter>
     </ClInclude>
@@ -779,30 +677,6 @@
     </ClInclude>
     <ClInclude Include="External\PugiXML\pugiconfig.hpp">
       <Filter>Externals\PugiXML</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\loader.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\metadata.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mmgr\mmgr.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\object.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\object-forward.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\opcodes.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\profiler.h">
-      <Filter>Externals\mono\metadata</Filter>
-    </ClInclude>
-    <ClInclude Include="External\mono\metadata\profiler-events.h">
-      <Filter>Externals\mono\metadata</Filter>
     </ClInclude>
     <ClInclude Include="Source\CS_Bindings.h">
       <Filter>Sources\Bindings</Filter>
@@ -967,9 +841,6 @@
     </ClCompile>
     <ClCompile Include="External\ImGui\backends\imgui_impl_sdlrenderer2.cpp">
       <Filter>Externals\ImGui\backends</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameObject.cpp">
-      <Filter>Sources\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModuleMesh.cpp">
       <Filter>Sources\Modules</Filter>
@@ -1196,6 +1067,8 @@
     <ClCompile Include="External\mmgr\mmgr.cpp">
       <Filter>Externals\mmgr</Filter>
     </ClCompile>
+    <ClCompile Include="External\mono\metadata\object.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\include\Math\Matrix.inl">
@@ -1270,9 +1143,7 @@
     <None Include="External\AngelScript\sdk\angelscript\source\as_callfunc_x64_msvc_asm.asm">
       <Filter>Externals\AngelScript\sdk\angelscript\source</Filter>
     </None>
-    <None Include="External\mono\cil\opcode.def">
-      <Filter>Externals\mono\metadata</Filter>
-    </None>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="External\Assimp\libx86\assimp.lib">
@@ -1283,12 +1154,6 @@
     </Library>
     <Library Include="External\AngelScript\sdk\angelscript\lib\angelscript64d.lib">
       <Filter>Externals\AngelScript\sdk\angelscript\lib</Filter>
-    </Library>
-    <Library Include="External\mono\libx86\libmono-static-boehm.lib">
-      <Filter>Externals\mono\libx86</Filter>
-    </Library>
-    <Library Include="External\mono\libx86\libmono-static-sgen.lib">
-      <Filter>Externals\mono\libx86</Filter>
     </Library>
   </ItemGroup>
   <ItemGroup>

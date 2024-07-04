@@ -8,8 +8,9 @@
 #ifndef __MONO_METADATA_CONFIG_H__
 #define __MONO_METADATA_CONFIG_H__
 
-#include "../utils/mono-publib.h"
-#include "../metadata/image.h"
+#include <mono/utils/mono-publib.h>
+#include <mono/metadata/image.h>
+
 
 MONO_BEGIN_DECLS
 

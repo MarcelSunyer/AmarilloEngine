@@ -6,9 +6,9 @@
 #define _MONONET_METADATA_IMAGE_H_
 
 #include <stdio.h>
-#include "../utils/mono-publib.h"
-#include "../utils/mono-error.h"
-#include "../metadata/object-forward.h"
+#include <mono/utils/mono-publib.h>
+#include <mono/utils/mono-error.h>
+#include <mono/metadata/object-forward.h>
 
 MONO_BEGIN_DECLS
 

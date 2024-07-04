@@ -5,7 +5,7 @@
 #ifndef __MONO_ERROR_H__
 #define __MONO_ERROR_H__
 
-#include "../utils/mono-publib.h"
+#include <mono/utils/mono-publib.h>
 
 enum {
 	/*

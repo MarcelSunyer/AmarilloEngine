@@ -5,13 +5,13 @@
 #ifndef __MONO_METADATA_H__
 #define __MONO_METADATA_H__
 
-#include "../utils/mono-publib.h"
-		 
-#include "../utils/mono-forward.h"
-#include "../metadata/blob.h"
-#include "../metadata/row-indexes.h"
-#include "../metadata/image.h"
-#include "../metadata/object-forward.h"
+#include <mono/utils/mono-publib.h>
+
+#include <mono/utils/mono-forward.h>
+#include <mono/metadata/blob.h>
+#include <mono/metadata/row-indexes.h>
+#include <mono/metadata/image.h>
+#include <mono/metadata/object-forward.h>
 
 MONO_BEGIN_DECLS
 

@@ -5,10 +5,10 @@
 #ifndef _MONO_CLI_CLASS_H_
 #define _MONO_CLI_CLASS_H_
 
-#include "../metadata/metadata.h"
-#include "../metadata/image.h"
-#include "../metadata/loader.h"
-#include "../utils/mono-error.h"
+#include <mono/metadata/metadata.h>
+#include <mono/metadata/image.h>
+#include <mono/metadata/loader.h>
+#include <mono/utils/mono-error.h>
 
 MONO_BEGIN_DECLS
 
