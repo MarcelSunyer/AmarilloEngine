@@ -54,7 +54,7 @@ public class Core : AmarilloComponent
 
         if (Input.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
         {
-            gameObject.transform.localRotation += Quaternion.identity; //Quaternion.RotateAroundAxis(Vector3.up, 15);//RotateVector(position, rotationAngles, rotationAmount) ;
+            gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(new Vector3(1,5,2), 10);//RotateVector(position, rotationAngles, rotationAmount) ;
         }
         if (Input.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
         {

@@ -63,7 +63,7 @@ enum update_status
 #endif // _STANDALONE
 
 #define VSYNC true
-#define TITLE "Ymir Engine"
+#define TITLE "Amarillo Engine"
 
 // Physics
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 

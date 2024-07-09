@@ -58,8 +58,6 @@ MonoObject* Amarillo_Box_Vector(MonoObject* obj, const char* type, bool global)	
 }
 MonoObject* Amarillo_Box_Quat(MonoObject* obj, bool global)	//Retorna la nueva rotaci�n del objeto
 {
-	//TODO: Quitar esto mas adelante, cuando est� arreglado el Transform
-	return nullptr;
 
 	if (applic == nullptr)
 		return nullptr;
@@ -69,6 +67,10 @@ MonoObject* Amarillo_Box_Quat(MonoObject* obj, bool global)	//Retorna la nueva r
 	Quat value	;
 	GameObject* workGO = applic->scripting_module->GameObject_From_CSGO(obj);
 
+	if (workGO == nullptr)
+	{
+		return nullptr;
+	}
 	Quat qTmp = Quat::FromEulerXYZ(workGO->transform->GetRotation().x * DEGTORAD, workGO->transform->GetRotation().y * DEGTORAD, workGO->transform->GetRotation().z * DEGTORAD);
 
 	(global == true) ? value = workGO->transform->world_matrix.RotatePart().ToQuat().Normalized() : value = qTmp;
@@ -210,14 +212,19 @@ void RecieveRotation(MonoObject* obj, MonoObject* secObj) //Allows to send float
 		return;
 
 	Quat omgItWorks = applic->scripting_module->UnboxQuat(secObj);
-	GameObject* workGO = applic->scripting_module->GameObject_From_CSGO(obj);
-	ComponentTransform* transform = (ComponentTransform*)workGO->GetComponent(ComponentTypes::TRANSFORM);
 
-	if (transform)
+	GameObject* workGO = applic->scripting_module->GameObject_From_CSGO(obj);
+
+	ComponentTransform* transform = (ComponentTransform*)workGO->GetComponent(ComponentTypes::TRANSFORM);
+	if (transform == nullptr)
 	{
-		transform->SetLocalRotation(omgItWorks);
+		// Log error or handle null
+		return;
 	}
+
+	transform->SetLocalRotation(omgItWorks);
 }
+
 
 MonoObject* SendScale(MonoObject* obj)
 {
