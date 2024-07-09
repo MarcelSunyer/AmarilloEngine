@@ -56,26 +56,27 @@ MonoObject* Amarillo_Box_Vector(MonoObject* obj, const char* type, bool global)	
 
 	return applic->scripting_module->Float3ToCS(value);
 }
-MonoObject* Amarillo_Box_Quat(MonoObject* obj, bool global)	//Retorna la nueva rotaci�n del objeto
+MonoObject* Amarillo_Box_Quat(MonoObject* obj, bool global)
 {
-
 	if (applic == nullptr)
-		return nullptr;
-
-	const char* name = mono_class_get_name(mono_object_get_class(obj));
-
-	Quat value	;
-	GameObject* workGO = applic->scripting_module->GameObject_From_CSGO(obj);
-
-	if (workGO == nullptr)
 	{
-		return nullptr;
+		return nullptr;  // Si el contexto de la aplicación es nulo, devuelve nulo
 	}
-	Quat qTmp = Quat::FromEulerXYZ(workGO->transform->GetRotation().x * DEGTORAD, workGO->transform->GetRotation().y * DEGTORAD, workGO->transform->GetRotation().z * DEGTORAD);
 
-	(global == true) ? value = workGO->transform->world_matrix.RotatePart().ToQuat().Normalized() : value = qTmp;
+	const char* name = mono_class_get_name(mono_object_get_class(obj));  // Obtiene el nombre de la clase del objeto
 
+	Quat value;  // Quaternion para almacenar el resultado
+	ComponentTransform* workTrans = DECS_CompToComp<ComponentTransform*>(obj);  // Obtiene un GameObject desde un objeto CSGO	
 
+	// Obtiene la rotación del GameObject y la convierte a quaternion
+	Quat qTmp = Quat::FromEulerXYZ(workTrans->GetRotation().x * DEGTORAD,
+		workTrans->GetRotation().y * DEGTORAD,
+		workTrans->GetRotation().z * DEGTORAD);
+
+	// Decide qué quaternion devolver basado en la bandera global
+	(global == true) ? value = workTrans->world_matrix.RotatePart().ToQuat().Normalized() : value = qTmp;
+
+	// Convierte el quaternion a la representación de C#
 	return applic->scripting_module->QuatToCS(value);
 }
 
@@ -213,16 +214,10 @@ void RecieveRotation(MonoObject* obj, MonoObject* secObj) //Allows to send float
 
 	Quat omgItWorks = applic->scripting_module->UnboxQuat(secObj);
 
-	GameObject* workGO = applic->scripting_module->GameObject_From_CSGO(obj);
+	
+	ComponentTransform* workGO = DECS_CompToComp<ComponentTransform*>(obj);
 
-	ComponentTransform* transform = (ComponentTransform*)workGO->GetComponent(ComponentTypes::TRANSFORM);
-	if (transform == nullptr)
-	{
-		// Log error or handle null
-		return;
-	}
-
-	transform->SetLocalRotation(omgItWorks);
+	workGO->SetLocalRotation(omgItWorks);
 }
 
 

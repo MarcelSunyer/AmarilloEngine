@@ -8,63 +8,58 @@ namespace AmarilloEngine
     {
         public string name;
         public UIntPtr pointer;
-        public Transform transform;
+        public Transform transform { get; set; }
+
         public GameObject()
         {
             name = "Empty";
             pointer = UIntPtr.Zero;
         }
+
         public GameObject(string _name, UIntPtr ptr, UIntPtr transPTR)
         {
             name = _name;
             pointer = ptr;
             transform = new Transform();
             transform.pointer = transPTR;
-
         }
-
 
         public extern string Name
         {
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             get;
         }
+
         public extern GameObject parent
         {
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
+            [MethodImpl(MethodImplOptions.InternalCall)]
             get;
-        } 
-      
-        public extern string Tag
-        {
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
-            get;
-
-            [MethodImplAttribute(MethodImplOptions.InternalCall)]
-            set;
         }
 
+        public extern string Tag
+        {
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            get;
 
-
-
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            set;
+        }
 
         int GetHash()
         {
             return this.GetHashCode();
         }
 
-
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        [MethodImpl(MethodImplOptions.InternalCall)]
         public extern Vector3 GetForward();
 
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        [MethodImpl(MethodImplOptions.InternalCall)]
         public extern Vector3 GetRight();
 
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        [MethodImpl(MethodImplOptions.InternalCall)]
         public extern void SetVelocity(Vector3 velocity);
 
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        [MethodImpl(MethodImplOptions.InternalCall)]
         public extern void AddComponent(int componentType);
-
     }
 }

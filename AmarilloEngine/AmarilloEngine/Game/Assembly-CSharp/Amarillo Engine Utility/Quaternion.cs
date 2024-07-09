@@ -116,6 +116,10 @@ namespace AmarilloEngine
 
         public static Quaternion operator *(Quaternion q1, Quaternion q2)
         {
+            if (q1 == null)
+            {
+                throw new ArgumentNullException(nameof(q1), "First quaternion is null.");
+            }
             return new Quaternion(
                 q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y,
                 q1.w * q2.y + q1.y * q2.w + q1.z * q2.x - q1.x * q2.z,

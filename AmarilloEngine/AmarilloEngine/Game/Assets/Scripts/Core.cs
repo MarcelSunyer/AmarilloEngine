@@ -19,7 +19,7 @@ public class Core : AmarilloComponent
     private GameObject reference = null;
     //public GameObject turret = null;
     //public GameObject shootPoint = null;
-
+    public float rotationSpeed = 2.0f;
 
     //private float mouseSens = 5.0f;
 
@@ -54,11 +54,11 @@ public class Core : AmarilloComponent
 
         if (Input.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
         {
-            gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(new Vector3(1,5,2), 10);//RotateVector(position, rotationAngles, rotationAmount) ;
+            gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, rotationSpeed);//RotateVector(position, rotationAngles, rotationAmount) ;
         }
         if (Input.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
         {
-             //gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, -1 * Time.deltaTime);
+            gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, -rotationSpeed);//RotateVector(position, rotationAngles, rotationAmount) ;
         }
 
         return;
