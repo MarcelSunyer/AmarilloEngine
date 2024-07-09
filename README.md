@@ -20,7 +20,7 @@ The new 3D Game Engine under CITM development
 
 ## Scripting Capabilities
 
-Our scripting system is built on the foundation of C++, providing a familiar and robust language for game developers. You can create, modify, and manage scripts effortlessly, thanks to the seamless integration of the ImGuiTextEditor. This user-friendly interface makes coding a breeze and facilitates a smooth development experience.
+Our scripting system is built on the foundation of C#, providing a familiar and robust language for game developers. You can create, modify, and manage scripts effortlessly, thanks to the seamless integration of the ImGuiTextEditor. This user-friendly interface makes coding a breeze and facilitates a smooth development experience.
 
 #### Dynamic Link Library (DLL) Compilation
 
