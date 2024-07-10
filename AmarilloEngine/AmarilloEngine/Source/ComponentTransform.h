@@ -44,6 +44,7 @@ public:
 public:
 
 	void UpdateLocalMatrix(); 
+	void UpdateLocalMatrix_Guizmo();
 
 	float3 world_position{ 0.0f, 0.0f, 0.0f };
 	Quat world_rotation = Quat::FromEulerXYZ(0.0f, 0.0f, 0.0f);  

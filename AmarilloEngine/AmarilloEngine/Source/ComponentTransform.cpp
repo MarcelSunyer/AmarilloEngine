@@ -92,7 +92,7 @@ void ComponentTransform::SetWorldRotationEuler(float3 rotation)
 
 void ComponentTransform::SetLocalPosition(float3 position)
 {
-	this->local_position = position;
+	local_position = position;
 	UpdateLocalMatrix();
 	RecalculateTransformHierarchy();
 }
@@ -107,20 +107,17 @@ void ComponentTransform::SetLocalRotation(Quat rotation)
 
 void ComponentTransform::SetLocalScale(float3 scale)
 {
-	this->local_scale = scale;
+	local_scale = scale;
 	UpdateLocalMatrix();
 	RecalculateTransformHierarchy();
 }
 void ComponentTransform::SetLocalRotationEuler(float3 rotation)
 {
 	local_rotation_euler = rotation;
-	local_rotation = Quat::FromEulerXYZ(rotation.x, rotation.y, rotation.z);
-
+	local_rotation = Quat::FromEulerXYZ(rotation.x * DEGTORAD, rotation.y * DEGTORAD, rotation.z * DEGTORAD);
 	UpdateLocalMatrix();
 	RecalculateTransformHierarchy();
 }
-
-
 
 float3 ComponentTransform::GetScale()
 {
@@ -130,6 +127,12 @@ float3 ComponentTransform::GetScale()
 void ComponentTransform::UpdateLocalMatrix() {
 
 	local_matrix = float4x4::FromTRS(local_position, local_rotation, local_scale);
+	
+}
+void ComponentTransform::UpdateLocalMatrix_Guizmo() {
+
+	local_matrix.Decompose(local_position, local_rotation, local_scale);
+
 }
 
 void ComponentTransform::RecalculateTransformHierarchy()
@@ -161,36 +164,26 @@ void ComponentTransform::RecalculateTransformHierarchy()
 		this->world_rotation_euler = world_rotation.ToEulerXYZ();
 	}
 }
+void ComponentTransform::OnEditor()
+{
+	if (ImGui::CollapsingHeader("Component Transform")) {
+		float3 newWorldPosition = local_position;
+		float3 newWorldScale = local_scale;
+		float3 newEulerDegrees = local_rotation_euler * RADTODEG;
 
-void ComponentTransform::OnEditor() {
-	
-	if (ImGui::CollapsingHeader("Component Transform"))
-	{
-		float3 newworldposition = local_position;
+		bool posChanged = ImGui::DragFloat3("Position", (float*)&newWorldPosition);
+		bool scaleChanged = ImGui::DragFloat3("Scale", (float*)&newWorldScale);
+		bool rotChanged = ImGui::DragFloat3("Rotation", (float*)&newEulerDegrees);
 
-		float3 newsworldscale = local_scale;
-
-		float3 new_euler_degree = local_rotation_euler * RADTODEG;
-
-		bool pos_change = ImGui::DragFloat3("Position:", (float*)&newworldposition);
-		bool scale_change = ImGui::DragFloat3("Scale:", (float*)&newsworldscale);
-		bool rot_change = ImGui::DragFloat3("Rotation:", (float*)&new_euler_degree);
-		
-		if (pos_change)
-		{
-			SetLocalPosition(newworldposition);
-
+		if (posChanged) {
+			SetLocalPosition(newWorldPosition);
 		}
-		if (scale_change)
-		{
-			SetLocalScale(newsworldscale);
+		if (scaleChanged) {
+			SetLocalScale(newWorldScale);
 		}
-		
-		if (rot_change)
-		{
-			new_euler_degree = new_euler_degree * DEGTORAD;
-
-			SetLocalRotationEuler(new_euler_degree);
+		if (rotChanged) {
+			newEulerDegrees = newEulerDegrees * DEGTORAD;
+			SetLocalRotationEuler(newEulerDegrees);
 		}
 	}
 }

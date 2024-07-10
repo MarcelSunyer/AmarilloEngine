@@ -33,9 +33,13 @@ update_status ModuleScene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_W) && !ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
 		gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 	else if (App->input->GetKey(SDL_SCANCODE_E) && !ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
+	{
 		gizmoOperation = ImGuizmo::OPERATION::ROTATE;
+	}
 	else if (App->input->GetKey(SDL_SCANCODE_R) && !ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
+	{
 		gizmoOperation = ImGuizmo::OPERATION::SCALE;
+	}
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -152,36 +156,46 @@ std::vector<GameObject*> ModuleScene::GetGameObjects()
 void ModuleScene::ImGuizmoHandling()
 {
 	ImGuizmo::BeginFrame();
-	if (App->editor->GameObject_selected == nullptr) return;
 
-	ComponentTransform* selected_transform = (ComponentTransform*)App->editor->GameObject_selected->GetComponent(ComponentTypes::TRANSFORM);
+	if (App->editor->GameObject_selected == nullptr)
+		return;
 
+	ComponentTransform* selected_transform = dynamic_cast<ComponentTransform*>(App->editor->GameObject_selected->GetComponent(ComponentTypes::TRANSFORM));
+
+	if (selected_transform == nullptr)
+		return;
+
+	// Obtener las matrices de vista, proyección y modelo
 	float4x4 viewMatrix = App->camera->editor_camera->Camera_frustum.ViewMatrix();
 	viewMatrix.Transpose();
+
 	float4x4 projectionMatrix = App->camera->editor_camera->Camera_frustum.ProjectionMatrix();
 	projectionMatrix.Transpose();
-	float4x4 modelProjection = selected_transform->local_matrix;
-	modelProjection.Transpose();
+
+	float4x4 modelMatrix = selected_transform->local_matrix;
+	modelMatrix.Transpose();
 
 	ImGuizmo::SetRect(App->editor->windowPosition.x, App->editor->windowPosition.y + App->editor->offset, App->editor->size_texture_scene.x, App->editor->size_texture_scene.y);
 
-	//gizmoOperation
-	float modelPtr[16];
-	memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));
+	// Determinar la operación del gizmo y el modo
+	ImGuizmo::OPERATION operation = (gizmoOperation == ImGuizmo::OPERATION::ROTATE) ? ImGuizmo::OPERATION::ROTATE : ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE mode = (gizmoOperation == ImGuizmo::OPERATION::SCALE) ? ImGuizmo::MODE::LOCAL : guizmoMode;
 
-	ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : guizmoMode);
+	// Convertir la matriz a puntero de float para ImGuizmo
+	float* matrixPointer = modelMatrix.ptr();
 
-	ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
-
-
-	if (ImGuizmo::IsUsing())
+	// Manipular con ImGuizmo y verificar si hay cambios
+	if (ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), operation, mode, matrixPointer))
 	{
-		//Reformat ImGuizmo Transform output to our matrix
+		// Copiar los datos de vuelta a la matriz local
 		float4x4 newMatrix;
-		newMatrix.Set(modelPtr);
-		modelProjection = newMatrix.Transposed();
+		newMatrix.Set(matrixPointer);
+		newMatrix.Transpose();
 
-		selected_transform->local_matrix = modelProjection;
+		selected_transform->local_matrix = newMatrix;
+		selected_transform->UpdateLocalMatrix_Guizmo(); // Asegura que la transformación local se actualiza
+
+		// Recalcular la jerarquía de transformaciones
 		App->editor->GameObject_selected->transform->RecalculateTransformHierarchy();
 	}
 }
