@@ -1068,7 +1068,9 @@
       <Filter>Externals\mmgr</Filter>
     </ClCompile>
     <ClCompile Include="External\mono\metadata\object.cpp" />
-    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\GameObject.cpp">
+      <Filter>Sources\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\include\Math\Matrix.inl">

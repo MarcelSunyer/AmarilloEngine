@@ -630,9 +630,9 @@ void ModuleEditor::InspectorWindow()
                         script_name = "BH_Bullet";
                         GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
                     }
-                    if (ImGui::MenuItem("PlayerMovement"))
+                    if (ImGui::MenuItem("Rotation_Head"))
                     {
-                        script_name = "PlayerMovement";
+                        script_name = "Rotation_Head";
                         GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
                     }
                     ImGui::EndMenu();

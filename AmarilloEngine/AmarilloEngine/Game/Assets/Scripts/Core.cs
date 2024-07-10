@@ -37,6 +37,7 @@ public class Core : AmarilloComponent
         if (start)
         {
             reference = gameObject;
+            start = false;
 
         }
 
