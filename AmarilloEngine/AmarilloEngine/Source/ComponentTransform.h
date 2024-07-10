@@ -36,6 +36,9 @@ public:
 
 	ComponentTransform(GameObject* parent);
 	ComponentTransform(GameObject* parent, float3 position, float3 scale, Quat rotation);
+
+	float3 GetNormalizeAxis(int i);
+	float3 GetForward();
 public:
 	void RecalculateTransformHierarchy();
 public:

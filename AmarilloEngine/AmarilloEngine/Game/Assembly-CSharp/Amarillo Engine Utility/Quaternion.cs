@@ -73,11 +73,10 @@ namespace AmarilloEngine
             ret.x = axis.x * factor;
             ret.y = axis.y * factor;
             ret.z = axis.z * factor;
-
             ret.w = (float)Math.Cos(angle / 2.0);
 
-            //InternalCalls.CSLog(ret);
-            //ret = ret.normalized;
+            // Normalizar el quaternion para evitar errores numéricos
+            ret = ret.normalized;
 
             return ret;
         }

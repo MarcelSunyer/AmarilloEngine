@@ -17,6 +17,14 @@ ComponentTransform::ComponentTransform(GameObject* parent, float3 position, floa
 
 }
 
+float3 ComponentTransform::GetNormalizeAxis(int i)
+{
+	return world_matrix.RotatePart().Col(i).Normalized();
+}
+float3 ComponentTransform::GetForward()
+{
+	return GetNormalizeAxis(2);
+}
 void ComponentTransform::Enable() {
 	if (!this->active) {
 		this->active = true;

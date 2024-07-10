@@ -185,11 +185,10 @@ MonoObject* GetForward(MonoObject* go)
 	if (applic == nullptr || CScript::runningScript == nullptr)
 		return nullptr;
 
-	GameObject* workGO = applic->scripting_module->GameObject_From_CSGO(go);
-
+	ComponentTransform* workGO = DECS_CompToComp<ComponentTransform*>(go);
 	MonoClass* vecClass = mono_class_from_name(applic->scripting_module->image, AMARILLO_SCRIPTS_NAMESPACE, "Vector3");
 
-	//return applic->scripting_module->Float3ToCS(workGO->transform->GetForward());	//TODO: No tenemos GetForward()
+	return applic->scripting_module->Float3ToCS(workGO->GetForward());	//TODO: No tenemos GetForward()
 }
 MonoObject* GetRight(MonoObject* go)
 {
@@ -214,12 +213,19 @@ void RecieveRotation(MonoObject* obj, MonoObject* secObj) //Allows to send float
 
 	Quat omgItWorks = applic->scripting_module->UnboxQuat(secObj);
 
-	
 	ComponentTransform* workGO = DECS_CompToComp<ComponentTransform*>(obj);
 
-	workGO->SetLocalRotation(omgItWorks);
-}
+	// Obtén la rotación actual
+	Quat currentRotation = workGO->local_rotation;
 
+	// Aplica la nueva rotación de manera acumulativa
+	Quat newRotation = currentRotation * omgItWorks;
+
+	// Normaliza el quaternion resultante para evitar errores numéricos
+	newRotation.Normalize();
+
+	workGO->SetLocalRotation(newRotation);
+}
 
 MonoObject* SendScale(MonoObject* obj)
 {

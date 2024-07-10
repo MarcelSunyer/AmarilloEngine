@@ -224,4 +224,6 @@ Component* GameObject::GetComponent(ComponentTypes type)
 void GameObject::UpdateCamera(Camera3D* camera)
 {
 	camera->SetPosition(transform->world_position);
+	camera->SetRotation(transform->world_rotation);
+
 }

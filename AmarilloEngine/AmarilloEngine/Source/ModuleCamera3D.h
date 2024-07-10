@@ -9,12 +9,15 @@
 
 #include "..\External\ImGui/imgui_internal.h"
 
-class __declspec(dllexport) Camera3D
+class Camera3D
 {
 public:
 	Camera3D();
 
 	void SetPosition(const float3& pos);
+	void SetRotation(const Quat& rotationQuat);
+	void SetScale(const float3& scaleFactors);
+
 	const float3 GetPosition();
 
 	float3 GetXDir();

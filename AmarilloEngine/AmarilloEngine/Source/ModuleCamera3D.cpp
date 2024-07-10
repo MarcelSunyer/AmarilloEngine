@@ -254,6 +254,35 @@ void Camera3D::SetPosition(const float3& pos)
 	Camera_frustum.pos = pos;
 
 }
+
+void Camera3D::SetRotation(const Quat& rotationQuat)
+{
+	Camera_frustum.front = rotationQuat * float3(0, 0, -1); 
+	Camera_frustum.up = rotationQuat * float3(0, 1, 0);     
+
+	Camera_frustum.front.Normalize();
+	Camera_frustum.up = Cross(Camera_frustum.WorldRight(), Camera_frustum.front);
+	Camera_frustum.up.Normalize();
+}
+
+void Camera3D::SetScale(const float3& scaleFactors)
+{
+	Camera_frustum.nearPlaneDistance *= scaleFactors.z;
+	Camera_frustum.farPlaneDistance *= scaleFactors.z;
+
+
+	if (Camera_frustum.type == PerspectiveFrustum)
+	{
+		Camera_frustum.horizontalFov *= scaleFactors.x;
+		Camera_frustum.verticalFov *= scaleFactors.y;
+	}
+	else if (Camera_frustum.type == OrthographicFrustum)
+	{
+		Camera_frustum.orthographicWidth *= scaleFactors.x;
+		Camera_frustum.orthographicHeight *= scaleFactors.y;
+	}
+}
+
 const float3 Camera3D::GetPosition()
 {
 	return Camera_frustum.pos;

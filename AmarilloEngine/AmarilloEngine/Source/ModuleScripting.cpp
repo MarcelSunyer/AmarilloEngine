@@ -57,9 +57,10 @@ ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(
 							
 	mono_add_internal_call("AmarilloEngine.InternalCalls::CreateBullet", CreateBullet);	//TODO: Descomentar cuando esté el CreateBullet()
 							
-	mono_add_internal_call("AmarilloEngine.GameObject::GetForward", GetForward);
+
 	mono_add_internal_call("AmarilloEngine.GameObject::GetRight", GetRight);
 							
+	mono_add_internal_call("AmarilloEngine.Transform::GetForward", GetForward);
 	mono_add_internal_call("AmarilloEngine.Transform::get_localPosition", SendPosition);
 	mono_add_internal_call("AmarilloEngine.Transform::get_globalPosition", SendGlobalPosition);
 	mono_add_internal_call("AmarilloEngine.Transform::set_localPosition", RecievePosition);
