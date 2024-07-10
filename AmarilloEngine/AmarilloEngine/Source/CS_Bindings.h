@@ -248,8 +248,8 @@ void Destroy(MonoObject* go)
 float GetDT()
 {
 	//IDK if this would work
-	//return applic->GetDT();
-	return 1;
+	return applic->dt;
+
 }
 
 //TODO: Creat Bullet

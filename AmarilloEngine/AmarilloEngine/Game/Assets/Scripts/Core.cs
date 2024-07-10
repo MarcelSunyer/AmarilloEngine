@@ -54,13 +54,12 @@ public class Core : AmarilloComponent
 
         if (Input.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
         {
-            gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, rotationSpeed);//RotateVector(position, rotationAngles, rotationAmount) ;
+            gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, rotationSpeed* Time.deltaTime);//RotateVector(position, rotationAngles, rotationAmount) ;
         }
         if (Input.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
         {
-            gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, -rotationSpeed);//RotateVector(position, rotationAngles, rotationAmount) ;
+            gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, -rotationSpeed * Time.deltaTime);//RotateVector(position, rotationAngles, rotationAmount) ;
         }
-
         return;
 	}
 }

@@ -38,7 +38,7 @@ public:
 	FileSystem* file_system;
 	ModuleScripting* scripting_module;
 
-private:
+public:
 
 	Timer	ms_timer;
 	float	dt;
