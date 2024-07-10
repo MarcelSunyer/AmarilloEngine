@@ -31,7 +31,7 @@ public class Rotation_Head : AmarilloComponent
         if (Input.GetMouseX() != 0)
         {
             float mouseX = Input.GetMouseX();
-            float rotationSpeed = 0.1f; // Ajusta la velocidad de rotación según sea necesario
+            float rotationSpeed = 0.4f; // Ajusta la velocidad de rotación según sea necesario
             float angleY = mouseX * rotationSpeed * Time.deltaTime;
             Quaternion deltaRotationY = Quaternion.RotateAroundAxis(Vector3.up, angleY);
             gameObject.transform.localRotation = deltaRotationY * gameObject.transform.localRotation;

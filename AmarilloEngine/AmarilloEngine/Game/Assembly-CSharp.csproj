@@ -49,9 +49,8 @@
     <Compile Include="Assembly-CSharp\Amarillo Engine Utility\Transform.cs" />
     <Compile Include="Assembly-CSharp\Amarillo Engine Utility\Vector3.cs" />
     <Compile Include="Assembly-CSharp\Amarillo Engine Utility\AmarilloComponent.cs" />
-    <Compile Include="Assets\Scripts\Class1.cs" />
+    <Compile Include="Assets\Scripts\Rotation_Head.cs" />
     <Compile Include="Assets\Scripts\BH_Bullet.cs" />
-    <Compile Include="Assets\Scripts\BH_Plane.cs" />
     <Compile Include="Assets\Scripts\Core.cs" />
     <Compile Include="Assets\Scripts\main.cs" />
   </ItemGroup>
