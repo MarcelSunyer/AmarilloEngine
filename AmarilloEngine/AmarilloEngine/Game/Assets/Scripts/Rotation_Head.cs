@@ -47,8 +47,8 @@ public class Rotation_Head : AmarilloComponent
         // Crear la bala y establecer su rotación y posición según el Rotation_Head
         Vector3 bulletPosition = gameObject.transform.globalPosition; 
         Quaternion bulletRotation = gameObject.transform.globalRotation; 
-        Vector3 bulletScale = new Vector3(0.3f, 0.3f, 0.3f);
-
+        Vector3 bulletScale = new Vector3(0.1f, 0.1f, 0.1f);
+        bulletPosition.y += 2.5f;
         InternalCalls.CreateBullet(bulletPosition, bulletRotation, bulletScale);
     }
 
