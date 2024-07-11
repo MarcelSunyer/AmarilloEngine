@@ -53,8 +53,9 @@ The scripts you create are compiled into dynamic link libraries (.dll), enabling
 | <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/19a0a8bd-4bc0-47fd-975f-d5f423375183"> | <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/99949465/1f93bb7c-9489-4a0f-9901-ca4ef5055e0c"> |
 
 | Scripting System |
-|----------|----------|
-| ![GifTank](https://github.com/MarcelSunyer/AmarilloEngine/assets/45765502/b0174950-c140-4c92-8667-d4440d64bd2e) | ![Tank speed](https://github.com/MarcelSunyer/AmarilloEngine/assets/45765502/a7a521b9-99ec-41be-ab13-3925035a3f47) |
+
+![TankVideo](https://github.com/MarcelSunyer/AmarilloEngine/assets/45765502/55ba7032-96bb-421f-842a-80f5e558a2d0)
+![VideoTank](https://github.com/MarcelSunyer/AmarilloEngine/assets/45765502/1c01520c-f931-4759-b8f3-91d24544c2f2)
 
 This project is licensed under an unmodified MIT license. Check [LICENSE](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) for further details.
 
