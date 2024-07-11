@@ -202,11 +202,10 @@ void ModuleScene::ImGuizmoHandling()
 
 void ModuleScene::UpdateGameObjects()
 {
-	for (std::vector<GameObject*>::iterator it = game_objects.begin(); it != game_objects.end(); ++it)
-	{
-		GameObject* update = *it;
-		if (!update->active)
-		{
+	std::vector<GameObject*> game_objects_copy = game_objects;
+
+	for (auto* update : game_objects_copy) {
+		if (!update->active) {
 			continue;
 		}
 		update->Update();

@@ -15,6 +15,7 @@
 #include "ModuleScene.h"
 
 #include "ModuleInput.h"
+#include "ResourceManager.h"
 
 
 #include "GameObject.h"
@@ -248,7 +249,7 @@ void Destroy(MonoObject* go)
 		return;
 	}
 
-	//workGO->DestroyGameObject(); //Todo: Destroy
+	applic->scene->root_object->DeleteChild(workGO); //Todo: Destroy
 }
 
 float GetDT()
@@ -261,49 +262,34 @@ float GetDT()
 //TODO: Creat Bullet
 void CreateBullet(MonoObject* position, MonoObject* rotation, MonoObject* scale) //TODO: We really need prefabs
 {
-//	if (applic == nullptr)
-//		return /*nullptr*/;
-//
-//	//GameObject* go = applic->scene->PostUpdateCreateGameObject("Bullet", applic->scene->mRootNode);
-//	////go->name = std::to_string(go->UID);
-//
-//	float3 posVector = ModuleMonoManager::UnboxVector(position);
-//	float3 rotQuat = ModuleMonoManager::UnboxVector(rotation);
-//	float3 scaleVector = ModuleMonoManager::UnboxVector(scale);
-//
-//	go->mTransform->SetPosition(posVector);
-//	go->mTransform->SetRotation(rotQuat);
-//	go->mTransform->SetScale(scaleVector);
-//	//go->mTransform->updateTransform = true; //TODO: No temenos esta variable "updateTransform"
-//
-//	//External->resourceManager->ImportFile("Game/Assets/BakerHouse.fbx");
-//
-//	ResourceMesh* rMesh = (ResourceMesh*)(External->resourceManager->CreateResourceFromLibrary("Assets/863721484.ymesh", ResourceType::MESH, 863721484));
-//	
-//	CMesh* cmesh = new CMesh(go);
-//	cmesh->rMeshReference = rMesh;
-//	go->AddComponent(cmesh);
-//
-//	CMaterial* cmaterial = new CMaterial(go);
-//	cmaterial->shaderPath = SHADER_VS_FS;
-//	cmaterial->shader.LoadShader(cmaterial->shaderPath);
-//	cmaterial->shaderDirtyFlag = false;
-//	go->AddComponent(cmaterial);
-//
-//	//go->AddComponent(ComponentType::MESH);
-//	//meshRenderer = dynamic_cast<CMesh*>(go->GetComponent(ComponentType::MESH));
-//
-//	//Model("Assets/Primitives/Cube.fbx");
-//	/*ResourceMesh* test = dynamic_cast<ResourceMesh*>(External->resourceManager->RequestResource(1753294, "Library/Meshes/1753294.ymesh"));
-//	meshRenderer->rMeshReference = test;*/
-//
-//	//Añade el componente Bullet al gameObject Bullet
-//	const char* t = "BH_Bullet";
-//	Component* c = nullptr;
-//	c = new CScript(go, t);
-//	go->AddComponent(c);
-//
-//	/*return mono_gchandle_get_target(cmp->noGCobject);*/
+	if (applic == nullptr)
+		return /*nullptr*/;
+
+	GameObject* go = applic->scene->LoadMeshAndTexture("../Assets/Models/Bullet.fbx", "../Assets/Textures/Pikachu-Texture.png");
+
+
+	float3 posVector = applic->scripting_module->UnboxVector(position);
+	float3 rotQuat = applic->scripting_module->UnboxVector(rotation);
+	float3 scaleVector = applic->scripting_module->UnboxVector(scale);
+
+	go->transform->SetWorldPosition(posVector);
+	go->transform->SetLocalRotationEuler(rotQuat);
+	go->transform->SetWorldScale(scaleVector);
+
+	//go->AddComponent(ComponentType::MESH);
+	//meshRenderer = dynamic_cast<CMesh*>(go->GetComponent(ComponentType::MESH));
+
+	//Model("Assets/Primitives/Cube.fbx");
+	/*ResourceMesh* test = dynamic_cast<ResourceMesh*>(External->resourceManager->RequestResource(1753294, "Library/Meshes/1753294.ymesh"));
+	meshRenderer->rMeshReference = test;*/
+
+	//Añade el componente Bullet al gameObject Bullet
+	const char* t = "BH_Bullet";
+	Component* c = nullptr;
+	c = new CScript(go, t);
+	go->AddComponent(c);
+
+	/*return mono_gchandle_get_target(cmp->noGCobject);*/
 }
 
 //---------- GLOBAL GETTERS ----------//

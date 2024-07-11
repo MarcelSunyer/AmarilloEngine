@@ -76,6 +76,11 @@ public class Core : AmarilloComponent
         // Movimiento hacia adelante
         gameObject.transform.localPosition += gameObject.transform.GetForward() * cSpeed * Time.deltaTime;
 
+        if (Input.GetMouseClick(MouseButton.LEFT) == KeyState.KEY_DOWN)
+        {
+            InternalCalls.CreateBullet(gameObject.transform.localPosition, gameObject.transform.localRotation, gameObject.transform.localScale);
+        }
+
         return;
     }
        

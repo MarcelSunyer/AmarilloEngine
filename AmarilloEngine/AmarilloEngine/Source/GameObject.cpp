@@ -161,6 +161,16 @@ GameObject* GameObject::GetParent()
 	return parent;
 }
 
+void GameObject::DeleteGameObject(GameObject* obj)
+{
+	for (int i = 0; i < applic->scene->game_objects.size(); ++i) {
+		if (applic->scene->game_objects[i] == obj) {
+			applic->scene->game_objects.erase(children.begin() + i);
+			obj->parent = nullptr;
+		}
+	}
+}
+
 Component* GameObject::AddComponent(ComponentTypes type)
 {
 	Component* ret = nullptr;

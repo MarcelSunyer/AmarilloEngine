@@ -40,6 +40,7 @@ public:
 	Component* GetComponent(ComponentTypes type);
 	GameObject* AddChildren(GameObject* children);
 	GameObject* GetParent();
+	void DeleteGameObject(GameObject* obj);
 
 public:
 	std::string mName;

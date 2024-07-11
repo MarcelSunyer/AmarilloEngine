@@ -20,7 +20,7 @@ public class BH_Bullet : AmarilloComponent
 
         currentLifeTime += Time.deltaTime;
 
-        thisReference.transform.localPosition += thisReference.GetForward() * (speed * Time.deltaTime);
+        thisReference.transform.localPosition += new Vector3(0.5f,0,0);
 
         yVel -= Time.deltaTime / 15.0f;
         thisReference.transform.localPosition += (Vector3.up * yVel);
