@@ -49,7 +49,8 @@ ModuleScripting::ModuleScripting(Application* app, bool start_enabled) : Module(
 
 	mono_add_internal_call("AmarilloEngine.Debug::Log", CSLog);
 	mono_add_internal_call("AmarilloEngine.AmarilloComponent::get_gameObject", CS_Component_Get_GO);
-	mono_add_internal_call("AmarilloEngine.InternalCalls::CreateGameObject", CSCreateGameObject);
+	mono_add_internal_call("AmarilloEngine.InternalCalls::CreateGameObject", CSCreateGameObject);	
+	mono_add_internal_call("AmarilloEngine.InternalCalls::GetGameObjectByName", GetGOByName);
 
 	mono_add_internal_call("AmarilloEngine.GameObject::get_Name", Get_GO_Name);
 							
@@ -191,7 +192,6 @@ void ModuleScripting::DebugAllFields(const char* className, std::vector<Serializ
 		}
 	}
 }
-
 void ModuleScripting::DebugAllMethods(const char* nsName, const char* className, std::vector<std::string>& _data)
 {
 	void* iter = NULL;

@@ -17,6 +17,8 @@ public class Core : AmarilloComponent
     //Controller Variables
 
     private GameObject reference = null;
+
+    private GameObject cam = null;
     //public GameObject turret = null;
     //public GameObject shootPoint = null;
 
@@ -38,10 +40,16 @@ public class Core : AmarilloComponent
         {
             reference = gameObject;
             start = false;
+            cam = InternalCalls.GetGameObjectByName("Camera");
 
         }
-
+       
 		if (this.reference == null)
+        {
+            Debug.Log("[ERROR] Reference on Core.cs was 'null'");
+            return;
+        }
+        if (cam == null)
         {
             Debug.Log("[ERROR] Reference on Core.cs was 'null'");
             return;
@@ -65,16 +73,21 @@ public class Core : AmarilloComponent
         // Controles de rotación
         if (Input.GetKey(AmarilloKeyCode.A) == KeyState.KEY_REPEAT)
         {
+
+           
             gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, rotationSpeed * Time.deltaTime);
+           
         }
 
         if (Input.GetKey(AmarilloKeyCode.D) == KeyState.KEY_REPEAT)
         {
+
             gameObject.transform.localRotation *= Quaternion.RotateAroundAxis(Vector3.up, -rotationSpeed * Time.deltaTime);
         }
 
         // Movimiento hacia adelante
         gameObject.transform.localPosition += gameObject.transform.GetForward() * cSpeed * Time.deltaTime;
+        cam.transform.localPosition += gameObject.transform.GetForward() * cSpeed * Time.deltaTime;
 
         return;
     }

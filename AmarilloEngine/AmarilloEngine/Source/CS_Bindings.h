@@ -137,6 +137,19 @@ void CSCreateGameObject(MonoObject* name, MonoObject* position)
 	//go->mTransform->SetPosition( posVector);
 	//go->mTransform->updateTransform = true;	//TODO: No tenemos la variable esta "updateTransform"
 }
+MonoObject* GetGOByName(MonoObject* name)
+{
+	std::vector<GameObject*> game_objects_copy = applic->scene->game_objects;
+
+	std::string target_name = mono_string_to_utf8(mono_object_to_string(name, NULL));
+
+	for (auto* game_object : game_objects_copy) {
+		if (game_object->active && game_object->mName == target_name) {
+			// Encontramos el objeto de juego con el nombre solicitado
+			return applic->scripting_module->GoToCSGO(game_object);
+		}
+	}
+}
 
 GameObject* DECS_Comp_To_GameObject(MonoObject* component)
 {

@@ -135,7 +135,27 @@ namespace AmarilloEngine
                 q1.w + q2.w
             );
         }
+        public static Quaternion Euler(float pitch, float yaw, float roll)
+        {
+            // Convertir ángulos de grados a radianes
+            pitch = pitch * (float)Math.PI / 180f;
+            yaw = yaw * (float)Math.PI / 180f;
+            roll = roll * (float)Math.PI / 180f;
 
+            float cy = (float)Math.Cos(yaw * 0.5);
+            float sy = (float)Math.Sin(yaw * 0.5);
+            float cp = (float)Math.Cos(pitch * 0.5);
+            float sp = (float)Math.Sin(pitch * 0.5);
+            float cr = (float)Math.Cos(roll * 0.5);
+            float sr = (float)Math.Sin(roll * 0.5);
+
+            float w = cr * cp * cy + sr * sp * sy;
+            float x = sr * cp * cy - cr * sp * sy;
+            float y = cr * sp * cy + sr * cp * sy;
+            float z = cr * cp * sy - sr * sp * cy;
+
+            return new Quaternion(x, y, z, w);
+        }
         public override string ToString()
         {
             return x.ToString() + ", " + y.ToString() + ", " + z.ToString() + ", " + w.ToString();

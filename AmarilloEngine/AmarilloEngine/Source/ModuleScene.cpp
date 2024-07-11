@@ -22,6 +22,7 @@ bool ModuleScene::Init()
 
 	GameObject* camera = CreateGameObject("Camera", nullptr);
 	camera->AddComponent(ComponentTypes::CAMERA);
+	camera->transform->local_position = float3(0, 8, -9);
 
 
 

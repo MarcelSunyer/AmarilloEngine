@@ -635,6 +635,11 @@ void ModuleEditor::InspectorWindow()
                         script_name = "Rotation_Head";
                         GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
                     }
+                    if (ImGui::MenuItem("Follow_Cam"))
+                    {
+                        script_name = "Follow_Cam";
+                        GameObject_selected->AddComponent(ComponentTypes::SCRIPT);
+                    }
                     ImGui::EndMenu();
                 }
                 // Finaliza el combo
