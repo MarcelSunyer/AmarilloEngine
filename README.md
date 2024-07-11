@@ -54,7 +54,7 @@ The scripts you create are compiled into dynamic link libraries (.dll), enabling
 
 | Scripting System |
 |----------|----------|
-| <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/45765502/8df82240-0312-4cf2-ad5e-78a81ebde7f3> | <img src="https://github.com/MarcelSunyer/AmarilloEngine/assets/45765502/6515f08f-901f-4dc8-9b52-4eec0f7e52b2> |
+|  ![GifTank](https://github.com/MarcelSunyer/AmarilloEngine/assets/45765502/b0174950-c140-4c92-8667-d4440d64bd2e) | ![Tank speed](https://github.com/MarcelSunyer/AmarilloEngine/assets/45765502/a7a521b9-99ec-41be-ab13-3925035a3f47) |
 
 This project is licensed under an unmodified MIT license. Check [LICENSE](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt) for further details.
 
