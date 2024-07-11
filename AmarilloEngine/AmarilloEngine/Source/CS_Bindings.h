@@ -173,7 +173,7 @@ void RecievePosition(MonoObject* obj, MonoObject* secObj) //Allows to send float
 		return;
 
 	float3 omgItWorks = applic->scripting_module->UnboxVector(secObj);
-	ComponentTransform* workTrans = DECS_CompToComp<ComponentTransform*>(obj); //TODO IMPORTANT: First parameter is the object reference, use that to find UID
+	ComponentTransform* workTrans = DECS_CompToComp<ComponentTransform*>(obj);
 	if (workTrans)
 	{
 		workTrans->SetLocalPosition(omgItWorks);
@@ -189,7 +189,7 @@ MonoObject* GetForward(MonoObject* go)
 	ComponentTransform* workGO = DECS_CompToComp<ComponentTransform*>(go);
 	MonoClass* vecClass = mono_class_from_name(applic->scripting_module->image, AMARILLO_SCRIPTS_NAMESPACE, "Vector3");
 
-	return applic->scripting_module->Float3ToCS(workGO->GetForward());	//TODO: No tenemos GetForward()
+	return applic->scripting_module->Float3ToCS(workGO->GetForward());	
 }
 MonoObject* GetRight(MonoObject* go)
 {
@@ -216,13 +216,10 @@ void RecieveRotation(MonoObject* obj, MonoObject* secObj) //Allows to send float
 
 	ComponentTransform* workGO = DECS_CompToComp<ComponentTransform*>(obj);
 
-	// Obtén la rotación actual
 	Quat currentRotation = workGO->local_rotation;
 
-	// Aplica la nueva rotación de manera acumulativa
 	Quat newRotation = currentRotation * omgItWorks;
 
-	// Normaliza el quaternion resultante para evitar errores numéricos
 	newRotation.Normalize();
 
 	workGO->SetLocalRotation(newRotation);
@@ -249,7 +246,7 @@ void Destroy(MonoObject* go)
 		return;
 	}
 
-	applic->scene->root_object->DeleteChild(workGO); //Todo: Destroy
+	applic->scene->root_object->DeleteChild(workGO); 
 }
 
 float GetDT()
@@ -269,11 +266,11 @@ void CreateBullet(MonoObject* position, MonoObject* rotation, MonoObject* scale)
 
 
 	float3 posVector = applic->scripting_module->UnboxVector(position);
-	float3 rotQuat = applic->scripting_module->UnboxVector(rotation);
+	Quat rotQuat = applic->scripting_module->UnboxQuat(rotation);
 	float3 scaleVector = applic->scripting_module->UnboxVector(scale);
 
 	go->transform->SetWorldPosition(posVector);
-	go->transform->SetLocalRotationEuler(rotQuat);
+	go->transform->SetLocalRotation(rotQuat);
 	go->transform->SetWorldScale(scaleVector);
 
 	//go->AddComponent(ComponentType::MESH);

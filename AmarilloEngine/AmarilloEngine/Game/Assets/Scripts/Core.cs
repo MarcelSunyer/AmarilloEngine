@@ -78,7 +78,7 @@ public class Core : AmarilloComponent
 
         if (Input.GetMouseClick(MouseButton.LEFT) == KeyState.KEY_DOWN)
         {
-            InternalCalls.CreateBullet(gameObject.transform.localPosition, gameObject.transform.localRotation, gameObject.transform.localScale);
+            InternalCalls.CreateBullet(gameObject.transform.localPosition, gameObject.transform.localRotation, new Vector3(0.3f,0.3f,0.3f));
         }
 
         return;

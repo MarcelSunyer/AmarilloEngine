@@ -13,7 +13,7 @@ public class Rotation_Head : AmarilloComponent
     private bool start = true;
     public void Update()
     {
-        //Hardcoceado para que sea una especie de "Awake()"
+        // Hardcodeado para que sea una especie de "Awake()"
         if (start)
         {
             reference = gameObject;
@@ -26,17 +26,30 @@ public class Rotation_Head : AmarilloComponent
             return;
         }
 
-        //Los controles esan alreves pq me dava pereza arreglar el rotate de la camara jiji
-        // Controles de velocidad
         if (Input.GetMouseX() != 0)
         {
             float mouseX = Input.GetMouseX();
-            float rotationSpeed = 0.4f; // Ajusta la velocidad de rotación según sea necesario
+            float rotationSpeed = 0.4f;
             float angleY = mouseX * rotationSpeed * Time.deltaTime;
             Quaternion deltaRotationY = Quaternion.RotateAroundAxis(Vector3.up, angleY);
             gameObject.transform.localRotation = deltaRotationY * gameObject.transform.localRotation;
         }
-        return;
+
+       
+        if (Input.GetMouseClick(MouseButton.LEFT) == KeyState.KEY_DOWN)
+        {
+            ShootBullet();
+        }
+    }
+
+    private void ShootBullet()
+    {
+        // Crear la bala y establecer su rotación y posición según el Rotation_Head
+        Vector3 bulletPosition = gameObject.transform.globalPosition; 
+        Quaternion bulletRotation = gameObject.transform.globalRotation; 
+        Vector3 bulletScale = new Vector3(0.3f, 0.3f, 0.3f);
+
+        InternalCalls.CreateBullet(bulletPosition, bulletRotation, bulletScale);
     }
 
 
